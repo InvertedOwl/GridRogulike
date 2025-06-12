@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using Cards;
 using Entities;
+using Grid;
 using StateManager;
 using TMPro;
 using Types.Actions;
+using Types.Tiles;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Util;
 using Random = System.Random;
 
@@ -35,8 +38,6 @@ public class CardMonobehaviour : MonoBehaviour
 
     public void SetCard(Card card, Action callback = null)
     {
-
-        
         _card = card;
         _cardSet = true;
         
@@ -45,6 +46,7 @@ public class CardMonobehaviour : MonoBehaviour
 
         UpdateTypes();
         UpdateDiagram();
+        MainPanel.GetComponent<Image>().color = CardRarityColors.GetColor(card.Rarity);
 
         this.CardClickedCallback = callback;
         
@@ -57,9 +59,122 @@ public class CardMonobehaviour : MonoBehaviour
             Destroy(child.gameObject);
         }
         
-        GameObject startingTile = Instantiate(tilePrefab, diagram.transform);
+        List<RectTransform> allElements = new List<RectTransform>();
         
+        allElements.Add(Instantiate(tilePrefab, diagram.transform).GetComponent<RectTransform>());
+
+        foreach (AbstractAction action in _card.Actions)
+        {
+            if (action is MoveAction)
+            {
+                MoveAction moveAction = action as MoveAction;
+                
+                GameObject basic = Instantiate(tilePrefab, diagram.transform);
+                Vector2Int newPos =
+                    HexGridManager.MoveHex(new Vector2Int(0, 0), moveAction.Direction, moveAction.Distance);
+                Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y) * 46.2222f;
+                
+                basic.GetComponent<RectTransform>().localPosition = newPosWorld;
+                basic.GetComponent<Image>().color = TileData.tiles["basic"].color;
+                allElements.Add(basic.GetComponent<RectTransform>());
+            }
+            if (action is AttackAction)
+            {
+                AttackAction moveAction = action as AttackAction;
+                
+                GameObject basic = Instantiate(tilePrefab, diagram.transform);
+                Vector2Int newPos =
+                    HexGridManager.MoveHex(new Vector2Int(0, 0), moveAction.Direction, moveAction.Distance);
+                Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y) * 46.2222f;
+                
+                basic.GetComponent<RectTransform>().localPosition = newPosWorld;
+                basic.GetComponent<Image>().color = new Color(212/255.0f, 81/255.0f, 81/255.0f);
+                allElements.Add(basic.GetComponent<RectTransform>());
+            }
+        }
+        
+        foreach (AbstractAction action in _card.Actions)
+        {
+            if (action is MoveAction)
+            {
+                MoveAction moveAction = action as MoveAction;
+                GameObject move = Instantiate(arrowPrefab, diagram.transform);
+                move.GetComponent<ArrowController>().SetHeight(40 * moveAction.Distance);
+                Vector2Int newPos =
+                    HexGridManager.MoveHex(new Vector2Int(0, 0), moveAction.Direction, moveAction.Distance);
+                Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y);
+                
+                float angle = Vector2.SignedAngle(Vector2.up, newPosWorld);
+                
+                move.transform.eulerAngles = new Vector3(0, 0, angle);
+                allElements.Add(move.GetComponent<RectTransform>());
+            }
+        }
+
+        Vector3 averagePos = GetUIAveragePosition(allElements);
+        Vector2 uiBounds = GetUIBounds(allElements);
+
+        foreach (RectTransform rectTransform in allElements)
+        {
+            rectTransform.localPosition -= averagePos;
+        }
+        
+        // float maxSide = Mathf.Max(uiBounds.x, uiBounds.y);
+        // float sideOut = maxSide/120.0f;
+        // Debug.Log(sideOut + " Side out");
+        //
+        // if (sideOut > 1)
+        // {
+        //     diagram.transform.localScale = new Vector3(1/sideOut, 1/sideOut, 1);
+        // }
     }
+    
+    public static Vector3 GetUIAveragePosition(List<RectTransform> uiElements)
+    {
+        if (uiElements == null || uiElements.Count == 0)
+            return Vector3.zero;
+
+        Vector3 total = Vector3.zero;
+        int count = 0;
+
+        foreach (RectTransform rt in uiElements)
+        {
+            if (rt == null) continue;
+            total += rt.localPosition;
+            count++;
+        }
+
+        return count > 0 ? total / count : Vector3.zero;
+    }
+    
+    public static Vector2 GetUIBounds(List<RectTransform> uiElements)
+    {
+        if (uiElements == null || uiElements.Count == 0)
+            return Vector2.zero;
+
+        Vector3 min = new Vector3(float.MaxValue, float.MaxValue, 0);
+        Vector3 max = new Vector3(float.MinValue, float.MinValue, 0);
+
+        foreach (RectTransform rectTransform in uiElements)
+        {
+            if (rectTransform == null) continue;
+
+            Vector3[] corners = new Vector3[4];
+            rectTransform.GetLocalCorners(corners);
+
+            foreach (Vector3 corner in corners)
+            {
+                min = Vector3.Min(min, corner);
+                max = Vector3.Max(max, corner);
+            }
+        }
+
+        float width = max.x - min.x;
+        float height = max.y - min.y;
+
+        return new Vector2(width, height);
+    }
+    
 
     private void UpdateTypes()
     {

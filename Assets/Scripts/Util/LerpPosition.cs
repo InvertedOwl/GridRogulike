@@ -8,12 +8,12 @@ namespace Util
     public class LerpPosition : MonoBehaviour
     {
         public float speed = 1;
-        [FormerlySerializedAs("target")] public Vector2 targetLocation;
+        [FormerlySerializedAs("target")] public Vector3 targetLocation;
         public Quaternion targetRotation;
         public Vector3 targetScale;
-        public Vector2 startPosition;
+        public Vector3 startPosition;
         public Quaternion startRotation;
-        public Vector2 startScale;
+        public Vector3 startScale;
         public bool isLocal;
         private bool _isAtLocation;
         public bool IsAtLocation => _isAtLocation;
@@ -27,13 +27,13 @@ namespace Util
         {
             if (isLocal)
             {
-                targetLocation = new Vector2(transform.localPosition.x, transform.localPosition.y);
+                targetLocation = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
                 targetRotation = transform.localRotation;
                 targetScale = transform.localScale;
             }
             else
             {
-                targetLocation = new Vector2(transform.position.x, transform.position.y);
+                targetLocation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                 targetRotation = transform.rotation;
                 targetScale = transform.localScale;
             }

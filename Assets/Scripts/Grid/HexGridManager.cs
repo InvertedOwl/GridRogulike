@@ -4,6 +4,7 @@ using Types.Tiles;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Util;
 
 namespace Grid {
 public class HexGridManager : MonoBehaviour
@@ -20,6 +21,23 @@ public class HexGridManager : MonoBehaviour
         Instance = this;
     }
 
+    public void Update()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        
+        Vector2 viewportPos = new Vector2(
+            mousePos.x / Screen.width,
+            mousePos.y / Screen.height
+        );
+        
+        Vector2 normalizedPos = new Vector2(
+            viewportPos.x * 2f - 1f,
+            viewportPos.y * 2f - 1f
+        ) * 0.05f;
+        
+        Camera.main.transform.parent.GetComponent<LerpPosition>().targetLocation = new Vector3(normalizedPos.x, normalizedPos.y, -10);
+    }
+    
     public void TryAdd(Vector2Int current, string type)
     {
         if (!_boardDictionary.ContainsKey(current))

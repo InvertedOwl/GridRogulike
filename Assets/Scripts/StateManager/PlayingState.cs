@@ -52,7 +52,7 @@ namespace StateManager
             Deck.Instance.DiscardHand();
             foreach (AbstractEntity entity in _entities)
             {
-                entity.GetComponent<LerpPosition>().targetLocation += new Vector2(0, -750);
+                entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, -750);
             }
             gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, -750);
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.maxEnergy;

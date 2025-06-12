@@ -13,37 +13,37 @@ namespace Cards.CardList
                 // attack cards
                 [CardIds.Attack1] = new(new Card("Attack Up", new List<AbstractAction>
                 { 
-                    new AttackAction(1, "basic", null, "n", 1, 10)
+                    new AttackAction(1, "basic", null, "n", 1, 15)
                 }, CardRarity.Common), 
                     new [] {StartingDecks.basic}),
                 
                 [CardIds.Attack2] = new(new Card("Attack Up Right", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "ne", 1, 10)
+                        new AttackAction(1, "basic", null, "ne", 1, 15)
                     }, CardRarity.Common), 
                     new [] {StartingDecks.basic}),
                 
                 [CardIds.Attack3] = new(new Card("Attack Up Left", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "nw", 1, 10)
+                        new AttackAction(1, "basic", null, "nw", 1, 15)
                     }, CardRarity.Common), 
                     new [] {StartingDecks.basic}),
                 
                 [CardIds.Attack4] = new(new Card("Attack Down", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "s", 1, 10)
+                        new AttackAction(1, "basic", null, "s", 1, 15)
                     }, CardRarity.Common), 
                     new [] {StartingDecks.basic}),
                 
                 [CardIds.Attack5] = new(new Card("Attack Down Right", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "se", 1, 10)
+                        new AttackAction(1, "basic", null, "se", 1, 15)
                     }, CardRarity.Common), 
                     new [] {StartingDecks.basic}),
                 
                 [CardIds.Attack6] = new(new Card("Attack Down Left", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "sw", 1, 10)
+                        new AttackAction(1, "basic", null, "sw", 1, 15)
                     }, CardRarity.Common), 
                     new [] {StartingDecks.basic}),
                 // move cards
@@ -88,7 +88,7 @@ namespace Cards.CardList
                         new AttackAction(1, "basic", null, "n", 1, 10),
                         new AttackAction(1, "basic", null, "ne", 1, 10),
                         new AttackAction(1, "basic", null, "nw", 1, 10),
-                    }, CardRarity.Common), 
+                    }, CardRarity.Uncommon), 
                     new [] {StartingDecks.basic}),
                 
                 
