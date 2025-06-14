@@ -571,6 +571,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &17382862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,6 +757,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &21849260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1656,6 +1658,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &25956729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2015,6 +2018,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &36913094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2287,6 +2291,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &43526855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,6 +2366,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &44450000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2435,6 +2441,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &49126285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2596,6 +2603,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &51723791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2980,6 +2988,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &61765636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3054,6 +3063,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &63051610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3413,6 +3423,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &71794208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3905,6 +3916,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &85690674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3979,6 +3991,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &87093822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4053,6 +4066,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &87352026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4349,6 +4363,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &94555967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4732,6 +4747,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &99022012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4806,6 +4822,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &101488662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,6 +5293,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &107367261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5799,6 +5817,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &120370940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5873,6 +5892,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &120782937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5947,6 +5967,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &122400239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6219,6 +6240,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &128594857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6665,6 +6687,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &132293921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7186,6 +7209,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &142838703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7482,6 +7506,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &147104277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7643,6 +7668,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &147779679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7717,6 +7743,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &149113632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7902,6 +7929,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &150891967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7976,6 +8004,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &151566237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9209,6 +9238,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &166301820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9394,6 +9424,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &168771609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9468,6 +9499,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &169966333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9985,6 +10017,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &176714405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10368,6 +10401,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &184881895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10949,6 +10983,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &194382342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11332,6 +11367,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &201581870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11517,6 +11553,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &206085740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12074,6 +12111,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &211988544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12148,6 +12186,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &212344136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12222,6 +12261,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &213661026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12296,6 +12336,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &214897205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12370,6 +12411,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &216715530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12531,6 +12573,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &222360462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12716,6 +12759,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &227265775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12988,6 +13032,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &240820008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13062,6 +13107,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &241051872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14126,6 +14172,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &267017246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14746,6 +14793,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &273554797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15375,6 +15423,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &286304256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16661,6 +16710,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &296149760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16822,6 +16872,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &298998734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17070,6 +17121,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &301905289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17366,6 +17418,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &310165569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17440,6 +17493,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &311164894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18429,6 +18483,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &317345955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19010,6 +19065,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &322786459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19171,6 +19227,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &325467115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19695,6 +19752,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &334534764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19769,6 +19827,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &335344015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20041,6 +20100,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &338892403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20313,6 +20373,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &343694140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20498,6 +20559,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &346763106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20572,6 +20634,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &346990110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20646,6 +20709,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &347032904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20836,6 +20900,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &350894285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20910,6 +20975,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &350904707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21380,6 +21446,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &359117234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21565,6 +21632,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &366782206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22770,6 +22838,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &385527532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23066,6 +23135,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &390800712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23140,6 +23210,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &392513926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23412,6 +23483,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &400844281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23597,6 +23669,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &403633989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24019,6 +24092,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &412891154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24093,6 +24167,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &413677880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24587,6 +24662,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &416374560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24748,6 +24824,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &418702546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25170,6 +25247,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &430833103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25244,6 +25322,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &431241632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25405,6 +25484,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &433977183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25729,6 +25809,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &436340682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26001,6 +26082,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &438453054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26843,6 +26925,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &460934290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27028,6 +27111,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &462635723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27847,6 +27931,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &476191276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27921,6 +28006,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &477714385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28169,6 +28255,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &480515168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28552,6 +28639,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &488825239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28626,6 +28714,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &489623727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28700,6 +28789,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &490091316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29515,6 +29605,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &507668492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29589,6 +29680,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &507903505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29996,6 +30088,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &518117915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30071,7 +30164,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -30307,6 +30400,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &522682519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30927,6 +31021,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &533439852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31175,6 +31270,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &538029560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31336,6 +31432,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &543732792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31410,6 +31507,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &544033843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31595,6 +31693,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &544434398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32128,6 +32227,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &553715828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32438,6 +32538,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &558536554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32623,6 +32724,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &560020609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33006,6 +33108,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &564560039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33339,6 +33442,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &566919569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33413,6 +33517,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &574180589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33523,6 +33628,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &580799760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 580799761}
+  m_Layer: 5
+  m_Name: Cards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &580799761
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580799760}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 739041207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -227, y: 9}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &580803249
 GameObject:
   m_ObjectHideFlags: 0
@@ -33772,6 +33912,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &581677895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33846,6 +33987,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &582004739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33869,22 +34011,6 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &582519572 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8026772341221760402, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-  m_PrefabInstance: {fileID: 923778307}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909a8f6b453b4364963ccc0c7dbbb10f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &582519574 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-  m_PrefabInstance: {fileID: 923778307}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &583989406
 GameObject:
   m_ObjectHideFlags: 0
@@ -34147,6 +34273,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &590236279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34308,6 +34435,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &591999601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34382,6 +34510,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &593454445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34543,6 +34672,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &603159235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34704,6 +34834,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &609278322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35063,6 +35194,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &612819690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35137,6 +35269,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &614008071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36036,6 +36169,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &627028115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36308,6 +36442,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &628524068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36939,6 +37074,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &638089617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37100,6 +37236,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &639073583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37720,6 +37857,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &644404131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37992,6 +38130,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &645952673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38177,6 +38316,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &652272429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38454,6 +38594,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &656360747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38528,6 +38669,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &657109188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39283,6 +39425,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &671076066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39618,6 +39761,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &678095631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39692,6 +39836,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &678358537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39853,6 +39998,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &679387566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40038,6 +40184,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &681234942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40199,6 +40346,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &685189328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40273,6 +40421,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &687543925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40830,6 +40979,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &697592843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42269,6 +42419,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &724929920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42541,6 +42692,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &726894684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43134,6 +43286,70 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &739041206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 739041207}
+  - component: {fileID: 739041208}
+  m_Layer: 5
+  m_Name: Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &739041207
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739041206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1239074845}
+  - {fileID: 776179664}
+  - {fileID: 1162883345}
+  - {fileID: 580799761}
+  - {fileID: 1978260713}
+  m_Father: {fileID: 1100302270}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 750}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &739041208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739041206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b289a1bbc54b7eb5104a8d992ece7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  targetLocation: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetScale: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
+  startScale: {x: 0, y: 0, z: 0}
+  isLocal: 1
+  arriveAt:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &739249831
 GameObject:
   m_ObjectHideFlags: 0
@@ -43383,6 +43599,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &744513733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43457,6 +43674,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &746498603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43975,6 +44193,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &755913178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44049,6 +44268,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &757539423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44321,6 +44541,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &762428683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44902,6 +45123,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &773790985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45174,6 +45396,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &775511921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45197,6 +45420,82 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &776179663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776179664}
+  - component: {fileID: 776179666}
+  - component: {fileID: 776179665}
+  m_Layer: 5
+  m_Name: BG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &776179664
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776179663}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2128980943}
+  m_Father: {fileID: 739041207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 694.9, y: 439.1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &776179665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776179663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.050980393, b: 0.11372549, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &776179666
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776179663}
+  m_CullTransparentMesh: 1
 --- !u!1 &777644792
 GameObject:
   m_ObjectHideFlags: 0
@@ -45248,6 +45547,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &777644795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45322,6 +45622,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &777893618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45705,6 +46006,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &783040561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46175,6 +46477,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &790363289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46423,6 +46726,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &797988826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46534,6 +46838,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &799667671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46608,6 +46913,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &800005765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48070,6 +48376,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &825183542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48366,6 +48673,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &828699508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48662,6 +48970,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &832616329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48736,6 +49045,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &837463654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48810,6 +49120,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &837619404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48884,6 +49195,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &838407889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49120,6 +49432,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &839917558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49194,6 +49507,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &840414377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49862,6 +50176,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &849123133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50047,6 +50362,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &849969040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50121,6 +50437,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &853861603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50195,6 +50512,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &857042776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50683,6 +51001,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &862359476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50757,6 +51076,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &868046639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50831,6 +51151,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &871897990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50905,6 +51226,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &872544547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51201,6 +51523,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &877031731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51275,6 +51598,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &878973764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51634,6 +51958,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &880794688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51708,6 +52033,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &888726400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52313,6 +52639,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &900497573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52387,6 +52714,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &903232525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53253,6 +53581,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &911887002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53749,6 +54078,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &921431374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53946,74 +54276,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &923778307
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1233807780}
-    m_Modifications:
-    - target: {fileID: 3518368252074035926, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_Name
-      value: Player (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3822521651334489867, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8026772341221760402, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8026772341221760402, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      propertyPath: initialHealth
-      value: 100
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5946805619416830131, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: ee620787b77204782bcf6516cbad56bc, type: 3}
 --- !u!1 &925495155
 GameObject:
   m_ObjectHideFlags: 0
@@ -54881,6 +55143,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &933941208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54955,6 +55218,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &934127691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55029,6 +55293,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &935741960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55239,6 +55504,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &939888354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55982,6 +56248,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &951667412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56400,6 +56667,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &958400902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56585,6 +56853,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &959403838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56870,6 +57139,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &963858635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56944,6 +57214,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &963969257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57129,6 +57400,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &964643868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57426,6 +57698,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &965821971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57723,6 +57996,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &970624818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57866,6 +58140,7 @@ Transform:
   - {fileID: 519420032}
   - {fileID: 1231074777}
   - {fileID: 1100302270}
+  - {fileID: 6097504617308708760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &975860771
@@ -58029,6 +58304,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &976945440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58103,6 +58379,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &977349809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58424,6 +58701,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &978673443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58759,6 +59037,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &984593158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59007,6 +59286,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &990032161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59081,6 +59361,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &991444545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59527,6 +59808,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &992968788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59601,6 +59883,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &995030948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60405,6 +60688,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1013260009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60677,6 +60961,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1015560253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60751,6 +61036,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1016372307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60825,6 +61111,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1016786260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60986,6 +61273,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1020897307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61171,6 +61459,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1023873420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61443,6 +61732,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1033442359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62174,6 +62464,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1044940328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62335,6 +62626,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1050076435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62409,6 +62701,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1054751193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63077,6 +63370,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1071998191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63238,6 +63532,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1074181518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63312,6 +63607,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1074780087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63386,6 +63682,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1075630538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63571,6 +63868,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1079564855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63645,6 +63943,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1081854207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64487,6 +64786,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1095504136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64819,6 +65119,7 @@ RectTransform:
   - {fileID: 1366590120}
   - {fileID: 1784090628}
   - {fileID: 158445921}
+  - {fileID: 739041207}
   m_Father: {fileID: 975860770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -64877,6 +65178,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1103443657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64951,6 +65253,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1107680876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65803,6 +66106,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1120925787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66150,6 +66454,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1122451404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66685,6 +66990,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1132865993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67104,6 +67410,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1145618617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1145618618}
+  - component: {fileID: 1145618620}
+  - component: {fileID: 1145618619}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1145618618
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145618617}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1162883345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -21.5}
+  m_SizeDelta: {x: 100, y: 7.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1145618619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145618617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.050980393, b: 0.11372549, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1145618620
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145618617}
+  m_CullTransparentMesh: 1
 --- !u!1 &1145708724
 GameObject:
   m_ObjectHideFlags: 0
@@ -67155,6 +67536,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1145708727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67340,6 +67722,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1152169605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67501,6 +67884,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1152921015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67575,6 +67959,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1154985221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67649,6 +68034,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1155945813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67723,6 +68109,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1160777476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67746,6 +68133,143 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1162883344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1162883345}
+  - component: {fileID: 1162883347}
+  - component: {fileID: 1162883346}
+  m_Layer: 5
+  m_Name: Title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1162883345
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162883344}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1145618618}
+  m_Father: {fileID: 739041207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 154.3}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1162883346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162883344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Deck
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 32bc9bc2e463f405da06930c84597ab1, type: 2}
+  m_sharedMaterial: {fileID: 1168597778816674416, guid: 32bc9bc2e463f405da06930c84597ab1, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: -12.9
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1162883347
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162883344}
+  m_CullTransparentMesh: 1
 --- !u!1 &1163498133
 GameObject:
   m_ObjectHideFlags: 0
@@ -68229,6 +68753,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1166995175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68675,6 +69200,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1178650111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68824,6 +69350,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1181195584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69096,6 +69623,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1185869664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69392,6 +69920,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1193469544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69799,6 +70328,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1200047836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70071,6 +70601,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1206902638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70355,6 +70886,93 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1211537739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1211537740}
+  - component: {fileID: 1211537741}
+  m_Layer: 0
+  m_Name: PlayerShadow (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1211537740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211537739}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3822521650445261320}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1211537741
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211537739}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1212908150
 GameObject:
   m_ObjectHideFlags: 0
@@ -70406,6 +71024,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1212908153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70567,6 +71186,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1214349420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70752,6 +71372,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1217966604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71000,6 +71621,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1221700263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71568,6 +72190,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1226491180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71642,6 +72265,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1228967566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71812,7 +72436,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 582519574}
+  - {fileID: 3822521650445261320}
   - {fileID: 1858364139}
   - {fileID: 860630764}
   - {fileID: 617061362}
@@ -71890,6 +72514,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1234292074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72135,6 +72760,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1239074844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1239074845}
+  - component: {fileID: 1239074847}
+  - component: {fileID: 1239074846}
+  m_Layer: 5
+  m_Name: BG (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1239074845
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239074844}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1326, y: 1.1326, z: 1.1326}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 739041207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 694.9, y: 439.1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1239074846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239074844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 405f679e07a704de68ea4cd455c11e78, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1239074847
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239074844}
+  m_CullTransparentMesh: 1
 --- !u!1 &1241484199
 GameObject:
   m_ObjectHideFlags: 0
@@ -72297,6 +72997,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1246038656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72632,6 +73333,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1251368459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72817,6 +73519,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1259343285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73287,6 +73990,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1267082191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73670,6 +74374,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1271928878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73744,6 +74449,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1272351964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74543,6 +75249,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1281930741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74728,6 +75435,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1283098711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74913,6 +75621,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1285232534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75074,6 +75783,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1286615827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75334,6 +76044,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1293063993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75867,6 +76578,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1301927462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76163,6 +76875,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1307693576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76237,6 +76950,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1310595799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76311,6 +77025,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1314033867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76385,6 +77100,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1316263696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76744,6 +77460,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1320467269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76818,6 +77535,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1323067337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77003,6 +77721,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1325556693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77077,6 +77796,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1325670476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77318,7 +78038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96cf99b42ff4685b31da6bf1ee87519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 582519572}
+  player: {fileID: 8026772340970594449}
   gameUI: {fileID: 1366590119}
 --- !u!1 &1331977656
 GameObject:
@@ -77371,6 +78091,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1331977659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77445,6 +78166,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1332571214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77641,6 +78363,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1339342781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78172,6 +78895,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1351171032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78615,6 +79339,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1355670627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78689,6 +79414,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1360203368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78763,6 +79489,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1366262600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78988,6 +79715,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1375487372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79507,6 +80235,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1381551439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79692,6 +80421,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1388588144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79964,6 +80694,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1392047562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80347,6 +81078,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1398838067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80421,6 +81153,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1401551276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81079,6 +81812,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1415291104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81153,6 +81887,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1417520838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81338,6 +82073,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1426118517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81487,6 +82223,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1427251152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81672,6 +82409,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1427495456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82031,6 +82769,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1436226001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82414,6 +83153,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1449609338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82599,6 +83339,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1452300232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82673,6 +83414,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1452603170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83056,6 +83798,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1463376471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83130,6 +83873,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1463564703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83315,6 +84059,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1473331256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83563,6 +84308,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1475574072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83637,6 +84383,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1475750726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83933,6 +84680,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1479119231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84205,6 +84953,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1489558474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84390,6 +85139,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1491986970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84638,6 +85388,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1498492505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84823,6 +85574,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1502862938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85206,6 +85958,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1525867270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85280,6 +86033,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1530281691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85441,6 +86195,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1530452448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85824,6 +86579,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1535072935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85898,6 +86654,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1536426536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86530,6 +87287,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1542822755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86604,6 +87362,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1543565240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86678,6 +87437,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1546855473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86752,6 +87512,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1547100705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87111,6 +87872,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1550811930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87185,6 +87947,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1554485862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87506,6 +88269,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1559137982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87691,6 +88455,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1564715906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87852,6 +88617,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1567986854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87926,6 +88692,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1568505817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88111,6 +88878,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1571686813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88332,6 +89100,93 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1578325861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1578325862}
+  - component: {fileID: 1578325863}
+  m_Layer: 0
+  m_Name: PlayerShadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1578325862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578325861}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.104, z: 0}
+  m_LocalScale: {x: 1.1999999, y: 1.1999999, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3822521650445261320}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1578325863
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578325861}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 405f679e07a704de68ea4cd455c11e78, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!224 &1580131146 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
@@ -88388,6 +89243,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1580861894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88549,6 +89405,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1581416686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89106,6 +89963,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1595578603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89180,6 +90038,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1597534489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89341,6 +90200,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1599397725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89724,6 +90584,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1604768185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90020,6 +90881,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1609079544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90181,6 +91043,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1616036004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90738,6 +91601,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1623854769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90812,6 +91676,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1623921718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90973,6 +91838,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1628063578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91047,6 +91913,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1629414493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91159,6 +92026,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1635931363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91605,6 +92473,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1644034441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91679,6 +92548,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1646427193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91975,6 +92845,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1655766921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92049,6 +92920,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1655960018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92072,6 +92944,93 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1656299603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1656299604}
+  - component: {fileID: 1656299605}
+  m_Layer: 0
+  m_Name: HealthActive =Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1656299604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656299603}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75000036, z: 0}
+  m_LocalScale: {x: 2, y: 0.1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6097504617308708760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1656299605
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656299603}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1657511290
 GameObject:
   m_ObjectHideFlags: 0
@@ -92234,6 +93193,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1658089260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92308,6 +93268,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1660476512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92493,6 +93454,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1669795915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92567,6 +93529,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1670823320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92641,6 +93604,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1673317728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92715,6 +93679,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1673720611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92876,6 +93841,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1676587995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92950,6 +93916,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1677085917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93297,6 +94264,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1681536586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93482,6 +94450,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1685400711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93704,6 +94673,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1695741558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93778,6 +94748,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1696803137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93852,6 +94823,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1697238843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94124,6 +95096,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1699604566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94702,6 +95675,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1715106697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94863,6 +95837,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1717984966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95560,6 +96535,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1736373902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95745,6 +96721,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1738287816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96538,6 +97515,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1752874064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96834,6 +97812,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1767031297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97026,6 +98005,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1770804686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97520,6 +98500,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1776867548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98033,6 +99014,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1784465254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98416,6 +99398,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1788991421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98490,6 +99473,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1790732934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98564,6 +99548,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1791442451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98749,6 +99734,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1795023509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99219,6 +100205,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1800657445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99293,6 +100280,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1802885261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100670,6 +101658,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1829545079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101140,6 +102129,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1842698974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101301,6 +102291,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1845470272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101882,6 +102873,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1857131302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102011,6 +103003,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1860501258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102283,6 +103276,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1862419131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102357,6 +103351,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1865157676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102629,6 +103624,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1866165793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102703,6 +103699,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1866167048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102864,6 +103861,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1869921232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102938,6 +103936,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1869987090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103309,6 +104308,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1874824291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103729,6 +104729,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1877902001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104112,6 +105113,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1886863668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104186,6 +105188,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1888872270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104260,6 +105263,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1895053644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104619,6 +105623,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1903316068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104693,6 +105698,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1904796622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104878,6 +105884,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1909640797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104952,6 +105959,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1910982760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105224,6 +106232,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1912851209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105385,6 +106394,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1914548614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105657,6 +106667,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1916949116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106238,6 +107249,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1936187474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106312,6 +107324,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1937436876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106671,6 +107684,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1943868216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106832,6 +107846,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1954290348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106906,6 +107921,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1955975765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107343,6 +108359,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1961769826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107607,6 +108624,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1965072564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108134,6 +109152,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1968145757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108208,6 +109227,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1969593442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108369,6 +109389,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1974987852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108503,6 +109524,142 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1978260712
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 739041207}
+    m_Modifications:
+    - target: {fileID: 56992391206631636, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_Name
+      value: Done Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377049551272050648, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_text
+      value: 'Done
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -162
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 107547808}
+    - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Done
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StateManager.ShopState, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+--- !u!224 &1978260713 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+  m_PrefabInstance: {fileID: 1978260712}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1978330659
 GameObject:
   m_ObjectHideFlags: 0
@@ -109544,6 +110701,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1984884468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109729,6 +110887,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &1989907586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110199,6 +111358,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2006466228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110693,6 +111853,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2012096634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111149,6 +112310,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2022891191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112078,6 +113240,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2039092612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112188,6 +113351,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2040912580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2040912581}
+  m_Layer: 0
+  m_Name: text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2040912581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040912580}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2128238197028079665}
+  - {fileID: 3466058849199884250}
+  m_Father: {fileID: 6097504617308708760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2041887198
 GameObject:
   m_ObjectHideFlags: 0
@@ -112239,6 +113435,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2041887201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112883,6 +114080,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2054878826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113131,6 +114329,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2059524630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113403,6 +114602,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2060824849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113699,6 +114899,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2064959526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114196,6 +115397,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2073738587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114654,6 +115856,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2081567531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114728,6 +115931,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2081667678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114913,6 +116117,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2084179363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114987,6 +116192,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2085887627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115259,6 +116465,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2091561131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115333,6 +116540,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2097901192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115850,6 +117058,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2103799828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116035,6 +117244,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2106091275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116727,6 +117937,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2115257298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117695,6 +118906,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2128927310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117718,6 +118930,81 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2128980942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128980943}
+  - component: {fileID: 2128980945}
+  - component: {fileID: 2128980944}
+  m_Layer: 5
+  m_Name: BG (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2128980943
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128980942}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 776179664}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 679.9, y: 424.1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2128980944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128980942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2128980945
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128980942}
+  m_CullTransparentMesh: 1
 --- !u!1 &2129140031
 GameObject:
   m_ObjectHideFlags: 0
@@ -117769,6 +119056,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2129140034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117967,6 +119255,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2138306892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118516,6 +119805,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!114 &2145155455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118834,6 +120124,243 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+--- !u!1 &826014203015279329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6097504617308708760}
+  - component: {fileID: 6097504617308708761}
+  - component: {fileID: 6097504617308708762}
+  m_Layer: 0
+  m_Name: Health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1308629140933787192
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946805620172434864}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2698446635624605986, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1200
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &2128238197028079665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804316017937768625}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.009999993, y: 0.17000012, z: -0.050557997}
+  m_LocalScale: {x: 0.837589, y: -0.23776722, z: 0.54038}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2040912581}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!4 &2554794320780363622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887856937106761298}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 2, y: 0.1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6097504617308708760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &3466058849199884250
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946805620172434864}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.22347999}
+  m_LocalScale: {x: 0.54038, y: 0.54038, z: 0.54038}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2040912581}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.01, y: 0.17}
+  m_SizeDelta: {x: 20, y: 5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &3518368251219097557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3822521650445261320}
+  - component: {fileID: 6412968655435155955}
+  - component: {fileID: 8026772340970594449}
+  - component: {fileID: 8728143473764980609}
+  m_Layer: 0
+  m_Name: Player (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3822521650445261320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518368251219097557}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1578325862}
+  - {fileID: 1211537740}
+  m_Father: {fileID: 1233807780}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &4702622459417074719
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887856937106761298}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.09055519, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &4873965294944858571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6618572424427734669}
+  - component: {fileID: 5524591935906353034}
+  m_Layer: 0
+  m_Name: HealthBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &4887856937106761298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2554794320780363622}
+  - component: {fileID: 4702622459417074719}
+  m_Layer: 0
+  m_Name: HealthActive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &4889184481810805646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118955,6 +120482,437 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ad46a7fecf684242898b6f2a9d32456, type: 3}
+--- !u!212 &5524591935906353034
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873965294944858571}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &5946805620172434864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3466058849199884250}
+  - component: {fileID: 1308629140933787192}
+  - component: {fileID: 8659684700028194935}
+  m_Layer: 0
+  m_Name: HealthText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6097504617308708760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826014203015279329}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -7.23, y: -0.18, z: 10.32571}
+  m_LocalScale: {x: 1.5844002, y: 1.5844002, z: 3.961}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2040912581}
+  - {fileID: 6618572424427734669}
+  - {fileID: 1656299604}
+  - {fileID: 2554794320780363622}
+  m_Father: {fileID: 975860770}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &6097504617308708761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826014203015279329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd806a9f37fc464dafbcd294f4d6303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpPosition: {fileID: 0}
+  activateOnHover: {fileID: 2040912580}
+  waitTicks: 0
+  activeHover: 1
+  hoverWhenNotPlaytate: 1
+--- !u!61 &6097504617308708762
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826014203015279329}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.75}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.09, y: 0.36}
+  m_EdgeRadius: 0
+--- !u!212 &6412968655435155955
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518368251219097557}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 61
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &6618572424427734669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873965294944858571}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 2.1, y: 0.17125, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6097504617308708760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7791013647417159901
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804316017937768625}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1200
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.74509805}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &7804316017937768625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128238197028079665}
+  - component: {fileID: 7791013647417159901}
+  m_Layer: 0
+  m_Name: HealthBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &8026772340970594449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518368251219097557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909a8f6b453b4364963ccc0c7dbbb10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 100
+  health: 100
+  positionRowCol: {x: 0, y: 0}
+  healthText: {fileID: 8659684700028194935}
+  healthBar: {fileID: 4887856937106761298}
+--- !u!114 &8659684700028194935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946805620172434864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 28/100
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
+  m_sharedMaterial: {fileID: 2698446635624605986, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 4
+  m_fontSizeBase: 4
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 0
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1308629140933787192}
+  m_maskType: 0
+--- !u!114 &8728143473764980609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518368251219097557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b289a1bbc54b7eb5104a8d992ece7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  targetLocation: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetScale: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
+  startScale: {x: 0, y: 0, z: 0}
+  isLocal: 0
+  arriveAt:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

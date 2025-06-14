@@ -275,12 +275,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  targetLocation: {x: 0, y: 0}
+  targetLocation: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
   targetScale: {x: 0, y: 0, z: 0}
-  startPosition: {x: 0, y: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
-  startScale: {x: 0, y: 0}
+  startScale: {x: 0, y: 0, z: 0}
   isLocal: 1
   arriveAt:
     m_PersistentCalls:
@@ -350,6 +350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpPosition: {fileID: 2323667082491459199}
   activateOnHover: {fileID: 4417866245236661259}
+  waitTicks: 20
+  activeHover: 1
 --- !u!58 &6050994047722289620
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -446,7 +448,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3033
+  m_SortingOrder: 3000
   m_TargetDisplay: 0
 --- !u!114 &6555693003299803801
 MonoBehaviour:

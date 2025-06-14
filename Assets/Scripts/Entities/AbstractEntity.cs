@@ -27,6 +27,8 @@ namespace Entities
             healthBar.transform.localScale = new Vector3(health / initialHealth * 2, 
                 healthBar.transform.localScale.y, 
                 healthBar.transform.localScale.z);
+            
+            healthBar.transform.localPosition = new Vector3(-(initialHealth-health)/initialHealth, healthBar.transform.localPosition.y, healthBar.transform.localPosition.z);
         }
 
         public virtual void Damage(int damage)

@@ -63,6 +63,7 @@ public class HexGridManager : MonoBehaviour
     public GameObject GetHexPrefab(string id, Transform parent)
     {
         GameObject newTile = Instantiate(hexPrefab, parent);
+        newTile.GetComponent<TileHover>().hoverWhenNotPlaytate = false;
         UpdateHexObject(TileData.tiles[id], newTile);
             
         return newTile;

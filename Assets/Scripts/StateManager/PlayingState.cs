@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Entities;
 using Entities.Enemies;
 using Grid;
+using Types.Tiles;
 using UnityEngine;
 using Util;
 
@@ -143,6 +144,12 @@ namespace StateManager
             if (!IsValidHex(target)) return false;
 
             ent.MoveEntity(target);
+
+            if (ent is Player)
+            {
+                TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke();
+            }
+            
             return true;
         }
 
