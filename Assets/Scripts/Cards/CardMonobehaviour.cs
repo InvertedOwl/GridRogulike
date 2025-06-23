@@ -31,6 +31,9 @@ public class CardMonobehaviour : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject arrowPrefab;
     
+    public float hoverScale = 1.05f;
+    public float hoverOffset = 60;
+    
     public List<GameObject> types = new List<GameObject>();
 
     public Action CardClickedCallback;
@@ -238,9 +241,9 @@ public class CardMonobehaviour : MonoBehaviour
     {
         siblingIndex = transform.GetSiblingIndex();
         LerpPosition lerpPosition = transform.GetChild(0).GetComponent<LerpPosition>();
-        lerpPosition.targetLocation = new Vector2(0, 60);
-        lerpPosition.targetScale = lerpPosition.startScale * 1.05f;
-        transform.SetSiblingIndex(50);
+        lerpPosition.targetLocation = new Vector2(0, hoverOffset);
+        lerpPosition.targetScale = lerpPosition.startScale * hoverScale;
+        // transform.SetSiblingIndex(50);
 
 
         if (!_cardSet)
@@ -252,6 +255,13 @@ public class CardMonobehaviour : MonoBehaviour
         {
             action.Hover();
         }
+    }
+    
+    private void ResetHoverEffects()
+    {
+        LerpPosition lerpPosition = transform.GetChild(0).GetComponent<LerpPosition>();
+        lerpPosition.targetLocation = new Vector2(0, 0);
+        lerpPosition.targetScale = lerpPosition.startScale * 1f;
     }
 
     private void HandleCardUsage()
@@ -278,14 +288,6 @@ public class CardMonobehaviour : MonoBehaviour
         
         if (isLeftClick)
             CardClickedCallback?.Invoke();
-    }
-
-    private void ResetHoverEffects()
-    {
-        // transform.SetSiblingIndex(siblingIndex);
-        LerpPosition lerpPosition = transform.GetChild(0).GetComponent<LerpPosition>();
-        lerpPosition.targetLocation = new Vector2(0, 0);
-        lerpPosition.targetScale = lerpPosition.startScale * 1f;
     }
 
 

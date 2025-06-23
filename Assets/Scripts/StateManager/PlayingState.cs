@@ -48,6 +48,21 @@ namespace StateManager
             }
         }
 
+        public void MoveEntitiesOut()
+        {
+            foreach (AbstractEntity entity in _entities)
+            {
+                entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, -750);
+            }
+        }
+        public void MoveEntitiesIn()
+        {
+            foreach (AbstractEntity entity in _entities)
+            {
+                entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, 750);
+            }
+        }
+
         public override void Exit()
         {
             Deck.Instance.DiscardHand();
