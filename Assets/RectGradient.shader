@@ -16,6 +16,14 @@ Shader "UI/RectGradient"
         {
             Blend SrcAlpha OneMinusSrcAlpha
 
+            Stencil
+            {
+                Ref 1
+                Comp Equal
+                Pass Keep
+            }
+
+            
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
