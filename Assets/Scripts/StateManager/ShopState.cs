@@ -90,10 +90,17 @@ namespace StateManager
                 cardCostTexts[i].text = cost + "$";
 
                 int index = i;
+                
+                // PURCHASE CALLBACK
                 cardOptions[i].CardClickedCallback = () =>
                 {
                     if (_cardPurchased[index]) return;
 
+                    if (RunInfo.Instance.Money < _cardCostValues[index])
+                        return;
+                    
+                    RunInfo.Instance.Money -= _cardCostValues[index];
+                        
                     Deck.Instance.CreateCard(card);
                     cardOptions[index].GetComponent<LerpPosition>().speed = 10;
                     cardOptions[index].GetComponent<LerpPosition>().targetLocation =

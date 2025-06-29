@@ -19,9 +19,22 @@ namespace StateManager
         public AbstractEntity CurrentTurn => _entities[_currentTurnIndex];
         public override void Enter()
         {
+            InitializeDeckAndGrid();
+            SetupEntities();
+            SetupInitialTiles();
+            SetupUI();
+            SetupPlayerHand();
+            EnableTileHovers();
+        }
+
+        private void InitializeDeckAndGrid()
+        {
             Deck.Instance.ResetDeck();
             _grid = HexGridManager.Instance;
+        }
 
+        private void SetupEntities()
+        {
             _entities.Add(player);
             _entities.AddRange(FindObjectsByType<TestEnemy>(FindObjectsSortMode.InstanceID));
 
@@ -33,15 +46,29 @@ namespace StateManager
                 // DEBUG
                 e.health = e.initialHealth;
             }
+        }
 
+        private void SetupInitialTiles()
+        {
             var origin = new Vector2Int(0,0);
             _grid.TryAdd(origin, "start");
             _grid.TryAdd(HexGridManager.MoveHex(origin, "n" , 1), "basic");
-
             _grid.UpdateBoard();
+        }
+
+        private void SetupUI()
+        {
             gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
+        }
+
+        private void SetupPlayerHand()
+        {
             Deck.Instance.DiscardHand();
             Deck.Instance.DrawHand();
+        }
+
+        private void EnableTileHovers()
+        {
             foreach (Transform tile in HexGridManager.Instance.grid.transform)
             {
                 tile.GetComponent<TileHover>().activeHover = true; 
@@ -115,6 +142,9 @@ namespace StateManager
         {
             Debug.Log("Player has finished");
             GameStateManager.Instance.Change<TilePickState>();
+            
+            // Debug money
+            RunInfo.Instance.Money += 100;
         }
         public string CheckForFinish()
         {
