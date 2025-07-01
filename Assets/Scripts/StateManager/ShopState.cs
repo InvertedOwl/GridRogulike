@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cards;
@@ -42,6 +43,7 @@ namespace StateManager
         public GameObject window;
         public List<Card> CardOptions = new();
         private Random _random;
+        public TextMeshProUGUI buyEnergyText;
 
         public override void Enter()
         {
@@ -51,6 +53,8 @@ namespace StateManager
             CardOptions = CardData.AllIds
                 .Select(id => CardData.Get(id).LocalCard)
                 .ToList();
+            
+            buyEnergyText.text = EnergyCost(RunInfo.Instance.MaxEnergy) + "$";
 
             PickCards();
         }
@@ -111,6 +115,37 @@ namespace StateManager
             }
         }
 
+        public void SetShopState()
+        {
+            GameStateManager.Instance.Change<ShopState>();
+        }
+
+        public void BuyHealFull()
+        {
+            
+        }
+
+        public void BuyCombineCards()
+        {
+            
+        }
+
+        public void BuyEnergy()
+        {
+            if (RunInfo.Instance.Money < EnergyCost(RunInfo.Instance.MaxEnergy))
+                return;
+            
+            RunInfo.Instance.Money -= EnergyCost(RunInfo.Instance.MaxEnergy);
+            RunInfo.Instance.MaxEnergy += 1;
+            RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
+            buyEnergyText.text = EnergyCost(RunInfo.Instance.MaxEnergy) + "$";
+        }
+
+
+        public int EnergyCost(int currentEnergy)
+        {
+            return Mathf.RoundToInt(4 * Mathf.Pow(currentEnergy, 1.0f/3));
+        }
 
 
         public Card GetRandomItem()

@@ -14,8 +14,22 @@ using UnityEngine.UI;
 using Util;
 using Random = System.Random;
 
-public class CardMonobehaviour : MonoBehaviour
+public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private bool isPointerOver = false;
+
+    public bool IsPointerOver => isPointerOver;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isPointerOver = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isPointerOver = false;
+    }
+    
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI costText;
     public TextMeshProUGUI actionText;
@@ -293,20 +307,6 @@ public class CardMonobehaviour : MonoBehaviour
 
     bool IsPointerOverThisUIElement()
     {
-        PointerEventData pointerData = new PointerEventData(EventSystem.current)
-        {
-            position = Input.mousePosition
-        };
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerData, results);
-
-        if (results.Count == 0) return false;
-        if (results[0].gameObject.transform.IsChildOf(gameObject.transform))
-        {
-            return true;
-        }
-
-        return false;
+        return isPointerOver;
     }
 }

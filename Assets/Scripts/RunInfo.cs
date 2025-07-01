@@ -6,18 +6,29 @@ public class RunInfo : MonoBehaviour
 {
     public static RunInfo Instance;
     private int _currentEnergy;
+    private int _maxEnergy = 4;
     private int _redraws;
+    private int _money = 0;
+
     public int maxRedraws = 1;
+
     public int CurrentEnergy
     {
         get => _currentEnergy;
         set
         {
             _currentEnergy = value;
-            foreach (TextMeshProUGUI textMeshProUGUI in energyText)
-            {
-                textMeshProUGUI.text = _currentEnergy + "/" + maxEnergy;
-            }
+            UpdateEnergyText();
+        }
+    }
+
+    public int MaxEnergy
+    {
+        get => _maxEnergy;
+        set
+        {
+            _maxEnergy = value;
+            UpdateEnergyText();
         }
     }
 
@@ -33,8 +44,7 @@ public class RunInfo : MonoBehaviour
             }
         }
     }
-    
-    public int maxEnergy = 4;
+
     public int Money 
     { 
         get => _money;
@@ -47,21 +57,28 @@ public class RunInfo : MonoBehaviour
             }
         } 
     }
-    private int _money = 0; 
+
     public List<TextMeshProUGUI> energyText;
     public List<TextMeshProUGUI> moneyText;
     public List<TextMeshProUGUI> redrawText;
-    
+
     void Awake()
     {
         Instance = this;
         CurrentEnergy = 4;
         Money = 5;
-
     }
 
-    void Update()
+    private void UpdateEnergyText()
     {
-        // energyText.text = currentEnergy.ToString();
+        foreach (TextMeshProUGUI textMeshProUGUI in energyText)
+        {
+            textMeshProUGUI.text = _currentEnergy + "/" + _maxEnergy;
+        }
+    }
+
+    public void AddMoney(int amount)
+    {
+        Money += amount;
     }
 }

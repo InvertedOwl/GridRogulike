@@ -21,10 +21,10 @@ public class DeckView : MonoBehaviour
     public void ViewDeck()
     {
         Enter();
-        StartCoroutine(SpawnCardsOverTime());
+        SpawnCards();
     }
 
-    private IEnumerator SpawnCardsOverTime()
+    private void SpawnCards()
     {
 
         foreach (Card card in Deck.Instance.Cards)
@@ -35,11 +35,10 @@ public class DeckView : MonoBehaviour
             cardMono.hoverScale = 1.3f;
             cardMono.used = true;
             cardObject.transform.localScale = new Vector3(0.1239199f, 0.1239199f, 0.1239199f);
+            Destroy(cardObject.GetComponent<LerpPosition>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(cards.GetComponent<RectTransform>());
 
-            yield return null; // wait one frame between instantiations
         }
-
     }
 
 
@@ -50,13 +49,15 @@ public class DeckView : MonoBehaviour
     
     private void Enter()
     {
-        GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesOut();
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
+            GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesOut();
         GetComponent<LerpPosition>().targetLocation = new Vector3(0, 0, 0);
     }
 
     private void Exit()
     {
-        GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesIn();
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
+            GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesIn();
         GetComponent<LerpPosition>().targetLocation = new Vector3(0, 750, 0);
 
         foreach (Transform card in cards)

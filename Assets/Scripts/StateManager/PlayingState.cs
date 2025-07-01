@@ -89,6 +89,8 @@ namespace StateManager
                 entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, 750);
             }
         }
+        
+        
 
         public override void Exit()
         {
@@ -98,7 +100,7 @@ namespace StateManager
                 entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, -750);
             }
             gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, -750);
-            RunInfo.Instance.CurrentEnergy = RunInfo.Instance.maxEnergy;
+            RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
 
             foreach (Transform tile in HexGridManager.Instance.grid.transform)
             {
@@ -131,7 +133,7 @@ namespace StateManager
                 }
             
                 EntityEndTurn();
-                RunInfo.Instance.CurrentEnergy = RunInfo.Instance.maxEnergy;
+                RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
                 Deck.Instance.DiscardHand();
                 Deck.Instance.DrawHand();
                 RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;

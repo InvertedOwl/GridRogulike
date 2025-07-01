@@ -352,6 +352,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 4417866245236661259}
   waitTicks: 20
   activeHover: 1
+  hoverWhenNotPlaytate: 1
 --- !u!58 &6050994047722289620
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -448,7 +449,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3000
+  m_SortingOrder: 85
   m_TargetDisplay: 0
 --- !u!114 &6555693003299803801
 MonoBehaviour:
