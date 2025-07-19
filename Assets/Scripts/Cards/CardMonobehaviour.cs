@@ -200,7 +200,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             Destroy(type);
         }
-        int posY = 170;
+        int posY = -120;
         foreach (AbstractAction action in _card.Actions)
         {
             if (action is MoveAction)

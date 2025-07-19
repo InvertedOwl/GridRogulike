@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using StateManager;
 using Types.Actions;
@@ -13,24 +14,23 @@ namespace Entities.Enemies
             AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, 10));
         }
 
-        public override void MakeTurn()
+        public override IEnumerator MakeTurn()
         {
-            // Simple ai (Random moves)
-            // Need to figure some sort of alpha beta pruning thing for the ai
-            Debug.Log("Enemy Making turn");
-            Debug.Log(AvailableActions.Count);
+            yield return new WaitForSeconds(.25f);
             AvailableActions[random.Next(AvailableActions.Count)].Activate();
+            yield return new WaitForSeconds(.25f);
+            
+            
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
                 playing.EntityEndTurn();
             }
-
+            yield break;
         }
 
         public override List<AbstractAction> NextTurn()
         {
-            throw new System.NotImplementedException();
-            return null;
+            return AvailableActions;
         }
     }
 }

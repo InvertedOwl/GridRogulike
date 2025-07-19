@@ -16,6 +16,7 @@ public class TileHover : MonoBehaviour
     
     void FixedUpdate()
     {
+        
         if (!hoverWhenNotPlaytate && !GameStateManager.Instance.IsCurrent<PlayingState>())
         {
             if (lerpPosition)

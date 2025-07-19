@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Types.Actions;
 
@@ -23,7 +24,7 @@ namespace Entities
             }
         }
         
-        public abstract void MakeTurn();
+        public abstract IEnumerator MakeTurn();
         public abstract List<AbstractAction> NextTurn();
     }
 }

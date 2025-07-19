@@ -5,12 +5,11 @@ using UnityEngine;
 public class RunInfo : MonoBehaviour
 {
     public static RunInfo Instance;
-    private int _currentEnergy;
-    private int _maxEnergy = 4;
-    private int _redraws;
-    private int _money = 0;
-
+    
     public int maxRedraws = 1;
+    public List<TextMeshProUGUI> energyText;
+    public List<TextMeshProUGUI> moneyText;
+    public List<TextMeshProUGUI> redrawText;
 
     public int CurrentEnergy
     {
@@ -38,10 +37,7 @@ public class RunInfo : MonoBehaviour
         set
         {
             _redraws = value;
-            foreach (TextMeshProUGUI textMeshProUGUI in redrawText)
-            {
-                textMeshProUGUI.text = _redraws + "/" + maxRedraws;
-            }
+            UpdateRedrawText();
         }
     }
 
@@ -51,34 +47,75 @@ public class RunInfo : MonoBehaviour
         set
         {
             _money = value;
-            foreach (TextMeshProUGUI textMeshProUGUI in moneyText)
-            {
-                textMeshProUGUI.text = _money + "$";
-            }
+            UpdateMoneyText();
         } 
     }
 
-    public List<TextMeshProUGUI> energyText;
-    public List<TextMeshProUGUI> moneyText;
-    public List<TextMeshProUGUI> redrawText;
+    private int _currentEnergy;
+    private int _maxEnergy = DefaultMaxEnergy;
+    private int _redraws;
+    private int _money = 0;
 
+    private const int DefaultMaxEnergy = 4;
+    private const int InitialEnergy = 4;
+    private const int InitialMoney = 5;
+    
+    // Initialize singleton and default values
     void Awake()
     {
         Instance = this;
-        CurrentEnergy = 4;
-        Money = 5;
+        CurrentEnergy = InitialEnergy;
+        Money = InitialMoney;
     }
 
-    private void UpdateEnergyText()
-    {
-        foreach (TextMeshProUGUI textMeshProUGUI in energyText)
-        {
-            textMeshProUGUI.text = _currentEnergy + "/" + _maxEnergy;
-        }
-    }
-
+    // Increase money by specified amount
     public void AddMoney(int amount)
     {
         Money += amount;
+    }
+
+    // Update energy display text elements
+    private void UpdateEnergyText()
+    {
+        UpdateTextCollection(energyText, FormatEnergyText());
+    }
+
+    // Update money display text elements
+    private void UpdateMoneyText()
+    {
+        UpdateTextCollection(moneyText, FormatMoneyText());
+    }
+
+    // Update redraw display text elements
+    private void UpdateRedrawText()
+    {
+        UpdateTextCollection(redrawText, FormatRedrawText());
+    }
+
+    // Apply text to all elements in collection
+    private void UpdateTextCollection(List<TextMeshProUGUI> textCollection, string text)
+    {
+        foreach (TextMeshProUGUI textElement in textCollection)
+        {
+            textElement.text = text;
+        }
+    }
+
+    // Format current/max energy display
+    private string FormatEnergyText()
+    {
+        return _currentEnergy + "/" + _maxEnergy;
+    }
+
+    // Format money amount with currency symbol
+    private string FormatMoneyText()
+    {
+        return _money + "$";
+    }
+
+    // Format current/max redraws display
+    private string FormatRedrawText()
+    {
+        return _redraws + "/" + maxRedraws;
     }
 }

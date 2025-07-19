@@ -20,15 +20,20 @@ namespace Entities
             GetComponent<LerpPosition>().targetLocation = HexGridManager.GetHexCenter(positionRowCol.x, positionRowCol.y);
             
         }
-        
+
         public void Update()
         {
-            healthText.text = health + "/" + initialHealth;
-            healthBar.transform.localScale = new Vector3(health / initialHealth * 2, 
-                healthBar.transform.localScale.y, 
-                healthBar.transform.localScale.z);
-            
-            healthBar.transform.localPosition = new Vector3(-(initialHealth-health)/initialHealth, healthBar.transform.localPosition.y, healthBar.transform.localPosition.z);
+          RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
+
+          healthText.text = health + "/" + initialHealth;
+          float healthRatio = health / initialHealth;
+
+          
+          // Magic number. Change later
+          float fullWidth = 19.5f;
+
+          rectTransform.sizeDelta = new Vector2(healthRatio * fullWidth, rectTransform.sizeDelta.y);
+
         }
 
         public virtual void Damage(int damage)

@@ -43,7 +43,6 @@ public class Deck : MonoBehaviour
     {
         foreach (Card startingCard in CardData.GetStarter(StartingDecks.basic))
         {
-            Debug.Log(startingCard);
             _draw.Add(CreateCard(startingCard));
         }
     }
@@ -78,7 +77,6 @@ public class Deck : MonoBehaviour
             if (GameStateManager.Instance.IsCurrent<PlayingState>())
             {
                 PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-                Debug.Log(playingState.CheckForFinish());
                 if (playingState.CheckForFinish() == "player")
                 {
                     playingState.PlayerWon();
@@ -96,7 +94,6 @@ public class Deck : MonoBehaviour
         _hand.Clear();
         _discard.Clear();
         RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
-        Debug.Log(RunInfo.Instance.maxRedraws + " Max redraws");
     }
 
     public void DiscardButton()
@@ -130,7 +127,6 @@ public class Deck : MonoBehaviour
     
     public void FullDrawHand(int numToDraw)
     {
-        Debug.Log(_discard.Count + " discard count");
         if (_draw.Count < numToDraw)
         {
             foreach (CardMonobehaviour card in _discard)

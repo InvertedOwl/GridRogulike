@@ -36,6 +36,7 @@ namespace StateManager
         private void SetupEntities()
         {
             _entities.Add(player);
+            player.positionRowCol = new Vector2Int(0, 0);
             _entities.AddRange(FindObjectsByType<TestEnemy>(FindObjectsSortMode.InstanceID));
 
             foreach (var e in _entities)
@@ -115,11 +116,10 @@ namespace StateManager
         
             _currentTurnIndex += 1;
             _currentTurnIndex %= _entities.Count;
-        
-            // DEBUG
-            if (CurrentTurn is Enemy)
+            
+            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing && CurrentTurn is Enemy)
             {
-                ((Enemy) CurrentTurn).MakeTurn();
+                StartCoroutine(((Enemy)CurrentTurn).MakeTurn());
             }
         }
         public void PlayerEndTurn()
