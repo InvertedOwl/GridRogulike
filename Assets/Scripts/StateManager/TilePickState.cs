@@ -68,7 +68,7 @@ namespace StateManager
                     _grid.UpdateBoard();
                     Destroy(_newTile);
                     _newTile = null;
-                    GameStateManager.Instance.Change<ShopState>();
+                    GameStateManager.Instance.Change<MapState>();
                 }
             }
 

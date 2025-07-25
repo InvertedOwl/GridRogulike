@@ -32,7 +32,7 @@ namespace Entities
           // Magic number. Change later
           float fullWidth = 19.5f;
 
-          rectTransform.sizeDelta = new Vector2(healthRatio * fullWidth, rectTransform.sizeDelta.y);
+          // rectTransform.sizeDelta = new Vector2(healthRatio * fullWidth, rectTransform.sizeDelta.y);
 
         }
 

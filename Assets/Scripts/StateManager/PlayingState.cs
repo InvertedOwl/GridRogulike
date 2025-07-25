@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Entities;
 using Entities.Enemies;
 using Grid;
+using TMPro;
+using Types.Actions;
 using Types.Tiles;
 using UnityEngine;
 using Util;
@@ -20,11 +22,12 @@ namespace StateManager
         public override void Enter()
         {
             InitializeDeckAndGrid();
-            SetupEntities();
             SetupInitialTiles();
+            SetupEntities();
             SetupUI();
             SetupPlayerHand();
             EnableTileHovers();
+            UpdateNextTurnIndicators();
         }
 
         private void InitializeDeckAndGrid()
@@ -89,6 +92,7 @@ namespace StateManager
             {
                 entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, 750);
             }
+            
         }
         
         
@@ -121,22 +125,59 @@ namespace StateManager
             {
                 StartCoroutine(((Enemy)CurrentTurn).MakeTurn());
             }
+
         }
         public void PlayerEndTurn()
         {
-            if (CurrentTurn is Player)
+            if (!(CurrentTurn is Player))
+                return;
+                
+            if (CheckForFinish() == "player")
             {
-                if (CheckForFinish() == "player")
-                {
-                    PlayerWon();
-                    return;
-                }
+                PlayerWon();
+                return;
+            }
+        
+            EntityEndTurn();
+            RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
+            Deck.Instance.DiscardHand();
+            Deck.Instance.DrawHand();
+            RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
+
+        }
+
+        private void UpdateNextTurnIndicators()
+        {
+
+            foreach (Vector2Int pos in HexGridManager.Instance.GetAllGridPositions())
+            {
+                GOList list = HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<GOList>();
+                list.GetValue("Particles").SetActive(false);
+                list.GetValue("Damage").SetActive(false);
+            }
             
-                EntityEndTurn();
-                RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
-                Deck.Instance.DiscardHand();
-                Deck.Instance.DrawHand();
-                RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
+            foreach (AbstractEntity entity in _entities)
+            {
+                if (entity is Enemy)
+                {
+                    List<AbstractAction> actions = ((Enemy)entity).NextTurn();
+                    
+                    Debug.Log("UpdateNextTurnIndicators: " + actions.Count);
+
+                    foreach (AbstractAction action in actions)
+                    {
+                        if (action is AttackAction)
+                        {
+                            Vector2Int posOfAttack = HexGridManager.MoveHex(entity.positionRowCol, ((AttackAction)action).Direction, ((AttackAction)action).Distance);
+                            Debug.Log("Attack at: " + posOfAttack);
+                            GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack).GetComponent<GOList>();
+                            list.GetValue("Particles").SetActive(true);
+                            list.GetValue("Damage").SetActive(true);
+                            list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text =
+                                ((AttackAction)action).Amount + "";
+                        }
+                    }
+                }
             }
         }
 

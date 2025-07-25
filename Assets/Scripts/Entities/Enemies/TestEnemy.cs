@@ -9,7 +9,7 @@ namespace Entities.Enemies
 {
     public class TestEnemy: Enemy
     {
-        public void Start()
+        public void Awake()
         {
             AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, 10));
         }

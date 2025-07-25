@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Types.Tiles;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class HexGridManager : MonoBehaviour
 
     public GameObject hexPrefab;
     private Dictionary<Vector2Int, string> _boardDictionary = new Dictionary<Vector2Int, string>();
+    private Dictionary<Vector2Int, GameObject> _hexObjects = new Dictionary<Vector2Int, GameObject>();
     public Transform grid;
     public static HexGridManager Instance;
 
@@ -57,6 +59,7 @@ public class HexGridManager : MonoBehaviour
         {
             GameObject newSquare = GetHexPrefab(HexType(rowcol), grid);
             newSquare.transform.localPosition = GetHexCenter((int)rowcol.x, (int)rowcol.y);
+            _hexObjects.Add(rowcol, newSquare);
         }
     }
     
@@ -69,19 +72,33 @@ public class HexGridManager : MonoBehaviour
         return newTile;
     }
 
+    public List<Vector2Int> GetAllGridPositions()
+    {
+        return _boardDictionary.Keys.ToArray().ToList();
+    }
+
+    public GameObject GetWorldHexObject(Vector2Int position)
+    {
+        return _hexObjects[position];
+    }
+
     public void UpdateHexObject(TileEntry entry, GameObject tile)
     {
         Color color = entry.color;
         
-        Color darker = new Color(color.r*0.7f, color.g*0.7f, color.b*0.7f);
-        tile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = darker;
-        tile.transform.GetChild(1).GetComponent<SpriteRenderer>().color = darker;
-        tile.transform.GetChild(2).GetComponent<SpriteRenderer>().color = darker;
-        tile.transform.GetChild(3).GetComponent<SpriteRenderer>().color = color;
-        tile.transform.GetChild(4).GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().color = darker;
-        tile.transform.GetChild(4).GetChild(0).GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = entry.name;
-        tile.transform.GetChild(4).GetChild(0).GetChild(0).GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>()
-            .text = entry.description;
+        Color darker = new Color(color.r * .6f, color.g * .6f, color.b * .6f);
+        
+        GOList goList = tile.GetComponentInChildren<GOList>();
+        
+        goList.GetValue("Display1").GetComponent<SpriteRenderer>().color = darker;
+        goList.GetValue("Display2").GetComponent<SpriteRenderer>().color = darker;
+        goList.GetValue("Display3").GetComponent<SpriteRenderer>().color = darker;
+        goList.GetValue("Display4").GetComponent<SpriteRenderer>().color = color;
+
+        goList.GetValue("Title").GetComponent<TextMeshProUGUI>().text = entry.name;
+        goList.GetValue("Description").GetComponent<TextMeshProUGUI>().text = entry.description;
+        goList.GetValue("HoverBG1").GetComponent<Image>().color = color;
+        goList.GetValue("HoverBG2").GetComponent<Image>().color = new Color(color.r * .44f, color.g * .44f, color.b * .44f);
     }
 
     public static Vector2 GetHexCenter(int col, int row)
