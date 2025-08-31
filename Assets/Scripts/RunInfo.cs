@@ -10,6 +10,7 @@ public class RunInfo : MonoBehaviour
     public List<TextMeshProUGUI> energyText;
     public List<TextMeshProUGUI> moneyText;
     public List<TextMeshProUGUI> redrawText;
+    public List<TextMeshProUGUI> difficultyText;
 
     public int CurrentEnergy
     {
@@ -51,14 +52,26 @@ public class RunInfo : MonoBehaviour
         } 
     }
 
+    public int Difficulty
+    {
+        get => _difficulty;
+        set
+        {
+            _difficulty = value;
+            UpdateDifficultyText();
+        }
+    }
+
     private int _currentEnergy;
     private int _maxEnergy = DefaultMaxEnergy;
     private int _redraws;
     private int _money = 0;
-
+    private int _difficulty = DefaultDifficulty; 
+    
     private const int DefaultMaxEnergy = 4;
     private const int InitialEnergy = 4;
     private const int InitialMoney = 5;
+    private const int DefaultDifficulty = 0;
     
     // Initialize singleton and default values
     void Awake()
@@ -91,6 +104,12 @@ public class RunInfo : MonoBehaviour
     {
         UpdateTextCollection(redrawText, FormatRedrawText());
     }
+    
+    // Update difficulty display text elements
+    private void UpdateDifficultyText()
+    {
+        UpdateTextCollection(difficultyText, FormatDifficultyText());
+    }
 
     // Apply text to all elements in collection
     private void UpdateTextCollection(List<TextMeshProUGUI> textCollection, string text)
@@ -118,4 +137,10 @@ public class RunInfo : MonoBehaviour
     {
         return _redraws + "/" + maxRedraws;
     }
+    
+    private string FormatDifficultyText()
+    {
+        return "Difficulty: " + _difficulty;
+    }
+
 }

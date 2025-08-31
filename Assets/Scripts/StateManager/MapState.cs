@@ -10,6 +10,7 @@ namespace StateManager
         public override void Enter()
         {
             window.targetLocation = new Vector2(0, 0);
+            
         }
 
         public override void Exit()

@@ -5808,6 +5808,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damage Text
       objectReference: {fileID: 0}
+    - target: {fileID: 7166886786241509499, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9048227490335150932, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

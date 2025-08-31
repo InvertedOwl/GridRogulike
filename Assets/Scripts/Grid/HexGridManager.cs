@@ -50,11 +50,14 @@ public class HexGridManager : MonoBehaviour
 
     public void UpdateBoard()
     {
+        
         foreach (Transform child in grid)
         {
             DestroyImmediate(child.gameObject);
         }
 
+        _hexObjects.Clear();
+        
         foreach (Vector2Int rowcol in _boardDictionary.Keys)
         {
             GameObject newSquare = GetHexPrefab(HexType(rowcol), grid);

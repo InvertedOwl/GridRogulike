@@ -28,6 +28,7 @@ namespace StateManager
             SetupPlayerHand();
             EnableTileHovers();
             UpdateNextTurnIndicators();
+            RunInfo.Instance.Difficulty += 1;
         }
 
         private void InitializeDeckAndGrid()
