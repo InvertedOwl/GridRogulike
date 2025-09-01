@@ -73,7 +73,8 @@ namespace StateManager
 
         public void Done()
         {
-            GameStateManager.Instance.Change<PlayingState>();
+            Debug.Log("Done with shop");
+            GameStateManager.Instance.Change<MapState>();
         }
 
         private void PickCards()
