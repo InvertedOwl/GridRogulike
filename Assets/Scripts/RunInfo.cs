@@ -11,6 +11,7 @@ public class RunInfo : MonoBehaviour
     public List<TextMeshProUGUI> moneyText;
     public List<TextMeshProUGUI> redrawText;
     public List<TextMeshProUGUI> difficultyText;
+    public string seed = "testing";
 
     public int CurrentEnergy
     {
