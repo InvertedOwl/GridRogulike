@@ -13,24 +13,24 @@ namespace StateManager
 {
     public class ShopState : GameState
     {
-        private readonly Dictionary<CardRarity, double> rarityWeights = new()
+        private readonly Dictionary<Rarity, double> rarityWeights = new()
         {
-            { CardRarity.Common,    50 },
-            { CardRarity.Uncommon,  25 },
-            { CardRarity.Rare,      15 },
-            { CardRarity.Epic,       7 },
-            { CardRarity.Legendary,  2.5 },
-            { CardRarity.Mythic,     0.5 }
+            { Rarity.Common,    50 },
+            { Rarity.Uncommon,  25 },
+            { Rarity.Rare,      15 },
+            { Rarity.Epic,       7 },
+            { Rarity.Legendary,  2.5 },
+            { Rarity.Mythic,     0.5 }
         };
 
-        private readonly Dictionary<CardRarity, int[]> costRanges = new()
+        private readonly Dictionary<Rarity, int[]> costRanges = new()
         {
-            { CardRarity.Common,     new[] {1, 4} },
-            { CardRarity.Uncommon,   new[] {3, 6} },
-            { CardRarity.Rare,       new[] {6, 10} },
-            { CardRarity.Epic,       new[] {10, 15} },
-            { CardRarity.Legendary,  new[] {12, 16} },
-            { CardRarity.Mythic,     new[] {15, 20} }
+            { Rarity.Common,     new[] {1, 4} },
+            { Rarity.Uncommon,   new[] {3, 6} },
+            { Rarity.Rare,       new[] {6, 10} },
+            { Rarity.Epic,       new[] {10, 15} },
+            { Rarity.Legendary,  new[] {12, 16} },
+            { Rarity.Mythic,     new[] {15, 20} }
         };
 
         public List<CardMonobehaviour> cardOptions;
@@ -161,7 +161,7 @@ namespace StateManager
             double totalWeight = eligibleWeights.Values.Sum();
             double roll = _random.NextDouble() * totalWeight;
 
-            CardRarity selectedRarity = CardRarity.Common;
+            Rarity selectedRarity = Rarity.Common;
             double cumulative = 0;
 
             foreach (var entry in eligibleWeights)

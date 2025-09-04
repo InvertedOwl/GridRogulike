@@ -27,6 +27,10 @@ namespace Types.Actions
         {
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
+                Debug.Log(playing);
+                Debug.Log(_direction);
+                Debug.Log(_distance);
+                Debug.Log(_amount);
                 playing.DamageEntities(HexGridManager.MoveHex(this.entity.positionRowCol, this._direction, _distance), _amount);
             }
         }

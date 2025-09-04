@@ -11,9 +11,10 @@ namespace Types.Tiles
         public string description;
         public Color color;
         public bool canAppearInShop;
-        public CardRarity rarity;
+        public Rarity rarity;
+        public TileType tileType;
 
-        public TileEntry(Action landEvent, string name, string description, Color color, bool canAppearInShop, CardRarity rarity)
+        public TileEntry(Action landEvent, string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType)
         {
             this.landEvent = landEvent;
             this.name = name;
@@ -21,6 +22,7 @@ namespace Types.Tiles
             this.color = color;
             this.canAppearInShop = canAppearInShop;
             this.rarity = rarity;
+            this.tileType = tileType;
         }
 
     }

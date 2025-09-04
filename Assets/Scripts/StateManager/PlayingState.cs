@@ -17,6 +17,9 @@ namespace StateManager
         private int _currentTurnIndex;
         public Player player;
         public GameObject gameUI;
+        public static int EnemiesToSpawn = 1;
+
+        public GOList GoList;
 
         public AbstractEntity CurrentTurn => _entities[_currentTurnIndex];
         public override void Enter()
@@ -42,7 +45,30 @@ namespace StateManager
             _entities.Add(player);
             player.positionRowCol = new Vector2Int(0, 0);
             _entities.AddRange(FindObjectsByType<TestEnemy>(FindObjectsSortMode.InstanceID));
+            
+            Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
+            
+            // Create a list of available points
+            
+            List<Vector2Int> unoccupiedPoints = new List<Vector2Int>();
 
+            foreach (Vector2Int point in HexGridManager.Instance.BoardDictionary.Keys)
+            {
+                bool hasEntityOn = false;
+                foreach (AbstractEntity entity in _entities)
+                {
+                    if (entity.positionRowCol.Equals(point))
+                    {
+                        hasEntityOn = true;
+                    }
+                }
+
+                if (!hasEntityOn)
+                {
+                    unoccupiedPoints.Add(point);
+                }
+            }
+            
             foreach (var e in _entities)
             {
                 e.GetComponent<LerpPosition>().targetLocation = HexGridManager.GetHexCenter(e.positionRowCol.x, e.positionRowCol.y);
@@ -51,6 +77,32 @@ namespace StateManager
                 // DEBUG
                 e.health = e.initialHealth;
             }
+
+            foreach (Vector2Int unoccupiedPoint in unoccupiedPoints)
+            {
+                Debug.Log("Unoccupied point: " + unoccupiedPoint);
+                _entities.Add(SpawnEnemyAt("test_enemy", unoccupiedPoint));
+            }
+
+            // Punishment for not creating space for enemies. This requires a BAD tile being place
+            if (unoccupiedPoints.Count == 0)
+            {
+                Debug.Log("No unoccupied points");
+            }
+            
+
+        }
+
+        private Enemy SpawnEnemyAt(string enemyName, Vector2Int position)
+        {
+            GameObject enemyObject = Instantiate(GoList.GetValue(enemyName), GoList.GetValue("board_container").transform);
+            
+            enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
+            Enemy enemy = enemyObject.GetComponent<Enemy>();
+
+            enemy.positionRowCol = position;
+            
+            return enemy;
         }
 
         private void SetupInitialTiles()
@@ -201,12 +253,15 @@ namespace StateManager
                     enemyWin = false;
                 }
 
+                Debug.Log("CheckForFinish: " + entity.health);
                 if (entity is Enemy && entity.health > 0)
                 {
                     playerWin = false;
                 }
             }
 
+            Debug.Log("CheckForFinish: " + playerWin);
+            
             if (enemyWin) return "enemy";
             if (playerWin) return "player";
             return "none";

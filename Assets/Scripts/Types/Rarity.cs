@@ -1,6 +1,6 @@
 namespace Cards
 {
-    public enum CardRarity
+    public enum Rarity
     {
         Common,
         Uncommon,

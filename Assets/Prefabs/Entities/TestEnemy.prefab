@@ -371,10 +371,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3822521651334489867}
   - component: {fileID: 6412968656155899120}
-  - component: {fileID: 8026772341221760402}
   - component: {fileID: 617737953611456746}
   - component: {fileID: 7447142057842064982}
   - component: {fileID: 5059904129551919281}
+  - component: {fileID: 2721944279350042213}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -461,23 +461,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8026772341221760402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3518368252074035926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909a8f6b453b4364963ccc0c7dbbb10f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 0
-  health: 0
-  positionRowCol: {x: 0, y: 0}
-  healthText: {fileID: 8659684700817681780}
-  healthBar: {fileID: 4887856937995262801}
 --- !u!114 &617737953611456746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +537,23 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2721944279350042213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518368252074035926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4dbf38b21049aaa10b9cfd1099e180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.TestEnemy
+  initialHealth: 10
+  health: 10
+  positionRowCol: {x: 0, y: 0}
+  healthText: {fileID: 8659684700817681780}
+  healthBar: {fileID: 4887856937995262801}
 --- !u!1 &3810384113652437414
 GameObject:
   m_ObjectHideFlags: 0

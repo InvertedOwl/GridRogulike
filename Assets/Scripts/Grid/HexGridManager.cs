@@ -85,6 +85,11 @@ public class HexGridManager : MonoBehaviour
         return _hexObjects[position];
     }
 
+    public Dictionary<Vector2Int, string> BoardDictionary
+    {
+        get => _boardDictionary;
+    }
+
     public void UpdateHexObject(TileEntry entry, GameObject tile)
     {
         Color color = entry.color;

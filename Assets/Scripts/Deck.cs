@@ -15,6 +15,8 @@ using Random = System.Random;
 public class Deck : MonoBehaviour
 {
     public List<Card> Cards = new List<Card>();
+    
+    
     private List<CardMonobehaviour> _draw = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _discard = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _hand = new List<CardMonobehaviour>();
