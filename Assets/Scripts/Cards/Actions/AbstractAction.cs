@@ -1,8 +1,9 @@
 using System;
 using Entities;
 using StateManager;
+using Types.CardEvents;
 
-namespace Types.Actions
+namespace Cards.Actions
 {
     public abstract class AbstractAction
     {
@@ -41,7 +42,7 @@ namespace Types.Actions
             this.entity = entity;
         }
         
-        public abstract void Activate();
+        public abstract AbstractCardEvent Activate();
         public abstract void Hover();
         
         public string FixDirection(string direction)

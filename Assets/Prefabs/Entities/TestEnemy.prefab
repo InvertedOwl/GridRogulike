@@ -549,8 +549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4dbf38b21049aaa10b9cfd1099e180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.TestEnemy
-  initialHealth: 10
-  health: 10
+  initialHealth: 20
+  health: 20
   positionRowCol: {x: 0, y: 0}
   healthText: {fileID: 8659684700817681780}
   healthBar: {fileID: 4887856937995262801}

@@ -5538,7 +5538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4838543398333437946
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5807,6 +5807,26 @@ PrefabInstance:
     - target: {fileID: 689449408234064679, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
       propertyPath: m_Name
       value: Damage Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323555718956646727, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2235268861009179917, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -37.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2235268861009179917, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -68.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5906030489597370581, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 206
+      objectReference: {fileID: 0}
+    - target: {fileID: 5906030489597370581, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -144.7
       objectReference: {fileID: 0}
     - target: {fileID: 7166886786241509499, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
       propertyPath: m_IsActive

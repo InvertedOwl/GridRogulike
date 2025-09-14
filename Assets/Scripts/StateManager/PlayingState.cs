@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
+using Cards.Actions;
 using Entities;
 using Entities.Enemies;
 using Grid;
 using TMPro;
-using Types.Actions;
 using Types.Tiles;
 using UnityEngine;
 using Util;
@@ -18,12 +19,14 @@ namespace StateManager
         public Player player;
         public GameObject gameUI;
         public static int EnemiesToSpawn = 1;
+        protected System.Random random = new System.Random();
 
         public GOList GoList;
 
         public AbstractEntity CurrentTurn => _entities[_currentTurnIndex];
         public override void Enter()
         {
+            MoveEntitiesIn();
             InitializeDeckAndGrid();
             SetupInitialTiles();
             SetupEntities();
@@ -43,30 +46,37 @@ namespace StateManager
         private void SetupEntities()
         {
             _entities.Add(player);
-            player.positionRowCol = new Vector2Int(0, 0);
+            
+            
             _entities.AddRange(FindObjectsByType<TestEnemy>(FindObjectsSortMode.InstanceID));
             
             Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
             
             // Create a list of available points
             
-            List<Vector2Int> unoccupiedPoints = new List<Vector2Int>();
 
-            foreach (Vector2Int point in HexGridManager.Instance.BoardDictionary.Keys)
+            int enemiesSpawned = 0;
+            
+            var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
+                .Where(p => !_entities.Any(e => e.positionRowCol == p))
+                .OrderBy(_ => random.Next())
+                .Take(EnemiesToSpawn)
+                .ToList();
+
+
+            foreach (var pos in spawnSpots)
             {
-                bool hasEntityOn = false;
-                foreach (AbstractEntity entity in _entities)
-                {
-                    if (entity.positionRowCol.Equals(point))
-                    {
-                        hasEntityOn = true;
-                    }
-                }
+                _entities.Add(SpawnEnemyAt("test_enemy", pos));
+            }
 
-                if (!hasEntityOn)
-                {
-                    unoccupiedPoints.Add(point);
-                }
+            if (TryGetRandomEmptyHex(out var playerStart))
+            {
+                player.positionRowCol = playerStart;
+            }
+            else
+            {
+                player.positionRowCol = new Vector2Int(0, 0);
+                Debug.LogWarning("No empty hexes found for player; defaulting to (0,0).");
             }
             
             foreach (var e in _entities)
@@ -77,21 +87,24 @@ namespace StateManager
                 // DEBUG
                 e.health = e.initialHealth;
             }
-
-            foreach (Vector2Int unoccupiedPoint in unoccupiedPoints)
-            {
-                Debug.Log("Unoccupied point: " + unoccupiedPoint);
-                _entities.Add(SpawnEnemyAt("test_enemy", unoccupiedPoint));
-            }
-
-            // Punishment for not creating space for enemies. This requires a BAD tile being place
-            if (unoccupiedPoints.Count == 0)
-            {
-                Debug.Log("No unoccupied points");
-            }
-            
-
         }
+        
+        private bool TryGetRandomEmptyHex(out Vector2Int pos)
+        {
+            var allHexes = HexGridManager.Instance.BoardDictionary.Keys;
+
+            var empties = allHexes.Where(p => !_entities.Any(e => e.positionRowCol == p)).OrderBy(_ => random.Next()).ToList();
+
+            if (empties.Count == 0)
+            {
+                pos = default;
+                return false;
+            }
+
+            pos = empties[0];
+            return true;
+        }
+
 
         private Enemy SpawnEnemyAt(string enemyName, Vector2Int position)
         {
@@ -152,11 +165,25 @@ namespace StateManager
 
         public override void Exit()
         {
+            Debug.Log("Exiting Play State");
             Deck.Instance.DiscardHand();
+            List<Enemy> toRemove = new List<Enemy>();
+            
             foreach (AbstractEntity entity in _entities)
             {
-                entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, -750);
+                if (entity is Enemy)
+                {
+                    Debug.Log("Entity is an enemy!! WOOOOO");
+                    toRemove.Add((Enemy) entity);
+                }
             }
+
+            foreach (Enemy enemy in toRemove)
+            {
+                _entities.Remove(enemy);
+                Destroy(enemy.gameObject);
+            }
+            
             gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, -750);
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
 
@@ -164,6 +191,7 @@ namespace StateManager
             {
                 tile.GetComponent<TileHover>().activeHover = false; 
             }
+            MoveEntitiesOut();
         }
         
         #region Turn System ---------------

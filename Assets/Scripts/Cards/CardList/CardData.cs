@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Types.Actions;
+using Cards.Actions;
 
 namespace Cards.CardList
 {

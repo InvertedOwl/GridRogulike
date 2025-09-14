@@ -1,9 +1,9 @@
 using Entities;
 using Grid;
 using StateManager;
-using UnityEngine;
+using Types.CardEvents;
 
-namespace Types.Actions
+namespace Cards.Actions
 {
     public class AttackAction: AbstractAction
     {
@@ -23,16 +23,9 @@ namespace Types.Actions
 
         }
 
-        public override void Activate()
+        public override AbstractCardEvent Activate()
         {
-            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            {
-                Debug.Log(playing);
-                Debug.Log(_direction);
-                Debug.Log(_distance);
-                Debug.Log(_amount);
-                playing.DamageEntities(HexGridManager.MoveHex(this.entity.positionRowCol, this._direction, _distance), _amount);
-            }
+            return new AttackCardEvent(_distance, _direction, _amount);
         }
 
         public override void Hover()

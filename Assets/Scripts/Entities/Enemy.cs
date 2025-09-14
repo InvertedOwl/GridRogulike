@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Types.Actions;
+using Cards.Actions;
 
 namespace Entities
 {
@@ -18,10 +18,6 @@ namespace Entities
         public override void Damage(int damage)
         {
             base.Damage(damage);
-            if (damage == 0)
-            {
-                Die();
-            }
         }
         
         public abstract IEnumerator MakeTurn();

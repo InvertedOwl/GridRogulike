@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Cards;
+using Cards.Actions;
 using Entities;
 using Grid;
 using StateManager;
 using TMPro;
-using Types.Actions;
+using Types.CardEvents;
 using Types.Tiles;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,6 +46,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public GameObject tilePrefab;
     public GameObject arrowPrefab;
     
+    public GameObject Condition;
+    public GameObject Modifier;
+    
     public float hoverScale = 1.05f;
     public float hoverOffset = 60;
     
@@ -63,12 +67,20 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         UpdateTypes();
         UpdateDiagram();
+        UpdateBuff();
         MainPanel.GetComponent<Image>().color = CardRarityColors.GetColor(card.Rarity);
 
         this.CardClickedCallback = callback;
         
     }
 
+    private void UpdateBuff()
+    {
+        this.Modifier.GetComponent<TextMeshProUGUI>().text = _card.Modifier.ModifierText;
+        this.Condition.GetComponent<TextMeshProUGUI>().text = _card.Condition.ConditionText;
+        
+    }
+    
     private void UpdateDiagram()
     {
         foreach (Transform child in diagram.transform)
@@ -200,7 +212,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             Destroy(type);
         }
-        int posY = -120;
+        int posY = -170;
         foreach (AbstractAction action in _card.Actions)
         {
             if (action is MoveAction)
@@ -208,8 +220,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 GameObject text = Instantiate(movePrefab, MainPanel.transform);
                 types.Add(text);
                 text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
-                text.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ((MoveAction)action).Distance.ToString();
-                RotateArrow(((MoveAction)action).Direction, text.transform.GetChild(1));
+                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ((MoveAction)action).Distance.ToString();
+                RotateArrow(((MoveAction)action).Direction, text.transform.GetChild(2));
             }
             
             if (action is AttackAction)
@@ -217,17 +229,17 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 GameObject text = Instantiate(attackPrefab, MainPanel.transform);
                 types.Add(text);
                 text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
-                text.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount.ToString();
-                RotateArrow(((AttackAction)action).Direction, text.transform.GetChild(2));
+                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount.ToString();
+                RotateArrow(((AttackAction)action).Direction, text.transform.GetChild(3));
             }
             
-            posY -= 100;
+            posY -= 120;
         }
     }
 
     public void RotateArrow(string direction, Transform arrow)
     {
-        
+        Debug.Log("Direction: " + direction + ", " + arrow);
         switch (direction)
         {
             case "n": arrow.eulerAngles = new Vector3(0, 0, 0); break;
@@ -291,9 +303,26 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         
         if (isLeftClick && !used && hasEnoughEnergy && isPlayerTurn)
         {
+            Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
+            
+            List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
+            
+            // Build queue
             foreach (AbstractAction action in _card.Actions)
             {
-                action.Activate();
+                eventQueue.Add(action.Activate());
+            }
+            
+            // Modfy queue
+            foreach (AbstractCardEvent cardEvent in eventQueue)
+            {
+                _card.Modifier.Modify(cardEvent);
+            }
+
+            // Activate queue
+            foreach (AbstractCardEvent cardEvent in eventQueue)
+            {
+                cardEvent.Activate(player);
             }
 
             RunInfo.Instance.CurrentEnergy -= _card.Cost;

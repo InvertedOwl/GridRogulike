@@ -1,9 +1,10 @@
 using Entities;
 using Grid;
 using StateManager;
+using Types.CardEvents;
 using UnityEngine;
 
-namespace Types.Actions
+namespace Cards.Actions
 {
     public class MoveAction: AbstractAction
     {
@@ -17,12 +18,9 @@ namespace Types.Actions
             this._distance = distance;
         }
 
-        public override void Activate()
+        public override AbstractCardEvent Activate()
         {
-            if (!entity) return;
-
-            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-                playing.MoveEntity(this.entity, this._direction, _distance);
+            return new MoveCardEvent(_distance, _direction);
         }
 
         public override void Hover()

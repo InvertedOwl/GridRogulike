@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cards.Actions;
 using StateManager;
-using Types.Actions;
 using UnityEngine;
 
 namespace Entities.Enemies
