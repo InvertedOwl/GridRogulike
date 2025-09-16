@@ -12,6 +12,7 @@ public class RunInfo : MonoBehaviour
     public List<TextMeshProUGUI> redrawText;
     public List<TextMeshProUGUI> difficultyText;
     public string seed = "testing";
+    public readonly int combineCost = 2;
 
     public int CurrentEnergy
     {
@@ -70,8 +71,8 @@ public class RunInfo : MonoBehaviour
     private int _difficulty = DefaultDifficulty; 
     
     private const int DefaultMaxEnergy = 4;
-    private const int InitialEnergy = 4;
-    private const int InitialMoney = 5;
+    private const int InitialEnergy = 10000;
+    private const int InitialMoney = 1000;
     private const int DefaultDifficulty = 0;
     
     // Initialize singleton and default values

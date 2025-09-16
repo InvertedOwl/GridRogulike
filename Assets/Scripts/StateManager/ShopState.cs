@@ -44,6 +44,9 @@ namespace StateManager
         private Random _random;
         public TextMeshProUGUI buyEnergyText;
 
+        public GameObject CardCombine;
+        private bool isCardCombine; 
+
         public override void Enter()
         {
             _random = new Random();
@@ -127,11 +130,25 @@ namespace StateManager
 
         public void BuyCombineCards()
         {
+            if (RunInfo.Instance.Money < RunInfo.Instance.combineCost)
+                return;
+            RunInfo.Instance.Money -= RunInfo.Instance.combineCost;
             
+            CardCombine.GetComponent<LerpPosition>().targetLocation = new Vector3(0, 0);
+            isCardCombine = true;
         }
+
+        public void CancelCombineCards()
+        {
+            RunInfo.Instance.Money += RunInfo.Instance.combineCost;
+            CardCombine.GetComponent<LerpPosition>().targetLocation = new Vector3(0, 750);
+            isCardCombine = false;
+        }
+        
 
         public void BuyEnergy()
         {
+            Debug.Log("Buying energy");
             if (RunInfo.Instance.Money < EnergyCost(RunInfo.Instance.MaxEnergy))
                 return;
             
