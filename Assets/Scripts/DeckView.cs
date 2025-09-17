@@ -27,6 +27,12 @@ public class DeckView : MonoBehaviour
         Instance = this;
     }
 
+    public void ViewDeckButton()
+    {
+        Enter();
+        SpawnCards();
+    }
+
     public void ViewDeck(Card[] cardBlacklist = null)
     {
         Enter();
@@ -44,8 +50,11 @@ public class DeckView : MonoBehaviour
             var cardMono = cardObject.GetComponent<CardMonobehaviour>();
             bool isInactive = cardBlacklist != null && cardBlacklist.Contains(card);
             cardMono.SetCard(card, active:!isInactive);
-            cardMono.hoverScale = 1.3f;
+            cardMono.hoverScale = 1.4f;
             cardMono.used = true;
+            cardMono.GetComponent<Canvas>().overrideSorting = true;
+            cardMono.GetComponent<Canvas>().sortingOrder = 202;
+            cardMono.sortingLayer = 202;
             cardMono.CardClickedCallback = () =>
             {
                 Callback.Invoke(card);

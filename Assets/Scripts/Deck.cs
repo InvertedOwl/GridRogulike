@@ -75,8 +75,8 @@ public class Deck : MonoBehaviour
     {
         GameObject cardObject = Instantiate(actionPrefab, transform);
         cardObject.transform.position = drawTransform.position;
-        cardObject.GetComponent<CardMonobehaviour>().SetCard(card);
-        cardObject.GetComponent<CardMonobehaviour>().CardClickedCallback = () =>
+        cardObject.GetComponentInChildren<CardMonobehaviour>().SetCard(card);
+        cardObject.GetComponentInChildren<CardMonobehaviour>().CardClickedCallback = () =>
         {
             if (GameStateManager.Instance.IsCurrent<PlayingState>())
             {

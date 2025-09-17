@@ -45,6 +45,7 @@ public class CardCombine : MonoBehaviour
         {
             if (card.isReal)
             {
+
                 toCombine[0] = card;
                 card2.SetCard(card);
                 UpdateResult();
@@ -77,6 +78,7 @@ public class CardCombine : MonoBehaviour
 
     private void UpdateResult()
     {
+        
         if (!toCombine[0].isReal || !toCombine[1].isReal)
         {
             confirmButton.interactable = false;

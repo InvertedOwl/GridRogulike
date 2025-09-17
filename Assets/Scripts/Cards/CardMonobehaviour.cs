@@ -58,6 +58,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public bool inactive;
 
     public Action CardClickedCallback;
+    public int sortingLayer = 170;
     public int siblingIndex;
 
     public void SetCard(Card card, Action callback = null, bool active = true)
@@ -271,9 +272,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private void HandleHoverEffects()
     {
         siblingIndex = transform.GetSiblingIndex();
-        LerpPosition lerpPosition = transform.GetChild(0).GetComponent<LerpPosition>();
+        LerpPosition lerpPosition = transform.GetChild(0).GetChild(0).GetComponent<LerpPosition>();
         lerpPosition.targetLocation = new Vector2(0, hoverOffset);
         lerpPosition.targetScale = lerpPosition.startScale * hoverScale;
+        GetComponent<Canvas>().overrideSorting = true;
+        GetComponent<Canvas>().sortingOrder = sortingLayer;
         // transform.SetSiblingIndex(50);
 
 
@@ -290,9 +293,10 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     private void ResetHoverEffects()
     {
-        LerpPosition lerpPosition = transform.GetChild(0).GetComponent<LerpPosition>();
+        LerpPosition lerpPosition = transform.GetChild(0).GetChild(0).GetComponent<LerpPosition>();
         lerpPosition.targetLocation = new Vector2(0, 0);
         lerpPosition.targetScale = lerpPosition.startScale * 1f;
+        GetComponent<Canvas>().overrideSorting = false;
     }
 
     private void HandleCardUsage()
