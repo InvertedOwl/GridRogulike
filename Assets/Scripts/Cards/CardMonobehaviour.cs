@@ -45,6 +45,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public GameObject diagram;
     public GameObject tilePrefab;
     public GameObject arrowPrefab;
+    public GameObject inactiveImage;
     
     public GameObject Condition;
     public GameObject Modifier;
@@ -54,10 +55,12 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     public List<GameObject> types = new List<GameObject>();
 
+    public bool inactive;
+
     public Action CardClickedCallback;
     public int siblingIndex;
 
-    public void SetCard(Card card, Action callback = null)
+    public void SetCard(Card card, Action callback = null, bool active = true)
     {
         _card = card;
         _cardSet = true;
@@ -69,6 +72,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         UpdateDiagram();
         UpdateBuff();
         MainPanel.GetComponent<Image>().color = CardRarityColors.GetColor(card.Rarity);
+        inactive = !active;
+        inactiveImage.SetActive(!active);
 
         this.CardClickedCallback = callback;
         
@@ -292,7 +297,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void HandleCardUsage()
     {
-        if (!_cardSet)
+        if (!_cardSet || inactive)
             return;
         
         bool isLeftClick = Input.GetMouseButtonDown(0);

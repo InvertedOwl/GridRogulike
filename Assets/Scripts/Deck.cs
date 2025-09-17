@@ -29,6 +29,8 @@ public class Deck : MonoBehaviour
     public List<CardMonobehaviour> Discard { get { return _discard; } }
     public List<CardMonobehaviour> Hand { get { return _hand; } }
 
+
+
     public void Awake()
     {
         Instance = this;
@@ -38,7 +40,8 @@ public class Deck : MonoBehaviour
     {
         // DEBUG PICK NORMAL DECK
     }
-    
+
+
 
     public void StartGame()
     {

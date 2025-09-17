@@ -35,7 +35,7 @@ namespace StateManager
         {
             // DEBUG, REMOVE LATER WHEN MAKING MENUS
             Deck.Instance.StartGame();
-            Change<PlayingState>();
+            Change<ShopState>();
         }
 
         public void Change<T>() where T : GameState

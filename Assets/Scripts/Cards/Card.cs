@@ -18,8 +18,32 @@ namespace Cards
         public readonly Rarity Rarity;
         public readonly string UniqueId;
 
+        public readonly bool isReal;
+
         public int Cost =>
             (int)Mathf.Round(Actions.Sum(action => action.Cost) * 0.75f);
+
+        public Card(bool isReal)
+        {
+            this.isReal = isReal;
+            Actions = new List<AbstractAction>();
+            Condition = null;
+            Modifier = null;
+            CardName = null;
+            Rarity = Rarity.Common;
+            UniqueId = "";
+        }
+
+        public Card(Card card)
+        {
+            Actions = new List<AbstractAction>(card.Actions);
+            CardName = card.CardName;
+            Rarity = card.Rarity;
+            UniqueId = card.UniqueId;
+            isReal = card.isReal;
+            Condition = card.Condition;
+            Modifier = card.Modifier;
+        }
 
         public Card(string cardName, List<AbstractAction> actions, Rarity rarity)
         {
@@ -27,8 +51,9 @@ namespace Cards
             CardName = cardName;
             Rarity = rarity;
             UniqueId = Guid.NewGuid().ToString();
-            Modifier = new MoreDamageCardModifier();
+            Modifier = new DoNothingCardModifier();
             Condition = new AlwaysCardCondition();
+            isReal = true;
         }
     }
 }

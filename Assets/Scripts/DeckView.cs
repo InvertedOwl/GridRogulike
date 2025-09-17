@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cards;
 using Entities;
 using StateManager;
@@ -13,28 +14,44 @@ public class DeckView : MonoBehaviour
     public static DeckView Instance;
     public GameObject cardPrefab;
     public Transform cards;
-
+    public Action<Card> Callback;
+    public void GetCard(Action<Card> callback, Card[] cardBlacklist)
+    {
+        Callback = callback;
+        ViewDeck(cardBlacklist);
+    }
+    
+    
     public void Start()
     {
         Instance = this;
     }
 
-    public void ViewDeck()
+    public void ViewDeck(Card[] cardBlacklist = null)
     {
         Enter();
-        SpawnCards();
+        SpawnCards(cardBlacklist);
     }
 
-    private void SpawnCards()
+    private void SpawnCards(Card[] cardBlacklist = null)
     {
 
         foreach (Card card in Deck.Instance.Cards)
         {
+  
+            
             GameObject cardObject = Instantiate(cardPrefab, cards);
             var cardMono = cardObject.GetComponent<CardMonobehaviour>();
-            cardMono.SetCard(card);
+            bool isInactive = cardBlacklist != null && cardBlacklist.Contains(card);
+            cardMono.SetCard(card, active:!isInactive);
             cardMono.hoverScale = 1.3f;
             cardMono.used = true;
+            cardMono.CardClickedCallback = () =>
+            {
+                Callback.Invoke(card);
+                Callback = null;
+                Exit();
+            };
             cardObject.transform.localScale = new Vector3(0.1239199f, 0.1239199f, 0.1239199f);
             Destroy(cardObject.GetComponent<LerpPosition>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(cards.GetComponent<RectTransform>());
@@ -57,6 +74,11 @@ public class DeckView : MonoBehaviour
 
     private void Exit()
     {
+        if (Callback != null)
+        {
+            Callback.Invoke(new Card(false));
+        }
+        
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesIn();
         GetComponent<LerpPosition>().targetLocation = new Vector3(0, 750, 0);
