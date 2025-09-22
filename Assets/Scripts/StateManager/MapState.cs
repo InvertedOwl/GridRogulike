@@ -92,6 +92,13 @@ namespace StateManager
                 float totalHeight = (nodeCount - 1) * nodeSpacing;
                 float startY = -totalHeight / 2f;
 
+                int shopIndex = 0;
+                // Layer 5 and 3
+                if (i == 4 || i == 2)
+                {
+                    shopIndex = Random.Range(0, nodeCount);
+                }
+                
                 for (int j = 0; j < nodeCount; j++)
                 {
                     Vector3 pos = new Vector3(
@@ -100,7 +107,15 @@ namespace StateManager
                         0f
                     );
 
-                    GameObject nodeObj = Instantiate(GetRandomTargetForLayer(i), goList.GetValue("anchor").transform);
+                    GameObject target = GetRandomTargetForLayer(i);
+
+                    if ((i == 4 || i == 2) && j == shopIndex)
+                    {
+                        target = goList.GetValue("shop");
+                    }
+                    
+                    
+                    GameObject nodeObj = Instantiate(target, goList.GetValue("anchor").transform);
                     nodeObj.transform.localPosition = pos;
                     MapNode node = nodeObj.GetComponent<MapNode>();
                     nodeObj.GetComponent<Button>().onClick.AddListener(() =>
@@ -232,11 +247,9 @@ namespace StateManager
             if (layerIndex < layers - 1)
             {
                 float random = Random.value;
-                if (random < 0.3f)
+                if (random < 0.1f)
                     return goList.GetValue("event");
-                if (random < 0.4f && random >= 0.3f)
-                    return goList.GetValue("shop");
-                if (random > 0.4f)
+                if (random > 0.1f)
                     return goList.GetValue("enemy");
             }
             
