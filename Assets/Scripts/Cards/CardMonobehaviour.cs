@@ -61,6 +61,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public int sortingLayer = 170;
     public int siblingIndex;
 
+    public Image modifierBG;
+
     public void SetCard(Card card, Action callback = null, bool active = true)
     {
         _card = card;
@@ -218,7 +220,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             Destroy(type);
         }
-        int posY = -170;
+        int posY = -180;
         foreach (AbstractAction action in _card.Actions)
         {
             if (action is MoveAction)
@@ -239,7 +241,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 RotateArrow(((AttackAction)action).Direction, text.transform.GetChild(3));
             }
             
-            posY -= 120;
+            posY -= 140;
         }
     }
 
@@ -258,6 +260,24 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
     public void Update()
     {
+        // Modifiers
+        if (GameStateManager.Instance.IsCurrent<PlayingState>())
+        {
+            if (_card.Condition.Condition())
+            {
+                modifierBG.color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                modifierBG.color = new Color(1, 1, 1, 0.5f);
+            }
+        }
+        else
+        {
+            modifierBG.color = new Color(1, 1, 1, 1);
+        }
+        
+        // Mouse events
         if (IsPointerOverThisUIElement() && _cardSet)
         {
             HandleHoverEffects();

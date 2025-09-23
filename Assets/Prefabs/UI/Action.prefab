@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.46666667}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -873,7 +873,9 @@ MonoBehaviour:
   hoverOffset: 60
   types: []
   inactive: 0
+  sortingLayer: 170
   siblingIndex: 0
+  modifierBG: {fileID: 8387894236043471956}
 --- !u!114 &467273126732281349
 MonoBehaviour:
   m_ObjectHideFlags: 0

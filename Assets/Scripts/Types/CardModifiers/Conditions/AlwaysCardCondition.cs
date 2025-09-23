@@ -4,7 +4,7 @@
     {
         public AlwaysCardCondition()
         {
-            this.ConditionText = "Always";
+            this.ConditionText = "Always: ";
         }
         
         public override bool Condition()

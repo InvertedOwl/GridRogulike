@@ -52,7 +52,7 @@ namespace Cards
             Rarity = rarity;
             UniqueId = Guid.NewGuid().ToString();
             Modifier = new DoNothingCardModifier();
-            Condition = new AlwaysCardCondition();
+            Condition = new TileCardCondition();
             isReal = true;
         }
     }
