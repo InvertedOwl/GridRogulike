@@ -50,7 +50,7 @@ namespace StateManager
         public override void Enter()
         {
             _random = new Random();
-            window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
+            window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));
 
             CardOptions = CardData.AllIds
                 .Select(id => CardData.Get(id).LocalCard)
@@ -62,7 +62,7 @@ namespace StateManager
         }
         public override void Exit()
         {
-            window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 730);
+            window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 730));
             for (int i = 0; i < cardOptions.Count; i++)
             {
                 if (_cardPurchased[i])

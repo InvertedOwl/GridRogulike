@@ -100,5 +100,10 @@ public class CardCombine : MonoBehaviour
         card1.CardClickedCallback = () => { Choose2(); };
         card2.CardClickedCallback = () => { Choose1(); };
     }
+
+    public void ConfirmCombine()
+    {
+        Deck.Instance.Cards.Remove(card2.Card);
+    }
     
 }

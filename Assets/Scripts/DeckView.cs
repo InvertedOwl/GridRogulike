@@ -57,6 +57,7 @@ public class DeckView : MonoBehaviour
             cardMono.sortingLayer = 202;
             cardMono.CardClickedCallback = () =>
             {
+                if (Callback == null) return;
                 Callback.Invoke(card);
                 Callback = null;
                 Exit();

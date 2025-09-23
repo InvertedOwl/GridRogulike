@@ -9,7 +9,7 @@ namespace StateManager
 {
     public class MapState: GameState
     {
-        public LerpPosition window;
+        public EasePosition window;
         public bool hasSetup;
 
         public GOList goList;
@@ -38,7 +38,7 @@ namespace StateManager
                 SetupMap();
             }
             
-            window.targetLocation = new Vector2(0, 0);
+            window.SendToLocation(new Vector3(0, 0, 0));
         }
 
         private void UpdateCurrentNode()
@@ -267,7 +267,7 @@ namespace StateManager
 
         public override void Exit()
         {
-            window.targetLocation = new Vector2(0, 750);
+            window.SendToLocation(new Vector2(0, 750));
         }
     }
 }

@@ -36,6 +36,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public TextMeshProUGUI actionText;
     public bool used = false;
     private Card _card;
+    
+    public Card Card => _card;
+    
     private bool _cardSet;
     
     public GameObject MainPanel;
@@ -49,6 +52,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     public GameObject Condition;
     public GameObject Modifier;
+    public GameObject InfoPanel;
     
     public float hoverScale = 1.05f;
     public float hoverOffset = 60;
@@ -247,7 +251,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void RotateArrow(string direction, Transform arrow)
     {
-        Debug.Log("Direction: " + direction + ", " + arrow);
         switch (direction)
         {
             case "n": arrow.eulerAngles = new Vector3(0, 0, 0); break;
@@ -291,6 +294,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void HandleHoverEffects()
     {
+        InfoPanel.SetActive(true);
         siblingIndex = transform.GetSiblingIndex();
         LerpPosition lerpPosition = transform.GetChild(0).GetChild(0).GetComponent<LerpPosition>();
         lerpPosition.targetLocation = new Vector2(0, hoverOffset);
@@ -313,6 +317,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     private void ResetHoverEffects()
     {
+        InfoPanel.SetActive(false);
         LerpPosition lerpPosition = transform.GetChild(0).GetChild(0).GetComponent<LerpPosition>();
         lerpPosition.targetLocation = new Vector2(0, 0);
         lerpPosition.targetScale = lerpPosition.startScale * 1f;
