@@ -88616,7 +88616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6155978fcc4a0893b696672199e61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateManager.MapState
-  window: {fileID: 0}
+  window: {fileID: 1783013160}
   hasSetup: 0
   goList: {fileID: 1455124042}
   layers: 10
@@ -104652,6 +104652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1783013158}
   - component: {fileID: 1783013159}
+  - component: {fileID: 1783013160}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -104691,7 +104692,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783013157}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05b289a1bbc54b7eb5104a8d992ece7a, type: 3}
   m_Name: 
@@ -104707,6 +104708,21 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1783013160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783013157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4768a617ad4eaeb941fd6adb658dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Util.EasePosition
+  durationSeconds: 0.5
+  isLocal: 1
+  _elapsedTime: 0
 --- !u!1 &1783258695
 GameObject:
   m_ObjectHideFlags: 0
@@ -104833,6 +104849,7 @@ GameObject:
   - component: {fileID: 1784090630}
   - component: {fileID: 1784090629}
   - component: {fileID: 1784090631}
+  - component: {fileID: 1784090632}
   m_Layer: 5
   m_Name: TilePick
   m_TagString: Untagged
@@ -104928,6 +104945,21 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1784090632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784090627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4768a617ad4eaeb941fd6adb658dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Util.EasePosition
+  durationSeconds: 1
+  isLocal: 1
+  _elapsedTime: 0
 --- !u!1 &1784465251
 GameObject:
   m_ObjectHideFlags: 0
