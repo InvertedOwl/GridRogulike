@@ -101,9 +101,24 @@ public class CardCombine : MonoBehaviour
         card2.CardClickedCallback = () => { Choose1(); };
     }
 
+    public void CancelCombine()
+    {
+        toCombine[0] = new Card(isReal:false);
+        toCombine[1] = new Card(isReal:false);
+        card1.gameObject.SetActive(false);
+        card2.gameObject.SetActive(false);
+        resultCard.gameObject.SetActive(false);
+
+    }
+
     public void ConfirmCombine()
     {
+        card1.Card.Actions.AddRange(card2.Card.Actions);
         Deck.Instance.Cards.Remove(card2.Card);
+        card1.gameObject.SetActive(false);
+        card2.gameObject.SetActive(false);
+        resultCard.gameObject.SetActive(false);
+        
     }
     
 }

@@ -79,7 +79,7 @@ public class DeckView : MonoBehaviour
     {
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesOut();
-        GetComponent<LerpPosition>().targetLocation = new Vector3(0, 0, 0);
+        GetComponent<EasePosition>().targetLocation = new Vector3(0, 0, 0);
     }
 
     private void Exit()
@@ -91,7 +91,7 @@ public class DeckView : MonoBehaviour
         
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesIn();
-        GetComponent<LerpPosition>().targetLocation = new Vector3(0, 750, 0);
+        GetComponent<EasePosition>().targetLocation = new Vector3(0, 750, 0);
 
         foreach (Transform card in cards)
         {

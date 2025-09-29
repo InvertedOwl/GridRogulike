@@ -134,14 +134,27 @@ namespace StateManager
                 return;
             RunInfo.Instance.Money -= RunInfo.Instance.combineCost;
             
-            CardCombine.GetComponent<LerpPosition>().targetLocation = new Vector3(0, 0);
+            CardCombine.GetComponent<EasePosition>().targetLocation = new Vector3(0, 0);
             isCardCombine = true;
         }
 
         public void CancelCombineCards()
         {
             RunInfo.Instance.Money += RunInfo.Instance.combineCost;
-            CardCombine.GetComponent<LerpPosition>().targetLocation = new Vector3(0, 750);
+            CardCombine.GetComponent<EasePosition>().SendToLocation(new Vector3(0, 750), () =>
+            {
+                CardCombine.GetComponent<CardCombine>().CancelCombine();
+            });
+            
+            isCardCombine = false;
+        }
+
+        public void ConfirmCombineCards()
+        {
+            CardCombine.GetComponent<EasePosition>().SendToLocation(new Vector3(0, 750), () =>
+            {
+                CardCombine.GetComponent<CardCombine>().ConfirmCombine();
+            });
             isCardCombine = false;
         }
         

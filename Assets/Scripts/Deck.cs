@@ -73,6 +73,13 @@ public class Deck : MonoBehaviour
 
     public CardMonobehaviour CreateCard(Card card)
     {
+
+        Cards.Add(card);
+        return CreateCardMono(card);
+    }
+
+    public CardMonobehaviour CreateCardMono(Card card)
+    {
         GameObject cardObject = Instantiate(actionPrefab, transform);
         cardObject.transform.position = drawTransform.position;
         cardObject.GetComponentInChildren<CardMonobehaviour>().SetCard(card);
@@ -87,8 +94,19 @@ public class Deck : MonoBehaviour
                 }
             }
         };
-        Cards.Add(card);
         return cardObject.GetComponent<CardMonobehaviour>();
+    }
+
+    public void UpdateDeck()
+    {
+        ResetDeck();
+        _draw.ForEach(card => {Destroy(card.gameObject);});
+        _draw.Clear();
+        Cards.ForEach(card =>
+        {
+            Debug.Log(card + " being added");
+             _draw.Add(CreateCardMono(card));
+        });
     }
 
     public void ResetDeck()

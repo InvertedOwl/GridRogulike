@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RadialGradient
+  m_Name: GreenGlow
   m_Shader: {fileID: 4800000, guid: fa96fcca32b354c88b1df9720e51d089, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -46,8 +46,8 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorIn: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 0}
-    - _ColorOut: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.92156863}
+    - _ColorIn: {r: 0.4304786, g: 0.9339623, b: 0.38327697, a: 0.49803922}
+    - _ColorOut: {r: 0.746636, g: 1, b: 0.7216981, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
