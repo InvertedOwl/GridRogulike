@@ -7,6 +7,7 @@ using Grid;
 using TMPro;
 using Types.Tiles;
 using UnityEngine;
+using UnityEngine.UI.Extensions.EasingCore;
 using Util;
 namespace StateManager
 {
@@ -19,6 +20,8 @@ namespace StateManager
         public GameObject gameUI;
         public static int EnemiesToSpawn = 1;
         protected System.Random random = new System.Random();
+
+        public EasePosition TurnIndicator;
 
         public GOList GoList;
 
@@ -37,6 +40,8 @@ namespace StateManager
 
             _currentTurnIndex = 0; // assuming player is added first in SetupEntities
             StartEntityTurn();
+            
+            TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
 
             RunInfo.Instance.Difficulty += 1;
         }
@@ -195,6 +200,7 @@ namespace StateManager
             Debug.Log("Exiting Play State");
             Deck.Instance.DiscardHand();
             List<Enemy> toRemove = new List<Enemy>();
+            TurnIndicator.SendToLocation(new Vector3(0, 200, 0));
 
             foreach (AbstractEntity entity in _entities)
             {
@@ -273,16 +279,26 @@ namespace StateManager
 
                     foreach (AbstractAction action in actions)
                     {
-                        if (action is AttackAction)
+                        try
                         {
-                            Vector2Int posOfAttack = HexGridManager.MoveHex(entity.positionRowCol, ((AttackAction)action).Direction, ((AttackAction)action).Distance);
-                            Debug.Log("Attack at: " + posOfAttack);
-                            GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack).GetComponent<GOList>();
-                            list.GetValue("Particles").SetActive(true);
-                            list.GetValue("Damage").SetActive(true);
-                            list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text =
-                                ((AttackAction)action).Amount + "";
+                            if (action is AttackAction)
+                            {
+                                Vector2Int posOfAttack = HexGridManager.MoveHex(entity.positionRowCol,
+                                    ((AttackAction)action).Direction, ((AttackAction)action).Distance);
+                                Debug.Log("Attack at: " + posOfAttack);
+                                GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack)
+                                    .GetComponent<GOList>();
+                                list.GetValue("Particles").SetActive(true);
+                                list.GetValue("Damage").SetActive(true);
+                                list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text =
+                                    ((AttackAction)action).Amount + "";
+                            }
                         }
+                        catch
+                        {
+
+                        }
+
                     }
                 }
             }
