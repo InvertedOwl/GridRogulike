@@ -14,8 +14,8 @@ namespace Cards.CardList
                 [CardIds.Attack1] = new(new Card("Attack Up", new List<AbstractAction>
                 { 
                     new AttackAction(1, "basic", null, "n", 1, 15)
-                }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
+                }, Rarity.Common),
+                            new [] { StartingDecks.basic }),
                 
                 [CardIds.Attack2] = new(new Card("Attack Up Right", new List<AbstractAction>
                     { 
@@ -83,13 +83,34 @@ namespace Cards.CardList
                     }, Rarity.Common), 
                     new [] {StartingDecks.basic}),
                 
+                
+                
+                [CardIds.Shield5] = new(new Card("Small Shield", new List<AbstractAction>
+                    { 
+                        new ShieldAction(1, "basic", null, 5)
+                    }, Rarity.Common)),
+                [CardIds.Shield10] = new(new Card("Medium Shield", new List<AbstractAction>
+                { 
+                    new ShieldAction(2, "basic", null, 10)
+                }, Rarity.Common)),
+                [CardIds.Shield15] = new(new Card("Large Shield", new List<AbstractAction>
+                { 
+                    new ShieldAction(3, "basic", null, 15)
+                }, Rarity.Common),
+                    new [] { StartingDecks.basic }),
+                
+                
+                [CardIds.DrawCard1] = new(new Card("Draw", new List<AbstractAction>
+                { 
+                    new DrawCardAction(2, "basic", null)
+                }, Rarity.Uncommon)),
+                
                 [CardIds.Special] = new(new Card("Swipe", new List<AbstractAction>
                     { 
                         new AttackAction(1, "basic", null, "n", 1, 10),
                         new AttackAction(1, "basic", null, "ne", 1, 10),
                         new AttackAction(1, "basic", null, "nw", 1, 10),
-                    }, Rarity.Uncommon), 
-                    new [] {StartingDecks.basic}),
+                    }, Rarity.Uncommon)),
                 
                 
             };

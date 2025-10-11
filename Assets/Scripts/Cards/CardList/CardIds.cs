@@ -14,6 +14,10 @@ namespace Cards.CardList
         Move4,
         Move5,
         Move6,
+        Shield5,
+        Shield10,
+        Shield15,
+        DrawCard1,
         Special,
     }
 }

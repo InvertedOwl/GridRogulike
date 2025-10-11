@@ -16,6 +16,7 @@ namespace Util
         public Vector3 targetLocation
         {
             set { SendToLocation(value); }
+            get { return _targetPosition; }
         }
 
         public static double EaseInOutCubic(double x)
@@ -28,6 +29,20 @@ namespace Util
             _lastPosition = isLocal ? transform.localPosition : transform.position;
             _targetPosition = isLocal ? transform.localPosition : transform.position;
         }
+
+        public void InstantSend(Vector3 position)
+        {
+            _lastPosition = position;
+            _targetPosition = position;
+            _elapsedTime = 0;
+
+            // Clear or capture the callback BEFORE invoking it to prevent re-entrancy loops
+            if (isLocal)
+                transform.localPosition = position;
+            else
+                transform.position = position;
+        }
+
 
         public void SendToLocation(Vector3 location, Action onComplete = null)
         {

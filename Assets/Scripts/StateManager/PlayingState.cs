@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cards.Actions;
@@ -7,6 +8,7 @@ using Grid;
 using TMPro;
 using Types.Tiles;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UI.Extensions.EasingCore;
 using Util;
 namespace StateManager
@@ -20,12 +22,17 @@ namespace StateManager
         public GameObject gameUI;
         public static int EnemiesToSpawn = 1;
         protected System.Random random = new System.Random();
+        
+        public Button EndTurnButton;
+        public Button RedrawButton;
 
         public EasePosition TurnIndicator;
 
         public GOList GoList;
 
         public AbstractEntity CurrentTurn => _entities[_currentTurnIndex];
+        
+        public TurnIndicatorManager turnIndicatorManager;
 
         public override void Enter()
         {
@@ -40,10 +47,17 @@ namespace StateManager
 
             _currentTurnIndex = 0; // assuming player is added first in SetupEntities
             StartEntityTurn();
-            
+            turnIndicatorManager.UpdateTurnIndicatorList(_entities);
             TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
+            turnIndicatorManager.ThisEnemy(_entities);
+            // RunInfo.Instance.Difficulty += 1;
+            StartCoroutine(UpdateTurnIndicators());
+        }
 
-            RunInfo.Instance.Difficulty += 1;
+        IEnumerator UpdateTurnIndicators()
+        {
+            yield return new WaitForSeconds(0.1f);
+            turnIndicatorManager.ThisEnemy(_entities);
         }
 
         private void StartEntityTurn()
@@ -74,11 +88,23 @@ namespace StateManager
 
         public void OnEntityTurnStart(AbstractEntity entity)
         {
-            entity.entityGlow.Glow();
+
+            if (entity is Player)
+            {
+                StartCoroutine(EnableButtons(.26f));
+            }
         }
+        
+        IEnumerator EnableButtons(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            EndTurnButton.interactable = true;
+            RedrawButton.interactable = true;
+        }
+        
         public void OnEntityTurnEnd(AbstractEntity entity)
         {
-            entity.entityGlow.Unglow();
+            turnIndicatorManager.NextEnemy(_entities);
         }
 
         private void InitializeDeckAndGrid()
@@ -89,10 +115,14 @@ namespace StateManager
 
         private void SetupEntities()
         {
+            _entities.Clear();
             _entities.Add(player);
             _entities.AddRange(FindObjectsByType<TestEnemy>(FindObjectsSortMode.InstanceID));
 
             Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
+            
+            _entities.RemoveAll(e => e.health <= 0);
+
 
             var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
                 .Where(p => !_entities.Any(e => e.positionRowCol == p))
@@ -102,7 +132,7 @@ namespace StateManager
 
             foreach (var pos in spawnSpots)
             {
-                _entities.Add(SpawnEnemyAt("test_enemy", pos));
+                _entities.Add(SpawnEnemyAt(RunInfo.Instance.Difficulty, pos));
             }
 
             if (TryGetRandomEmptyHex(out var playerStart))
@@ -112,7 +142,7 @@ namespace StateManager
             else
             {
                 player.positionRowCol = new Vector2Int(0, 0);
-                Debug.LogWarning("No empty hexes found for player; defaulting to (0,0).");
+                Debug.LogError("No empty hexes found for player; defaulting to (0,0).");
             }
 
             foreach (var e in _entities)
@@ -141,9 +171,10 @@ namespace StateManager
             return true;
         }
 
-        private Enemy SpawnEnemyAt(string enemyName, Vector2Int position)
+        private Enemy SpawnEnemyAt(int difficulty, Vector2Int position)
         {
-            GameObject enemyObject = Instantiate(GoList.GetValue(enemyName), GoList.GetValue("board_container").transform);
+            EnemyEntry enemyEntry = GetComponent<EnemyData>().GetRandomEnemy(difficulty);
+            GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
 
             enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
             Enemy enemy = enemyObject.GetComponent<Enemy>();
@@ -163,7 +194,7 @@ namespace StateManager
 
         private void SetupUI()
         {
-            gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
+            // gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
         }
 
         private void SetupPlayerHand()
@@ -217,7 +248,7 @@ namespace StateManager
                 Destroy(enemy.gameObject);
             }
 
-            gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, -750);
+            // gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, -750);
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
 
             foreach (Transform tile in HexGridManager.Instance.grid.transform)
@@ -258,6 +289,9 @@ namespace StateManager
             Deck.Instance.DiscardHand();
             Deck.Instance.DrawHand();
             RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
+            
+            EndTurnButton.interactable = false;
+            RedrawButton.interactable = false;
         }
 
         private void UpdateNextTurnIndicators()
@@ -271,7 +305,7 @@ namespace StateManager
 
             foreach (AbstractEntity entity in _entities)
             {
-                if (entity is Enemy)
+                if (entity is Enemy && !_entities[_currentTurnIndex].Equals(entity))
                 {
                     List<AbstractAction> actions = ((Enemy)entity).NextTurn();
 
@@ -285,18 +319,16 @@ namespace StateManager
                             {
                                 Vector2Int posOfAttack = HexGridManager.MoveHex(entity.positionRowCol,
                                     ((AttackAction)action).Direction, ((AttackAction)action).Distance);
-                                Debug.Log("Attack at: " + posOfAttack);
                                 GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack)
                                     .GetComponent<GOList>();
                                 list.GetValue("Particles").SetActive(true);
                                 list.GetValue("Damage").SetActive(true);
-                                list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text =
-                                    ((AttackAction)action).Amount + "";
+                                list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount + "";
                             }
                         }
                         catch
                         {
-
+                            
                         }
 
                     }

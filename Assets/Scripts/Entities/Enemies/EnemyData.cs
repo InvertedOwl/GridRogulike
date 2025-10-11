@@ -1,0 +1,27 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace Entities.Enemies
+{
+    public class EnemyData : MonoBehaviour
+    {
+        [SerializeField]
+        public List<EnemyEntry> enemies;
+
+        public EnemyEntry GetRandomEnemy(float difficulty)
+        {
+            var validEnemies = enemies
+                .Where(e => difficulty >= e.DifficultyMin && difficulty <= e.DifficultyMax)
+                .ToList();
+
+            if (validEnemies.Count == 0)
+            {
+                Debug.LogError($"No enemies found for difficulty {difficulty}");
+                return null;
+            }
+
+            return validEnemies[Random.Range(0, validEnemies.Count)];
+        }
+    }
+}

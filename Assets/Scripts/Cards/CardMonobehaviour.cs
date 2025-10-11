@@ -45,6 +45,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public GameObject attackPrefab;
     public GameObject movePrefab;
+    public GameObject shieldPrefab;
+    public GameObject drawPrefab;
     public GameObject diagram;
     public GameObject tilePrefab;
     public GameObject arrowPrefab;
@@ -106,6 +108,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         foreach (AbstractAction action in _card.Actions)
         {
+            // Move Action
             if (action is MoveAction)
             {
                 MoveAction moveAction = action as MoveAction;
@@ -119,6 +122,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 basic.GetComponent<Image>().color = TileData.tiles["basic"].color;
                 allElements.Add(basic.GetComponent<RectTransform>());
             }
+            
+            // Attack Action
             if (action is AttackAction)
             {
                 AttackAction moveAction = action as AttackAction;
@@ -245,6 +250,21 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 RotateArrow(((AttackAction)action).Direction, text.transform.GetChild(3));
             }
             
+            if (action is ShieldAction)
+            {
+                GameObject text = Instantiate(shieldPrefab, MainPanel.transform);
+                types.Add(text);
+                text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
+                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ((ShieldAction)action).Amount.ToString();
+            }
+            
+            if (action is DrawCardAction)
+            {
+                GameObject text = Instantiate(drawPrefab, MainPanel.transform);
+                types.Add(text);
+                text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
+            }
+            
             posY -= 140;
         }
     }
@@ -264,6 +284,24 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void Update()
     {
         // Modifiers
+        UpdateCondition();
+        
+        // Mouse events
+        if (IsPointerOverThisUIElement() && _cardSet)
+        {
+            HandleHoverEffects();
+            HandleCardUsage();
+        }
+        else if (_cardSet)
+        {
+            ResetHoverEffects();
+        }
+    }
+
+    public void UpdateCondition()
+    {
+        if (_card.Condition == null)
+            return;
         if (GameStateManager.Instance.IsCurrent<PlayingState>())
         {
             if (_card.Condition.Condition())
@@ -278,17 +316,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         else
         {
             modifierBG.color = new Color(1, 1, 1, 1);
-        }
-        
-        // Mouse events
-        if (IsPointerOverThisUIElement() && _cardSet)
-        {
-            HandleHoverEffects();
-            HandleCardUsage();
-        }
-        else if (_cardSet)
-        {
-            ResetHoverEffects();
         }
     }
 

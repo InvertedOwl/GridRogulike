@@ -71,8 +71,8 @@ public class RunInfo : MonoBehaviour
     private int _difficulty = DefaultDifficulty; 
     
     private const int DefaultMaxEnergy = 4;
-    private const int InitialEnergy = 10000;
-    private const int InitialMoney = 1000;
+    private const int InitialEnergy = 4;
+    private const int InitialMoney = 4;
     private const int DefaultDifficulty = 0;
     
     // Initialize singleton and default values
@@ -131,7 +131,7 @@ public class RunInfo : MonoBehaviour
     // Format money amount with currency symbol
     private string FormatMoneyText()
     {
-        return _money + "$";
+        return _money + "";
     }
 
     // Format current/max redraws display

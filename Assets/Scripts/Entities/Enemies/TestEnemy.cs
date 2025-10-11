@@ -17,8 +17,9 @@ namespace Entities.Enemies
         public override IEnumerator MakeTurn()
         {
             yield return new WaitForSeconds(.25f);
-            AvailableActions[random.Next(AvailableActions.Count)].Activate();
-            yield return new WaitForSeconds(.25f);
+            Debug.Log("Making Turn");
+            AvailableActions[random.Next(AvailableActions.Count)].Activate().Activate(this);
+            yield return new WaitForSeconds(.75f);
             
             
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)

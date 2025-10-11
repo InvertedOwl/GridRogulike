@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Map;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using Util;
+using Random = UnityEngine.Random;
 
 namespace StateManager
 {
@@ -15,20 +18,28 @@ namespace StateManager
         public GOList goList;
         
         public int layers = 6; 
-        public int minNodesPerLayer = 2;
-        public int maxNodesPerLayer = 4;
+        public int minNodesPerLayer = 1;
+        public int maxNodesPerLayer = 3;
         
         public float layerSpacing = 5f; 
         public float nodeSpacing = 3f;
         public float yjitter = 50f;
         
-        public float extraEdgeChance = 0.15f;
-        public int   maxOutPerNode   = 2;
-        public int   maxInPerNode    = 2;
+        public float extraEdgeChance = 0.55f;
+        public int maxOutPerNode   = 3;
+        public int maxInPerNode    = 2;
+
+        public int mapOffset = 100;
+        public int tempMapOffset = 0;
+        public int scrollDistance = 120;
+
+        public int numShops = 5;
         
         private MapNode currentNode;
 
         private List<List<MapNode>> mapLayers = new List<List<MapNode>>();
+        
+        private List<GameObject> linesList = new List<GameObject>();
         
         public override void Enter()
         {
@@ -39,6 +50,10 @@ namespace StateManager
             }
             
             window.SendToLocation(new Vector3(0, 0, 0));
+            
+            DrawConnections();
+            MoveMap();
+            tempMapOffset = 0;
         }
 
         private void UpdateCurrentNode()
@@ -55,8 +70,11 @@ namespace StateManager
             {
                 child.GetComponent<Button>().interactable = true;
             }
+
+            Vector3 newPos = currentNode.transform.localPosition;
+            // newPos.x = -mapOffset;
             
-            goList.GetValue("player").transform.position = currentNode.transform.position;
+            goList.GetValue("player").transform.localPosition = newPos;
         }
 
         private void ClickNode(MapNode node)
@@ -70,6 +88,7 @@ namespace StateManager
                 GameStateManager.Instance.Change<ShopState>();
             if (node.target == MapTarget.Mystery)
                 GameStateManager.Instance.Change<PlayingState>();
+            
         }
 
         public void GenerateMap()
@@ -79,13 +98,27 @@ namespace StateManager
             // Ensure we have at least 2 layers to have a start and an end
             layers = Mathf.Max(2, layers);
 
+            int start = 3;
+            int end = layers - 2;
+            int count = numShops;
+
+            double step = (double)(end - start) / (count - 1);
+            var shopIndecies = new List<int>();
+
+            for (int i = 0; i < count; i++)
+            {
+                int value = (int)Math.Round(start + i * step);
+                shopIndecies.Add(value);
+                Debug.Log("Shop index " + value);
+            }
+            
             for (int i = 0; i < layers; i++)
             {
                 // --- Force single start and single end ---
                 int nodeCount;
                 if (i == 0) nodeCount = 1;                         // single start
                 else if (i == layers - 1) nodeCount = 1;           // single end
-                else nodeCount = Random.Range(minNodesPerLayer, maxNodesPerLayer + 1);
+                else nodeCount = Random.Range(minNodesPerLayer, maxNodesPerLayer);
 
                 List<MapNode> layer = new List<MapNode>();
 
@@ -93,11 +126,15 @@ namespace StateManager
                 float startY = -totalHeight / 2f;
 
                 int shopIndex = 0;
-                // Layer 5 and 3
-                if (i == 4 || i == 2)
+
+                for (int shopLayer = 0; shopLayer < shopIndecies.Count; shopLayer++)
                 {
-                    shopIndex = Random.Range(0, nodeCount);
+                    if (i == shopIndecies[shopLayer])
+                    {
+                        shopIndex = Random.Range(0, nodeCount);
+                    }
                 }
+
                 
                 for (int j = 0; j < nodeCount; j++)
                 {
@@ -109,11 +146,18 @@ namespace StateManager
 
                     GameObject target = GetRandomTargetForLayer(i);
 
-                    if ((i == 4 || i == 2) && j == shopIndex)
+
+                    // If node is the picked node from the given layer and is the correct layer, spawn the shop.
+                    if (j == shopIndex)
                     {
-                        target = goList.GetValue("shop");
+                        for (int shopLayer = 0; shopLayer < shopIndecies.Count; shopLayer++)
+                        {
+                            if (i == shopIndecies[shopLayer])
+                            {
+                                target = goList.GetValue("shop");
+                            }
+                        }
                     }
-                    
                     
                     GameObject nodeObj = Instantiate(target, goList.GetValue("anchor").transform);
                     nodeObj.transform.localPosition = pos;
@@ -210,11 +254,12 @@ namespace StateManager
             }
 
             Debug.Log("Map generated with " + layers + " layers.");
-            DrawConnections();
         }
         
         private void DrawConnections()
         {
+            linesList.ForEach(Destroy);
+            
             foreach (var layer in mapLayers)
             {
                 foreach (var node in layer)
@@ -222,19 +267,31 @@ namespace StateManager
                     foreach (MapNode child in node.children)
                     {
                         GameObject lineObj = Instantiate(goList.GetValue("line"), goList.GetValue("anchor").transform);
-                        lineObj.transform.localPosition = new Vector2(0, 0);
+                        lineObj.transform.localPosition = Vector2.zero;
                         lineObj.transform.SetSiblingIndex(0);
                         UILineRenderer lr = lineObj.GetComponent<UILineRenderer>();
+                        linesList.Add(lr.gameObject);
 
                         Vector2[] points = new Vector2[2];
                         points[0] = node.transform.localPosition;
                         points[1] = child.transform.localPosition;
-
                         lr.Points = points;
+
+                        // Highlight lines that connect from OR to the current node
+                        if (node == currentNode)
+                        {
+                            lr.LineThickness = 4f; // thick connection (active)
+                        }
+                        else
+                        {
+                            lr.LineThickness = 2f; // thin connection (inactive)
+                            lr.color = Color.darkGray;
+                        }
                     }
                 }
             }
         }
+
 
 
         private GameObject GetRandomTargetForLayer(int layerIndex)
@@ -247,9 +304,9 @@ namespace StateManager
             if (layerIndex < layers - 1)
             {
                 float random = Random.value;
-                if (random < 0.1f)
+                if (random < 0.15f)
                     return goList.GetValue("event");
-                if (random > 0.1f)
+                if (random > 0.15f)
                     return goList.GetValue("enemy");
             }
             
@@ -263,6 +320,39 @@ namespace StateManager
             currentNode = mapLayers[0][0];
             UpdateCurrentNode();
             Debug.Log("Map generated with " + layers + " layers.");
+            DrawConnections();
+        }
+
+        public void Update()
+        {
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll > 0f)
+            {
+                tempMapOffset += scrollDistance;
+                MoveMap();
+            } else if (scroll < 0f)
+            {
+                tempMapOffset -= scrollDistance;
+                MoveMap();
+            }
+        }
+        
+        private void MoveMap()
+        {
+            tempMapOffset = (int) Mathf.Clamp(tempMapOffset, -((GetLayerIndex(currentNode)) * layerSpacing), (layers * layerSpacing) - (2 * mapOffset) - ((GetLayerIndex(currentNode)) * layerSpacing));
+            goList.GetValue("anchor").GetComponent<LerpPosition>().targetLocation = new Vector3((-(GetLayerIndex(currentNode)) * layerSpacing) - mapOffset - tempMapOffset, 0, 0);
+            goList.GetValue("player").transform.SetAsLastSibling();
+        }
+
+        private int GetLayerIndex(MapNode node)
+        {
+            for (int i = 0; i < mapLayers.Count; i++)
+            {
+                if (mapLayers[i].Contains(node))
+                    return i;
+            }
+
+            return -1;
         }
 
         public override void Exit()
