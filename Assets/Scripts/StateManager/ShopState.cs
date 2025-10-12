@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using Util;
 using Random = System.Random;
+using Types;
 
 namespace StateManager
 {

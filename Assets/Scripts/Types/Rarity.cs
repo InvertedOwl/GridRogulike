@@ -1,4 +1,4 @@
-namespace Cards
+namespace Types
 {
     public enum Rarity
     {
