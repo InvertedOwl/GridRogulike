@@ -20,11 +20,15 @@ namespace StateManager
         private int _currentTurnIndex;
         public Player player;
         public GameObject gameUI;
-        public static int EnemiesToSpawn = 1;
         protected System.Random random = new System.Random();
         
         public Button EndTurnButton;
         public Button RedrawButton;
+
+        public static int RewardMoney;
+        public static int numNormalEnemy = 1;
+        public static int numHardEnemy;
+        public static int numBossEnemy;
 
         public EasePosition TurnIndicator;
 
@@ -122,23 +126,49 @@ namespace StateManager
             Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
             
             _entities.RemoveAll(e => e.health <= 0);
+            
 
 
             var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
                 .Where(p => !_entities.Any(e => e.positionRowCol == p))
                 .OrderBy(_ => random.Next())
-                .Take(EnemiesToSpawn)
+                .Take(numNormalEnemy + numBossEnemy + numHardEnemy)
                 .ToList();
 
             foreach (var pos in spawnSpots)
             {
-                _entities.Add(SpawnEnemyAt(RunInfo.Instance.Difficulty, pos));
+                EnemyType enemyType = EnemyType.Normal;
+                if (numNormalEnemy > 0)
+                {
+                    enemyType = EnemyType.Normal;
+                    numNormalEnemy -= 1;
+                }
+
+                if (numHardEnemy > 0)
+                {
+                    enemyType = EnemyType.Hard;
+                    numHardEnemy -= 1;
+                }
+
+                if (numBossEnemy > 0)
+                {
+                    enemyType = EnemyType.Boss;
+                    numBossEnemy -= 1;
+                }
+                
+                _entities.Add(SpawnEnemyAt(RunInfo.Instance.Difficulty, pos, enemyType));
             }
 
+            // Not enough spawn spots
+            if (numNormalEnemy > 0 || numHardEnemy > 0 || numBossEnemy > 0)
+            {
+                Debug.Log("Not enough spawn spots");
+            }
             if (TryGetRandomEmptyHex(out var playerStart))
             {
                 player.positionRowCol = playerStart;
             }
+
             else
             {
                 player.positionRowCol = new Vector2Int(0, 0);
@@ -171,9 +201,9 @@ namespace StateManager
             return true;
         }
 
-        private Enemy SpawnEnemyAt(int difficulty, Vector2Int position)
+        private Enemy SpawnEnemyAt(int difficulty, Vector2Int position, EnemyType enemyType)
         {
-            EnemyEntry enemyEntry = GetComponent<EnemyData>().GetRandomEnemy(difficulty);
+            EnemyEntry enemyEntry = GetComponent<EnemyData>().GetRandomEnemy(difficulty, enemyType);
             GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
 
             enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
@@ -341,8 +371,7 @@ namespace StateManager
             Debug.Log("Player has finished");
             GameStateManager.Instance.Change<TilePickState>();
 
-            // Debug money
-            RunInfo.Instance.Money += 100;
+            RunInfo.Instance.Money += RewardMoney;
         }
 
         public string CheckForFinish()

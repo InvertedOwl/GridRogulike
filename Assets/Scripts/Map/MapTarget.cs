@@ -6,6 +6,7 @@ namespace Map
         Enemy,
         HardEnemy,
         Mystery,
-        Event
+        Event,
+        Boss
     }
 }

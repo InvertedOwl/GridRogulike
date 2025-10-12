@@ -81,13 +81,26 @@ namespace StateManager
         {
             currentNode = node;
             UpdateCurrentNode();
+            PlayingState.RewardMoney = node.rewardMoney;
+            PlayingState.numNormalEnemy = node.numNormalEnemy;
+            PlayingState.numHardEnemy = node.numHardEnemy;
+            PlayingState.numBossEnemy = node.numBossEnemy;
 
             if (node.target == MapTarget.Enemy)
+            {
                 GameStateManager.Instance.Change<PlayingState>();
+            }
+
             if (node.target == MapTarget.Shop)
+            {
                 GameStateManager.Instance.Change<ShopState>();
-            if (node.target == MapTarget.Mystery)
+            }
+
+            if (node.target == MapTarget.Event)
+            {
+                PlayingState.RewardMoney = 5;
                 GameStateManager.Instance.Change<PlayingState>();
+            }
             
         }
 
@@ -304,14 +317,18 @@ namespace StateManager
             if (layerIndex < layers - 1)
             {
                 float random = Random.value;
-                if (random < 0.15f)
+                
+                if (random >= 0 && random < 0.15f)
                     return goList.GetValue("event");
-                if (random > 0.15f)
+                
+                if ((random >= 0.15f && random < 0.75f) || layerIndex <= 2)
                     return goList.GetValue("enemy");
+                
+                if (random >= 0.75f && random < 1f)
+                    return goList.GetValue("hard");
             }
             
-            // TODO: replace with boss when I make said boss
-            return goList.GetValue("enemy");
+            return goList.GetValue("boss");
         }
 
         private void SetupMap()

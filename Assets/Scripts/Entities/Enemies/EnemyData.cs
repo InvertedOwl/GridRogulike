@@ -9,10 +9,10 @@ namespace Entities.Enemies
         [SerializeField]
         public List<EnemyEntry> enemies;
 
-        public EnemyEntry GetRandomEnemy(float difficulty)
+        public EnemyEntry GetRandomEnemy(float difficulty, EnemyType enemyType)
         {
             var validEnemies = enemies
-                .Where(e => difficulty >= e.DifficultyMin && difficulty <= e.DifficultyMax)
+                .Where(e => difficulty >= e.DifficultyMin && difficulty <= e.DifficultyMax).Where(e => e.EnemyType == enemyType)
                 .ToList();
 
             if (validEnemies.Count == 0)

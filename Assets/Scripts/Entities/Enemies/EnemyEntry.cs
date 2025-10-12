@@ -11,5 +11,6 @@ namespace Entities.Enemies
         public string enemyName;
         public float DifficultyMin; 
         public float DifficultyMax;
+        public EnemyType EnemyType;
     }
 }

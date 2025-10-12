@@ -8,6 +8,7 @@ namespace Types.CardModifiers
         public DoNothingCardModifier()
         {
             this.ModifierText = "No Effect";
+            this.Rarity = Rarity.Common;
         }
         
         public override AbstractCardEvent Modify(AbstractCardEvent cardEvent)

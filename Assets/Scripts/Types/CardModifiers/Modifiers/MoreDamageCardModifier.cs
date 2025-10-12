@@ -8,6 +8,7 @@ namespace Types.CardModifiers
         public MoreDamageCardModifier()
         {
             this.ModifierText = "Damage is increased by 1.2 times";
+            this.Rarity = Rarity.Common;
         }
         
         public override AbstractCardEvent Modify(AbstractCardEvent cardEvent)
