@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyType.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemy.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemy.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapTarget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardModifier.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/DoNothingCardModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/DoNothingCardModifier.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/MoreDamageCardModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/MoreDamageCardModifier.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +165,7 @@
       <workItem from="1760060652614" duration="11481000" />
       <workItem from="1760109230687" duration="5728000" />
       <workItem from="1760234462982" duration="7690000" />
+      <workItem from="1760368782924" duration="1461000" />
     </task>
     <servers />
   </component>

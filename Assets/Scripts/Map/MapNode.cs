@@ -47,13 +47,17 @@ namespace Map
                 numHardEnemy = Random.Range(0, 2);
                 numBossEnemy = 1;
             }
-            GoList.GetValue("Reward").GetComponent<TextMeshProUGUI>().text = "$" + rewardMoney;
-            GoList.GetValue("EnemyNormalGO").SetActive(numNormalEnemy > 0);
-            GoList.GetValue("EnemyNormalGO").GetComponentInChildren<TextMeshProUGUI>().text = "x" + numNormalEnemy;
-            GoList.GetValue("EnemyHardGO").SetActive(numHardEnemy > 0);
-            GoList.GetValue("EnemyHardGO").GetComponentInChildren<TextMeshProUGUI>().text = "x" + numHardEnemy;
-            GoList.GetValue("EnemyBossGO").SetActive(numBossEnemy > 0);
-            GoList.GetValue("EnemyBossGO").GetComponentInChildren<TextMeshProUGUI>().text = "x" + numBossEnemy;
+
+            if (GoList)
+            {
+                GoList.GetValue("Reward").GetComponent<TextMeshProUGUI>().text = "$" + rewardMoney;
+                GoList.GetValue("EnemyNormalGO").SetActive(numNormalEnemy > 0);
+                GoList.GetValue("EnemyNormalGO").GetComponentInChildren<TextMeshProUGUI>().text = "x" + numNormalEnemy;
+                GoList.GetValue("EnemyHardGO").SetActive(numHardEnemy > 0);
+                GoList.GetValue("EnemyHardGO").GetComponentInChildren<TextMeshProUGUI>().text = "x" + numHardEnemy;
+                GoList.GetValue("EnemyBossGO").SetActive(numBossEnemy > 0);
+                GoList.GetValue("EnemyBossGO").GetComponentInChildren<TextMeshProUGUI>().text = "x" + numBossEnemy;
+            }
         }
     }
 }

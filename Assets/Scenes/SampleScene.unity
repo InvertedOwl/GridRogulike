@@ -9882,7 +9882,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.51593
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11214,26 +11214,31 @@ MonoBehaviour:
     enemyName: Test Enemy 1
     DifficultyMin: 0
     DifficultyMax: 2
+    EnemyType: 0
   - enemyPrefab: {fileID: 3518368252074035926, guid: 41c970c3d26412b44bb6abf5b7c54dc3, type: 3}
     enemyIconPrefab: {fileID: 0}
     enemyName: Test Enemy 2
     DifficultyMin: 0
     DifficultyMax: 2
+    EnemyType: 0
   - enemyPrefab: {fileID: 3518368252074035926, guid: c4d2f14cc78ee52419d4fd39e53d7615, type: 3}
     enemyIconPrefab: {fileID: 0}
     enemyName: Test Enemy 3
     DifficultyMin: 0
     DifficultyMax: 2
+    EnemyType: 0
   - enemyPrefab: {fileID: 3518368252074035926, guid: 1c8407abd6b66a74082b446f58eb85d2, type: 3}
     enemyIconPrefab: {fileID: 0}
     enemyName: Test Enemy 4
     DifficultyMin: 0
     DifficultyMax: 2
+    EnemyType: 0
   - enemyPrefab: {fileID: 3518368252074035926, guid: bc31070e9ebb31f41838cc535b7404bf, type: 3}
     enemyIconPrefab: {fileID: 0}
     enemyName: Test Enemy 5
     DifficultyMin: 0
     DifficultyMax: 2
+    EnemyType: 0
 --- !u!1 &1337339932
 GameObject:
   m_ObjectHideFlags: 0
@@ -11909,7 +11914,7 @@ MonoBehaviour:
   layerSpacing: 120
   nodeSpacing: 80
   yjitter: 20
-  extraEdgeChance: 0.15
+  extraEdgeChance: 0.4
   maxOutPerNode: 2
   maxInPerNode: 2
   mapOffset: 120
