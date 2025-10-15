@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Entities;
 using Types.CardEvents;
 
@@ -10,9 +11,9 @@ namespace Cards.Actions
 
         }
 
-        public override AbstractCardEvent Activate()
+        public override List<AbstractCardEvent> Activate()
         {
-            return new DrawCardEvent();
+            return new List<AbstractCardEvent> { new DrawCardEvent() };
         }
 
         public override void Hover()

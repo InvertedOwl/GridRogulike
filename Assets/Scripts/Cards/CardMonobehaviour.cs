@@ -371,7 +371,13 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             // Build queue
             foreach (AbstractAction action in _card.Actions)
             {
-                eventQueue.Add(action.Activate());
+                List<AbstractCardEvent> cardEvents = action.Activate();
+
+                foreach (AbstractCardEvent cardEvent in cardEvents)
+                {
+                    eventQueue.Add(cardEvent);
+                }
+                
             }
             
             // Modfy queue

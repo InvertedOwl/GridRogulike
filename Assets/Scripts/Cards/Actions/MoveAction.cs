@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Entities;
 using Grid;
+using NUnit.Framework;
 using StateManager;
 using Types.CardEvents;
 using UnityEngine;
@@ -18,9 +20,9 @@ namespace Cards.Actions
             this._distance = distance;
         }
 
-        public override AbstractCardEvent Activate()
+        public override List<AbstractCardEvent> Activate()
         {
-            return new MoveCardEvent(_distance, _direction);
+            return new List<AbstractCardEvent> { new MoveCardEvent(_distance, _direction) };
         }
 
         public override void Hover()

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Entities;
 using StateManager;
 using Types.CardEvents;
@@ -42,7 +43,7 @@ namespace Cards.Actions
             this.entity = entity;
         }
         
-        public abstract AbstractCardEvent Activate();
+        public abstract List<AbstractCardEvent> Activate();
         public abstract void Hover();
         
         public string FixDirection(string direction)
