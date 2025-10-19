@@ -1,4 +1,5 @@
-﻿using Types.CardEvents;
+﻿using System.Collections.Generic;
+using Cards.CardEvents;
 
 namespace Types.CardModifiers
 {
@@ -6,6 +7,6 @@ namespace Types.CardModifiers
     {
         public string ModifierText;
         public Rarity Rarity;
-        public abstract AbstractCardEvent Modify(AbstractCardEvent cardEvent);
+        public abstract List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent);
     }
 }

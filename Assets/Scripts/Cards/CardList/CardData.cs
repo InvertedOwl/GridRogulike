@@ -128,6 +128,12 @@ namespace Cards.CardList
             defs.Where(kv => kv.Value.StartingDecks?.Contains(deck) == true)
                 .Select(kv => kv.Value.LocalCard)
                 .ToList();
+        
+        public static List<Card> GetCardsByRarity(Rarity rarity) =>
+            defs.Values
+                .Where(entry => entry.LocalCard.Rarity == rarity)
+                .Select(entry => entry.LocalCard)
+                .ToList();
 
     }
 }

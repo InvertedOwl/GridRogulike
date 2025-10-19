@@ -54,8 +54,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorIn: {r: 0, g: 0, b: 0, a: 0}
-    - _ColorOut: {r: 0, g: 0, b: 0, a: 0.92156863}
+    - _ColorIn: {r: 0, g: 0, b: 0, a: 0.3137255}
+    - _ColorOut: {r: 0, g: 0, b: 0, a: 0.9019608}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

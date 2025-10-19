@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using Cards;
+using Entities;
 using StateManager;
 
 namespace Types.CardModifiers.Conditions
@@ -10,7 +11,7 @@ namespace Types.CardModifiers.Conditions
             this.ConditionText = "On Half Health: ";
         }
         
-        public override bool Condition()
+        public override bool Condition(Card card)
         {
             Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
             return player.health < player.initialHealth/2;

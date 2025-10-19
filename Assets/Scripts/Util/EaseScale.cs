@@ -28,8 +28,9 @@ public class EaseScale : MonoBehaviour
 
     public void SetScale(Vector3 scale, Action onComplete = null)
     {
-
-        _lastScale = new Vector3(_targetScale.x, _targetScale.y, _targetScale.z);
+        // CHANGED: Set _lastScale to the current actual scale instead of the target
+        // This prevents jumping when the animation is interrupted
+        _lastScale = transform.localScale;
         _targetScale = scale;
         _elapsedTime = 0f;
 

@@ -1,6 +1,6 @@
 ﻿using Entities;
 
-namespace Types.CardEvents
+namespace Cards.CardEvents
 {
     public abstract class AbstractCardEvent
     {

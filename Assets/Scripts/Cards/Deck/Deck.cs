@@ -150,9 +150,6 @@ public class Deck : MonoBehaviour
     {
         
         // Recursive case (Have to deal the amount possible, shuffle, and then deal the rest)
-        Debug.Log("B/Draw Deck Size: " + _draw.Count);
-        Debug.Log("B/Hand Deck Size: " + _hand.Count);
-        Debug.Log("B/Discard Deck Size: " + _discard.Count);
         if (_draw.Count < numToDraw)
         {
             int partHand = _draw.Count;
@@ -164,7 +161,6 @@ public class Deck : MonoBehaviour
                 lerp.targetLocation = drawTransform.localPosition;
             }
 
-            Debug.Log("Reshuffling!");
             _draw.AddRange(_discard);
             _discard.Clear();
             StartCoroutine(WaitToDrawHand(numToDraw - partHand));
@@ -188,9 +184,6 @@ public class Deck : MonoBehaviour
             drawnCard.siblingIndex = i;
         }
 
-        Debug.Log("A/Draw Deck Size: " + _draw.Count);
-        Debug.Log("A/Hand Deck Size: " + _hand.Count);
-        Debug.Log("A/Discard Deck Size: " + _discard.Count);
         PositionHandCards(0);
     }
 

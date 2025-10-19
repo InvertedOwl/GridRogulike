@@ -2,19 +2,22 @@ using System.Collections.Generic;
 using Entities;
 using Grid;
 using StateManager;
-using Types.CardEvents;
+using Cards.CardEvents;
+using Types.Statuses;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Cards.Actions
 {
     public class AttackAction: AbstractAction
     {
-        private string _direction;
+        protected string _direction;
         public string Direction { get { return _direction; } set { _direction = value; } }
-        private int _distance;
+        protected int _distance;
         public int Distance { get { return _distance; } set { _distance = value; } }
-        private int _amount;
+        protected int _amount;
         public int Amount { get { return _amount; } set { _amount = value; } }
-        private HexGridManager _grid;
+        protected HexGridManager _grid;
         public AttackAction(int baseCost, string color, AbstractEntity entity, string direction, int distance, int _amount) : base(baseCost, color, entity)
         {
             this._direction = direction;
@@ -33,7 +36,25 @@ namespace Cards.Actions
         {
 
         }
-        
+
+        public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)
+        {
+            GameObject basic = GameObject.Instantiate(tilePrefab, diagram.transform);
+            Vector2Int newPos =
+                HexGridManager.MoveHex(new Vector2Int(0, 0), this.Direction, this.Distance);
+            Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y) * 46.2222f;
+                
+            basic.GetComponent<RectTransform>().localPosition = newPosWorld;
+            basic.GetComponent<Image>().color = new Color(212/255.0f, 81/255.0f, 81/255.0f);
+            basic.GetComponent<RectTransform>();
+            return new List<RectTransform> { basic.GetComponent<RectTransform>() };
+        }
+
+        public override string GetText()
+        {
+            return Amount.ToString();
+        }
+
         public override string ToString()
         {
             return "Attack " + this._distance + " " + FixDirection(this._direction) + " D:" + this._amount;

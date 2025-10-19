@@ -1,25 +1,28 @@
 ﻿using System;
-using Types.CardEvents;
+using System.Collections.Generic;
+using Cards.CardEvents;
 
-namespace Types.CardModifiers
+namespace Types.CardModifiers.Modifiers
 {
     public class MoreDamageCardModifier: AbstractCardModifier
     {
         public MoreDamageCardModifier()
         {
-            this.ModifierText = "Damage is increased by 1.2 times";
-            this.Rarity = Rarity.Common;
+            this.ModifierText = "x1.5 Damage";
         }
         
-        public override AbstractCardEvent Modify(AbstractCardEvent cardEvent)
+        public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> eventList)
         {
-            if (cardEvent is AttackCardEvent)
+            foreach (AbstractCardEvent cardEvent in eventList)
             {
-                AttackCardEvent attackCardEvent = (AttackCardEvent)cardEvent;
-                attackCardEvent.amount = (int) MathF.Floor(attackCardEvent.amount * 1.2f);
+                if (cardEvent is AttackCardEvent)
+                {
+                    AttackCardEvent attackCardEvent = (AttackCardEvent)cardEvent;
+                    attackCardEvent.amount = (int) MathF.Floor(attackCardEvent.amount * 1.5f);
+                }
             }
 
-            return cardEvent;
+            return eventList;
         }
     }
 }

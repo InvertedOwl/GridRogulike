@@ -1,5 +1,7 @@
+using System.Linq;
 using Grid;
 using TMPro;
+using Types.Statuses;
 using UnityEngine.UI;
 using Util;
 
@@ -18,6 +20,8 @@ namespace Entities
         public TextMeshProUGUI shieldTextUI;
         public GameObject healthBar;
         public GameObject shieldBar;
+        public ParticleSystem hurtSystem;
+        public StatusManager statusManager;
 
         public void MoveEntity(Vector2Int newCoords)
         {
@@ -76,12 +80,22 @@ namespace Entities
         }
         public void EndTurn()
         {
+            if (statusManager)
+            {
+                foreach (AbstractStatus abstractStatus in statusManager.statusList)
+                {
+                    abstractStatus.OnEndTurn();
+                }
+            }
+            
         }
 
-        public virtual void Damage(int damage)
+        public virtual void Damage(int damage, AbstractStatus abstractStatus)
         {
             Debug.Log("Damaged for " + damage);
 
+            hurtSystem.Play();
+            
             if (shield > 0)
             {
                 shield -= damage;
@@ -97,8 +111,20 @@ namespace Entities
                 health -= damage;
             }
 
+            if (abstractStatus != null)
+            {
+                AbstractStatus existing = statusManager.statusList.FirstOrDefault(s => s.GetType() == abstractStatus.GetType());
+                if (existing != null)
+                    existing.Amount += abstractStatus.Amount;
+                else
+                {
+                    abstractStatus.Entity = this;
+                    statusManager.statusList.Add(abstractStatus);
+                }
+            }
+
             health = Mathf.Clamp(health, 0, initialHealth);
-            ScreenShake.Instance.Shake(0.2f, 7);
+            ScreenShake.Instance.Shake(0.1f, 7);
         }
 
 

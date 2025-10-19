@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Entities;
-using Grid;
-using Types.CardEvents;
+using Cards.CardEvents;
 
 namespace Cards.Actions
 {

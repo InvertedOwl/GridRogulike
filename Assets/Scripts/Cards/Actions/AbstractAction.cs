@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using Entities;
 using StateManager;
-using Types.CardEvents;
+using Cards.CardEvents;
+using UnityEngine;
 
 namespace Cards.Actions
 {
@@ -45,6 +46,8 @@ namespace Cards.Actions
         
         public abstract List<AbstractCardEvent> Activate();
         public abstract void Hover();
+        public abstract string GetText();
+        public abstract List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab);
         
         public string FixDirection(string direction)
         {

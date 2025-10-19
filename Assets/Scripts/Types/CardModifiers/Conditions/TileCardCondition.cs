@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Cards;
 using Entities;
 using Grid;
 using StateManager;
@@ -16,7 +17,7 @@ namespace Types.CardModifiers.Conditions
             this.ConditionText = "On " + TileData.tiles[_tile].name + " Tile: ";
         }
         
-        public override bool Condition()
+        public override bool Condition(Card card)
         {
             Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
             HexGridManager hexGridManager = HexGridManager.Instance;

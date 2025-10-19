@@ -6,6 +6,7 @@ using Entities;
 using Entities.Enemies;
 using Grid;
 using TMPro;
+using Types.Statuses;
 using Types.Tiles;
 using UnityEngine;
 using UnityEngine.UI;
@@ -88,6 +89,7 @@ namespace StateManager
             var entity = CurrentTurn;
 
             OnEntityTurnEnd(entity);
+            entity.EndTurn();
         }
 
         public void OnEntityTurnStart(AbstractEntity entity)
@@ -428,10 +430,10 @@ namespace StateManager
             return true;
         }
 
-        public void DamageEntities(Vector2Int coords, int dmg)
+        public void DamageEntities(Vector2Int coords, int dmg, AbstractStatus status)
         {
             foreach (var e in _entities)
-                if (e.positionRowCol == coords) e.Damage(dmg);
+                if (e.positionRowCol == coords) e.Damage(dmg, status);
         }
         #endregion
     }

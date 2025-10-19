@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cards.Actions;
+using Types.Statuses;
 
 namespace Entities
 {
@@ -15,9 +16,9 @@ namespace Entities
             Destroy(gameObject);
         }
 
-        public override void Damage(int damage)
+        public override void Damage(int damage, AbstractStatus status)
         {
-            base.Damage(damage);
+            base.Damage(damage, status);
         }
         
         public abstract IEnumerator MakeTurn();

@@ -43,12 +43,11 @@ namespace Util
                 transform.position = position;
         }
 
-
         public void SendToLocation(Vector3 location, Action onComplete = null)
         {
-            Debug.Log("Send to: " + location);
 
-            _lastPosition = new Vector3(_targetPosition.x, _targetPosition.y, _targetPosition.z);
+            // CHANGED: Set _lastPosition to current position to prevent jumping
+            _lastPosition = isLocal ? transform.localPosition : transform.position;
             _targetPosition = location;
             _elapsedTime = 0f;
 
@@ -78,8 +77,6 @@ namespace Util
                 float eased = (float)EaseInOutCubic(progress);
 
                 Vector3 pos = Vector3.Lerp(_lastPosition, _targetPosition, eased);
-                // Debug.Log(_lastPosition + " Last");
-                // Debug.Log(_targetPosition + " Target");
 
                 if (isLocal)
                     transform.localPosition = pos;

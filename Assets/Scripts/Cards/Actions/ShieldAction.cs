@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Entities;
 using Grid;
-using Types.CardEvents;
+using Cards.CardEvents;
+using UnityEngine;
 
 namespace Cards.Actions
 {
@@ -23,6 +24,17 @@ namespace Cards.Actions
         public override void Hover()
         {
 
+        }
+        
+        public override string GetText()
+        {
+            return Amount.ToString();
+        }
+        
+        public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
+            GameObject arrowPrefab)
+        {
+            return new List<RectTransform>();
         }
         
         public override string ToString()

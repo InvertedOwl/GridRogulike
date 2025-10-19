@@ -2,7 +2,7 @@ using Entities;
 using Grid;
 using StateManager;
 
-namespace Types.CardEvents
+namespace Cards.CardEvents
 {
     public class ShieldCardEvent: AbstractCardEvent
     {

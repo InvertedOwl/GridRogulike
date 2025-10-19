@@ -11,7 +11,7 @@ namespace Entities.Enemies
     {
         public void Awake()
         {
-            AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, 10));
+            AvailableActions.Add(new PoisonAttackAction(1, "basic", this, "s", 1, 10, 2));
         }
 
         public override IEnumerator MakeTurn()

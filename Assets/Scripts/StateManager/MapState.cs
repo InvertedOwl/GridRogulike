@@ -122,7 +122,6 @@ namespace StateManager
             {
                 int value = (int)Math.Round(start + i * step);
                 shopIndecies.Add(value);
-                Debug.Log("Shop index " + value);
             }
             
             for (int i = 0; i < layers; i++)

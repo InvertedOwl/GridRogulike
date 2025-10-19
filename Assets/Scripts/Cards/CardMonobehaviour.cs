@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Cards;
 using Cards.Actions;
 using Entities;
-using Grid;
 using StateManager;
 using TMPro;
-using Types.CardEvents;
-using Types.Tiles;
+using Cards.CardEvents;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Util;
-using Random = System.Random;
 
 public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -46,15 +43,18 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public GameObject attackPrefab;
     public GameObject movePrefab;
     public GameObject shieldPrefab;
+    public GameObject normalPrefab;
     public GameObject drawPrefab;
     public GameObject diagram;
     public GameObject tilePrefab;
     public GameObject arrowPrefab;
     public GameObject inactiveImage;
+    public GOList GoList;
     
     public GameObject Condition;
     public GameObject Modifier;
     public GameObject InfoPanel;
+    public InfoData InfoData;
     
     public float hoverScale = 1.05f;
     public float hoverOffset = 60;
@@ -88,10 +88,26 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         
     }
 
+    public string FormatTextForInfo(string info)
+    {
+        string newInfo = info;
+
+        foreach (InfoEntry entry in InfoData.info)
+        {
+            if (newInfo.ToLower().Contains(entry.name))
+            {
+                newInfo = Regex.Replace(newInfo, entry.name, entry.formattedName, RegexOptions.IgnoreCase);
+                entry.infoPanel.SetActive(true);
+            }
+        }
+        
+        return newInfo;
+    }
+
     private void UpdateBuff()
     {
-        this.Modifier.GetComponent<TextMeshProUGUI>().text = _card.Modifier.ModifierText;
-        this.Condition.GetComponent<TextMeshProUGUI>().text = _card.Condition.ConditionText;
+        this.Modifier.GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(_card.Modifier.ModifierText);
+        this.Condition.GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(_card.Condition.ConditionText);
         
     }
     
@@ -108,71 +124,15 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         foreach (AbstractAction action in _card.Actions)
         {
-            // Move Action
-            if (action is MoveAction)
-            {
-                MoveAction moveAction = action as MoveAction;
-                
-                GameObject basic = Instantiate(tilePrefab, diagram.transform);
-                Vector2Int newPos =
-                    HexGridManager.MoveHex(new Vector2Int(0, 0), moveAction.Direction, moveAction.Distance);
-                Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y) * 46.2222f;
-                
-                basic.GetComponent<RectTransform>().localPosition = newPosWorld;
-                basic.GetComponent<Image>().color = TileData.tiles["basic"].color;
-                allElements.Add(basic.GetComponent<RectTransform>());
-            }
-            
-            // Attack Action
-            if (action is AttackAction)
-            {
-                AttackAction moveAction = action as AttackAction;
-                
-                GameObject basic = Instantiate(tilePrefab, diagram.transform);
-                Vector2Int newPos =
-                    HexGridManager.MoveHex(new Vector2Int(0, 0), moveAction.Direction, moveAction.Distance);
-                Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y) * 46.2222f;
-                
-                basic.GetComponent<RectTransform>().localPosition = newPosWorld;
-                basic.GetComponent<Image>().color = new Color(212/255.0f, 81/255.0f, 81/255.0f);
-                allElements.Add(basic.GetComponent<RectTransform>());
-            }
-        }
-        
-        foreach (AbstractAction action in _card.Actions)
-        {
-            if (action is MoveAction)
-            {
-                MoveAction moveAction = action as MoveAction;
-                GameObject move = Instantiate(arrowPrefab, diagram.transform);
-                move.GetComponent<ArrowController>().SetHeight(40 * moveAction.Distance);
-                Vector2Int newPos =
-                    HexGridManager.MoveHex(new Vector2Int(0, 0), moveAction.Direction, moveAction.Distance);
-                Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y);
-                
-                float angle = Vector2.SignedAngle(Vector2.up, newPosWorld);
-                
-                move.transform.eulerAngles = new Vector3(0, 0, angle);
-                allElements.Add(move.GetComponent<RectTransform>());
-            }
+            allElements.AddRange(action.UpdateGraphic(diagram, tilePrefab, arrowPrefab));
         }
 
         Vector3 averagePos = GetUIAveragePosition(allElements);
-        Vector2 uiBounds = GetUIBounds(allElements);
 
         foreach (RectTransform rectTransform in allElements)
         {
             rectTransform.localPosition -= averagePos;
         }
-        
-        // float maxSide = Mathf.Max(uiBounds.x, uiBounds.y);
-        // float sideOut = maxSide/120.0f;
-        // Debug.Log(sideOut + " Side out");
-        //
-        // if (sideOut > 1)
-        // {
-        //     diagram.transform.localScale = new Vector3(1/sideOut, 1/sideOut, 1);
-        // }
     }
     
     public static Vector3 GetUIAveragePosition(List<RectTransform> uiElements)
@@ -232,39 +192,38 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         int posY = -180;
         foreach (AbstractAction action in _card.Actions)
         {
-            if (action is MoveAction)
+            GameObject text = null;
+
+            switch (action)
             {
-                GameObject text = Instantiate(movePrefab, MainPanel.transform);
-                types.Add(text);
-                text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
-                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ((MoveAction)action).Distance.ToString();
-                RotateArrow(((MoveAction)action).Direction, text.transform.GetChild(2));
+                case MoveAction moveAction:
+                    text = Instantiate(movePrefab, MainPanel.transform);
+                    RotateArrow(moveAction.Direction, text.transform.GetChild(2));
+                    break;
+
+                case AttackAction attackAction:
+                    text = Instantiate(attackPrefab, MainPanel.transform);
+                    RotateArrow(attackAction.Direction, text.transform.GetChild(3));
+                    break;
+
+                case ShieldAction:
+                    text = Instantiate(shieldPrefab, MainPanel.transform);
+                    GoList.GetValue("ShieldInfo").SetActive(true);
+                    break;
+
+                case DrawCardAction:
+                    text = Instantiate(drawPrefab, MainPanel.transform);
+                    break;
+
+                default:
+                    text = Instantiate(normalPrefab, MainPanel.transform);
+                    break;
             }
-            
-            if (action is AttackAction)
-            {
-                GameObject text = Instantiate(attackPrefab, MainPanel.transform);
-                types.Add(text);
-                text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
-                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount.ToString();
-                RotateArrow(((AttackAction)action).Direction, text.transform.GetChild(3));
-            }
-            
-            if (action is ShieldAction)
-            {
-                GameObject text = Instantiate(shieldPrefab, MainPanel.transform);
-                types.Add(text);
-                text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
-                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ((ShieldAction)action).Amount.ToString();
-            }
-            
-            if (action is DrawCardAction)
-            {
-                GameObject text = Instantiate(drawPrefab, MainPanel.transform);
-                types.Add(text);
-                text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
-            }
-            
+
+            text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
+            types.Add(text);
+            text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
+
             posY -= 140;
         }
     }
@@ -304,7 +263,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
         if (GameStateManager.Instance.IsCurrent<PlayingState>())
         {
-            if (_card.Condition.Condition())
+            if (_card.Condition.Condition(_card))
             {
                 modifierBG.color = new Color(1, 1, 1, 1);
             }
@@ -380,11 +339,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 
             }
             
-            // Modfy queue
-            foreach (AbstractCardEvent cardEvent in eventQueue)
-            {
-                _card.Modifier.Modify(cardEvent);
-            }
+            // Only modify events if condition is satisfied
+            if (_card.Condition.Condition(_card))
+                eventQueue = _card.Modifier.Modify(eventQueue);
 
             // Activate queue
             foreach (AbstractCardEvent cardEvent in eventQueue)

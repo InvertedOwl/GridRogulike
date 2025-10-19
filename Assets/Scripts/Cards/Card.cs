@@ -7,14 +7,15 @@ using Types.CardModifiers;
 using Types.CardModifiers.Conditions;
 using UnityEngine;
 using Types;
+using Types.CardModifiers.Modifiers;
 
 namespace Cards
 {
-    public readonly struct Card
+    public struct Card
     {
         public readonly List<AbstractAction> Actions;
-        public readonly AbstractCardCondition Condition;
-        public readonly AbstractCardModifier Modifier;
+        public AbstractCardCondition Condition;
+        public AbstractCardModifier Modifier;
         public readonly string CardName;
         public readonly Rarity Rarity;
         public readonly string UniqueId;
@@ -46,15 +47,22 @@ namespace Cards
             Modifier = card.Modifier;
         }
 
+        public void RandomizeModifiers()
+        {
+            Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
+            Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(Rarity).ModifierType);
+            
+        }
+
         public Card(string cardName, List<AbstractAction> actions, Rarity rarity)
         {
             Actions = actions;
             CardName = cardName;
             Rarity = rarity;
             UniqueId = Guid.NewGuid().ToString();
-            Modifier = new DoNothingCardModifier();
-            Condition = new TileCardCondition();
             isReal = true;
+            Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
+            Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(rarity).ModifierType);
         }
     }
 }

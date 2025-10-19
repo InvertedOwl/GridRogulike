@@ -1,7 +1,7 @@
 using Entities;
 using StateManager;
 
-namespace Types.CardEvents
+namespace Cards.CardEvents
 {
     public class DrawCardEvent : AbstractCardEvent
     {

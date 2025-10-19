@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 2938885573227694798}
   - component: {fileID: 7983323505425925827}
   - component: {fileID: 9206242323709485676}
+  - component: {fileID: 7324184211487343376}
+  - component: {fileID: 4612005314234437133}
+  - component: {fileID: 5426899804073744674}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -121,6 +124,59 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 20.4
+--- !u!114 &7324184211487343376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56992391206631636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a56e897fd649e7a4e31a4de3bdca2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverScale
+  enableScale: 1
+  scalePercent: 1.05
+  scaleTime: 0.3
+  scaleTimeOffsetBefore: 0
+  scaleTimeOffsetAfter: 0
+  enablePosition: 1
+  positionOffset: {x: 0, y: 1, z: 0}
+  positionTime: 0.3
+  positionTimeOffsetBefore: 0
+  positionTimeOffsetAfter: 0
+  scaleGraphic: {fileID: 4612005314234437133}
+  positionGraphic: {fileID: 5426899804073744674}
+--- !u!114 &4612005314234437133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56992391206631636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b8ad8d7dcf8264488664cb40980799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EaseScale
+  durationSeconds: 1
+  _elapsedTime: 0
+--- !u!114 &5426899804073744674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56992391206631636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4768a617ad4eaeb941fd6adb658dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Util.EasePosition
+  durationSeconds: 1
+  isLocal: 1
+  _elapsedTime: 0
 --- !u!1 &7034085195611252132
 GameObject:
   m_ObjectHideFlags: 0

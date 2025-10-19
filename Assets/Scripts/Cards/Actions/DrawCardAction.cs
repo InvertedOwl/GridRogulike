@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Entities;
-using Types.CardEvents;
+using Cards.CardEvents;
+using UnityEngine;
 
 namespace Cards.Actions
 {
@@ -20,7 +21,18 @@ namespace Cards.Actions
         {
 
         }
-        
+
+        public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
+            GameObject arrowPrefab)
+        {
+            return new List<RectTransform>();
+        }
+
+        public override string GetText()
+        {
+            return "Draw A Card";
+        }
+
         public override string ToString()
         {
             return "Draw Card ";

@@ -46,7 +46,7 @@ namespace Types.Tiles
             ["money"] = new (
                 () => { RunInfo.Instance.Money += 1;}, 
                 "Money", 
-                "When landing on this tile, gain 1$", 
+                "When landing on this tile, gain 1$.", 
                 new Color(252.0f/255.0f, 168.0f/255.0f, 3.0f/255.0f), 
                 true, 
                 Rarity.Common,

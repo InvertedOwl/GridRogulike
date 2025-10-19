@@ -90,6 +90,7 @@ namespace StateManager
             {
                 Card card = GetRandomItem();
                 _cardData.Add(card);
+                card.RandomizeModifiers();
 
                 int cost = _random.Next(costRanges[card.Rarity][0], costRanges[card.Rarity][1]);
                 _cardCostValues.Add(cost);
