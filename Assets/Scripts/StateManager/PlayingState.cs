@@ -260,6 +260,8 @@ namespace StateManager
 
         public override void Exit()
         {
+            player.shield = 0;
+            
             Debug.Log("Exiting Play State");
             Deck.Instance.DiscardHand();
             List<Enemy> toRemove = new List<Enemy>();
@@ -297,9 +299,30 @@ namespace StateManager
             if (CheckForFinish() != "none") return;
 
             _currentTurnIndex = (_currentTurnIndex + 1) % _entities.Count;
+            ClearDeadEnemies();
 
             // Unified start for the next entity
             StartEntityTurn();
+        }
+
+        public void ClearDeadEnemies()
+        {
+            List<AbstractEntity> toRemove = new List<AbstractEntity>();
+            
+            foreach (AbstractEntity entity in _entities)
+            {
+                if (entity.health <= 0)
+                {
+                    toRemove.Add(entity);
+
+
+                }
+            }
+            foreach (AbstractEntity enemy in toRemove)
+            {
+                _entities.Remove(enemy);
+                Destroy(enemy.gameObject);
+            }
         }
 
         public void PlayerEndTurn()

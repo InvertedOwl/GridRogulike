@@ -943,6 +943,7 @@ MonoBehaviour:
   movePrefab: {fileID: 5441123354535697310, guid: 5c6ebd3012a1f41189c81f6defce7881, type: 3}
   shieldPrefab: {fileID: 689449408234064679, guid: 90639ee34007bd445bafec4e9105d0cd, type: 3}
   normalPrefab: {fileID: 689449408234064679, guid: db8f74ebd2734014b8b8dd2b22a5ace1, type: 3}
+  poisonPrefab: {fileID: 689449408234064679, guid: a6755cf64eddeb64bbdbf8baed1c13cc, type: 3}
   drawPrefab: {fileID: 689449408234064679, guid: c2f5a9352df5c0e47ac1ddd223c3956c, type: 3}
   diagram: {fileID: 265925174633817332}
   tilePrefab: {fileID: 3228883696931375593, guid: af218f11231d64182b0758ea463e86f2, type: 3}

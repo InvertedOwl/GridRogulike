@@ -36,14 +36,14 @@ namespace Cards.Actions
             Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y) * 46.2222f;
                 
             basic.GetComponent<RectTransform>().localPosition = newPosWorld;
-            basic.GetComponent<Image>().color = new Color(212/255.0f, 81/255.0f, 81/255.0f);
+            basic.GetComponent<Image>().color = new Color(192/255.0f, 52/255.0f, 235/255.0f);
             basic.GetComponent<RectTransform>();
             return new List<RectTransform> { basic.GetComponent<RectTransform>() };
         }
 
         public override string GetText()
         {
-            return Amount.ToString();
+            return poisonAmount.ToString();
         }
 
         public override string ToString()

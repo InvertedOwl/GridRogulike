@@ -113,6 +113,12 @@ namespace Cards.CardList
                         new AttackAction(1, "basic", null, "nw", 1, 10),
                     }, Rarity.Uncommon)),
                 
+                [CardIds.PoisonStrike] = new(new Card("Poison Strike", new List<AbstractAction>
+                { 
+                    new AttackAction(1, "basic", null, "n", 1, 10),
+                    new PoisonAttackAction(1, "basic", null, "n", 1, 0, 10),
+                }, Rarity.Uncommon)),
+                
                 
             };
         

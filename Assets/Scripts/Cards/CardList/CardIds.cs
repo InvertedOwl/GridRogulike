@@ -19,5 +19,6 @@ namespace Cards.CardList
         Shield15,
         DrawCard1,
         Special,
+        PoisonStrike
     }
 }

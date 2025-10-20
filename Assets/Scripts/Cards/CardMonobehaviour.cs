@@ -44,6 +44,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public GameObject movePrefab;
     public GameObject shieldPrefab;
     public GameObject normalPrefab;
+    public GameObject poisonPrefab;
     public GameObject drawPrefab;
     public GameObject diagram;
     public GameObject tilePrefab;
@@ -201,6 +202,10 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                     RotateArrow(moveAction.Direction, text.transform.GetChild(2));
                     break;
 
+                case PoisonAttackAction:
+                    text = Instantiate(poisonPrefab, MainPanel.transform);
+                    break;
+
                 case AttackAction attackAction:
                     text = Instantiate(attackPrefab, MainPanel.transform);
                     RotateArrow(attackAction.Direction, text.transform.GetChild(3));
@@ -214,6 +219,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 case DrawCardAction:
                     text = Instantiate(drawPrefab, MainPanel.transform);
                     break;
+                
 
                 default:
                     text = Instantiate(normalPrefab, MainPanel.transform);
