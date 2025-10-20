@@ -41,7 +41,7 @@ namespace Cards
             Actions = new List<AbstractAction>(card.Actions);
             CardName = card.CardName;
             Rarity = card.Rarity;
-            UniqueId = card.UniqueId;
+            UniqueId = Guid.NewGuid().ToString();
             isReal = card.isReal;
             Condition = card.Condition;
             Modifier = card.Modifier;

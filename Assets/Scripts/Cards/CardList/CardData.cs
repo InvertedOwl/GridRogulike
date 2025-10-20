@@ -119,6 +119,12 @@ namespace Cards.CardList
                     new PoisonAttackAction(1, "basic", null, "n", 1, 0, 10),
                 }, Rarity.Uncommon)),
                 
+                [CardIds.DestroyCards] = new(new Card("Obliterate", new List<AbstractAction>
+                { 
+                    new DestroyHandCardAction(4, "basic", null),
+                }, Rarity.Uncommon),
+                    new [] {StartingDecks.basic}),
+                
                 
             };
         

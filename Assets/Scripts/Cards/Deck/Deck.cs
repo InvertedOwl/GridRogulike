@@ -38,11 +38,11 @@ public class Deck : MonoBehaviour
 
     public void Start()
     {
-        // DEBUG PICK NORMAL DECK
     }
 
 
 
+    // TODO: Parameterize this
     public void StartGame()
     {
         foreach (Card startingCard in CardData.GetStarter(StartingDecks.basic))
@@ -95,6 +95,34 @@ public class Deck : MonoBehaviour
             }
         };
         return cardObject.GetComponent<CardMonobehaviour>();
+    }
+
+    // TODO: Add destroying animation
+    public void DestroyCard(string cardId)
+    {
+        Card card = Deck.Instance.Cards.Find(c => c.UniqueId == cardId);
+        Cards.RemoveAll(c => c.UniqueId == cardId);
+        
+        Purge(_hand, card);
+        Purge(_draw, card);
+        Purge(_discard, card);
+
+        PositionHandCards(0);
+    }
+    
+    public void Purge(List<CardMonobehaviour> pile, Card card)
+    {
+        for (int i = pile.Count - 1; i >= 0; i--)
+        {
+            var cardMono = pile[i];
+            var cardMonoCard = cardMono.Card;
+            
+            if (cardMonoCard.UniqueId == card.UniqueId)
+            {
+                pile.RemoveAt(i);
+                Destroy(cardMono.gameObject);
+            }
+        }
     }
 
     public void UpdateDeck()
