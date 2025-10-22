@@ -10,10 +10,10 @@ namespace Cards.Actions
         public MultiAttackAction(int baseCost, string color, AbstractEntity entity, string direction, int distance, int _amount) : base(baseCost, color, entity, direction, distance, _amount) { }
 
 
-        public override List<AbstractCardEvent> Activate()
+        public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
             throw new NotImplementedException("Multi attack is not implemented");
-            return base.Activate();
+            return base.Activate(cardMono);
         }
     }
 }

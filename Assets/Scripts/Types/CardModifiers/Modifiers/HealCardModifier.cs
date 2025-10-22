@@ -14,7 +14,7 @@ namespace Types.CardModifiers.Modifiers
         
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent)
         {
-            GameStateManager.Instance.GetCurrent<PlayingState>().player.health += 5;
+            GameStateManager.Instance.GetCurrent<PlayingState>().player.Health += 5;
             return cardEvent;
         }
     }

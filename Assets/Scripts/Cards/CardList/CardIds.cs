@@ -20,6 +20,7 @@ namespace Cards.CardList
         DrawCard1,
         Special,
         PoisonStrike,
-        DestroyCards
+        DestroyCards,
+        TEST
     }
 }

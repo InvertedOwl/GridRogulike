@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using Grid;
+using UnityEditor;
 using UnityEngine;
 
 public class SpawnBG : MonoBehaviour
@@ -59,5 +61,68 @@ public class SpawnBG : MonoBehaviour
     {
         DestroyBackground();
         SpawnBackground();
+    }
+
+    public void SetColorAnimation()
+    {
+        StartCoroutine(ColorAnimationDiagonal());
+    }
+    
+    
+    IEnumerator ColorAnimationDiagonal()
+    {
+        int count  = transform.childCount;
+        int width  = widthX;
+        int height = Mathf.CeilToInt(count / (float)width);
+
+        float pause = 0.04f;
+
+        int maxDiag = (width - 1) + (height - 1);
+
+        for (int d = 0; d <= maxDiag; d++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                int x = d - y;
+                if (x < 0 || x >= width) continue;
+
+                int i = y * width + x;
+                if (i >= count) continue;
+
+                Transform child = transform.GetChild(i);
+                BGTile tile = child.GetComponentInChildren<BGTile>();
+
+                tile.GetComponent<EaseScale>().SetScale(new Vector3(-1, 1, 1));
+                StartCoroutine(SetBGColor(tile, new Color(212/255.0f, 55/255.0f, 55/255.0f, 1.0f)));
+            }
+
+            yield return new WaitForSeconds(pause);
+        }
+    }
+
+    IEnumerator SetBGColor(BGTile tile, Color color)
+    {
+        yield return new WaitForSeconds(0.08f);
+        tile.SetColor(RandomizeColor(color));
+    }
+
+
+
+}
+
+
+
+[CustomEditor(typeof(SpawnBG))]
+public class MyButtonExampleEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        SpawnBG myScript = (SpawnBG)target;
+        if (GUILayout.Button("Change Color"))
+        {
+            myScript.SetColorAnimation();
+        }
     }
 }

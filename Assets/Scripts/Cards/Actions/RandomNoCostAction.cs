@@ -6,19 +6,18 @@ using UnityEngine;
 
 namespace Cards.Actions
 {
-    public class GainMoneyAction : AbstractAction
+    public class RandomNoCostAction : AbstractAction
     {
-        private int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; } }
-        public GainMoneyAction(int baseCost, string color, AbstractEntity entity, int _amount) : base(baseCost, color, entity)
+        public RandomNoCostAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity)
         {
-            this._amount = _amount;
 
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new GainMoneyCardEvent(_amount) };
+            float cost = 0;
+            CardMonobehaviour card = Deck.Instance.Hand[UnityEngine.Random.Range(0, Deck.Instance.Hand.Count)];
+            return new List<AbstractCardEvent> { new EditCardEvent(card, card.Card, false, cost) };
         }
 
         public override void Hover()
@@ -28,7 +27,7 @@ namespace Cards.Actions
         
         public override string GetText()
         {
-            return "$" + Amount.ToString();
+            return "Temporarily set a random Card held in hand to 0 Cost.";
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -39,7 +38,7 @@ namespace Cards.Actions
         
         public override string ToString()
         {
-            return "Money " + this._amount;
+            return "raise cost";
         }
         
     }

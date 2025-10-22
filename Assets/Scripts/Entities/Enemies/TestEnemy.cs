@@ -18,7 +18,7 @@ namespace Entities.Enemies
         {
             yield return new WaitForSeconds(.25f);
             Debug.Log("Making Turn");
-            AvailableActions[random.Next(AvailableActions.Count)].Activate().ForEach(action => {action.Activate(this);});
+            AvailableActions[random.Next(AvailableActions.Count)].Activate(null).ForEach(action => {action.Activate(this);});
             yield return new WaitForSeconds(.75f);
             
             

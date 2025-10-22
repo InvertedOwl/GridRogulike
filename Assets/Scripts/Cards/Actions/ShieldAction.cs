@@ -16,7 +16,7 @@ namespace Cards.Actions
 
         }
 
-        public override List<AbstractCardEvent> Activate()
+        public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
             return new List<AbstractCardEvent> { new ShieldCardEvent(_amount) };
         }

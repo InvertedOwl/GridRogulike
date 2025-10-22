@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cards.Actions;
 using Types.Statuses;
+using Util;
 
 namespace Entities
 {
@@ -18,6 +19,8 @@ namespace Entities
 
         public override void Damage(int damage, AbstractStatus status)
         {
+            BattleStats.DamageDoneThisBattle += damage;
+            BattleStats.DamageDoneThisTurn += damage;
             base.Damage(damage, status);
         }
         

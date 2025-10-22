@@ -44,7 +44,7 @@ namespace Cards.Actions
             this.entity = entity;
         }
         
-        public abstract List<AbstractCardEvent> Activate();
+        public abstract List<AbstractCardEvent> Activate(CardMonobehaviour cardMono);
         public abstract void Hover();
         public abstract string GetText();
         public abstract List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab);

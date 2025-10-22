@@ -18,7 +18,7 @@ namespace Cards.Actions
             this.poisonAmount = poisonAmount;
         }
 
-        public override List<AbstractCardEvent> Activate()
+        public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount, new PoisonStatus(poisonAmount)) };
         }

@@ -3,22 +3,20 @@ using Entities;
 using Grid;
 using Cards.CardEvents;
 using UnityEngine;
+using Util;
 
 namespace Cards.Actions
 {
-    public class GainMoneyAction : AbstractAction
+    public class GainMoneyForCardAction : AbstractAction
     {
-        private int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; } }
-        public GainMoneyAction(int baseCost, string color, AbstractEntity entity, int _amount) : base(baseCost, color, entity)
+        public GainMoneyForCardAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity)
         {
-            this._amount = _amount;
 
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new GainMoneyCardEvent(_amount) };
+            return new List<AbstractCardEvent> { new GainMoneyCardEvent(BattleStats.CardsPlayedThisTurn) };
         }
 
         public override void Hover()
@@ -28,7 +26,7 @@ namespace Cards.Actions
         
         public override string GetText()
         {
-            return "$" + Amount.ToString();
+            return "Gain $1 for every card played this turn $cardturn$";
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -39,7 +37,7 @@ namespace Cards.Actions
         
         public override string ToString()
         {
-            return "Money " + this._amount;
+            return "Money";
         }
         
     }

@@ -57,6 +57,7 @@ namespace StateManager
             turnIndicatorManager.ThisEnemy(_entities);
             // RunInfo.Instance.Difficulty += 1;
             StartCoroutine(UpdateTurnIndicators());
+            BattleStats.ResetStatsBattle();
         }
 
         IEnumerator UpdateTurnIndicators()
@@ -127,7 +128,7 @@ namespace StateManager
 
             Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
             
-            _entities.RemoveAll(e => e.health <= 0);
+            _entities.RemoveAll(e => e.Health <= 0);
             
 
 
@@ -183,7 +184,7 @@ namespace StateManager
                 e.transform.position = e.GetComponent<LerpPosition>().targetLocation;
 
                 // DEBUG
-                e.health = e.initialHealth;
+                e.Health = e.initialHealth;
             }
         }
 
@@ -260,7 +261,8 @@ namespace StateManager
 
         public override void Exit()
         {
-            player.shield = 0;
+            player.Shield = 0;
+            BattleStats.ResetStatsBattle();
             
             Debug.Log("Exiting Play State");
             Deck.Instance.DiscardHand();
@@ -311,7 +313,7 @@ namespace StateManager
             
             foreach (AbstractEntity entity in _entities)
             {
-                if (entity.health <= 0)
+                if (entity.Health <= 0)
                 {
                     toRemove.Add(entity);
 
@@ -327,6 +329,8 @@ namespace StateManager
 
         public void PlayerEndTurn()
         {
+            
+            BattleStats.ResetStatsTurn();
             if (!(CurrentTurn is Player))
                 return;
 
@@ -405,13 +409,13 @@ namespace StateManager
             bool playerWin = true;
             foreach (AbstractEntity entity in _entities)
             {
-                if (entity is Player && entity.health > 0)
+                if (entity is Player && entity.Health > 0)
                 {
                     enemyWin = false;
                 }
 
-                Debug.Log("CheckForFinish: " + entity.health);
-                if (entity is Enemy && entity.health > 0)
+                Debug.Log("CheckForFinish: " + entity.Health);
+                if (entity is Enemy && entity.Health > 0)
                 {
                     playerWin = false;
                 }
@@ -448,6 +452,8 @@ namespace StateManager
             if (ent is Player)
             {
                 TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke();
+                BattleStats.TilesMovedThisBattle += dist;
+                BattleStats.TilesMovedThisTurn += dist;
             }
 
             return true;

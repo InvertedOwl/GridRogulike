@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Util;
 
 public class RunInfo : MonoBehaviour
 {
@@ -49,6 +50,8 @@ public class RunInfo : MonoBehaviour
         get => _money;
         set
         {
+            BattleStats.MoneyGainedThisBattle += value-_money;
+            BattleStats.MoneyGainedThisTurn += value-_money;
             _money = value;
             UpdateMoneyText();
         } 

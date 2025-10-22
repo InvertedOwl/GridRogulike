@@ -14,7 +14,7 @@ namespace Types.CardModifiers.Conditions
         public override bool Condition(Card card)
         {
             Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
-            return player.shield > 30;
+            return player.Shield > 30;
         }
     }
 }

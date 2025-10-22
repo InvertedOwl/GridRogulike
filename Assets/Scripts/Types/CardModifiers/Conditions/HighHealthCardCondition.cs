@@ -14,7 +14,7 @@ namespace Types.CardModifiers.Conditions
         public override bool Condition(Card card)
         {
             Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
-            return (player.health/player.initialHealth)>.8f;
+            return (player.Health/player.initialHealth)>.8f;
         }
     }
 }

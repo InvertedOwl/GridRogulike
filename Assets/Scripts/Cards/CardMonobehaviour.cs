@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Cards;
@@ -28,6 +29,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         isPointerOver = false;
     }
     
+    public Dictionary<TextMeshProUGUI, string> TypeTitles = new Dictionary<TextMeshProUGUI, string>();
+    
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI costText;
     public TextMeshProUGUI actionText;
@@ -35,6 +38,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Card _card;
     
     public Card Card => _card;
+    public float CostOverride = -1f;
     
     private bool _cardSet;
     
@@ -70,13 +74,24 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public Image modifierBG;
 
-    public void SetCard(Card card, Action callback = null, bool active = true)
+    public void SetCard(Card card, Action callback = null, bool active = true, float costOverride = -1f)
     {
+        this.CostOverride = costOverride;
         _card = card;
         _cardSet = true;
         
         titleText.text = _card.CardName;
-        costText.text = _card.Cost.ToString();
+        
+        if (costOverride > -1f) 
+        {
+            costText.color = Color.darkGreen;
+        }
+        else
+        {
+            costText.color = Color.black;
+        }
+        costText.text = (costOverride>-1)?costOverride.ToString():_card.Cost.ToString();
+        
 
         UpdateTypes();
         UpdateDiagram();
@@ -86,7 +101,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         inactiveImage.SetActive(!active);
 
         this.CardClickedCallback = callback;
-        
     }
 
     public string FormatTextForInfo(string info)
@@ -99,6 +113,14 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             {
                 newInfo = Regex.Replace(newInfo, entry.name, entry.formattedName, RegexOptions.IgnoreCase);
                 entry.infoPanel.SetActive(true);
+            }
+        }
+
+        foreach (string key in BattleStats.names.Keys)
+        {
+            if (newInfo.ToLower().Contains(key))
+            {
+                newInfo = Regex.Replace(newInfo, Regex.Escape(key), BattleStats.names[key](), RegexOptions.IgnoreCase);
             }
         }
         
@@ -227,10 +249,19 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
 
             text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
+            TypeTitles[text.transform.GetChild(1).GetComponent<TextMeshProUGUI>()] = action.GetText();
             types.Add(text);
             text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
 
             posY -= 140;
+        }
+    }
+
+    public void UpdateTypesTitles()
+    {
+        foreach (TextMeshProUGUI text in TypeTitles.Keys)
+        {
+            text.text = FormatTextForInfo(TypeTitles[text]);
         }
     }
 
@@ -261,6 +292,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             ResetHoverEffects();
         }
+
+        UpdateTypesTitles();
     }
 
     public void UpdateCondition()
@@ -322,7 +355,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
         
         bool isLeftClick = Input.GetMouseButtonDown(0);
-        bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= _card.Cost;
+        bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CurrentTurn is Player;
@@ -332,11 +365,14 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
             
             List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
+
+            BattleStats.CardsPlayedThisBattle += 1;
+            BattleStats.CardsPlayedThisTurn += 1;
             
             // Build queue
             foreach (AbstractAction action in _card.Actions)
             {
-                List<AbstractCardEvent> cardEvents = action.Activate();
+                List<AbstractCardEvent> cardEvents = action.Activate(cardMono:this);
 
                 foreach (AbstractCardEvent cardEvent in cardEvents)
                 {
@@ -355,7 +391,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 cardEvent.Activate(player);
             }
 
-            RunInfo.Instance.CurrentEnergy -= _card.Cost;
+            RunInfo.Instance.CurrentEnergy -= (int)((CostOverride>-1)?CostOverride:_card.Cost);
             used = true;
         }
         

@@ -3,22 +3,19 @@ using Entities;
 using Grid;
 using Cards.CardEvents;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Cards.Actions
 {
-    public class GainMoneyAction : AbstractAction
+    public class DestroyDiscardCardAction : AbstractAction
     {
-        private int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; } }
-        public GainMoneyAction(int baseCost, string color, AbstractEntity entity, int _amount) : base(baseCost, color, entity)
+        public DestroyDiscardCardAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity)
         {
-            this._amount = _amount;
-
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new GainMoneyCardEvent(_amount) };
+            return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Discard[Random.Range(0, Deck.Instance.Discard.Count)].Card.UniqueId) };
         }
 
         public override void Hover()
@@ -28,7 +25,7 @@ namespace Cards.Actions
         
         public override string GetText()
         {
-            return "$" + Amount.ToString();
+            return "Permanently destroy a random card in discard";
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -39,7 +36,7 @@ namespace Cards.Actions
         
         public override string ToString()
         {
-            return "Money " + this._amount;
+            return "Destroy Random Card in Discard";
         }
         
     }

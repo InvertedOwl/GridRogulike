@@ -21,6 +21,7 @@ namespace Types.CardModifiers.Conditions
             new (typeof(AttackLeftCardCondition)),
             new (typeof(FreeCardCondition)),
             new (typeof(ExpensiveCardCondition)),
+            new (typeof(MaxwellGotchCardCondition)),
         };
         
         public static CardConditionsEntry GetRandomCondition()

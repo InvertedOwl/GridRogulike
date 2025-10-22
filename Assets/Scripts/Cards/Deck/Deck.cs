@@ -124,6 +124,7 @@ public class Deck : MonoBehaviour
             }
         }
     }
+    
 
     public void UpdateDeck()
     {

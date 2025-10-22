@@ -122,7 +122,12 @@ namespace Cards.CardList
                 [CardIds.DestroyCards] = new(new Card("Obliterate", new List<AbstractAction>
                 { 
                     new DestroyHandCardAction(4, "basic", null),
-                }, Rarity.Uncommon),
+                }, Rarity.Uncommon)),
+                
+                [CardIds.TEST] = new(new Card("Gain Money", new List<AbstractAction>
+                    { 
+                        new GainMoneyForCardAction(1, "basic", null),
+                    }, Rarity.Uncommon),
                     new [] {StartingDecks.basic}),
                 
                 

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Grid;
 using TMPro;
@@ -12,8 +13,37 @@ namespace Entities
     public abstract class AbstractEntity : MonoBehaviour
     {
         public float initialHealth;
-        public float health;
-        public float shield;
+
+        public float _health;
+        public float Health
+        {
+            get => _health;
+            set
+            {
+                if (this is Player)
+                {
+                    BattleStats.HealDoneThisBattle += Math.Max((int) (value-_health), 0);
+                    BattleStats.HealDoneThisTurn += Math.Max((int) (value-_health), 0);
+                }
+                _health = value;
+            }
+        }
+        public float _shield;
+
+        public float Shield
+        {
+            get => _shield;
+            set
+            {
+                if (this is Player)
+                {
+                    BattleStats.ShieldDoneThisBattle += Math.Max((int) (value-_shield), 0);
+                    BattleStats.ShieldDoneThisTurn += Math.Max((int) (value-_shield), 0);
+                }
+                _shield = value;
+            }
+        }
+        
         public Vector2Int positionRowCol;
 
         public ParticleSystem hurtSystem;
@@ -29,9 +59,9 @@ namespace Entities
 
         public void Update()
         {
-            healthBarManager.health =  health;
+            healthBarManager.health = Health;
             healthBarManager.initialHealth = initialHealth;
-            healthBarManager.shield = shield;
+            healthBarManager.shield = Shield;
         }
 
 
@@ -57,19 +87,19 @@ namespace Entities
 
             hurtSystem.Play();
             
-            if (shield > 0)
+            if (Shield > 0)
             {
-                shield -= damage;
-                if (shield < 0)
+                Shield -= damage;
+                if (Shield < 0)
                 {
-                    float overflowDamage = -shield;
-                    shield = 0;
-                    health -= overflowDamage;
+                    float overflowDamage = -Shield;
+                    Shield = 0;
+                    Health -= overflowDamage;
                 }
             }
             else
             {
-                health -= damage;
+                Health -= damage;
             }
 
             if (abstractStatus != null)
@@ -84,7 +114,7 @@ namespace Entities
                 }
             }
 
-            health = Mathf.Clamp(health, 0, initialHealth);
+            Health = Mathf.Clamp(Health, 0, initialHealth);
             ScreenShake.Instance.Shake(0.1f, 7);
         }
 

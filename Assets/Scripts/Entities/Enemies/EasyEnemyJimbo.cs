@@ -36,7 +36,7 @@ namespace Entities.Enemies
             }
             
             yield return new WaitForSeconds(.25f);
-            _plannedAction?.Activate().ForEach(action => {action.Activate(this);});
+            _plannedAction?.Activate(null).ForEach(action => {action.Activate(this);});
             yield return new WaitForSeconds(.75f);
             
             

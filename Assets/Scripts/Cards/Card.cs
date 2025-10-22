@@ -13,14 +13,14 @@ namespace Cards
 {
     public struct Card
     {
-        public readonly List<AbstractAction> Actions;
+        public List<AbstractAction> Actions;
         public AbstractCardCondition Condition;
         public AbstractCardModifier Modifier;
-        public readonly string CardName;
-        public readonly Rarity Rarity;
-        public readonly string UniqueId;
+        public string CardName;
+        public Rarity Rarity;
+        public string UniqueId;
 
-        public readonly bool isReal;
+        public bool isReal;
 
         public int Cost =>
             (int)Mathf.Round(Actions.Sum(action => action.Cost) * 0.75f);

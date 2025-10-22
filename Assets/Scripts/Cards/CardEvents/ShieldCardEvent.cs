@@ -1,6 +1,7 @@
 using Entities;
 using Grid;
 using StateManager;
+using Util;
 
 namespace Cards.CardEvents
 {
@@ -19,7 +20,8 @@ namespace Cards.CardEvents
         {
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
-                playing.player.shield += amount;
+                
+                playing.player.Shield += amount;
             }
             
         }
