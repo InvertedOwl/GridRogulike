@@ -32,9 +32,21 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount) };
         }
 
-        public override void Hover()
+        
+        public string arrowUUID;
+        
+        public override void HoverOn()
         {
+            if (!entity) return;
+            
+            Vector2Int newCoords = HexGridManager.MoveHex(this.entity.positionRowCol, _direction, _distance);
 
+            arrowUUID = SpriteArrowManager.Instance.CreateArrow(entity.positionRowCol, newCoords, Color.red, "AttackIcon", _amount);
+        }
+
+        public override void HoverOff()
+        {
+            SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)

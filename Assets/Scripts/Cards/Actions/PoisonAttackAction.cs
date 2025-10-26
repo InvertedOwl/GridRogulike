@@ -23,11 +23,6 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount, new PoisonStatus(poisonAmount)) };
         }
 
-        public override void Hover()
-        {
-
-        }
-
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)
         {
             GameObject basic = GameObject.Instantiate(tilePrefab, diagram.transform);

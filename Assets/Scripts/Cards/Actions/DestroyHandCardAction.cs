@@ -18,11 +18,6 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Hand[Random.Range(0, Deck.Instance.Hand.Count)].Card.UniqueId) };
         }
 
-        public override void Hover()
-        {
-
-        }
-        
         public override string GetText()
         {
             return "Permanently destroy a random card in hand";

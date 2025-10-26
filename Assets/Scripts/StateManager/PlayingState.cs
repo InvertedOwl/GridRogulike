@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cards.Actions;
+using Cards.CardEvents;
 using Entities;
 using Entities.Enemies;
 using Grid;
@@ -95,6 +96,7 @@ namespace StateManager
 
         public void OnEntityTurnStart(AbstractEntity entity)
         {
+            entity.StartTurn();
 
             if (entity is Player)
             {
@@ -451,7 +453,10 @@ namespace StateManager
 
             if (ent is Player)
             {
-                TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke();
+                foreach (AbstractCardEvent cardEvent in TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke())
+                {
+                    cardEvent.Activate(ent);
+                }
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
             }

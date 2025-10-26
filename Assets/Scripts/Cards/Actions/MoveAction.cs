@@ -27,15 +27,22 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new MoveCardEvent(_distance, _direction) };
         }
 
-        public override void Hover()
+        public string arrowUUID;
+        
+        public override void HoverOn()
         {
             if (!entity) return;
             
-            HexGridManager instance = HexGridManager.Instance;
             Vector2Int newCoords = HexGridManager.MoveHex(this.entity.positionRowCol, _direction, _distance);
 
-            // if (!instance.IsValidHex(newCoords)) Debug.Log("Invalid Hex");
+            arrowUUID = SpriteArrowManager.Instance.CreateArrow(entity.positionRowCol, newCoords, Color.white, "");
         }
+
+        public override void HoverOff()
+        {
+            SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
+        }
+        
         public override string GetText()
         {
             return Distance.ToString();

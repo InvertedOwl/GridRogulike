@@ -7,19 +7,15 @@ namespace Cards.Actions
 {
     public class DrawCardAction : AbstractAction
     {
-        public DrawCardAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity)
+        private int _amount;
+        public DrawCardAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
         {
-
+            this._amount = amount;
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new DrawCardEvent() };
-        }
-
-        public override void Hover()
-        {
-
+            return new List<AbstractCardEvent> { new DrawCardEvent(_amount) };
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -30,12 +26,11 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Draw A Card";
+            return _amount==1?"Draw A Card":"Draw "+ _amount + " Cards";
         }
 
         public override string ToString()
         {
             return "Draw Card ";
         }
-    }
-}
+    } }

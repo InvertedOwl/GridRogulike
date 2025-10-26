@@ -15,7 +15,8 @@ namespace Cards.CardEvents
         
         public override void Activate(AbstractEntity entity)
         {
-            RunInfo.Instance.CurrentEnergy += this._amount;
+            if (entity is Player)
+                RunInfo.Instance.CurrentEnergy += this._amount;
         }
     }
 }

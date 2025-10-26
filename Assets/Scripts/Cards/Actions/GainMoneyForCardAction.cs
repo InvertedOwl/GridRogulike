@@ -16,14 +16,10 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new GainMoneyCardEvent(BattleStats.CardsPlayedThisTurn) };
+            // Subtract the current card being activated
+            return new List<AbstractCardEvent> { new GainMoneyCardEvent(BattleStats.CardsPlayedThisTurn - 1) };
         }
 
-        public override void Hover()
-        {
-
-        }
-        
         public override string GetText()
         {
             return "Gain $1 for every card played this turn $cardturn$";

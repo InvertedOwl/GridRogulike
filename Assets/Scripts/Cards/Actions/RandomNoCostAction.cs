@@ -20,11 +20,6 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new EditCardEvent(card, card.Card, false, cost) };
         }
 
-        public override void Hover()
-        {
-
-        }
-        
         public override string GetText()
         {
             return "Temporarily set a random Card held in hand to 0 Cost.";

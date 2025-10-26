@@ -45,7 +45,35 @@ namespace Cards.Actions
         }
         
         public abstract List<AbstractCardEvent> Activate(CardMonobehaviour cardMono);
-        public abstract void Hover();
+        public bool hovering = false;
+
+        public void Hover()
+        {
+            if (!hovering)
+            {
+                hovering = true;
+                HoverOn();
+            }
+        }
+        public void NotHover()
+        {
+            if (hovering)
+            {
+                hovering = false;
+                HoverOff();
+            }
+        }
+
+
+        public virtual void HoverOn()
+        {
+            
+        }
+        public virtual void HoverOff()
+        {
+            
+        }
+        
         public abstract string GetText();
         public abstract List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab);
         

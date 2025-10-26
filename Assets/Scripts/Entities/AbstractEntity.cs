@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
+using Cards.CardEvents;
 using Grid;
 using TMPro;
 using Types.Statuses;
+using Types.Tiles;
 using UnityEngine.UI;
 using Util;
 
@@ -68,6 +70,12 @@ namespace Entities
         
         public void StartTurn()
         {
+            // Activate tile events
+            TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(positionRowCol)];
+            foreach (AbstractCardEvent cardEvent in tile.landEvent.Invoke())
+            {
+                cardEvent.Activate(this);
+            }
         }
         public void EndTurn()
         {

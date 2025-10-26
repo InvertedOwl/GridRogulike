@@ -422,8 +422,8 @@ MonoBehaviour:
   widthX: 27
   widthY: 15
   grasslandColors:
-  - {r: 0.4280954, g: 0.6226415, b: 0.41998932, a: 0}
-  - {r: 0.36177477, g: 0.5471698, b: 0.35359558, a: 0}
+  - {r: 0.2732734, g: 0.41925865, b: 0.6509434, a: 0}
+  - {r: 0.2285066, g: 0.37486023, b: 0.6132076, a: 0}
 --- !u!1 &32353969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,6 +1958,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217401695}
   m_CullTransparentMesh: 1
+--- !u!1 &228660518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 228660519}
+  - component: {fileID: 228660520}
+  m_Layer: 0
+  m_Name: SpriteArrowManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &228660519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228660518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.591, y: 0.82, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &228660520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228660518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4638a3f7709d054fbf5faf8784eeffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  arrowPrefab: {fileID: 4655644411203052943, guid: f7677a96407b2db4b8a58ad66bcf541d, type: 3}
 --- !u!1 &243099830
 GameObject:
   m_ObjectHideFlags: 0
@@ -10707,7 +10752,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.51593
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14950,7 +14995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1803046421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17084,7 +17129,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1854711373}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5000003
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -19610,3 +19655,4 @@ SceneRoots:
   - {fileID: 1960114375}
   - {fileID: 2144552691}
   - {fileID: 1315801052}
+  - {fileID: 228660519}

@@ -8,6 +8,9 @@ using Entities;
 using StateManager;
 using TMPro;
 using Cards.CardEvents;
+using Cards.CardList;
+using Grid;
+using Types.Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -212,7 +215,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             Destroy(type);
         }
-        int posY = -180;
+        int posY = -175;
         foreach (AbstractAction action in _card.Actions)
         {
             GameObject text = null;
@@ -347,6 +350,10 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         lerpPosition.targetLocation = new Vector2(0, 0);
         lerpPosition.targetScale = lerpPosition.startScale * 1f;
         GetComponent<Canvas>().overrideSorting = false;
+        foreach (AbstractAction action in _card.Actions)
+        {
+            action.NotHover();
+        }
     }
 
     private void HandleCardUsage()
@@ -384,6 +391,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             // Only modify events if condition is satisfied
             if (_card.Condition.Condition(_card))
                 eventQueue = _card.Modifier.Modify(eventQueue);
+            
+            // Modify by tile
+            Vector2Int playerPos = GameStateManager.Instance.GetCurrent<PlayingState>().player.positionRowCol;
+            TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(playerPos)];
+            eventQueue = tile.cardModifier.Invoke(eventQueue);
 
             // Activate queue
             foreach (AbstractCardEvent cardEvent in eventQueue)

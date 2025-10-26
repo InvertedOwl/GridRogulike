@@ -21,11 +21,6 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new GainMoneyCardEvent(_amount) };
         }
 
-        public override void Hover()
-        {
-
-        }
-        
         public override string GetText()
         {
             return "$" + Amount.ToString();

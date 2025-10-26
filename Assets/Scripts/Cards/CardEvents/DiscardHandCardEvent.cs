@@ -3,20 +3,21 @@ using StateManager;
 
 namespace Cards.CardEvents
 {
-    public class DestroyCardEvent : AbstractCardEvent
+    public class DiscardHandCardEvent : AbstractCardEvent
     {
-        private string cardId;
         
-        public DestroyCardEvent(string cardId)
+        public DiscardHandCardEvent()
         {
-            this.cardId = cardId;
         }
 
         
         public override void Activate(AbstractEntity entity)
         {
             if (entity is Player)
-                Deck.Instance.DestroyCard(cardId);
+            {
+                Deck.Instance.DiscardHand();
+            }
+                
         }
     }
 }

@@ -21,11 +21,6 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new EditCardEvent(cardMono, cardMono.Card, false, cost) };
         }
 
-        public override void Hover()
-        {
-
-        }
-        
         public override string GetText()
         {
             return "Temporarily raise cost of this card by 1";
