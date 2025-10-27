@@ -25,6 +25,9 @@ public class HexGridManager : MonoBehaviour
 
     public void Update()
     {
+        
+        // TODO: Why is this here? This is the mouse shifting
+        // Also theres already a script that does this?
         Vector3 mousePos = Input.mousePosition;
         
         Vector2 viewportPos = new Vector2(

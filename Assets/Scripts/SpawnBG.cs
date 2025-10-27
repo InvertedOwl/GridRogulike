@@ -105,7 +105,7 @@ public class SpawnBG : MonoBehaviour
 
     IEnumerator SetBGColor(BGTile tile, Color color)
     {
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.1f);
         tile.SetColor(RandomizeColor(color));
     }
 

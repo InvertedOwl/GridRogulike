@@ -98,8 +98,7 @@ namespace Cards.CardList
                 ["Shield15"] = () => new(new Card("Large Shield", new List<AbstractAction>
                 { 
                     new ShieldAction(3, "basic", null, 15)
-                }, Rarity.Common),
-                    new [] { StartingDecks.basic }),
+                }, Rarity.Common)),
                 
                 
                 ["Draw3"] = () => new(new Card("Draw 3", new List<AbstractAction>
@@ -112,7 +111,7 @@ namespace Cards.CardList
                         new AttackAction(1, "basic", null, "n", 1, 10),
                         new AttackAction(1, "basic", null, "ne", 1, 10),
                         new AttackAction(1, "basic", null, "nw", 1, 10),
-                    }, Rarity.Uncommon), new [] { StartingDecks.basic }),
+                    }, Rarity.Uncommon)),
                 
                 ["PoisonStrike"] = () => new(new Card("Poison Strike", new List<AbstractAction>
                 { 
@@ -128,16 +127,14 @@ namespace Cards.CardList
                 ["GainMoney"] = () => new(new Card("Gain Money", new List<AbstractAction>
                     { 
                         new GainMoneyForCardAction(1, "basic", null),
-                    }, Rarity.Uncommon),
-                    new [] {StartingDecks.basic}),
+                    }, Rarity.Uncommon)),
                 
                 
                 ["Refresh"] = () => new(new Card("Refresh", new List<AbstractAction>
                     { 
                         new DiscardHandCardAction(0, "basic", null),
                         new DrawCardAction(1, "basic", null, 3),
-                    }, Rarity.Uncommon),
-                    new [] {StartingDecks.basic}),
+                    }, Rarity.Uncommon)),
                 
                 
             };
