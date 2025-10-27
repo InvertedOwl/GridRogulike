@@ -13,7 +13,7 @@ namespace Types.CardModifiers.Conditions
         private string _tile;
         public TileCardCondition()
         {
-            _tile = TileData.tiles.Keys.ElementAt(UnityEngine.Random.Range(0, TileData.tiles.Count));
+            _tile = TileData.tiles.Keys.ElementAt(cardConditionRandom.Next(0, TileData.tiles.Count));
             this.ConditionText = "On " + TileData.tiles[_tile].name + " Tile: ";
         }
         

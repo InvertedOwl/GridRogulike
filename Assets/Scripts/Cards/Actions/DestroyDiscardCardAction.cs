@@ -3,7 +3,6 @@ using Entities;
 using Grid;
 using Cards.CardEvents;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Cards.Actions
 {
@@ -15,7 +14,7 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Discard[Random.Range(0, Deck.Instance.Discard.Count)].Card.UniqueId) };
+            return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Discard[_actionRandom.Next(0, Deck.Instance.Discard.Count)].Card.UniqueId) };
         }
 
         public override string GetText()

@@ -13,6 +13,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions.EasingCore;
 using Util;
+using Random = System.Random;
+
 namespace StateManager
 {
     public class PlayingState : GameState
@@ -39,6 +41,8 @@ namespace StateManager
         public AbstractEntity CurrentTurn => _entities[_currentTurnIndex];
         
         public TurnIndicatorManager turnIndicatorManager;
+
+        private static Random _entitySpawnRandom = RunInfo.NewRandom("espawn".GetHashCode());
 
         public override void Enter()
         {
@@ -208,7 +212,7 @@ namespace StateManager
 
         private Enemy SpawnEnemyAt(int difficulty, Vector2Int position, EnemyType enemyType)
         {
-            EnemyEntry enemyEntry = GetComponent<EnemyData>().GetRandomEnemy(difficulty, enemyType);
+            EnemyEntry enemyEntry = GetComponent<EnemyData>().GetRandomEnemy(difficulty, enemyType, _entitySpawnRandom);
             GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
 
             enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
@@ -326,6 +330,9 @@ namespace StateManager
             {
                 _entities.Remove(enemy);
                 Destroy(enemy.gameObject);
+                
+                turnIndicatorManager.UpdateTurnIndicatorList(_entities);
+                turnIndicatorManager.ThisEnemy(_entities);
             }
         }
 

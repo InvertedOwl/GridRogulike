@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Util;
+using Random = System.Random;
 
 public class RunInfo : MonoBehaviour
 {
@@ -12,8 +13,9 @@ public class RunInfo : MonoBehaviour
     public List<TextMeshProUGUI> moneyText;
     public List<TextMeshProUGUI> redrawText;
     public List<TextMeshProUGUI> difficultyText;
-    public string seed = "testing";
+    public static string seed = "testing";
     public readonly int combineCost = 2;
+    
 
     public int CurrentEnergy
     {
@@ -77,6 +79,13 @@ public class RunInfo : MonoBehaviour
     private const int InitialEnergy = 4;
     private const int InitialMoney = 4;
     private const int DefaultDifficulty = 0;
+    
+
+    public static Random NewRandom(int nudge)
+    {
+        return new Random(seed.GetHashCode() + nudge);
+    }
+    
     
     // Initialize singleton and default values
     void Awake()

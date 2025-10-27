@@ -4,6 +4,7 @@ using Entities;
 using StateManager;
 using Cards.CardEvents;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Cards.Actions
 {
@@ -12,6 +13,17 @@ namespace Cards.Actions
         private int _baseCost;
         private string _color;
         private AbstractEntity _entity;
+        
+        public static Random guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
+        public static string GenerateDeterministicId()
+        {
+            byte[] bytes = new byte[16];
+            guidRandom.NextBytes(bytes);
+            return new Guid(bytes).ToString();
+        }
+        
+        protected Random _actionRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        
         public AbstractEntity entity
         {
             get

@@ -15,6 +15,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Util;
+using Random = System.Random;
 
 public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -75,6 +76,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public int sortingLayer = 170;
     public int siblingIndex;
 
+    private Random _cardRandom;
+
     public Image modifierBG;
 
     public void SetCard(Card card, Action callback = null, bool active = true, float costOverride = -1f)
@@ -104,6 +107,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         inactiveImage.SetActive(!active);
 
         this.CardClickedCallback = callback;
+        _cardRandom = card.cardRandom;
     }
 
     public string FormatTextForInfo(string info)

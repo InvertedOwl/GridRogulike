@@ -8,6 +8,7 @@ using Types.CardModifiers.Conditions;
 using UnityEngine;
 using Types;
 using Types.CardModifiers.Modifiers;
+using Random = System.Random;
 
 namespace Cards
 {
@@ -22,9 +23,19 @@ namespace Cards
 
         public bool isReal;
 
+        public Random cardRandom;
+
         public int Cost =>
             (int)Mathf.Round(Actions.Sum(action => action.Cost) * 0.75f);
 
+        public static Random guidRandom = RunInfo.NewRandom("guid".GetHashCode());
+        public static string GenerateDeterministicId()
+        {
+            byte[] bytes = new byte[16];
+            guidRandom.NextBytes(bytes);
+            return new Guid(bytes).ToString();
+        }
+        
         public Card(bool isReal)
         {
             this.isReal = isReal;
@@ -34,6 +45,7 @@ namespace Cards
             CardName = null;
             Rarity = Rarity.Common;
             UniqueId = "";
+            cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
         }
 
         public Card(Card card)
@@ -41,10 +53,11 @@ namespace Cards
             Actions = new List<AbstractAction>(card.Actions);
             CardName = card.CardName;
             Rarity = card.Rarity;
-            UniqueId = Guid.NewGuid().ToString();
+            UniqueId = GenerateDeterministicId();
             isReal = card.isReal;
             Condition = card.Condition;
             Modifier = card.Modifier;
+            cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
         }
 
         public void RandomizeModifiers()
@@ -59,10 +72,11 @@ namespace Cards
             Actions = actions;
             CardName = cardName;
             Rarity = rarity;
-            UniqueId = Guid.NewGuid().ToString();
+            UniqueId = GenerateDeterministicId();
             isReal = true;
             Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
             Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(rarity).ModifierType);
+            cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
         }
     }
 }

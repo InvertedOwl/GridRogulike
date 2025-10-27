@@ -9,7 +9,6 @@ namespace Entities
 {
     public abstract class Enemy: AbstractEntity
     {
-        protected Random random = new Random();
         public List<AbstractAction> AvailableActions = new List<AbstractAction>();
 
         public override void Die()

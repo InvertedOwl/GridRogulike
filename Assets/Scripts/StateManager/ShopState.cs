@@ -6,8 +6,8 @@ using Cards.CardList;
 using TMPro;
 using UnityEngine;
 using Util;
-using Random = System.Random;
 using Types;
+using Random = System.Random;
 
 namespace StateManager
 {
@@ -42,15 +42,20 @@ namespace StateManager
 
         public GameObject window;
         public List<Card> CardOptions = new();
-        private Random _random;
         public TextMeshProUGUI buyEnergyText;
 
         public GameObject CardCombine;
-        private bool isCardCombine; 
+        private bool isCardCombine;
+
+        private Random _shopRandom;
+
+        public void Awake()
+        {
+            _shopRandom = RunInfo.NewRandom("shop".GetHashCode());
+        }
 
         public override void Enter()
         {
-            _random = new Random();
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));
 
             CardOptions = CardData.AllIds
@@ -92,7 +97,7 @@ namespace StateManager
                 _cardData.Add(card);
                 card.RandomizeModifiers();
 
-                int cost = _random.Next(costRanges[card.Rarity][0], costRanges[card.Rarity][1]);
+                int cost = _shopRandom.Next(costRanges[card.Rarity][0], costRanges[card.Rarity][1]);
                 _cardCostValues.Add(cost);
 
                 cardOptions[i].SetCard(card);
@@ -190,7 +195,7 @@ namespace StateManager
                 return new Card();
 
             double totalWeight = eligibleWeights.Values.Sum();
-            double roll = _random.NextDouble() * totalWeight;
+            double roll = _shopRandom.NextDouble() * totalWeight;
 
             Rarity selectedRarity = Rarity.Common;
             double cumulative = 0;
@@ -209,7 +214,7 @@ namespace StateManager
                 .Where(c => c.Rarity == selectedRarity)
                 .ToList();
 
-            int index = _random.Next(itemsOfRarity.Count);
+            int index = _shopRandom.Next(itemsOfRarity.Count);
             return itemsOfRarity[index];
         }
     }

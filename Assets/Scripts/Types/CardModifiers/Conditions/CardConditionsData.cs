@@ -24,9 +24,11 @@ namespace Types.CardModifiers.Conditions
             new (typeof(MaxwellGotchCardCondition)),
         };
         
+        public static System.Random cardConditionRandom = RunInfo.NewRandom("cardcond".GetHashCode());
+        
         public static CardConditionsEntry GetRandomCondition()
         {
-            return CardConditionsEntries[Random.Range(0, CardConditionsEntries.Count)];
+            return CardConditionsEntries[cardConditionRandom.Next(0, CardConditionsEntries.Count)];
         }
     }
 }

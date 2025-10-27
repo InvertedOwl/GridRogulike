@@ -15,6 +15,9 @@ public class SpawnBG : MonoBehaviour
     
     [SerializeField] private List<Color> grasslandColors = new List<Color>();
     
+    // This class is allowed to use UnityEngine.Random because the BG colors
+    // are non-consequential and probably shouldn't be seeded anyway.
+    
     void Start()
     {
         DestroyBackground();

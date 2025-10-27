@@ -18,11 +18,14 @@ namespace Types.CardModifiers.Modifiers
             new (typeof(MoreDamageCardModifier), Rarity.Uncommon),
             new (typeof(GainEnergyCardModifier), Rarity.Uncommon),
             new (typeof(AgainCardModifier), Rarity.Uncommon),
-            new (typeof(GainRandomCard), Rarity.Common),
+            new (typeof(GainRandomCardModifier), Rarity.Common),
             new (typeof(DrawCardModifier), Rarity.Uncommon),
             new (typeof(RandomMoveCardModifier), Rarity.Uncommon),
             
         };
+        
+        public static System.Random cardModifierRandom = RunInfo.NewRandom("cardmod".GetHashCode());
+
         
         public static CardModifiersEntry GetRandomModifier(Rarity rarity)
         {
@@ -36,7 +39,7 @@ namespace Types.CardModifiers.Modifiers
                 return null;
             }
 
-            return validModifiers[Random.Range(0, validModifiers.Count)];
+            return validModifiers[cardModifierRandom.Next(0, validModifiers.Count)];
         }
     }
 }

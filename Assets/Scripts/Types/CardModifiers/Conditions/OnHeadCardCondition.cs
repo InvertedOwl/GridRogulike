@@ -15,7 +15,7 @@ namespace Types.CardModifiers.Conditions
             // TODO: Create coinflip animation
             
             // TODO: THis is broken as fuck (it gets called every frame so it changes every frame)
-            return Random.Range(0, 2) == 0;
+            return cardConditionRandom.Next(0, 2) == 0;
         }
     }
 }

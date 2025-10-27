@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using Util;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 namespace StateManager
 {
@@ -40,6 +40,8 @@ namespace StateManager
         private List<List<MapNode>> mapLayers = new List<List<MapNode>>();
         
         private List<GameObject> linesList = new List<GameObject>();
+        
+        public static Random mapRandom = RunInfo.NewRandom("map".GetHashCode());
         
         public override void Enter()
         {
@@ -130,7 +132,7 @@ namespace StateManager
                 int nodeCount;
                 if (i == 0) nodeCount = 1;                         // single start
                 else if (i == layers - 1) nodeCount = 1;           // single end
-                else nodeCount = Random.Range(minNodesPerLayer, maxNodesPerLayer);
+                else nodeCount = mapRandom.Next(minNodesPerLayer, maxNodesPerLayer);
 
                 List<MapNode> layer = new List<MapNode>();
 
@@ -143,7 +145,7 @@ namespace StateManager
                 {
                     if (i == shopIndecies[shopLayer])
                     {
-                        shopIndex = Random.Range(0, nodeCount);
+                        shopIndex = mapRandom.Next(0, nodeCount);
                     }
                 }
 
@@ -152,7 +154,7 @@ namespace StateManager
                 {
                     Vector3 pos = new Vector3(
                         i * layerSpacing,
-                        startY + j * nodeSpacing + Random.Range(-yjitter, yjitter),
+                        startY + j * nodeSpacing + ((float) mapRandom.NextDouble() * (-yjitter - yjitter)) + -yjitter,
                         0f
                     );
 
@@ -227,7 +229,7 @@ namespace StateManager
                         float d = Mathf.Abs(from.transform.localPosition.y - to.transform.localPosition.y);
                         if (d < bestDist) { best = to; bestDist = d; }
                     }
-                    if (best == null) best = B[Random.Range(0, B.Count)]; // fallback
+                    if (best == null) best = B[mapRandom.Next(0, B.Count)]; // fallback
                     AddEdge(from, best);
                 }
 
@@ -243,7 +245,7 @@ namespace StateManager
                         float d = Mathf.Abs(from.transform.localPosition.y - to.transform.localPosition.y);
                         if (d < bestDist) { best = from; bestDist = d; }
                     }
-                    if (best == null) best = A[Random.Range(0, A.Count)]; // fallback
+                    if (best == null) best = A[mapRandom.Next(0, A.Count)]; // fallback
                     AddEdge(best, to);
                 }
 
@@ -251,7 +253,7 @@ namespace StateManager
                 foreach (var from in A)
                 {
                     if (outDeg[from] >= maxOutThisBand) continue;
-                    if (Random.value > extraEdgeChance) continue;
+                    if (mapRandom.NextDouble() > extraEdgeChance) continue;
 
                     MapNode best = null; float bestDist = float.MaxValue;
                     foreach (var to in B)
@@ -315,7 +317,7 @@ namespace StateManager
             
             if (layerIndex < layers - 1)
             {
-                float random = Random.value;
+                float random = (float) mapRandom.NextDouble();
                 
                 if (random >= 0 && random < 0.15f)
                     return goList.GetValue("event");

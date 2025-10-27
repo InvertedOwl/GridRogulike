@@ -16,6 +16,8 @@ namespace StateManager
         private GameObject _newTile;
         private HexGridManager _grid;
         private int _chosenIndex;
+
+        public Random tilePickRandom = RunInfo.NewRandom("tilepick".GetHashCode());
         
         public List<GameObject> tiles;
         public override void Enter()
@@ -23,8 +25,7 @@ namespace StateManager
             _grid = HexGridManager.Instance;
             window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
             List<string> idList = TileData.tiles.Keys.Where((t) => TileData.tiles[t].canAppearInShop).ToList();
-            Random rng = new Random();
-            choices = idList.OrderBy(x => rng.Next()).Take(3).ToList();
+            choices = idList.OrderBy(x => tilePickRandom.Next()).Take(3).ToList();
             for (int i = 0; i < choices.Count; i++)
             {
                 HexGridManager.Instance.UpdateHexObject(TileData.tiles[choices[i]], tiles[i]);

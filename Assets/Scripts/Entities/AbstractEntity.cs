@@ -17,6 +17,20 @@ namespace Entities
         public float initialHealth;
 
         public float _health;
+        
+        
+        // Generic random to generate specific entity randoms predictably 
+        public static System.Random guidRandom = RunInfo.NewRandom("eguid".GetHashCode());
+        public static string GenerateDeterministicId()
+        {
+            byte[] bytes = new byte[16];
+            guidRandom.NextBytes(bytes);
+            return new Guid(bytes).ToString();
+        }
+        
+        // Unique entity random
+        protected System.Random _entityRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        
         public float Health
         {
             get => _health;

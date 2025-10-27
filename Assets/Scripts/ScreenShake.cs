@@ -30,6 +30,7 @@ public class ScreenShake : MonoBehaviour
         dampingSpeed = damping;
     }
 
+    // Another instance of allowed UnityEngine.Random because screen shake should absolutely not be seeded
     private void Update()
     {
         currentShakeMagnitude = Mathf.Lerp(currentShakeMagnitude, targetShakeMagnitude, Time.deltaTime * dampingSpeed);

@@ -19,7 +19,7 @@ public class Deck : MonoBehaviour
     private List<CardMonobehaviour> _draw = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _discard = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _hand = new List<CardMonobehaviour>();
-    private Random _random = new Random();
+    private Random _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
     public static Deck Instance;
 
     public GameObject actionPrefab;
@@ -200,7 +200,7 @@ public class Deck : MonoBehaviour
         // Base case (normal deck)
         for (int i = 0; i < numToDraw; i++)
         {
-            int index = _random.Next(0, _draw.Count);
+            int index = _randomDeck.Next(0, _draw.Count);
             CardMonobehaviour drawnCard = _draw[index];
             _draw.RemoveAt(index);
             _hand.Add(drawnCard);

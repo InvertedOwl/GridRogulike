@@ -6,9 +6,9 @@ using Cards.CardList;
 using StateManager;
 namespace Types.CardModifiers.Modifiers
 {
-    public class GainRandomCard : AbstractCardModifier
+    public class GainRandomCardModifier : AbstractCardModifier
     {
-        public GainRandomCard()
+        public GainRandomCardModifier()
         {
             this.ModifierText = "Gain a random uncommon card for the rest of the battle.";
         }
@@ -18,7 +18,7 @@ namespace Types.CardModifiers.Modifiers
             Deck deck = Deck.Instance;
             List<Card> cardData = CardData.GetCardsByRarity(Rarity.Uncommon);
             
-            deck.Hand.Add(deck.CreateCardMono(cardData[UnityEngine.Random.Range(0, cardData.Count - 1)]));
+            deck.Hand.Add(deck.CreateCardMono(cardData[cardModifierRandom.Next(0, cardData.Count - 1)]));
             return cardEvent;
         }
     }

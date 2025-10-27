@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 namespace Map
 {
@@ -18,13 +18,24 @@ namespace Map
         public int numNormalEnemy;
         public int numHardEnemy;
         public int numBossEnemy;
+        
+        
+        public static Random guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
+        public static string GenerateDeterministicId()
+        {
+            byte[] bytes = new byte[16];
+            guidRandom.NextBytes(bytes);
+            return new Guid(bytes).ToString();
+        }
+        
+        private Random _mapNodeRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
 
         public void Start()
         {
             if (target == MapTarget.Enemy)
             {
-                rewardMoney = Random.Range(0, 3) + 3;
-                numNormalEnemy = Random.Range(0, 2) + 1;
+                rewardMoney = _mapNodeRandom.Next(0, 3) + 3;
+                numNormalEnemy = _mapNodeRandom.Next(0, 2) + 4;
                 numHardEnemy = 0;
                 numBossEnemy = 0;
                 
@@ -34,17 +45,17 @@ namespace Map
             
             if (target == MapTarget.HardEnemy)
             {
-                rewardMoney = Random.Range(0, 3) + 5;
-                numNormalEnemy = Random.Range(0, 3);
+                rewardMoney = _mapNodeRandom.Next(0, 3) + 5;
+                numNormalEnemy = _mapNodeRandom.Next(0, 3);
                 numHardEnemy = 1;
                 numBossEnemy = 0;
             }
             
             if (target == MapTarget.Boss)
             {
-                rewardMoney = Random.Range(0, 3) + 8;
-                numNormalEnemy = Random.Range(0, 3);
-                numHardEnemy = Random.Range(0, 2);
+                rewardMoney = _mapNodeRandom.Next(0, 3) + 8;
+                numNormalEnemy = _mapNodeRandom.Next(0, 3);
+                numHardEnemy = _mapNodeRandom.Next(0, 2);
                 numBossEnemy = 1;
             }
 

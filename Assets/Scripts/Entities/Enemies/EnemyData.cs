@@ -9,7 +9,7 @@ namespace Entities.Enemies
         [SerializeField]
         public List<EnemyEntry> enemies;
 
-        public EnemyEntry GetRandomEnemy(float difficulty, EnemyType enemyType)
+        public EnemyEntry GetRandomEnemy(float difficulty, EnemyType enemyType, System.Random random)
         {
             var validEnemies = enemies
                 .Where(e => difficulty >= e.DifficultyMin && difficulty <= e.DifficultyMax).Where(e => e.EnemyType == enemyType)
@@ -21,7 +21,7 @@ namespace Entities.Enemies
                 return null;
             }
 
-            return validEnemies[Random.Range(0, validEnemies.Count)];
+            return validEnemies[random.Next(0, validEnemies.Count)];
         }
     }
 }

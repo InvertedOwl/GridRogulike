@@ -16,7 +16,7 @@ namespace Cards.Actions
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
             float cost = 0;
-            CardMonobehaviour card = Deck.Instance.Hand[UnityEngine.Random.Range(0, Deck.Instance.Hand.Count)];
+            CardMonobehaviour card = Deck.Instance.Hand[_actionRandom.Next(0, Deck.Instance.Hand.Count)];
             return new List<AbstractCardEvent> { new EditCardEvent(card, card.Card, false, cost) };
         }
 
