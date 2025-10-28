@@ -35,7 +35,7 @@ namespace Map
             if (target == MapTarget.Enemy)
             {
                 rewardMoney = _mapNodeRandom.Next(0, 3) + 3;
-                numNormalEnemy = _mapNodeRandom.Next(0, 2) + 4;
+                numNormalEnemy = _mapNodeRandom.Next(0, 2) + 1;
                 numHardEnemy = 0;
                 numBossEnemy = 0;
                 

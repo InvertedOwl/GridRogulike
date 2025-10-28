@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cards;
@@ -79,6 +80,42 @@ namespace StateManager
             }
         }
 
+
+        public void Refresh()
+        {
+            StartCoroutine(SwapCards());
+        }
+
+        IEnumerator SwapCards()
+        {
+
+            for (int i = 0; i < CardOptions.Count; i++)
+            {
+                if (i >= cardOptions.Count)
+                    continue;
+                cardOptions[i].GetComponent<LerpPosition>().speed *= 1.2f;
+                cardOptions[i].GetComponent<LerpPosition>().targetRotation = Quaternion.Euler(0, -180, 0);
+                
+            }
+            
+            yield return new WaitForSeconds(0.4f);
+            PickCards();
+            
+            for (int i = 0; i < CardOptions.Count; i++)
+            {
+                if (i >= cardOptions.Count)
+                    continue;
+                cardOptions[i].GetComponent<LerpPosition>().targetRotation = Quaternion.Euler(0, 0, 0);
+            }
+            yield return new WaitForSeconds(0.25f);
+            for (int i = 0; i < CardOptions.Count; i++)
+            {
+                if (i >= cardOptions.Count)
+                    continue;
+                cardOptions[i].GetComponent<LerpPosition>().speed /= 1.2f;
+            }
+        }
+        
         public void Done()
         {
             Debug.Log("Done with shop");

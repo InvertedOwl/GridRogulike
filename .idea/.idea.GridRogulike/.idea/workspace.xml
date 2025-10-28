@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EaseRotation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EaseRotation.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rendering/GreenGlow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rendering/GreenGlow.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +56,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoEntry.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/SideCardManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -192,7 +197,9 @@
       <workItem from="1761412825310" duration="12794000" />
       <workItem from="1761501285651" duration="9542000" />
       <workItem from="1761532385056" duration="4672000" />
-      <workItem from="1761579647579" duration="356000" />
+      <workItem from="1761579647579" duration="1031000" />
+      <workItem from="1761668066349" duration="1476000" />
+      <workItem from="1761672247312" duration="2735000" />
     </task>
     <servers />
   </component>
