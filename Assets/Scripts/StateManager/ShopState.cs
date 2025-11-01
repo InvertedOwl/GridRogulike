@@ -8,6 +8,8 @@ using TMPro;
 using UnityEngine;
 using Util;
 using Types;
+using Types.ShopActions;
+using UnityEngine.UI;
 using Random = System.Random;
 
 namespace StateManager
@@ -34,6 +36,7 @@ namespace StateManager
             { Rarity.Mythic,     new[] {15, 20} }
         };
 
+        public List<GameObject> shopActions;
         public List<CardMonobehaviour> cardOptions;
         public List<TextMeshProUGUI> cardCostTexts;
 
@@ -43,13 +46,15 @@ namespace StateManager
 
         public GameObject window;
         public List<Card> CardOptions = new();
-        public TextMeshProUGUI buyEnergyText;
 
         public GameObject CardCombine;
         private bool isCardCombine;
 
         private Random _shopRandom;
-
+        public TextMeshProUGUI refreshCostText;
+        private int _refreshCost = 5;
+        public Button refreshButton;
+        
         public void Awake()
         {
             _shopRandom = RunInfo.NewRandom("shop".GetHashCode());
@@ -63,9 +68,11 @@ namespace StateManager
                 .Select(id => CardData.Get(id).LocalCard)
                 .ToList();
             
-            buyEnergyText.text = EnergyCost(RunInfo.Instance.MaxEnergy) + "$";
+            // buyEnergyText.text = EnergyCost(RunInfo.Instance.MaxEnergy) + "$";
 
             PickCards();
+            PickActions();
+            _refreshCost = 5;
         }
         public override void Exit()
         {
@@ -83,7 +90,18 @@ namespace StateManager
 
         public void Refresh()
         {
+            if (RunInfo.Instance.Money < _refreshCost)
+            {
+                // TODO: animation for POOR. 
+                return;
+            }
+            RunInfo.Instance.Money -= _refreshCost;
+            
             StartCoroutine(SwapCards());
+            _refreshCost += 1;
+            refreshCostText.text = "$" + _refreshCost;
+            refreshCostText.GetComponent<RectTransform>().localPosition += new Vector3(0, 5, 0);
+            refreshButton.interactable = false;
         }
 
         IEnumerator SwapCards()
@@ -93,19 +111,26 @@ namespace StateManager
             {
                 if (i >= cardOptions.Count)
                     continue;
+
+                yield return new WaitForSeconds(0.1f);
                 cardOptions[i].GetComponent<LerpPosition>().speed *= 1.2f;
                 cardOptions[i].GetComponent<LerpPosition>().targetRotation = Quaternion.Euler(0, -180, 0);
-                
+                shopActions[i].transform.GetChild(0).GetComponent<LerpPosition>().targetRotation = Quaternion.Euler(-180, 0, 0);
             }
             
             yield return new WaitForSeconds(0.4f);
             PickCards();
+            PickActions();
             
             for (int i = 0; i < CardOptions.Count; i++)
             {
                 if (i >= cardOptions.Count)
                     continue;
+                yield return new WaitForSeconds(0.1f);
+                cardCostTexts[i].GetComponent<RectTransform>().localPosition += new Vector3(0, 5, 0);
+                shopActions[i].transform.GetChild(1).GetComponent<RectTransform>().localPosition += new Vector3(0, 5, 0);
                 cardOptions[i].GetComponent<LerpPosition>().targetRotation = Quaternion.Euler(0, 0, 0);
+                shopActions[i].transform.GetChild(0).GetComponent<LerpPosition>().targetRotation = Quaternion.Euler(0, 0, 0);
             }
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < CardOptions.Count; i++)
@@ -114,6 +139,8 @@ namespace StateManager
                     continue;
                 cardOptions[i].GetComponent<LerpPosition>().speed /= 1.2f;
             }
+            
+            refreshButton.interactable = true;
         }
         
         public void Done()
@@ -127,7 +154,7 @@ namespace StateManager
             _cardData.Clear();
             _cardCostValues.Clear();
             _cardPurchased = new List<bool> { false, false, false };
-
+            
             for (int i = 0; i < 3; i++)
             {
                 Card card = GetRandomItem();
@@ -138,7 +165,7 @@ namespace StateManager
                 _cardCostValues.Add(cost);
 
                 cardOptions[i].SetCard(card);
-                cardCostTexts[i].text = cost + "$";
+                cardCostTexts[i].text = "$" + cost;
 
                 int index = i;
                 
@@ -166,20 +193,39 @@ namespace StateManager
         {
             GameStateManager.Instance.Change<ShopState>();
         }
-
-        public void BuyHealFull()
-        {
-            
-        }
+        
 
         public void BuyCombineCards()
         {
-            if (RunInfo.Instance.Money < RunInfo.Instance.combineCost)
-                return;
-            RunInfo.Instance.Money -= RunInfo.Instance.combineCost;
-            
             CardCombine.GetComponent<EasePosition>().targetLocation = new Vector3(0, 0);
             isCardCombine = true;
+        }
+
+        public void PickActions()
+        {
+            List<ShopActionEntry> shopActionsData = ShopActionData.GetThreeActions();
+
+            for (int i = 0; i < shopActions.Count; i++)
+            {
+                shopActions[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "$" + shopActionsData[i].cost;
+                shopActions[i].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text =
+                    shopActionsData[i].title;
+                shopActions[i].transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
+                shopActions[i].transform.GetChild(0).GetChild(0).GetComponent<Button>().interactable = true;
+                
+                int j = i; 
+                shopActions[i].transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if (RunInfo.Instance.Money < shopActionsData[j].cost)
+                        return;
+                    
+                    RunInfo.Instance.Money -= shopActionsData[j].cost;
+                    
+                    shopActionsData[j].callback.Invoke();
+                    shopActions[j].transform.GetChild(0).GetChild(0).GetComponent<Button>().interactable = false;
+                    shopActions[j].transform.GetChild(0).GetComponent<LerpPosition>().targetRotation = Quaternion.Euler(-180, 0, 0);
+                });
+            }
         }
 
         public void CancelCombineCards()
@@ -187,6 +233,9 @@ namespace StateManager
             RunInfo.Instance.Money += RunInfo.Instance.combineCost;
             CardCombine.GetComponent<EasePosition>().SendToLocation(new Vector3(0, 750), () =>
             {
+                if (RunInfo.Instance.Money < RunInfo.Instance.combineCost)
+                    return;
+                RunInfo.Instance.Money -= RunInfo.Instance.combineCost;
                 CardCombine.GetComponent<CardCombine>().CancelCombine();
             });
             
@@ -200,19 +249,6 @@ namespace StateManager
                 CardCombine.GetComponent<CardCombine>().ConfirmCombine();
             });
             isCardCombine = false;
-        }
-        
-
-        public void BuyEnergy()
-        {
-            Debug.Log("Buying energy");
-            if (RunInfo.Instance.Money < EnergyCost(RunInfo.Instance.MaxEnergy))
-                return;
-            
-            RunInfo.Instance.Money -= EnergyCost(RunInfo.Instance.MaxEnergy);
-            RunInfo.Instance.MaxEnergy += 1;
-            RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
-            buyEnergyText.text = EnergyCost(RunInfo.Instance.MaxEnergy) + "$";
         }
 
 
@@ -255,4 +291,6 @@ namespace StateManager
             return itemsOfRarity[index];
         }
     }
+    
+    
 }

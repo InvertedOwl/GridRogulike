@@ -53,6 +53,10 @@ public class SpriteArrowManager : MonoBehaviour
 
     public void DestroyArrow(string uuid)
     {
+        if (!arrows.ContainsKey(uuid))
+        {
+            return;
+        }
         Destroy(arrows[uuid]);
         arrows.Remove(uuid);
     }

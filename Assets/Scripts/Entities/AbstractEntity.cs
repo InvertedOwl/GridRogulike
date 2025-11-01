@@ -41,7 +41,7 @@ namespace Entities
                     BattleStats.HealDoneThisBattle += Math.Max((int) (value-_health), 0);
                     BattleStats.HealDoneThisTurn += Math.Max((int) (value-_health), 0);
                 }
-                _health = value;
+                _health = Math.Min(value, initialHealth);
             }
         }
         public float _shield;

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -77,7 +78,7 @@ public class RunInfo : MonoBehaviour
     
     private const int DefaultMaxEnergy = 4;
     private const int InitialEnergy = 4;
-    private const int InitialMoney = 4;
+    private const int InitialMoney = 9999;
     private const int DefaultDifficulty = 0;
     
 
@@ -110,6 +111,7 @@ public class RunInfo : MonoBehaviour
     // Update money display text elements
     private void UpdateMoneyText()
     {
+        
         UpdateTextCollection(moneyText, FormatMoneyText());
     }
 
@@ -131,7 +133,17 @@ public class RunInfo : MonoBehaviour
         foreach (TextMeshProUGUI textElement in textCollection)
         {
             textElement.text = text;
+            if (textElement.GetComponent<LerpPosition>())
+            {
+                StartCoroutine(UpdateTextPositionNextFrame(textElement.GetComponent<RectTransform>()));
+            }
         }
+    }
+
+    IEnumerator UpdateTextPositionNextFrame(RectTransform rectTransform)
+    {
+        yield return new WaitForEndOfFrame();
+        rectTransform.localPosition += new Vector3(0, 5, 0);
     }
 
     // Format current/max energy display
