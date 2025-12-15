@@ -98,7 +98,7 @@ namespace Cards.CardList
                 ["Shield15"] = () => new(new Card("Large Shield", new List<AbstractAction>
                 { 
                     new ShieldAction(3, "basic", null, 15)
-                }, Rarity.Common)),
+                }, Rarity.Uncommon)),
                 
                 
                 ["Draw3"] = () => new(new Card("Draw 3", new List<AbstractAction>
