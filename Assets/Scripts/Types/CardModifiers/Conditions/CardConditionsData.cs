@@ -22,6 +22,7 @@ namespace Types.CardModifiers.Conditions
             new (typeof(FreeCardCondition)),
             new (typeof(ExpensiveCardCondition)),
             new (typeof(MaxwellGotchCardCondition)),
+            new (typeof(PercentChanceCardCondition))
         };
         
         public static System.Random cardConditionRandom = RunInfo.NewRandom("cardcond".GetHashCode());

@@ -8,6 +8,9 @@ public class SideCardManager : MonoBehaviour
     public RectTransform back;
     void Update()
     {
+        if (front == null || back == null)
+            return;
+        
         Vector3 toCam = (Camera.main.transform.position - transform.position).normalized;
 
         if (Vector3.Dot(transform.forward, toCam) < 0)

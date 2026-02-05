@@ -267,6 +267,9 @@ namespace StateManager
 
         public override void Exit()
         {
+            SpawnBG.instance.currentColors = SpawnBG.instance.grasslandColors;
+            SpawnBG.instance.SetColorAnimation();
+            
             player.Shield = 0;
             BattleStats.ResetStatsBattle();
             

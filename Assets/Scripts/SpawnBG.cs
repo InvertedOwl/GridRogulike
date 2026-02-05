@@ -12,12 +12,23 @@ public class SpawnBG : MonoBehaviour
     [SerializeField] private int startY = -10;
     [SerializeField] private int widthX = 20;
     [SerializeField] private int widthY = 20;
-    
-    [SerializeField] private List<Color> grasslandColors = new List<Color>();
-    
+
+    public List<Color> grasslandColors = new List<Color>();
+
+    public List<Color> currentColors = new List<Color>();
+
+    public static SpawnBG instance;
+
+    // How long EaseScale takes to animate to the target scale (match your EaseScale duration)
+    [SerializeField] private float flipAnimDuration = 0.2f;
+
+    public void Awake()
+    {
+        if (instance == null) { instance = this; }
+    }
+
     // This class is allowed to use UnityEngine.Random because the BG colors
     // are non-consequential and probably shouldn't be seeded anyway.
-    
     void Start()
     {
         DestroyBackground();
@@ -34,18 +45,20 @@ public class SpawnBG : MonoBehaviour
 
     private void SpawnBackground()
     {
-        for (int y = startY; y < startY+widthY; y++)
+        for (int y = startY; y < startY + widthY; y++)
         {
-            for (int x = startX; x < startX+widthX; x++)
+            for (int x = startX; x < startX + widthX; x++)
             {
                 GameObject hex = Instantiate(hexPrefab, transform);
                 hex.transform.position = HexGridManager.GetHexCenter(x, y);
-                hex.GetComponent<BGTile>().SetColor(RandomizeColor(grasslandColors[Random.Range(0, grasslandColors.Count)]));
+
+                hex.GetComponent<BGTile>().SetColor(
+                    RandomizeColor(grasslandColors[Random.Range(0, grasslandColors.Count)])
+                );
             }
         }
     }
-    
-    
+
     public static Color RandomizeColor(Color original, float hueShift = 0.002f, float satShift = 0.02f, float valShift = 0.02f)
     {
         Color.RGBToHSV(original, out float h, out float s, out float v);
@@ -58,7 +71,7 @@ public class SpawnBG : MonoBehaviour
 
         return Color.HSVToRGB(h, s, v);
     }
-    
+
     [ContextMenu("Refresh Grid")]
     public void RefreshGrid()
     {
@@ -70,12 +83,11 @@ public class SpawnBG : MonoBehaviour
     {
         StartCoroutine(ColorAnimationDiagonal());
     }
-    
-    
+
     IEnumerator ColorAnimationDiagonal()
     {
-        int count  = transform.childCount;
-        int width  = widthX;
+        int count = transform.childCount;
+        int width = widthX;
         int height = Mathf.CeilToInt(count / (float)width);
 
         float pause = 0.04f;
@@ -95,12 +107,29 @@ public class SpawnBG : MonoBehaviour
                 Transform child = transform.GetChild(i);
                 BGTile tile = child.GetComponentInChildren<BGTile>();
 
-                tile.GetComponent<EaseScale>().SetScale(new Vector3(-1, 1, 1));
-                StartCoroutine(SetBGColor(tile, new Color(212/255.0f, 55/255.0f, 55/255.0f, 1.0f)));
+                // Animate to -1 (flip)
+                EaseScale ease = tile.GetComponent<EaseScale>();
+                if (ease != null)
+                {
+                    ease.SetScale(new Vector3(-1, 1, 1));
+
+                    // Then SNAP back to +1 after the flip completes (no reverse animation)
+                    StartCoroutine(SnapScaleBackToOne(tile.transform, flipAnimDuration));
+                }
+
+                StartCoroutine(SetBGColor(tile, currentColors[Random.Range(0, currentColors.Count)]));
             }
 
             yield return new WaitForSeconds(pause);
         }
+    }
+
+    IEnumerator SnapScaleBackToOne(Transform t, float wait)
+    {
+        yield return new WaitForSeconds(wait);
+
+        // Snap immediately back to normal
+        t.localScale = Vector3.one;
     }
 
     IEnumerator SetBGColor(BGTile tile, Color color)
@@ -108,12 +137,7 @@ public class SpawnBG : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         tile.SetColor(RandomizeColor(color));
     }
-
-
-
 }
-
-
 
 [CustomEditor(typeof(SpawnBG))]
 public class MyButtonExampleEditor : Editor

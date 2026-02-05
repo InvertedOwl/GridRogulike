@@ -74,8 +74,10 @@ namespace Cards
             Rarity = rarity;
             UniqueId = GenerateDeterministicId();
             isReal = true;
-            Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
-            Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(rarity).ModifierType);
+            Condition = null;
+            Modifier = null;
+            // Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
+            // Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(rarity).ModifierType);
             cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cards.Actions;
 using Types;
+using Types.Passives;
 
 namespace Cards.CardList
 {
@@ -11,6 +12,18 @@ namespace Cards.CardList
         private static readonly IReadOnlyDictionary<string, Func<CardEntry>> defs =
             new Dictionary<string, Func<CardEntry>>
             {
+                ["SpawnPassiveForest"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                    { 
+                        new SpawnPassiveAction(3, "basic", null, PassiveData.GetPassiveEntry("forest"))
+                    }, Rarity.Common),
+                    new [] { StartingDecks.basic }),
+                
+                ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                    { 
+                        new SpawnPassiveAction(3, "basic", null, PassiveData.GetPassiveEntry("bloodritual"))
+                    }, Rarity.Common),
+                    new [] { StartingDecks.basic }),
+                
                 // -  Basic Deck starting hand  - 
                 // attack cards
                 ["AttackUp"] = () => new(new Card("Attack Up", new List<AbstractAction>

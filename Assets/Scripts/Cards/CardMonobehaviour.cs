@@ -10,6 +10,7 @@ using TMPro;
 using Cards.CardEvents;
 using Cards.CardList;
 using Grid;
+using Passives;
 using Types.Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -136,8 +137,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void UpdateBuff()
     {
-        this.Modifier.GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(_card.Modifier.ModifierText);
-        this.Condition.GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(_card.Condition.ConditionText);
+        // this.Modifier.GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(_card.Modifier.ModifierText);
+        // this.Condition.GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(_card.Condition.ConditionText);
         
     }
     
@@ -287,7 +288,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void Update()
     {
         // Modifiers
-        UpdateCondition();
+        // UpdateCondition();
         
         // Mouse events
         if (IsPointerOverThisUIElement() && _cardSet)
@@ -393,8 +394,21 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
             
             // Only modify events if condition is satisfied
-            if (_card.Condition.Condition(_card))
+            if (_card.Condition != null && _card.Modifier != null && _card.Condition.Condition(_card))
                 eventQueue = _card.Modifier.Modify(eventQueue);
+
+
+
+            foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
+            {
+                Debug.Log(entry + " Current entry");
+                if (entry.Condition.Condition(_card))
+                {
+                    eventQueue = entry.CardModifier.Modify(eventQueue);
+                    Debug.Log("ACTIVATED MODIFIER");
+                        
+                }
+            }
             
             // Modify by tile
             Vector2Int playerPos = GameStateManager.Instance.GetCurrent<PlayingState>().player.positionRowCol;
