@@ -1021,15 +1021,6 @@ MonoBehaviour:
   used: 0
   CostOverride: -1
   MainPanel: {fileID: 1558321771597725976}
-  attackPrefab: {fileID: 689449408234064679, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
-  movePrefab: {fileID: 5441123354535697310, guid: 5c6ebd3012a1f41189c81f6defce7881, type: 3}
-  shieldPrefab: {fileID: 689449408234064679, guid: 90639ee34007bd445bafec4e9105d0cd, type: 3}
-  normalPrefab: {fileID: 689449408234064679, guid: db8f74ebd2734014b8b8dd2b22a5ace1, type: 3}
-  poisonPrefab: {fileID: 689449408234064679, guid: a6755cf64eddeb64bbdbf8baed1c13cc, type: 3}
-  drawPrefab: {fileID: 689449408234064679, guid: c2f5a9352df5c0e47ac1ddd223c3956c, type: 3}
-  diagram: {fileID: 265925174633817332}
-  tilePrefab: {fileID: 3228883696931375593, guid: af218f11231d64182b0758ea463e86f2, type: 3}
-  arrowPrefab: {fileID: 8427575793733397400, guid: 64ff4e8c3220c4592bf7321d9c11fd21, type: 3}
   inactiveImage: {fileID: 4785186283911999707}
   GoList: {fileID: 5049242726413936616}
   Condition: {fileID: 8757923124203560769}
@@ -1102,6 +1093,26 @@ MonoBehaviour:
     Value: {fileID: 7263006152486674472}
   - Key: FrostInfo
     Value: {fileID: 2731966265684507246}
+  - Key: attackPrefab
+    Value: {fileID: 689449408234064679, guid: 81fbfdc4ee4574e91834a3abe688eca9, type: 3}
+  - Key: movePrefab
+    Value: {fileID: 5441123354535697310, guid: 5c6ebd3012a1f41189c81f6defce7881, type: 3}
+  - Key: shieldPrefab
+    Value: {fileID: 689449408234064679, guid: 90639ee34007bd445bafec4e9105d0cd, type: 3}
+  - Key: normalPrefab
+    Value: {fileID: 689449408234064679, guid: db8f74ebd2734014b8b8dd2b22a5ace1, type: 3}
+  - Key: poisonPrefab
+    Value: {fileID: 689449408234064679, guid: a6755cf64eddeb64bbdbf8baed1c13cc, type: 3}
+  - Key: drawPrefab
+    Value: {fileID: 689449408234064679, guid: c2f5a9352df5c0e47ac1ddd223c3956c, type: 3}
+  - Key: diagram
+    Value: {fileID: 0}
+  - Key: tilePrefab
+    Value: {fileID: 3228883696931375593, guid: af218f11231d64182b0758ea463e86f2, type: 3}
+  - Key: tilePrefab
+    Value: {fileID: 3228883696931375593, guid: af218f11231d64182b0758ea463e86f2, type: 3}
+  - Key: environPrefab
+    Value: {fileID: 1644736290022979738, guid: fa908b3354aff194ca3d931d1124f419, type: 3}
 --- !u!114 &5926436164657692085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1493,7 +1504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1424938527791871264
 RectTransform:
   m_ObjectHideFlags: 0

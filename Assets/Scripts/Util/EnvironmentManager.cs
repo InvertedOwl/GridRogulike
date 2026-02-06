@@ -42,6 +42,30 @@ public class EnvironmentManager : MonoBehaviour
         SpawnBG.instance.SetColorAnimation();
     }
 
+    public void ClearPassives()
+    {
+        foreach (var passive in passiveEntries)
+        {
+            SpawnBG.instance.currentColors.Remove(passive.Color);
+        }
+
+        // Destroy spawned GameObjects
+        foreach (var go in entryGameObjects)
+        {
+            if (go != null)
+            {
+                Destroy(go);
+            }
+        }
+
+        passiveEntries.Clear();
+        entryGameObjects.Clear();
+
+        // Update background animation
+        SpawnBG.instance.SetColorAnimation();
+    }
+
+
     public void CreatePassiveObject(PassiveEntry entry)
     {
         GameObject go = Instantiate(environGOPrefab, environGOParent);

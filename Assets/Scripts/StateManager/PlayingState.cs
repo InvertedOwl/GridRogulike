@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace StateManager
         public static int numNormalEnemy = 1;
         public static int numHardEnemy;
         public static int numBossEnemy;
+        
+        public LerpPosition cameraLerpPosition;
 
         public EasePosition TurnIndicator;
 
@@ -43,6 +46,7 @@ namespace StateManager
         public TurnIndicatorManager turnIndicatorManager;
 
         private static Random _entitySpawnRandom = RunInfo.NewRandom("espawn".GetHashCode());
+        
 
         public override void Enter()
         {
@@ -63,6 +67,19 @@ namespace StateManager
             // RunInfo.Instance.Difficulty += 1;
             StartCoroutine(UpdateTurnIndicators());
             BattleStats.ResetStatsBattle();
+            
+            HexGridManager.Instance.RegisterHexClickCallback((Vector2Int pos, GameObject go) =>
+            {
+                // MoveEntity(player, )
+            });
+        }
+
+        public void Update()
+        {
+            if (!GameStateManager.Instance.IsCurrent<PlayingState>())
+                return;
+            
+            cameraLerpPosition.targetLocation = new Vector3(player.transform.position.x, player.transform.position.y, -10);
         }
 
         IEnumerator UpdateTurnIndicators()
@@ -118,6 +135,22 @@ namespace StateManager
         public void OnEntityTurnEnd(AbstractEntity entity)
         {
             turnIndicatorManager.NextEnemy(_entities);
+
+            List<Vector2Int> blockers = new List<Vector2Int>();
+            
+            foreach (AbstractEntity abstractEntity in _entities)
+            {
+                if (abstractEntity is Player)
+                    continue;
+                
+                blockers.Add(abstractEntity.positionRowCol);
+            }
+            
+            Dictionary<Vector2Int, int> distanceMap = HexGridManager.Instance.CalculateDistanceMap(player.positionRowCol, blockers);
+            foreach (Vector2Int pos in distanceMap.Keys)
+            {
+                HexGridManager.Instance.GetWorldHexObject(pos).transform.GetChild(5).GetComponent<TextMeshPro>().SetText("" + distanceMap[pos]);
+            }
         }
 
         private void InitializeDeckAndGrid()
@@ -228,6 +261,12 @@ namespace StateManager
             var origin = new Vector2Int(0, 0);
             _grid.TryAdd(origin, "start");
             _grid.TryAdd(HexGridManager.MoveHex(origin, "n", 1), "basic");
+            _grid.TryAdd(HexGridManager.MoveHex(origin, "ne", 1), "basic");
+            _grid.TryAdd(HexGridManager.MoveHex(origin, "nw", 1), "basic");
+            _grid.TryAdd(HexGridManager.MoveHex(origin, "sw", 1), "basic");
+            _grid.TryAdd(HexGridManager.MoveHex(origin, "se", 1), "basic");
+            _grid.TryAdd(HexGridManager.MoveHex(origin, "s", 1), "basic");
+            _grid.TryAdd(HexGridManager.MoveHex(origin, "s", 2), "basic");
             _grid.UpdateBoard();
         }
 
@@ -267,8 +306,7 @@ namespace StateManager
 
         public override void Exit()
         {
-            SpawnBG.instance.currentColors = SpawnBG.instance.grasslandColors;
-            SpawnBG.instance.SetColorAnimation();
+            EnvironmentManager.instance.ClearPassives();
             
             player.Shield = 0;
             BattleStats.ResetStatsBattle();

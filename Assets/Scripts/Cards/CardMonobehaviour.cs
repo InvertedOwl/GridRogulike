@@ -49,15 +49,17 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     public GameObject MainPanel;
 
-    public GameObject attackPrefab;
-    public GameObject movePrefab;
-    public GameObject shieldPrefab;
-    public GameObject normalPrefab;
-    public GameObject poisonPrefab;
-    public GameObject drawPrefab;
-    public GameObject diagram;
-    public GameObject tilePrefab;
-    public GameObject arrowPrefab;
+    // public GameObject attackPrefab;
+    // public GameObject movePrefab;
+    // public GameObject shieldPrefab;
+    // public GameObject normalPrefab;
+    // public GameObject poisonPrefab;
+    // public GameObject drawPrefab;
+    // public GameObject diagram;
+    // public GameObject tilePrefab;
+    // public GameObject arrowPrefab;
+
+    
     public GameObject inactiveImage;
     public GOList GoList;
     
@@ -144,18 +146,21 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     private void UpdateDiagram()
     {
-        foreach (Transform child in diagram.transform)
+        if (!GoList.HasValue("diagram") || GoList.GetValue("diagram") == null )
+            return;
+        
+        foreach (Transform child in GoList.GetValue("diagram").transform)
         {
             Destroy(child.gameObject);
         }
         
         List<RectTransform> allElements = new List<RectTransform>();
         
-        allElements.Add(Instantiate(tilePrefab, diagram.transform).GetComponent<RectTransform>());
+        allElements.Add(Instantiate(GoList.GetValue("tilePrefab"), GoList.GetValue("diagram").transform).GetComponent<RectTransform>());
 
         foreach (AbstractAction action in _card.Actions)
         {
-            allElements.AddRange(action.UpdateGraphic(diagram, tilePrefab, arrowPrefab));
+            allElements.AddRange(action.UpdateGraphic(GoList.GetValue("diagram"), GoList.GetValue("tilePrefab"), GoList.GetValue("arrowPrefab")));
         }
 
         Vector3 averagePos = GetUIAveragePosition(allElements);
@@ -224,41 +229,54 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         foreach (AbstractAction action in _card.Actions)
         {
             GameObject text = null;
+            bool setText = true;
 
             switch (action)
             {
                 case MoveAction moveAction:
-                    text = Instantiate(movePrefab, MainPanel.transform);
+                    text = Instantiate(GoList.GetValue("movePrefab"), MainPanel.transform);
                     RotateArrow(moveAction.Direction, text.transform.GetChild(2));
                     break;
 
                 case PoisonAttackAction:
-                    text = Instantiate(poisonPrefab, MainPanel.transform);
+                    text = Instantiate(GoList.GetValue("poisonPrefab"), MainPanel.transform);
                     break;
 
                 case AttackAction attackAction:
-                    text = Instantiate(attackPrefab, MainPanel.transform);
+                    text = Instantiate(GoList.GetValue("attackPrefab"), MainPanel.transform);
                     RotateArrow(attackAction.Direction, text.transform.GetChild(3));
+                    break;
+                
+                case SpawnPassiveAction spawnPassiveAction:
+                    text = Instantiate(GoList.GetValue("environPrefab"), MainPanel.transform);
+                    text.GetComponent<EnvironMonobehavior>().SetEnviron(spawnPassiveAction.GetPassive().Name, spawnPassiveAction.GetPassive().Desc, spawnPassiveAction.GetPassive().Color);
+                    text.transform.localScale = new Vector3(4.5f, 4.5f, 1);
+                    posY -= 140;
+                    setText = false;
                     break;
 
                 case ShieldAction:
-                    text = Instantiate(shieldPrefab, MainPanel.transform);
+                    text = Instantiate(GoList.GetValue("shieldPrefab"), MainPanel.transform);
                     GoList.GetValue("ShieldInfo").SetActive(true);
                     break;
 
                 case DrawCardAction:
-                    text = Instantiate(drawPrefab, MainPanel.transform);
+                    text = Instantiate(GoList.GetValue("drawPrefab"), MainPanel.transform);
                     break;
                 
 
                 default:
-                    text = Instantiate(normalPrefab, MainPanel.transform);
+                    text = Instantiate(GoList.GetValue("normalPrefab"), MainPanel.transform);
                     break;
             }
 
-            text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
-            TypeTitles[text.transform.GetChild(1).GetComponent<TextMeshProUGUI>()] = action.GetText();
-            types.Add(text);
+            if (setText)
+            {
+                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
+                TypeTitles[text.transform.GetChild(1).GetComponent<TextMeshProUGUI>()] = action.GetText();
+                types.Add(text);
+            }
+
             text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
 
             posY -= 140;

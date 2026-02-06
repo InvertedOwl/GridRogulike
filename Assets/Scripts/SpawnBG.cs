@@ -86,6 +86,17 @@ public class SpawnBG : MonoBehaviour
 
     IEnumerator ColorAnimationDiagonal()
     {
+        List<Color> colors = new List<Color>();
+
+        if (currentColors.Count != 0)
+        {
+            colors.AddRange(currentColors);
+        }
+        else
+        {
+            colors.AddRange(grasslandColors);
+        }
+        
         int count = transform.childCount;
         int width = widthX;
         int height = Mathf.CeilToInt(count / (float)width);
@@ -117,7 +128,7 @@ public class SpawnBG : MonoBehaviour
                     StartCoroutine(SnapScaleBackToOne(tile.transform, flipAnimDuration));
                 }
 
-                StartCoroutine(SetBGColor(tile, currentColors[Random.Range(0, currentColors.Count)]));
+                StartCoroutine(SetBGColor(tile, colors[Random.Range(0, colors.Count)]));
             }
 
             yield return new WaitForSeconds(pause);

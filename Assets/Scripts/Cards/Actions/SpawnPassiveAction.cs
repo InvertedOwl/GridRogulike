@@ -41,6 +41,11 @@ namespace Cards.Actions
             return new List<RectTransform>();
         }
 
+        public PassiveEntry GetPassive()
+        {
+            return _passive;
+        }
+
         public override string GetText()
         {
             return "Spawn Passive";

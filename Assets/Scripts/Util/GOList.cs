@@ -61,4 +61,9 @@ public class GOList : MonoBehaviour
         }
     }
 
+    public bool HasValue(string key)
+    {
+        return myDictionary.ContainsKey(key);
+    }
+
 }
