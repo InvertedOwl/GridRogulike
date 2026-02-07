@@ -14,14 +14,14 @@ namespace Cards.CardList
             {
                 ["SpawnPassiveForest"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
-                        new SpawnPassiveAction(3, "basic", null, PassiveData.GetPassiveEntry("forest"))
-                    }, Rarity.Common),
+                        new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("forest"))
+                    }, Rarity.Uncommon),
                     new [] { StartingDecks.basic }),
                 
                 ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
-                        new SpawnPassiveAction(3, "basic", null, PassiveData.GetPassiveEntry("bloodritual"))
-                    }, Rarity.Common),
+                        new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual"))
+                    }, Rarity.Uncommon),
                     new [] { StartingDecks.basic }),
                 
 
