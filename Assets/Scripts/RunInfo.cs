@@ -14,10 +14,21 @@ public class RunInfo : MonoBehaviour
     public List<TextMeshProUGUI> moneyText;
     public List<TextMeshProUGUI> redrawText;
     public List<TextMeshProUGUI> difficultyText;
+    public List<TextMeshProUGUI> stepsText;
     public static string seed = "testing";
     public readonly int combineCost = 2;
-    
 
+
+    public int CurrentSteps
+    {
+        get => _currentSteps;
+        set
+        {
+            _currentSteps = value;
+            UpdateStepsText();
+        }
+    }
+    
     public int CurrentEnergy
     {
         get => _currentEnergy;
@@ -75,6 +86,7 @@ public class RunInfo : MonoBehaviour
     private int _redraws;
     private int _money = 0;
     private int _difficulty = DefaultDifficulty; 
+    private int _currentSteps = 0;
     
     private const int DefaultMaxEnergy = 4;
     private const int InitialEnergy = 4;
@@ -115,6 +127,14 @@ public class RunInfo : MonoBehaviour
         UpdateTextCollection(moneyText, FormatMoneyText());
     }
 
+    // Update steps display text elements
+    private void UpdateStepsText()
+    {
+        
+        UpdateTextCollection(stepsText, _currentSteps + "");
+    }
+
+    
     // Update redraw display text elements
     private void UpdateRedrawText()
     {

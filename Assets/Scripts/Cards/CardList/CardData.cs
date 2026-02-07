@@ -24,8 +24,8 @@ namespace Cards.CardList
                     }, Rarity.Common),
                     new [] { StartingDecks.basic }),
                 
-                // -  Basic Deck starting hand  - 
-                // attack cards
+
+                
                 ["AttackUp"] = () => new(new Card("Attack Up", new List<AbstractAction>
                 { 
                     new AttackAction(1, "basic", null, "n", 1, 15)
@@ -62,41 +62,11 @@ namespace Cards.CardList
                     }, Rarity.Common), 
                     new [] {StartingDecks.basic}),
                 // move cards
-                ["MoveUp"] = () => new(new Card("Move Up", new List<AbstractAction>
+                ["AddMovement"] = () => new(new Card("Dash", new List<AbstractAction>
                     { 
-                        new MoveAction(1, "basic", null, "n", 1)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["MoveUpRight"] = () => new(new Card("Move Up Right", new List<AbstractAction>
-                    { 
-                        new MoveAction(1, "basic", null, "ne", 1)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["MoveUpLeft"] = () => new(new Card("Move Up Left", new List<AbstractAction>
-                    { 
-                        new MoveAction(1, "basic", null, "nw", 1)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["MoveDown"] = () => new(new Card("Move Down", new List<AbstractAction>
-                    { 
-                        new MoveAction(1, "basic", null, "s", 1)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["MoveDownRight"] = () => new(new Card("Move Down Right", new List<AbstractAction>
-                    { 
-                        new MoveAction(1, "basic", null, "se", 1)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["MoveDownLeft"] = () => new(new Card("Move Down Left", new List<AbstractAction>
-                    { 
-                        new MoveAction(1, "basic", null, "sw", 1)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
+                        new AddStepsCardAction(1, "basic", null, 1)
+                    }, Rarity.Common),
+                    new [] { StartingDecks.basic }),
                 
                 
                 

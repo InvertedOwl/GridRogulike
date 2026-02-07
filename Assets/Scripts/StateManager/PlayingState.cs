@@ -29,6 +29,8 @@ namespace StateManager
         
         public Button EndTurnButton;
         public Button RedrawButton;
+        
+        public MovePlayerController movePlayerController;
 
         public static int RewardMoney;
         public static int numNormalEnemy = 1;
@@ -68,10 +70,9 @@ namespace StateManager
             StartCoroutine(UpdateTurnIndicators());
             BattleStats.ResetStatsBattle();
             
-            HexGridManager.Instance.RegisterHexClickCallback((Vector2Int pos, GameObject go) =>
-            {
-                // MoveEntity(player, )
-            });
+
+            
+            HexGridManager.Instance.RegisterHexClickCallback(MovePlayerController.StaticHexClickCallback);
         }
 
         public void Update()
@@ -79,7 +80,15 @@ namespace StateManager
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
             
-            cameraLerpPosition.targetLocation = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+            Vector3 averagePos = Vector3.zero;
+
+            foreach (var entity in _entities)
+            {
+                averagePos += entity.transform.position;
+            }
+            averagePos /= _entities.Count;
+            
+            cameraLerpPosition.targetLocation = new Vector3(averagePos.x, averagePos.y -1, -10); // -1 y for adjusted center. It's made up
         }
 
         IEnumerator UpdateTurnIndicators()
@@ -135,22 +144,8 @@ namespace StateManager
         public void OnEntityTurnEnd(AbstractEntity entity)
         {
             turnIndicatorManager.NextEnemy(_entities);
-
-            List<Vector2Int> blockers = new List<Vector2Int>();
+            turnIndicatorManager.NextEnemy(_entities);
             
-            foreach (AbstractEntity abstractEntity in _entities)
-            {
-                if (abstractEntity is Player)
-                    continue;
-                
-                blockers.Add(abstractEntity.positionRowCol);
-            }
-            
-            Dictionary<Vector2Int, int> distanceMap = HexGridManager.Instance.CalculateDistanceMap(player.positionRowCol, blockers);
-            foreach (Vector2Int pos in distanceMap.Keys)
-            {
-                HexGridManager.Instance.GetWorldHexObject(pos).transform.GetChild(5).GetComponent<TextMeshPro>().SetText("" + distanceMap[pos]);
-            }
         }
 
         private void InitializeDeckAndGrid()
@@ -307,6 +302,8 @@ namespace StateManager
         public override void Exit()
         {
             EnvironmentManager.instance.ClearPassives();
+            
+            HexGridManager.Instance.UnregisterHexClickCallback(MovePlayerController.StaticHexClickCallback);
             
             player.Shield = 0;
             BattleStats.ResetStatsBattle();
@@ -486,6 +483,11 @@ namespace StateManager
             return list.Count > 0;
         }
 
+        public List<AbstractEntity> GetEntities()
+        {
+            return _entities;
+        }
+
         public bool IsValidHex(Vector2Int coords)
         {
             if (_grid.HexType(coords) == "none") return false;
@@ -505,6 +507,32 @@ namespace StateManager
                 {
                     cardEvent.Activate(ent);
                 }
+                BattleStats.TilesMovedThisBattle += dist;
+                BattleStats.TilesMovedThisTurn += dist;
+            }
+
+            return true;
+        }
+        
+        public bool MoveEntity(AbstractEntity ent, Vector2Int target)
+        {
+            if (!IsValidHex(target)) 
+                return false;
+
+            // TODO: DEBUG
+            int dist = 1;
+            
+            ent.MoveEntity(target);
+
+            if (ent is Player)
+            {
+                foreach (AbstractCardEvent cardEvent in 
+                         TileData.tiles[HexGridManager.Instance.HexType(target)]
+                             .landEvent.Invoke())
+                {
+                    cardEvent.Activate(ent);
+                }
+
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
             }

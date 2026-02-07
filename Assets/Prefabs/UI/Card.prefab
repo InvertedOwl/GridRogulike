@@ -1113,6 +1113,8 @@ MonoBehaviour:
     Value: {fileID: 3228883696931375593, guid: af218f11231d64182b0758ea463e86f2, type: 3}
   - Key: environPrefab
     Value: {fileID: 1644736290022979738, guid: fa908b3354aff194ca3d931d1124f419, type: 3}
+  - Key: stepsPrefab
+    Value: {fileID: 5441123354535697310, guid: 59a10bd1dd0f6954a97c20072960be08, type: 3}
 --- !u!114 &5926436164657692085
 MonoBehaviour:
   m_ObjectHideFlags: 0

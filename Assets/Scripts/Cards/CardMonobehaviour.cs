@@ -254,6 +254,10 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                     posY -= 140;
                     setText = false;
                     break;
+                
+                case AddStepsCardAction:
+                    text = Instantiate(GoList.GetValue("stepsPrefab"), MainPanel.transform);
+                    break;
 
                 case ShieldAction:
                     text = Instantiate(GoList.GetValue("shieldPrefab"), MainPanel.transform);

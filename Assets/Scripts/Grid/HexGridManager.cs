@@ -24,10 +24,8 @@ namespace Grid
         public Transform grid;
         public static HexGridManager Instance;
 
-        // --- NEW: callbacks (runtime) ---
         private readonly List<Action<Vector2Int, GameObject>> _hexClickedCallbacks = new();
 
-        // --- NEW: callbacks (inspector-friendly) ---
         [Header("Hex Click Events (Inspector)")]
         public HexClickedEvent onHexClicked;
 
@@ -84,10 +82,8 @@ namespace Grid
                 }
             }
 
-            // IMPORTANT: clear old references
             _hexObjects.Clear();
 
-            // Rebuild visuals
             foreach (var kvp in _boardDictionary)
             {
                 var pos = kvp.Key;
@@ -95,12 +91,10 @@ namespace Grid
                 newHex.transform.localPosition = GetHexCenter(pos.x, pos.y);
                 _hexObjects[pos] = newHex;
 
-                // --- NEW: wire click forwarding ---
                 AttachClickForwarder(newHex, pos);
             }
         }
 
-        // --- NEW: attach or reuse click component ---
         private void AttachClickForwarder(GameObject hexObj, Vector2Int gridPos)
         {
             var forwarder = hexObj.GetComponent<HexClickForwarder>();
@@ -110,7 +104,6 @@ namespace Grid
             forwarder.Init(this, gridPos);
         }
 
-        // --- NEW: invoked by HexClickForwarder ---
         internal void NotifyHexClicked(Vector2Int pos, GameObject hexObj)
         {
             // inspector event
@@ -130,7 +123,6 @@ namespace Grid
             }
         }
 
-        // --- NEW: public API for runtime callbacks ---
         public void RegisterHexClickCallback(Action<Vector2Int, GameObject> callback)
         {
             if (callback == null) return;
@@ -172,7 +164,10 @@ namespace Grid
                         continue;
 
                     if (blockers.Contains(neighbor))
+                    {
+                        distances[neighbor] = -1;
                         continue;
+                    }
 
                     if (distances.ContainsKey(neighbor))
                         continue;
