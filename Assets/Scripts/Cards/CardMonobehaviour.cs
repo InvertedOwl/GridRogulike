@@ -449,6 +449,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         
         if (isLeftClick)
             CardClickedCallback?.Invoke();
+        
+        MovePlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
     }
 
 

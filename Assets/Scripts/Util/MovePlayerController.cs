@@ -22,6 +22,29 @@ namespace Util {
         {
             instance = this;
         }
+
+        public void UpdateMovableParticles(PlayingState playingState)
+        {
+            
+            Dictionary<Vector2Int, int> currentMap =
+                CalculateDistanceMap(playingState.player.positionRowCol, playingState);
+            
+            foreach (var key in currentMap.Keys)
+            {
+                if (currentMap[key] <= RunInfo.Instance.CurrentSteps && currentMap[key] > 0 && playingState.CurrentTurn is Player)
+                {
+                    GOList list = HexGridManager.Instance.GetWorldHexObject(key)
+                        .GetComponent<GOList>();
+                    list.GetValue("Particles").SetActive(true);
+                }
+                else
+                {
+                    GOList list = HexGridManager.Instance.GetWorldHexObject(key)
+                        .GetComponent<GOList>();
+                    list.GetValue("Particles").SetActive(false);
+                }
+            }
+        }
         
 
         public void HexClickCallback(Vector2Int hexPosition)
@@ -107,6 +130,8 @@ namespace Util {
                 currentMap = CalculateDistanceMap(targetPosition, playingState);
             }
             isMoving = false;
+            
+            UpdateMovableParticles(playingState);
         }
     }
 }
