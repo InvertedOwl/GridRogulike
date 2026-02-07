@@ -25,7 +25,12 @@ namespace StateManager
         private int _currentTurnIndex;
         public Player player;
         public GameObject gameUI;
-        protected System.Random random = new System.Random();
+        protected Random random;
+        
+        public void Awake()
+        {
+            random = RunInfo.NewRandom("playing".GetHashCode());
+        }
         
         public Button EndTurnButton;
         public Button RedrawButton;
