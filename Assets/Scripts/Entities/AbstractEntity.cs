@@ -69,7 +69,9 @@ namespace Entities
         public void MoveEntity(Vector2Int newCoords)
         {
             positionRowCol = newCoords;
-            GetComponent<LerpPosition>().targetLocation = HexGridManager.GetHexCenter(positionRowCol.x, positionRowCol.y);
+            GetComponent<LerpPosition>().targetLocation = Vector3.zero;
+            GameObject currentHex = HexGridManager.Instance.GetWorldHexObject(positionRowCol);
+            transform.SetParent(currentHex.transform.GetChild(3));
             
         }
 

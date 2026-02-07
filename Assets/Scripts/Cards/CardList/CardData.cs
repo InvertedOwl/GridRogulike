@@ -21,7 +21,7 @@ namespace Cards.CardList
                 ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
                         new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual"))
-                    }, Rarity.Uncommon),
+                    }, Rarity.Rare),
                     new [] { StartingDecks.basic }),
                 
 

@@ -39,7 +39,7 @@ public class TileHover : MonoBehaviour
         if (GetComponent<Collider2D>().OverlapPoint(mousePos2D) && activeHover) {
             if (lerpPosition)
             {
-                lerpPosition.targetLocation = new Vector3(0, -0.02f, lerpPosition.startPosition.z);
+                lerpPosition.targetLocation = new Vector3(0, -0.08f, lerpPosition.startPosition.z);
             }
             
             if (activateOnHover && ticksHovered > waitTicks)

@@ -127,6 +127,8 @@ namespace StateManager
 
             OnEntityTurnEnd(entity);
             entity.EndTurn();
+            
+            MovePlayerController.instance.UpdateMovableParticles(this);
         }
 
         public void OnEntityTurnStart(AbstractEntity entity)
@@ -219,10 +221,8 @@ namespace StateManager
 
             foreach (var e in _entities)
             {
-                e.GetComponent<LerpPosition>().targetLocation = HexGridManager.GetHexCenter(e.positionRowCol.x, e.positionRowCol.y);
-                e.transform.position = e.GetComponent<LerpPosition>().targetLocation;
+                e.MoveEntity(e.positionRowCol);
 
-                // DEBUG
                 e.Health = e.initialHealth;
             }
         }
@@ -306,6 +306,8 @@ namespace StateManager
 
         public override void Exit()
         {
+            player.transform.SetParent(this.transform);
+            
             EnvironmentManager.instance.ClearPassives();
             
             HexGridManager.Instance.UnregisterHexClickCallback(MovePlayerController.StaticHexClickCallback);
@@ -432,7 +434,7 @@ namespace StateManager
                                     ((AttackAction)action).Direction, ((AttackAction)action).Distance);
                                 GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack)
                                     .GetComponent<GOList>();
-                                list.GetValue("Particles").SetActive(true);
+                                // list.GetValue("Particles").SetActive(true);
                                 list.GetValue("Damage").SetActive(true);
                                 list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount + "";
                             }
