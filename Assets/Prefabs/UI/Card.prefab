@@ -1427,13 +1427,14 @@ GameObject:
   - component: {fileID: 7071548414833883154}
   - component: {fileID: 1108950597275959854}
   - component: {fileID: 2536005264833427910}
+  - component: {fileID: 3806157165389657982}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Disabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7071548414833883154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1491,6 +1492,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &3806157165389657982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4785186283911999707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5456a2032702054885b976126b0fcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Util.EaseColor
+  durationSeconds: 0.15
+  useMaterialColor: 1
+  _elapsedTime: 0
 --- !u!1 &5042343826778555705
 GameObject:
   m_ObjectHideFlags: 0

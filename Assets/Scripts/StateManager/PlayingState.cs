@@ -20,6 +20,21 @@ namespace StateManager
 {
     public class PlayingState : GameState
     {
+
+        private bool _allowUserInput = true;
+
+        public bool AllowUserInput
+        {
+            get => _allowUserInput;
+            set
+            {
+                _allowUserInput = value;
+                Deck.Instance.SetInactive(!value);
+                EndTurnButton.interactable = value;
+                RedrawButton.interactable = value;
+            }
+        }
+
         private readonly List<AbstractEntity> _entities = new();
         private HexGridManager _grid = null!;
         private int _currentTurnIndex;
@@ -35,8 +50,6 @@ namespace StateManager
         public Button EndTurnButton;
         public Button RedrawButton;
         
-        public MovePlayerController movePlayerController;
-
         public static int RewardMoney;
         public static int numNormalEnemy = 1;
         public static int numHardEnemy;
@@ -62,9 +75,9 @@ namespace StateManager
             SetupInitialTiles();
             SetupEntities();
             SetupUI();
-            SetupPlayerHand();
             EnableTileHovers();
             UpdateNextTurnIndicators();
+            SetupPlayerHand();
 
             _currentTurnIndex = 0; // assuming player is added first in SetupEntities
             StartEntityTurn();
@@ -72,16 +85,16 @@ namespace StateManager
             TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
             turnIndicatorManager.ThisEnemy(_entities);
             // RunInfo.Instance.Difficulty += 1;
-            StartCoroutine(UpdateTurnIndicators());
             BattleStats.ResetStatsBattle();
-            
-
             
             HexGridManager.Instance.RegisterHexClickCallback(MovePlayerController.StaticHexClickCallback);
         }
 
         public void Update()
         {
+            // Camera control?
+            // TODO: Undo this shit? Put it somewhere else?
+            
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
             
@@ -95,66 +108,8 @@ namespace StateManager
             
             cameraLerpPosition.targetLocation = new Vector3(averagePos.x, averagePos.y -1, -10); // -1 y for adjusted center. It's made up
         }
-
-        IEnumerator UpdateTurnIndicators()
-        {
-            yield return new WaitForSeconds(0.1f);
-            turnIndicatorManager.ThisEnemy(_entities);
-        }
-
-        private void StartEntityTurn()
-        {
-            if (CheckForFinish() != "none") return;
-            var entity = CurrentTurn;
-
-            OnEntityTurnStart(entity);
-
-            if (entity is Enemy enemy)
-            {
-                StartCoroutine(enemy.MakeTurn());
-            }
-            else if (entity is Player)
-            {
-            }
-
-            UpdateNextTurnIndicators();
-        }
         
-        private void EndEntityTurn()
-        {
-            if (CheckForFinish() != "none") return;
-            var entity = CurrentTurn;
-
-            OnEntityTurnEnd(entity);
-            entity.EndTurn();
-            
-            MovePlayerController.instance.UpdateMovableParticles(this);
-        }
-
-        public void OnEntityTurnStart(AbstractEntity entity)
-        {
-            entity.StartTurn();
-
-            if (entity is Player)
-            {
-                StartCoroutine(EnableButtons(.26f));
-            }
-        }
         
-        IEnumerator EnableButtons(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            EndTurnButton.interactable = true;
-            RedrawButton.interactable = true;
-        }
-        
-        public void OnEntityTurnEnd(AbstractEntity entity)
-        {
-            turnIndicatorManager.NextEnemy(_entities);
-            turnIndicatorManager.NextEnemy(_entities);
-            
-        }
-
         private void InitializeDeckAndGrid()
         {
             Deck.Instance.UpdateDeck();
@@ -278,7 +233,6 @@ namespace StateManager
         private void SetupPlayerHand()
         {
             Deck.Instance.DiscardHand();
-            Deck.Instance.DrawHand();
         }
 
         private void EnableTileHovers()
@@ -348,14 +302,41 @@ namespace StateManager
         #region Turn System ---------------
         public void EntityEndTurn()
         {
-            EndEntityTurn();
+            if (CheckForFinish() != "none") return;
+            var entity = CurrentTurn;
+
+            entity.EndTurn();
+            
+            MovePlayerController.instance.UpdateMovableParticles(this);
             if (CheckForFinish() != "none") return;
 
-            _currentTurnIndex = (_currentTurnIndex + 1) % _entities.Count;
             ClearDeadEnemies();
 
             // Unified start for the next entity
             StartEntityTurn();
+        }
+        
+        private void StartEntityTurn()
+        {
+            if (CheckForFinish() != "none") return;
+            _currentTurnIndex = (_currentTurnIndex + 1) % _entities.Count;
+            var entity = CurrentTurn;
+            
+            
+            entity.StartTurn();
+
+            if (entity is Enemy enemy)
+            {
+                StartCoroutine(MakeEnemyTurn(enemy));
+            }
+        }
+        
+        private IEnumerator MakeEnemyTurn(Enemy enemy)
+        {
+            yield return new WaitForSeconds(0.25f);
+            yield return enemy.MakeTurn();
+            yield return new WaitForSeconds(0.25f);
+            EntityEndTurn();
         }
 
         public void ClearDeadEnemies()
@@ -383,10 +364,10 @@ namespace StateManager
 
         public void PlayerEndTurn()
         {
-            
-            BattleStats.ResetStatsTurn();
             if (!(CurrentTurn is Player))
                 return;
+
+            BattleStats.ResetStatsTurn();
 
             if (CheckForFinish() == "player")
             {
@@ -396,15 +377,9 @@ namespace StateManager
 
             // Advance to next entity; StartEntityTurn() will be called inside EntityEndTurn
             EntityEndTurn();
-
-            // Refresh player resources for the *next* time the player’s turn comes around
-            RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
-            Deck.Instance.DiscardHand();
-            Deck.Instance.DrawHand();
-            RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
             
-            EndTurnButton.interactable = false;
-            RedrawButton.interactable = false;
+            AllowUserInput = false;
+            
         }
 
         private void UpdateNextTurnIndicators()
@@ -468,14 +443,11 @@ namespace StateManager
                     enemyWin = false;
                 }
 
-                Debug.Log("CheckForFinish: " + entity.Health);
                 if (entity is Enemy && entity.Health > 0)
                 {
                     playerWin = false;
                 }
             }
-
-            Debug.Log("CheckForFinish: " + playerWin);
 
             if (enemyWin) return "enemy";
             if (playerWin) return "player";

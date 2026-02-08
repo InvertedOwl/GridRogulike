@@ -10,6 +10,7 @@ namespace Entities.Enemies
     public class EasyEnemyJimbo : Enemy
     {
         private AbstractAction _plannedAction;
+        private int movementPerTurn = 1;
         
         public void Awake()
         {
@@ -27,23 +28,11 @@ namespace Entities.Enemies
         {
             if (_plannedAction == null)
             {
-                if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing1)
-                {
-                    playing1.EntityEndTurn();
-                }
-                yield return new WaitForSeconds(.25f);
                 yield break;
             }
             
-            yield return new WaitForSeconds(.25f);
+            // TODO: Animation for action ?
             _plannedAction?.Activate(null).ForEach(action => {action.Activate(this);});
-            yield return new WaitForSeconds(.75f);
-            
-            
-            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            {
-                playing.EntityEndTurn();
-            }
         }
 
         private void PlanTurn()
@@ -66,6 +55,7 @@ namespace Entities.Enemies
             }
         }
 
+        // For assigning to things, need to tell controllers what enemies next turn is
         public override List<AbstractAction> NextTurn()
         {
             if (_plannedAction == null)

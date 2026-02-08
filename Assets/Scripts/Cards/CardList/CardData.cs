@@ -28,39 +28,25 @@ namespace Cards.CardList
                 
                 ["AttackUp"] = () => new(new Card("Attack Up", new List<AbstractAction>
                 { 
-                    new AttackAction(1, "basic", null, "n", 1, 15)
+                    new AttackAction(1, "basic", null, "n", 1, 10),
+                    new AttackAction(1, "basic", null, "ne", 1, 10)
                 }, Rarity.Common),
                             new [] { StartingDecks.basic }),
                 
-                ["AttackUpRight"] = () => new(new Card("Attack Up Right", new List<AbstractAction>
+                ["AttackLeft"] = () => new(new Card("AttackLeft", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "ne", 1, 15)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["AttackUpLeft"] = () => new(new Card("Attack Up Left", new List<AbstractAction>
-                    { 
-                        new AttackAction(1, "basic", null, "nw", 1, 15)
+                        new AttackAction(1, "basic", null, "nw", 1, 15),
+                        new AttackAction(1, "basic", null, "sw", 1, 15)
                     }, Rarity.Common), 
                     new [] {StartingDecks.basic}),
                 
                 ["AttackDown"] = () => new(new Card("Attack Down", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "s", 1, 15)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["AttackDownRight"] = () => new(new Card("Attack Down Right", new List<AbstractAction>
-                    { 
+                        new AttackAction(1, "basic", null, "s", 1, 15),
                         new AttackAction(1, "basic", null, "se", 1, 15)
                     }, Rarity.Common), 
                     new [] {StartingDecks.basic}),
                 
-                ["AttackDownLeft"] = () => new(new Card("Attack Down Left", new List<AbstractAction>
-                    { 
-                        new AttackAction(1, "basic", null, "sw", 1, 15)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
                 // move cards
                 ["AddMovement"] = () => new(new Card("Dash", new List<AbstractAction>
                     { 
@@ -72,15 +58,15 @@ namespace Cards.CardList
                 
                 ["Shield5"] = () => new(new Card("Small Shield", new List<AbstractAction>
                     { 
-                        new ShieldAction(1, "basic", null, 5)
+                        new ShieldAction(1, "basic", null, 2)
                     }, Rarity.Common)),
                 ["Shield10"] = () => new(new Card("Medium Shield", new List<AbstractAction>
                 { 
-                    new ShieldAction(2, "basic", null, 10)
+                    new ShieldAction(2, "basic", null, 4)
                 }, Rarity.Common)),
                 ["Shield15"] = () => new(new Card("Large Shield", new List<AbstractAction>
                 { 
-                    new ShieldAction(3, "basic", null, 15)
+                    new ShieldAction(3, "basic", null, 6)
                 }, Rarity.Uncommon)),
                 
                 

@@ -41,6 +41,23 @@ public class Deck : MonoBehaviour
     }
 
 
+    public void SetInactive(bool inactive)
+    {
+        Debug.Log(inactive + " This is the new inactive state. also this is deck");
+        foreach (var card in _draw)
+        {
+            card.SetInactive(inactive);
+        }
+        foreach (var card in _discard)
+        {
+            card.SetInactive(inactive);
+        }
+        foreach (var card in _hand)
+        {
+            card.SetInactive(inactive);
+        }
+    }
+
 
     // TODO: Parameterize this
     public void StartGame()
@@ -150,10 +167,16 @@ public class Deck : MonoBehaviour
     {
         if (RunInfo.Instance.Redraws > 0)
         {
-            DiscardHand();
-            RunInfo.Instance.Redraws--;
-            DrawHand();
+            StartCoroutine(DiscardButtonPatient());
         }
+    }
+
+    private IEnumerator DiscardButtonPatient()
+    {
+        DiscardHand();
+        RunInfo.Instance.Redraws--;
+        yield return new WaitForSeconds(0.25f);
+        DrawHand();
     }
     
     public void DiscardHand()
@@ -218,8 +241,9 @@ public class Deck : MonoBehaviour
 
     IEnumerator WaitToDrawHand(int numToDraw)
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(0f);
         FullDrawHand(numToDraw);
+        yield break;
     }
 
 

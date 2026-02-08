@@ -4508,7 +4508,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -8482,8 +8482,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 5/5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
-  m_sharedMaterial: {fileID: 2698446635624605986, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8517,7 +8517,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -12
+  m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -10800,7 +10800,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.51593
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12473,7 +12473,6 @@ MonoBehaviour:
   gameUI: {fileID: 1366590119}
   EndTurnButton: {fileID: 1736174615}
   RedrawButton: {fileID: 1967415328}
-  movePlayerController: {fileID: 0}
   cameraLerpPosition: {fileID: 975860771}
   TurnIndicator: {fileID: 328626457}
   GoList: {fileID: 1327594992}
@@ -16720,7 +16719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d418c0cc0e4cdfa6b5cf5aaf391a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRedraws: 2
+  maxRedraws: 1
   energyText:
   - {fileID: 1223736036}
   - {fileID: 965004570}

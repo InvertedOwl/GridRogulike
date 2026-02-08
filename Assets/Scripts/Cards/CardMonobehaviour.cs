@@ -15,6 +15,7 @@ using Types.Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions.EasingCore;
 using Util;
 using Random = System.Random;
 
@@ -49,17 +50,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     public GameObject MainPanel;
 
-    // public GameObject attackPrefab;
-    // public GameObject movePrefab;
-    // public GameObject shieldPrefab;
-    // public GameObject normalPrefab;
-    // public GameObject poisonPrefab;
-    // public GameObject drawPrefab;
-    // public GameObject diagram;
-    // public GameObject tilePrefab;
-    // public GameObject arrowPrefab;
-
-    
     public GameObject inactiveImage;
     public GOList GoList;
     
@@ -106,11 +96,18 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         UpdateDiagram();
         UpdateBuff();
         MainPanel.GetComponent<Image>().color = CardRarityColors.GetColor(card.Rarity);
-        inactive = !active;
-        inactiveImage.SetActive(!active);
+        SetInactive(!active);
 
         this.CardClickedCallback = callback;
         _cardRandom = card.cardRandom;
+    }
+
+    public void SetInactive(bool setinactive)
+    {
+        this.inactive = setinactive;
+        inactiveImage.GetComponent<EaseColor>().targetColor = new Color(inactiveImage.GetComponent<EaseColor>().targetColor.r, 
+            inactiveImage.GetComponent<EaseColor>().targetColor.g, 
+            inactiveImage.GetComponent<EaseColor>().targetColor.b, (setinactive)?0.7f:0.0f);
     }
 
     public string FormatTextForInfo(string info)

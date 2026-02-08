@@ -44,7 +44,7 @@ namespace Entities
                 _health = Math.Min(value, initialHealth);
             }
         }
-        public float _shield;
+        private float _shield;
 
         public float Shield
         {
@@ -84,17 +84,24 @@ namespace Entities
 
 
         
-        public void StartTurn()
+        public virtual void StartTurn()
         {
+            _shield = 0;
+            Debug.Log("Start Turn: " + this.name);
+            
+            Debug.Log("Shield: " + Shield);
+            
             // Activate tile events
             TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(positionRowCol)];
             foreach (AbstractCardEvent cardEvent in tile.landEvent.Invoke())
             {
                 cardEvent.Activate(this);
             }
+            
         }
-        public void EndTurn()
+        public virtual void EndTurn()
         {
+            Debug.Log("End Turn: " + this.name);
             if (statusManager)
             {
                 foreach (AbstractStatus abstractStatus in statusManager.statusList)

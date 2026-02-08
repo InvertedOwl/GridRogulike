@@ -25,6 +25,9 @@ namespace Util {
 
         public void UpdateMovableParticles(PlayingState playingState)
         {
+
+            if (!GameStateManager.Instance.IsCurrent<PlayingState>())
+                return;
             
             Dictionary<Vector2Int, int> currentMap =
                 CalculateDistanceMap(playingState.player.positionRowCol, playingState);
@@ -54,7 +57,9 @@ namespace Util {
             
             if (!(playingState.CurrentTurn is Player))
                 return;
-            
+
+            if (!playingState.AllowUserInput)
+                return;
             
             Dictionary<Vector2Int, int> distanceMap = CalculateDistanceMap(hexPosition, playingState);
             
@@ -90,6 +95,7 @@ namespace Util {
 
         IEnumerator MovePlayer(Dictionary<Vector2Int, int> distanceMap, PlayingState playingState, Vector2Int targetPosition)
         {
+            playingState.AllowUserInput = false;
             isMoving = true;
             Dictionary<Vector2Int, int> currentMap = CalculateDistanceMap(targetPosition, playingState);
 
@@ -111,7 +117,7 @@ namespace Util {
                     {
                         if (playingState.MoveEntity(playingState.player, pos)) 
                         {
-                            yield return new WaitForSeconds(0.15f);
+                            yield return new WaitForSeconds(0.3f);
                             moved = true;
                             RunInfo.Instance.CurrentSteps -= 1;
                                         
@@ -132,6 +138,7 @@ namespace Util {
             isMoving = false;
             
             UpdateMovableParticles(playingState);
+            playingState.AllowUserInput = true;
         }
     }
 }
