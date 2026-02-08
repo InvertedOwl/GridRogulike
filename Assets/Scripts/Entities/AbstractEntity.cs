@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cards.CardEvents;
 using Grid;
+using StateManager;
 using TMPro;
 using Types.Statuses;
 using Types.Tiles;
@@ -30,6 +32,26 @@ namespace Entities
         
         // Unique entity random
         protected System.Random _entityRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        
+        public Dictionary<Vector2Int, int> CalculateDistanceMap(Vector2Int hexPosition, PlayingState playingState, AbstractEntity nonblock = null)
+        {
+            List<Vector2Int> blockers = new List<Vector2Int>();
+            
+            foreach (AbstractEntity abstractEntity in playingState.GetEntities())
+            {
+                if (abstractEntity == this)
+                    continue;
+
+                if (nonblock != null && abstractEntity == nonblock)
+                    continue;
+                
+                blockers.Add(abstractEntity.positionRowCol);
+            }
+            
+            Dictionary<Vector2Int, int> distanceMap = HexGridManager.Instance.CalculateDistanceMap(hexPosition, blockers);
+            
+            return distanceMap;
+        }
         
         public float Health
         {

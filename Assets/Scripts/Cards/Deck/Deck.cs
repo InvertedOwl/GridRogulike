@@ -43,7 +43,6 @@ public class Deck : MonoBehaviour
 
     public void SetInactive(bool inactive)
     {
-        Debug.Log(inactive + " This is the new inactive state. also this is deck");
         foreach (var card in _draw)
         {
             card.SetInactive(inactive);

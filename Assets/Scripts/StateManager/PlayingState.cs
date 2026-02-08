@@ -79,7 +79,7 @@ namespace StateManager
             UpdateNextTurnIndicators();
             SetupPlayerHand();
 
-            _currentTurnIndex = 0; // assuming player is added first in SetupEntities
+            _currentTurnIndex = -1;
             StartEntityTurn();
             turnIndicatorManager.UpdateTurnIndicatorList(_entities);
             TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
@@ -312,6 +312,11 @@ namespace StateManager
 
             ClearDeadEnemies();
 
+            if (entity is Enemy)
+            {
+                ((Enemy)entity).NextTurn();
+            }
+            
             // Unified start for the next entity
             StartEntityTurn();
         }
@@ -374,6 +379,14 @@ namespace StateManager
                 PlayerWon();
                 return;
             }
+
+            // foreach (AbstractEntity entity in _entities)
+            // {
+            //     if (entity is Enemy)
+            //     {
+            //         ((Enemy)entity).NextTurn();
+            //     }
+            // }
 
             // Advance to next entity; StartEntityTurn() will be called inside EntityEndTurn
             EntityEndTurn();

@@ -2,7 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cards.Actions;
+using Grid;
+using StateManager;
+using TMPro;
 using Types.Statuses;
+using UnityEngine;
 using Util;
 
 namespace Entities
@@ -22,6 +26,9 @@ namespace Entities
             BattleStats.DamageDoneThisTurn += damage;
             base.Damage(damage, status);
         }
+        
+        
+
         
         public abstract IEnumerator MakeTurn();
         public abstract List<AbstractAction> NextTurn();
