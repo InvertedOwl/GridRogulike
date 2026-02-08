@@ -13,7 +13,6 @@ namespace Cards.Actions
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
             throw new NotImplementedException("Multi attack is not implemented");
-            return base.Activate(cardMono);
         }
     }
 }
