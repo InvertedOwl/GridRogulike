@@ -5180,7 +5180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b289a1bbc54b7eb5104a8d992ece7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 35
   targetLocation: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
   targetScale: {x: 0, y: 0, z: 0}
@@ -5260,7 +5260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpPosition: {fileID: 2323667082491459199}
   activateOnHover: {fileID: 4417866245236661259}
-  waitTicks: 20
+  waitTicks: 30
   activeHover: 1
   hoverWhenNotPlaytate: 1
 --- !u!58 &6050994047722289620
