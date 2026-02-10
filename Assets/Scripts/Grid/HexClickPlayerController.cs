@@ -1,15 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cards.Actions;
 using Cards.CardEvents;
 using Entities;
-using Grid;
 using StateManager;
 using TMPro;
 using UnityEngine;
 
-namespace Util {
+namespace Grid {
     public class HexClickPlayerController : MonoBehaviour
     {
         public bool isMoving = false;
@@ -24,6 +21,7 @@ namespace Util {
                 ToAttack.Add((AttackCardEvent) cardEvent);
             }
 
+            
         }
         
         
@@ -71,6 +69,8 @@ namespace Util {
             playingState.AllowUserInput = false;
             
             Dictionary<Vector2Int, int> noBlockerMapFromPlayer = HexGridManager.Instance.CalculateDistanceMap(playingState.player.positionRowCol, new List<Vector2Int>());
+
+            int numEntitiesToHit = 0;
             
             foreach (AbstractEntity entity in playingState.GetEntities())
             {
@@ -82,6 +82,14 @@ namespace Util {
                     continue;
                 
                 HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol).GetComponent<GOList>().GetValue("ToAttack").SetActive(true);
+                numEntitiesToHit += 1;
+            }
+
+            if (numEntitiesToHit == 0)
+            {
+                ToAttack.RemoveAt(0);
+                isAttacking = false;
+                playingState.AllowUserInput = true;
             }
         }
 

@@ -16,13 +16,13 @@ namespace Cards.CardList
                     { 
                         new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("forest"))
                     }, Rarity.Uncommon),
-                    new [] { StartingDecks.basic }),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 1) }),
                 
                 ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
                         new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual"))
                     }, Rarity.Rare),
-                    new [] { StartingDecks.basic }),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 1) }),
                 
 
                 
@@ -32,14 +32,14 @@ namespace Cards.CardList
                         // Distance DOES matter, though
                         new AttackAction(1, "basic", null, "", 1, 10),
                     }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
                 
                 // move cards
                 ["AddMovement"] = () => new(new Card("Dash", new List<AbstractAction>
                     { 
                         new AddStepsCardAction(1, "basic", null, 1)
                     }, Rarity.Common),
-                    new [] { StartingDecks.basic }),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
                 
                 
                 
@@ -123,13 +123,24 @@ namespace Cards.CardList
         public static IEnumerable<string> AllIds => defs.Keys;
 
         public static IEnumerable<string> GetIdsFor(StartingDecks deck) =>
-            defs.Where(kv => kv.Value().StartingDecks?.Contains(deck) == true)
+            defs
+                .Where(kv =>
+                    kv.Value().StartingDecks?.Any(sd => sd.startingDeck == deck) == true
+                )
                 .Select(kv => kv.Key);
 
+
         public static List<Card> GetStarter(StartingDecks deck) =>
-            defs.Where(kv => kv.Value().StartingDecks?.Contains(deck) == true)
-                .Select(kv => kv.Value().LocalCard)
+            defs.Values
+                .Select(def => def())
+                .Where(entry => entry.StartingDecks?.Any(sd => sd.startingDeck == deck) == true)
+                .SelectMany(entry =>
+                    entry.StartingDecks!
+                        .Where(sd => sd.startingDeck == deck)
+                        .SelectMany(sd => Enumerable.Repeat(entry.LocalCard, sd.numberOfCards))
+                )
                 .ToList();
+
         
         public static List<Card> GetCardsByRarity(Rarity rarity) =>
             defs.Values

@@ -5,12 +5,12 @@ namespace Cards.CardList
     public class CardEntry
     {
         public Card LocalCard;
-        public StartingDecks[] StartingDecks;
+        public StartingDeckEntry[] StartingDecks;
 
-        public CardEntry(Card card, StartingDecks[] startingDecks = null)
+        public CardEntry(Card card, StartingDeckEntry[] startingDecks = null)
         {
             LocalCard = card;
-            StartingDecks = startingDecks ?? Array.Empty<StartingDecks>();
+            StartingDecks = startingDecks ?? Array.Empty<StartingDeckEntry>();
         }
     }
 }
