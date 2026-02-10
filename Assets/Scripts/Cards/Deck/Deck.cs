@@ -14,22 +14,26 @@ using Random = System.Random;
 public class Deck : MonoBehaviour
 {
     public List<Card> Cards = new List<Card>();
-    
-    
+
     private List<CardMonobehaviour> _draw = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _discard = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _hand = new List<CardMonobehaviour>();
+    private List<CardMonobehaviour> _scrap = new List<CardMonobehaviour>(); // NEW
+
     private Random _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
     public static Deck Instance;
 
     public GameObject actionPrefab;
     public Transform drawTransform;
     public Transform discardTransform;
+
+    // Optional but recommended so scrap cards have a consistent spot
+    public Transform scrapTransform; // NEW
+
     public List<CardMonobehaviour> Draw { get { return _draw; } }
     public List<CardMonobehaviour> Discard { get { return _discard; } }
     public List<CardMonobehaviour> Hand { get { return _hand; } }
-
-
+    public List<CardMonobehaviour> Scrap { get { return _scrap; } } // NEW
 
     public void Awake()
     {
@@ -40,23 +44,13 @@ public class Deck : MonoBehaviour
     {
     }
 
-
     public void SetInactive(bool inactive)
     {
-        foreach (var card in _draw)
-        {
-            card.SetInactive(inactive);
-        }
-        foreach (var card in _discard)
-        {
-            card.SetInactive(inactive);
-        }
-        foreach (var card in _hand)
-        {
-            card.SetInactive(inactive);
-        }
+        foreach (var card in _draw) card.SetInactive(inactive);
+        foreach (var card in _discard) card.SetInactive(inactive);
+        foreach (var card in _hand) card.SetInactive(inactive);
+        foreach (var card in _scrap) card.SetInactive(inactive); // NEW
     }
-
 
     // TODO: Parameterize this
     public void StartGame()
@@ -80,16 +74,17 @@ public class Deck : MonoBehaviour
                 toRemove.Add(card);
             }
         }
+
         foreach (CardMonobehaviour card in toRemove)
         {
             _hand.Remove(card);
         }
+
         PositionHandCards(0);
     }
 
     public CardMonobehaviour CreateCard(Card card)
     {
-
         Cards.Add(card);
         return CreateCardMono(card);
     }
@@ -118,21 +113,22 @@ public class Deck : MonoBehaviour
     {
         Card card = Deck.Instance.Cards.Find(c => c.UniqueId == cardId);
         Cards.RemoveAll(c => c.UniqueId == cardId);
-        
+
         Purge(_hand, card);
         Purge(_draw, card);
         Purge(_discard, card);
+        Purge(_scrap, card); // NEW
 
         PositionHandCards(0);
     }
-    
+
     public void Purge(List<CardMonobehaviour> pile, Card card)
     {
         for (int i = pile.Count - 1; i >= 0; i--)
         {
             var cardMono = pile[i];
             var cardMonoCard = cardMono.Card;
-            
+
             if (cardMonoCard.UniqueId == card.UniqueId)
             {
                 pile.RemoveAt(i);
@@ -140,25 +136,26 @@ public class Deck : MonoBehaviour
             }
         }
     }
-    
 
     public void UpdateDeck()
     {
         ResetDeck();
-        _draw.ForEach(card => {Destroy(card.gameObject);});
+        _draw.ForEach(card => { Destroy(card.gameObject); });
         _draw.Clear();
         Cards.ForEach(card =>
         {
-             _draw.Add(CreateCardMono(card));
+            _draw.Add(CreateCardMono(card));
         });
     }
 
     public void ResetDeck()
     {
+        // IMPORTANT: Scrap does NOT get returned to draw.
         _draw.AddRange(_hand);
         _draw.AddRange(_discard);
         _hand.Clear();
         _discard.Clear();
+
         RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
     }
 
@@ -177,7 +174,7 @@ public class Deck : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         DrawHand();
     }
-    
+
     public void DiscardHand()
     {
         foreach (CardMonobehaviour card in _hand)
@@ -187,7 +184,16 @@ public class Deck : MonoBehaviour
         _discard.AddRange(_hand);
         _hand.Clear();
         PositionHandCards(0);
-        
+    }
+
+    public void ScrapHand()
+    {
+        foreach (CardMonobehaviour card in _hand)
+        {
+            ScrapCard(card);
+        }
+        _hand.Clear();
+        PositionHandCards(0);
     }
 
     public void DrawHand()
@@ -196,7 +202,7 @@ public class Deck : MonoBehaviour
         PositionHandCards(0);
         Debug.Log("Cards in hand: " + _hand.Count);
     }
-    
+
     public void FullDrawHand(int numToDraw)
     {
         // If amount to draw is more than is in the deck, just draw the amount of cards.
@@ -205,12 +211,13 @@ public class Deck : MonoBehaviour
             FullDrawHand(Cards.Count);
             return;
         }
-        
+
         // Recursive case (Have to deal the amount possible, shuffle, and then deal the rest)
         if (_draw.Count < numToDraw)
         {
             int partHand = _draw.Count;
             FullDrawHand(partHand);
+
             foreach (CardMonobehaviour card in _discard)
             {
                 LerpPosition lerp = card.GetComponent<LerpPosition>();
@@ -221,10 +228,9 @@ public class Deck : MonoBehaviour
             _draw.AddRange(_discard);
             _discard.Clear();
             StartCoroutine(WaitToDrawHand(numToDraw - partHand));
-
             return;
         }
-        
+
         // Base case (normal deck)
         for (int i = 0; i < numToDraw; i++)
         {
@@ -232,7 +238,7 @@ public class Deck : MonoBehaviour
             CardMonobehaviour drawnCard = _draw[index];
             _draw.RemoveAt(index);
             _hand.Add(drawnCard);
-            
+
             LerpPosition drawnLerp = drawnCard.GetComponent<LerpPosition>();
             drawnCard.transform.position = drawTransform.position;
             drawnLerp.targetLocation = drawTransform.localPosition;
@@ -251,6 +257,40 @@ public class Deck : MonoBehaviour
         yield break;
     }
 
+    public void ScrapCard(string cardId)
+    {
+        // Find it in any pile and move it to scrap
+        CardMonobehaviour cardMono =
+            _hand.Find(c => c.Card.UniqueId == cardId) ??
+            _draw.Find(c => c.Card.UniqueId == cardId) ??
+            _discard.Find(c => c.Card.UniqueId == cardId) ??
+            _scrap.Find(c => c.Card.UniqueId == cardId);
+
+        if (cardMono == null) return;
+
+        ScrapCard(cardMono);
+        PositionHandCards(0);
+    }
+
+    public void ScrapCard(CardMonobehaviour cardMono)
+    {
+        // Remove from any pile it might be in
+        _hand.Remove(cardMono);
+        _draw.Remove(cardMono);
+        _discard.Remove(cardMono);
+
+        // Don't double-add
+        if (!_scrap.Contains(cardMono))
+        {
+            _scrap.Add(cardMono);
+        }
+
+        // Visually move it if we have a transform
+        if (scrapTransform != null)
+        {
+            cardMono.GetComponent<LerpPosition>().targetLocation = scrapTransform.localPosition;
+        }
+    }
 
     public void PositionHandCards(float animationDelayFactor = 0.2f)
     {
@@ -266,6 +306,7 @@ public class Deck : MonoBehaviour
             float xPos = -width / 2 + spacing * (i + 1);
             Vector2 targetPos = new Vector2(xPos, 0);
             float delay = i * animationDelayFactor;
+
             if (delay > 0)
             {
                 StartCoroutine(DelayedAnimation(delay, card, targetPos));
@@ -284,8 +325,15 @@ public class Deck : MonoBehaviour
         {
             card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
         }
-    }
 
+        if (scrapTransform != null)
+        {
+            foreach (CardMonobehaviour card in _scrap)
+            {
+                card.GetComponent<LerpPosition>().targetLocation = scrapTransform.localPosition;
+            }
+        }
+    }
 
     IEnumerator DelayedAnimation(float delaySecs, CardMonobehaviour card, Vector2 vector)
     {
