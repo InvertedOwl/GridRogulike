@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace Cards.Actions
 {
-    public class DestroyHandCardAction : AbstractAction
+    public class DestroyCurrentCardAction : AbstractAction
     {
-        public DestroyHandCardAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity) { }
+        public DestroyCurrentCardAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity) { }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Hand[_actionRandom.Next(0, Deck.Instance.Hand.Count)].Card.UniqueId) };
+            return new List<AbstractCardEvent> { new DestroyCardEvent(cardMono.Card.UniqueId) };
         }
 
         public override string GetText()
         {
-            return "Permanently destroy a random card in hand";
+            return "Permanently destroy this card.";
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -27,7 +27,7 @@ namespace Cards.Actions
         
         public override string ToString()
         {
-            return "Destroy Random Card in Hand";
+            return "Permanently destroy this card.";
         }
         
     }

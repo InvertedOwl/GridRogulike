@@ -87,14 +87,14 @@ namespace StateManager
             // RunInfo.Instance.Difficulty += 1;
             BattleStats.ResetStatsBattle();
             
-            HexGridManager.Instance.RegisterHexClickCallback(MovePlayerController.StaticHexClickCallback);
+            HexGridManager.Instance.RegisterHexClickCallback(HexClickPlayerController.StaticHexClickCallback);
+            HexGridManager.Instance.RegisterHexHoverEnterCallback(HexClickPlayerController.StaticHexHoverOnCallback);
+            HexGridManager.Instance.RegisterHexHoverExitCallback(HexClickPlayerController.StaticHexHoverOffCallback);
+
         }
 
         public void Update()
         {
-            // Camera control?
-            // TODO: Undo this shit? Put it somewhere else?
-            
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
             
@@ -264,7 +264,7 @@ namespace StateManager
             
             EnvironmentManager.instance.ClearPassives();
             
-            HexGridManager.Instance.UnregisterHexClickCallback(MovePlayerController.StaticHexClickCallback);
+            HexGridManager.Instance.UnregisterHexClickCallback(HexClickPlayerController.StaticHexClickCallback);
             
             player.Shield = 0;
             BattleStats.ResetStatsBattle();
@@ -307,7 +307,7 @@ namespace StateManager
 
             entity.EndTurn();
             
-            MovePlayerController.instance.UpdateMovableParticles(this);
+            HexClickPlayerController.instance.UpdateMovableParticles(this);
             if (CheckForFinish() != "none") return;
 
             ClearDeadEnemies();

@@ -199,6 +199,12 @@ public class Deck : MonoBehaviour
     
     public void FullDrawHand(int numToDraw)
     {
+        // If amount to draw is more than is in the deck, just draw the amount of cards.
+        if (Cards.Count < numToDraw)
+        {
+            FullDrawHand(Cards.Count);
+            return;
+        }
         
         // Recursive case (Have to deal the amount possible, shuffle, and then deal the rest)
         if (_draw.Count < numToDraw)

@@ -253,6 +253,7 @@ MonoBehaviour:
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -516,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 8427575793733397400, guid: 64ff4e8c3220c4592bf7321d9c11fd21, type: 3}
       propertyPath: m_Name
       value: ArrowWithBorder
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427575793733397400, guid: 64ff4e8c3220c4592bf7321d9c11fd21, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

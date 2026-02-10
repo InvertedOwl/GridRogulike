@@ -37,28 +37,15 @@ namespace Cards.Actions
         
         public override void HoverOn()
         {
-            if (!entity) return;
-            
-            Vector2Int newCoords = HexGridManager.MoveHex(this.entity.positionRowCol, _direction, _distance);
-
-            arrowUUID = SpriteArrowManager.Instance.CreateArrow(entity.positionRowCol, newCoords, Color.red, "AttackIcon", _amount);
         }
 
         public override void HoverOff()
         {
-            SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)
         {
             GameObject basic = GameObject.Instantiate(tilePrefab, diagram.transform);
-            Vector2Int newPos =
-                HexGridManager.MoveHex(new Vector2Int(0, 0), this.Direction, this.Distance);
-            Vector2 newPosWorld = HexGridManager.GetHexCenter(newPos.x, newPos.y) * 46.2222f;
-                
-            basic.GetComponent<RectTransform>().localPosition = newPosWorld;
-            basic.GetComponent<Image>().color = new Color(212/255.0f, 81/255.0f, 81/255.0f);
-            basic.GetComponent<RectTransform>();
             return new List<RectTransform> { basic.GetComponent<RectTransform>() };
         }
 

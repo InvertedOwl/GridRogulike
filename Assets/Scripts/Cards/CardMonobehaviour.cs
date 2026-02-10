@@ -241,7 +241,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
                 case AttackAction attackAction:
                     text = Instantiate(GoList.GetValue("attackPrefab"), MainPanel.transform);
-                    RotateArrow(attackAction.Direction, text.transform.GetChild(3));
+                    // RotateArrow(attackAction.Direction, text.transform.GetChild(3));
                     break;
                 
                 case SpawnPassiveAction spawnPassiveAction:
@@ -434,7 +434,24 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(playerPos)];
             eventQueue = tile.cardModifier.Invoke(eventQueue);
 
-            // Activate queue
+            List<AbstractCardEvent> attackCardEvents = new List<AbstractCardEvent>(); 
+            
+            // Extract attack actions for HexClick whatever its called
+            foreach (AbstractCardEvent cardEvent in eventQueue) 
+            {
+                if (cardEvent is AttackCardEvent)
+                {
+                    attackCardEvents.Add((AttackCardEvent)cardEvent);
+                }   
+            }
+            
+            // Remove attack actions
+            eventQueue.RemoveAll(item => attackCardEvents.Contains(item));
+            
+            // Add attack actions to the hex click queue
+            HexClickPlayerController.instance.AddToAttack(attackCardEvents);
+            
+            // Activate queue (excluding attacks)
             foreach (AbstractCardEvent cardEvent in eventQueue)
             {
                 cardEvent.Activate(player);
@@ -447,7 +464,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (isLeftClick)
             CardClickedCallback?.Invoke();
         
-        MovePlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
+        HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
     }
 
 

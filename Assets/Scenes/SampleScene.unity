@@ -4107,6 +4107,10 @@ PrefabInstance:
       propertyPath: myDictionaryList.Array.data[10].Value
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 690643600733096474, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
+      propertyPath: myDictionaryList.Array.data[11].Value
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1109811019308606750, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.0017470457
@@ -10457,6 +10461,10 @@ PrefabInstance:
       propertyPath: myDictionaryList.Array.data[10].Value
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 690643600733096474, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
+      propertyPath: myDictionaryList.Array.data[11].Value
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1109811019308606750, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.0017470457
@@ -10800,7 +10808,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.51593
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11412,6 +11420,12 @@ MonoBehaviour:
   hexPrefab: {fileID: 6400999742242697523, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
   grid: {fileID: 1858364139}
   onHexClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  onHexHoverEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onHexHoverExit:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1233807780
@@ -12528,6 +12542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   isMoving: 0
+  isAttacking: 0
 --- !u!1 &1337083629
 GameObject:
   m_ObjectHideFlags: 0
@@ -16719,7 +16734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d418c0cc0e4cdfa6b5cf5aaf391a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRedraws: 1
+  maxRedraws: 0
   energyText:
   - {fileID: 1223736036}
   - {fileID: 965004570}
@@ -16728,6 +16743,7 @@ MonoBehaviour:
   - {fileID: 937811974}
   redrawText:
   - {fileID: 977861377}
+  redrawButton: {fileID: 1967415328}
   difficultyText:
   - {fileID: 1651554609}
   stepsText:
@@ -16899,7 +16915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
       propertyPath: m_Colors.m_DisabledColor.a
@@ -19139,6 +19155,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 690643600733096474, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: myDictionaryList.Array.data[10].Value
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 690643600733096474, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
+      propertyPath: myDictionaryList.Array.data[11].Value
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1109811019308606750, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}

@@ -1,22 +1,31 @@
 using System.Collections.Generic;
 using Entities;
+using Grid;
 using Cards.CardEvents;
 using UnityEngine;
 
 namespace Cards.Actions
 {
-    public class DestroyHandCardAction : AbstractAction
+    public class HealAction : AbstractAction
     {
-        public DestroyHandCardAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity) { }
+        private int _heal;
+        
+        public HealAction(int baseCost, string color, AbstractEntity entity, int heal) : base(baseCost, color, entity)
+        {
+            this._heal = heal;
+        }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Hand[_actionRandom.Next(0, Deck.Instance.Hand.Count)].Card.UniqueId) };
+            return new List<AbstractCardEvent>
+            {
+                new HealCardEvent(_heal)
+            };
         }
 
         public override string GetText()
         {
-            return "Permanently destroy a random card in hand";
+            return "Heal " + _heal.ToString();
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -27,7 +36,7 @@ namespace Cards.Actions
         
         public override string ToString()
         {
-            return "Destroy Random Card in Hand";
+            return "raise cost";
         }
         
     }

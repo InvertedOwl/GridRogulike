@@ -19,7 +19,7 @@ public class SpriteArrowManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); // Remove if you don't want persistence
+        DontDestroyOnLoad(gameObject);
     }
     
     public GameObject arrowPrefab;

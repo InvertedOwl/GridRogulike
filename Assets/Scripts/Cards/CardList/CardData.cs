@@ -26,24 +26,11 @@ namespace Cards.CardList
                 
 
                 
-                ["AttackUp"] = () => new(new Card("Attack Up", new List<AbstractAction>
-                { 
-                    new AttackAction(1, "basic", null, "n", 1, 10),
-                    new AttackAction(1, "basic", null, "ne", 1, 10)
-                }, Rarity.Common),
-                            new [] { StartingDecks.basic }),
-                
-                ["AttackLeft"] = () => new(new Card("AttackLeft", new List<AbstractAction>
+                ["AttackLow"] = () => new(new Card("Attack", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "nw", 1, 15),
-                        new AttackAction(1, "basic", null, "sw", 1, 15)
-                    }, Rarity.Common), 
-                    new [] {StartingDecks.basic}),
-                
-                ["AttackDown"] = () => new(new Card("Attack Down", new List<AbstractAction>
-                    { 
-                        new AttackAction(1, "basic", null, "s", 1, 15),
-                        new AttackAction(1, "basic", null, "se", 1, 15)
+                        // Direction does not matter for cards, since player can choose
+                        // Distance DOES matter, though
+                        new AttackAction(1, "basic", null, "", 1, 10),
                     }, Rarity.Common), 
                     new [] {StartingDecks.basic}),
                 
@@ -84,8 +71,7 @@ namespace Cards.CardList
                 
                 ["PoisonStrike"] = () => new(new Card("Poison Strike", new List<AbstractAction>
                 { 
-                    new AttackAction(1, "basic", null, "n", 1, 10),
-                    new PoisonAttackAction(1, "basic", null, "n", 1, 0, 10),
+                    new PoisonAttackAction(1, "basic", null, "n", 1, 0, 8),
                 }, Rarity.Uncommon)),
                 
                 ["Obliterate"] = () => new(new Card("Obliterate", new List<AbstractAction>
@@ -97,13 +83,37 @@ namespace Cards.CardList
                     { 
                         new GainMoneyForCardAction(1, "basic", null),
                     }, Rarity.Uncommon)),
+                ["GainBounty"] = () => new(new Card("Gain Money", new List<AbstractAction>
+                { 
+                    new GainMoneyAction(1, "basic", null, 5),
+                    new DrawCardAction(1, "basic", null, 1),
+                }, Rarity.Rare)),
                 
                 
                 ["Refresh"] = () => new(new Card("Refresh", new List<AbstractAction>
                     { 
                         new DiscardHandCardAction(0, "basic", null),
-                        new DrawCardAction(1, "basic", null, 3),
+                        new DrawCardAction(1, "basic", null, 5),
                     }, Rarity.Uncommon)),
+                
+                ["DrawFew"] = () => new(new Card("Draw Few", new List<AbstractAction>
+                    { 
+                        new DrawCardAction(1, "basic", null, 3),
+                    }, Rarity.Common)),
+                ["DrawSome"] = () => new(new Card("Draw Some", new List<AbstractAction>
+                { 
+                    new DrawCardAction(1, "basic", null, 5),
+                }, Rarity.Uncommon)),
+                ["DrawMany"] = () => new(new Card("Draw Many", new List<AbstractAction>
+                { 
+                    new DrawCardAction(1, "basic", null, 8),
+                }, Rarity.Rare)),
+                
+                ["HealPotion"] = () => new(new Card("Healing Potion", new List<AbstractAction>
+                { 
+                    new HealAction(0, "basic", null, 25),
+                    new DestroyCurrentCardAction(0, "basic", null),
+                }, Rarity.Rare)),
                 
                 
             };

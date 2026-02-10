@@ -14,6 +14,9 @@ namespace Grid
     [Serializable]
     public class HexClickedEvent : UnityEvent<int, int> { }
 
+    [Serializable]
+    public class HexHoveredEvent : UnityEvent<int, int> { }
+
     public class HexGridManager : MonoBehaviour
     {
         private static float _hexWidth = 1f;
@@ -26,8 +29,15 @@ namespace Grid
 
         private readonly List<Action<Vector2Int, GameObject>> _hexClickedCallbacks = new();
 
+        private readonly List<Action<Vector2Int, GameObject>> _hexHoverEnterCallbacks = new();
+        private readonly List<Action<Vector2Int, GameObject>> _hexHoverExitCallbacks = new();
+
         [Header("Hex Click Events (Inspector)")]
         public HexClickedEvent onHexClicked;
+
+        [Header("Hex Hover Events (Inspector)")]
+        public HexHoveredEvent onHexHoverEnter;
+        public HexHoveredEvent onHexHoverExit;
 
         void Awake()
         {
@@ -36,8 +46,6 @@ namespace Grid
 
         public void Update()
         {
-            // TODO: Why is this here? This is the mouse shifting
-            // Also theres already a script that does this?
             Vector3 mousePos = Input.mousePosition;
 
             Vector2 viewportPos = new Vector2(
@@ -50,7 +58,8 @@ namespace Grid
                 viewportPos.y * 2f - 1f
             ) * 0.05f;
 
-            Camera.main.transform.parent.GetComponent<LerpPosition>().targetLocation = new Vector3(normalizedPos.x, normalizedPos.y, -10);
+            Camera.main.transform.parent.GetComponent<LerpPosition>().targetLocation =
+                new Vector3(normalizedPos.x, normalizedPos.y, -10);
         }
 
         public void TryAdd(Vector2Int current, string type)
@@ -90,11 +99,14 @@ namespace Grid
                 GameObject newHex = GetHexPrefab(HexType(pos), grid);
                 newHex.transform.localPosition = GetHexCenter(pos.x, pos.y);
                 _hexObjects[pos] = newHex;
-                
+
                 SpriteRenderer displayRenderer = newHex.transform.GetChild(3).GetComponent<SpriteRenderer>();
                 displayRenderer.sortingOrder = (int)(newHex.transform.position.y * -3);
 
                 AttachClickForwarder(newHex, pos);
+
+                // NEW: attach hover forwarder too
+                AttachHoverForwarder(newHex, pos);
             }
         }
 
@@ -107,22 +119,48 @@ namespace Grid
             forwarder.Init(this, gridPos);
         }
 
+        // NEW
+        private void AttachHoverForwarder(GameObject hexObj, Vector2Int gridPos)
+        {
+            var forwarder = hexObj.GetComponent<HexHoverForwarder>();
+            if (forwarder == null)
+                forwarder = hexObj.AddComponent<HexHoverForwarder>();
+
+            forwarder.Init(this, gridPos);
+        }
+
         internal void NotifyHexClicked(Vector2Int pos, GameObject hexObj)
         {
-            // inspector event
             onHexClicked?.Invoke(pos.x, pos.y);
 
-            // runtime callbacks
             for (int i = 0; i < _hexClickedCallbacks.Count; i++)
             {
-                try
-                {
-                    _hexClickedCallbacks[i]?.Invoke(pos, hexObj);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
-                }
+                try { _hexClickedCallbacks[i]?.Invoke(pos, hexObj); }
+                catch (Exception e) { Debug.LogException(e); }
+            }
+        }
+
+        // NEW
+        internal void NotifyHexHoverEnter(Vector2Int pos, GameObject hexObj)
+        {
+            onHexHoverEnter?.Invoke(pos.x, pos.y);
+
+            for (int i = 0; i < _hexHoverEnterCallbacks.Count; i++)
+            {
+                try { _hexHoverEnterCallbacks[i]?.Invoke(pos, hexObj); }
+                catch (Exception e) { Debug.LogException(e); }
+            }
+        }
+
+        // NEW
+        internal void NotifyHexHoverExit(Vector2Int pos, GameObject hexObj)
+        {
+            onHexHoverExit?.Invoke(pos.x, pos.y);
+
+            for (int i = 0; i < _hexHoverExitCallbacks.Count; i++)
+            {
+                try { _hexHoverExitCallbacks[i]?.Invoke(pos, hexObj); }
+                catch (Exception e) { Debug.LogException(e); }
             }
         }
 
@@ -144,6 +182,39 @@ namespace Grid
             _hexClickedCallbacks.Clear();
         }
 
+        // NEW: hover callback registration
+        public void RegisterHexHoverEnterCallback(Action<Vector2Int, GameObject> callback)
+        {
+            if (callback == null) return;
+            if (!_hexHoverEnterCallbacks.Contains(callback))
+                _hexHoverEnterCallbacks.Add(callback);
+        }
+
+        public void UnregisterHexHoverEnterCallback(Action<Vector2Int, GameObject> callback)
+        {
+            if (callback == null) return;
+            _hexHoverEnterCallbacks.Remove(callback);
+        }
+
+        public void RegisterHexHoverExitCallback(Action<Vector2Int, GameObject> callback)
+        {
+            if (callback == null) return;
+            if (!_hexHoverExitCallbacks.Contains(callback))
+                _hexHoverExitCallbacks.Add(callback);
+        }
+
+        public void UnregisterHexHoverExitCallback(Action<Vector2Int, GameObject> callback)
+        {
+            if (callback == null) return;
+            _hexHoverExitCallbacks.Remove(callback);
+        }
+
+        public void ClearHexHoverCallbacks()
+        {
+            _hexHoverEnterCallbacks.Clear();
+            _hexHoverExitCallbacks.Clear();
+        }
+        
         public Dictionary<Vector2Int, int> CalculateDistanceMap(Vector2Int start, List<Vector2Int> blockers)
         {
             Dictionary<Vector2Int, int> distances = new Dictionary<Vector2Int, int>();

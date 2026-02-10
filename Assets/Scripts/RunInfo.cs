@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 using Random = System.Random;
 
@@ -9,10 +10,11 @@ public class RunInfo : MonoBehaviour
 {
     public static RunInfo Instance;
     
-    public int maxRedraws = 1;
+    public int maxRedraws = 0;
     public List<TextMeshProUGUI> energyText;
     public List<TextMeshProUGUI> moneyText;
     public List<TextMeshProUGUI> redrawText;
+    public Button redrawButton;
     public List<TextMeshProUGUI> difficultyText;
     public List<TextMeshProUGUI> stepsText;
     public static string seed = "testing";
@@ -56,6 +58,14 @@ public class RunInfo : MonoBehaviour
         {
             _redraws = value;
             UpdateRedrawText();
+            if (value == 0)
+            {
+                redrawButton.interactable = false;
+            }
+            else
+            {
+                redrawButton.interactable = true;
+            }
         }
     }
 
