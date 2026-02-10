@@ -216,12 +216,6 @@ namespace StateManager
             var origin = new Vector2Int(0, 0);
             _grid.TryAdd(origin, "start");
             _grid.TryAdd(HexGridManager.MoveHex(origin, "n", 1), "basic");
-            _grid.TryAdd(HexGridManager.MoveHex(origin, "ne", 1), "basic");
-            _grid.TryAdd(HexGridManager.MoveHex(origin, "nw", 1), "basic");
-            _grid.TryAdd(HexGridManager.MoveHex(origin, "sw", 1), "basic");
-            _grid.TryAdd(HexGridManager.MoveHex(origin, "se", 1), "basic");
-            _grid.TryAdd(HexGridManager.MoveHex(origin, "s", 1), "basic");
-            _grid.TryAdd(HexGridManager.MoveHex(origin, "s", 2), "basic");
             _grid.UpdateBoard();
         }
 
