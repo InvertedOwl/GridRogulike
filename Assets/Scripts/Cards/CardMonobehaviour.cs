@@ -227,6 +227,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             GameObject text = null;
             bool setText = true;
+            bool isPassiveAction = false;
 
             switch (action)
             {
@@ -250,6 +251,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                     text.transform.localScale = new Vector3(4.5f, 4.5f, 1);
                     posY -= 140;
                     setText = false;
+                    isPassiveAction = true;
                     break;
                 
                 case AddStepsCardAction:
@@ -275,12 +277,12 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             {
                 text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
                 TypeTitles[text.transform.GetChild(1).GetComponent<TextMeshProUGUI>()] = action.GetText();
-                types.Add(text);
             }
-
+            types.Add(text);
             text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
-
             posY -= 140;
+            if (isPassiveAction)
+                posY -= 140;
         }
     }
 

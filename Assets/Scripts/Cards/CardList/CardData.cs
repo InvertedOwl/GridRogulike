@@ -12,32 +12,33 @@ namespace Cards.CardList
         private static readonly IReadOnlyDictionary<string, Func<CardEntry>> defs =
             new Dictionary<string, Func<CardEntry>>
             {
+                // Passives
                 ["SpawnPassiveForest"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
-                        new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("forest"))
-                    }, Rarity.Uncommon),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 1) }),
+                        new ScrapCurrentCardAction(0, "basic", null),
+                        new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("forest")),
+                    }, Rarity.Rare)),
                 
                 ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
-                        new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual"))
-                    }, Rarity.Rare),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 1) }),
+                        new ScrapCurrentCardAction(0, "basic", null),
+                        new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual")),
+                    }, Rarity.Rare)),
                 
 
-                
+                // Attacks
                 ["AttackLow"] = () => new(new Card("Attack", new List<AbstractAction>
                     { 
-                        // Direction does not matter for cards, since player can choose
+                        // Direction does not matter for cards now, since player can choose where to attack.
                         // Distance DOES matter, though
                         new AttackAction(1, "basic", null, "", 1, 10),
                     }, Rarity.Common), 
                     new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
                 
-                // move cards
+                // Moves
                 ["AddMovement"] = () => new(new Card("Dash", new List<AbstractAction>
                     { 
-                        new AddStepsCardAction(1, "basic", null, 1)
+                        new AddStepsCardAction(1, "basic", null, 1),
                     }, Rarity.Common),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
                 
@@ -63,11 +64,11 @@ namespace Cards.CardList
                 }, Rarity.Uncommon)),
                 
                 ["Swipe"] = () => new(new Card("Swipe", new List<AbstractAction>
-                    { 
-                        new AttackAction(1, "basic", null, "n", 1, 10),
-                        new AttackAction(1, "basic", null, "ne", 1, 10),
-                        new AttackAction(1, "basic", null, "nw", 1, 10),
-                    }, Rarity.Uncommon)),
+                { 
+                    new AttackAction(1, "basic", null, "", 1, 3),
+                    new AttackAction(0, "basic", null, "", 1, 3),
+                    new AttackAction(0, "basic", null, "", 1, 3),
+                }, Rarity.Uncommon)),
                 
                 ["PoisonStrike"] = () => new(new Card("Poison Strike", new List<AbstractAction>
                 { 
@@ -77,7 +78,7 @@ namespace Cards.CardList
                 ["Obliterate"] = () => new(new Card("Obliterate", new List<AbstractAction>
                 { 
                     new DestroyHandCardAction(4, "basic", null),
-                }, Rarity.Uncommon)),
+                }, Rarity.Legendary)),
                 
                 ["GainMoney"] = () => new(new Card("Gain Money", new List<AbstractAction>
                     { 
@@ -109,9 +110,20 @@ namespace Cards.CardList
                     new DrawCardAction(1, "basic", null, 8),
                 }, Rarity.Rare)),
                 
+                // Potions
                 ["HealPotion"] = () => new(new Card("Healing Potion", new List<AbstractAction>
                 { 
                     new HealAction(0, "basic", null, 25),
+                    new DestroyCurrentCardAction(0, "basic", null),
+                }, Rarity.Rare)),
+                ["DrawPotion"] = () => new(new Card("Draw Potion", new List<AbstractAction>
+                { 
+                    new DrawCardAction(0, "basic", null, 5),
+                    new DestroyCurrentCardAction(0, "basic", null),
+                }, Rarity.Rare)),
+                ["GainEnergyPotion"] = () => new(new Card("Energy Potion", new List<AbstractAction>
+                { 
+                    new GainEnergyAction(0, "basic", null, 4),
                     new DestroyCurrentCardAction(0, "basic", null),
                 }, Rarity.Rare)),
                 

@@ -405,9 +405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ad60e4d4d54cc28769bf8b30d1ff08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EasyEnemyJimbo
-  initialHealth: 50
+  initialHealth: 25
   _health: 0
-  _shield: 0
   positionRowCol: {x: 0, y: 0}
   hurtSystem: {fileID: 2437270075847589487}
   statusManager: {fileID: 6760085768087172482}

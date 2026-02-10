@@ -334,6 +334,16 @@ public class Deck : MonoBehaviour
             }
         }
     }
+    
+    public string GetRandomHandCardId()
+    {
+        if (_hand.Count == 0)
+            return null;
+
+        int index = _randomDeck.Next(0, _hand.Count);
+        return _hand[index].Card.UniqueId;
+    }
+
 
     IEnumerator DelayedAnimation(float delaySecs, CardMonobehaviour card, Vector2 vector)
     {
