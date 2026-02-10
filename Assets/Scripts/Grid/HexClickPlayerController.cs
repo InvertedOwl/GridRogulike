@@ -188,12 +188,12 @@ namespace Grid {
                     && noBlockerMapFromPlayer[hexPosition] <= ToAttack[0].distance 
                     && entitiesOnHex.Count > 0 && !entitiesOnHex.Contains(playingState.player))
             {
-                Debug.Log("Attacking " + hexPosition);
-                // NEED TO CHECK FOR IF PLAYER CANNOT ATTACK
-                // MIGHT NOT BE HERE BUT STILL!!
-
                 // Attack entity
                 playingState.DamageEntities(hexPosition, ToAttack[0].amount, ToAttack[0].status);
+                
+                // Little animation for free!
+                playingState.player.transform.localPosition += (entitiesOnHex[0].transform.position 
+                                                                - playingState.player.transform.position).normalized * 0.5f;
                 
                 // Reset situation
                 SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
@@ -203,6 +203,7 @@ namespace Grid {
 
                 if (ToAttack.Count > 0)
                 {
+                    // To reset arrow if there are more attacks coming
                     HexHoverOnCallback(hexPosition);
                 }
                 isAttacking = false;
