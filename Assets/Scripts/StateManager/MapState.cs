@@ -57,6 +57,11 @@ namespace StateManager
             MoveMap();
             tempMapOffset = 0;
         }
+        
+        public void SetMapState()
+        {
+            GameStateManager.Instance.Change<MapState>();
+        }
 
         private void UpdateCurrentNode()
         {

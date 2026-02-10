@@ -77,8 +77,6 @@ public class DeckView : MonoBehaviour
     
     private void Enter()
     {
-        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesOut();
         GetComponent<EasePosition>().targetLocation = new Vector3(0, 0, 0);
     }
 
@@ -89,8 +87,6 @@ public class DeckView : MonoBehaviour
             Callback.Invoke(new Card(false));
         }
         
-        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            GameStateManager.Instance.GetCurrent<PlayingState>().MoveEntitiesIn();
         GetComponent<EasePosition>().targetLocation = new Vector3(0, 750, 0);
 
         foreach (Transform card in cards)

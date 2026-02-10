@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/StartingDeckEntry.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/StartingDeckEntry.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/HexClickPlayerController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/DeckView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/DeckView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +234,7 @@
       <workItem from="1770655625019" duration="1133000" />
       <workItem from="1770665805692" duration="538000" />
       <workItem from="1770739863243" duration="696000" />
-      <workItem from="1770740820485" duration="5050000" />
+      <workItem from="1770740820485" duration="5410000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -311,7 +308,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770746706105</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Allow for multiple cards in deck. There might be an issue with uuids, but its fine for now. Also, make sure that the player does not get stuck if they cannot attack.">
+      <option name="closed" value="true" />
+      <created>1770749793894</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1770749793894</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,7 +340,8 @@
     <MESSAGE value="Environ Finish and Started click to move (End goal is to remove directional move)" />
     <MESSAGE value="minor adjustment" />
     <MESSAGE value="Non Directional Attack. This hijacks the attack actions when the player is playing them via cards. The AttackCardEven has not changed." />
-    <option name="LAST_COMMIT_MESSAGE" value="Non Directional Attack. This hijacks the attack actions when the player is playing them via cards. The AttackCardEven has not changed." />
+    <MESSAGE value="Allow for multiple cards in deck. There might be an issue with uuids, but its fine for now. Also, make sure that the player does not get stuck if they cannot attack." />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow for multiple cards in deck. There might be an issue with uuids, but its fine for now. Also, make sure that the player does not get stuck if they cannot attack." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
