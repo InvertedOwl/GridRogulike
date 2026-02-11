@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Cards.Actions
 {
-    public class AddStepsCardAction : AbstractAction
+    public class GainStepsCardAction : AbstractAction
     {
         private int _steps;
-        public AddStepsCardAction(int baseCost, string color, AbstractEntity entity, int steps) : base(baseCost, color, entity)
+        public GainStepsCardAction(int baseCost, string color, AbstractEntity entity, int steps) : base(baseCost, color, entity)
         {
             this._steps = steps;
         }

@@ -2,28 +2,26 @@ using System.Collections.Generic;
 using Entities;
 using Grid;
 using Cards.CardEvents;
+using StateManager;
 using UnityEngine;
 
 namespace Cards.Actions
 {
-    public class GainEnergyAction : AbstractAction
+    public class DoubleShieldAction : AbstractAction
     {
-        private int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; } }
-        public GainEnergyAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
+        public DoubleShieldAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity)
         {
-            this._amount = amount;
-
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new GainEnergyCardEvent(_amount) };
+            
+            return new List<AbstractCardEvent> { new ShieldCardEvent((int) GameStateManager.Instance.GetCurrent<PlayingState>().player.Shield) };
         }
 
         public override string GetText()
         {
-            return _amount.ToString();
+            return "Double Current Shield.";
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -34,7 +32,7 @@ namespace Cards.Actions
         
         public override string ToString()
         {
-            return "Energy " + this._amount;
+            return "Double Shield";
         }
         
     }

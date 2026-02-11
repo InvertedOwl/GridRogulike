@@ -254,7 +254,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                     isPassiveAction = true;
                     break;
                 
-                case AddStepsCardAction:
+                case GainStepsCardAction:
                     text = Instantiate(GoList.GetValue("stepsPrefab"), MainPanel.transform);
                     break;
 
@@ -267,6 +267,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                     text = Instantiate(GoList.GetValue("drawPrefab"), MainPanel.transform);
                     break;
                 
+                case GainEnergyAction:
+                    text = Instantiate(GoList.GetValue("energyPrefab"), MainPanel.transform);
+                    break;
 
                 default:
                     text = Instantiate(GoList.GetValue("normalPrefab"), MainPanel.transform);
@@ -275,8 +278,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
             if (setText)
             {
-                text.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
-                TypeTitles[text.transform.GetChild(1).GetComponent<TextMeshProUGUI>()] = action.GetText();
+                text.transform.GetComponentInChildren<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
+                TypeTitles[text.transform.GetComponentInChildren<TextMeshProUGUI>()] = action.GetText();
             }
             types.Add(text);
             text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);

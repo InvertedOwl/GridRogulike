@@ -77,6 +77,26 @@ namespace Types.Tiles
                 (e) => e,
                 () => new List<AbstractCardEvent>{new GainMoneyCardEvent(2)}),
             
+            ["energy"] = new (
+                "Battery", 
+                "Gain 1 Energy.", 
+                Color.gold, 
+                true, 
+                Rarity.Uncommon,
+                TileType.Good,
+                (e) => e,
+                () => new List<AbstractCardEvent>{new GainEnergyCardEvent(1)}),
+            
+            ["shield"] = new (
+                "Bunker", 
+                "Gain 3 Shield.", 
+                Color.darkBlue, 
+                true, 
+                Rarity.Common,
+                TileType.Good,
+                (e) => e,
+                () => new List<AbstractCardEvent>{new ShieldCardEvent(3)}),
+            
             ["double"] = new (
                 "Empowered", 
                 "1.5x damage", 

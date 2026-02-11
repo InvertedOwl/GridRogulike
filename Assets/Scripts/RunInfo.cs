@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,7 +18,7 @@ public class RunInfo : MonoBehaviour
     public Button redrawButton;
     public List<TextMeshProUGUI> difficultyText;
     public List<TextMeshProUGUI> stepsText;
-    public static string seed = "testing";
+    public static string seed = new System.Random().Next(Int32.MaxValue) + ""; // TODO: Random Seed
     public readonly int combineCost = 2;
 
 

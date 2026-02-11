@@ -1115,6 +1115,8 @@ MonoBehaviour:
     Value: {fileID: 1644736290022979738, guid: fa908b3354aff194ca3d931d1124f419, type: 3}
   - Key: stepsPrefab
     Value: {fileID: 5441123354535697310, guid: 59a10bd1dd0f6954a97c20072960be08, type: 3}
+  - Key: energyPrefab
+    Value: {fileID: 689449408234064679, guid: 3fa7dd0e5e0a46340b185067f6dc24e4, type: 3}
 --- !u!114 &5926436164657692085
 MonoBehaviour:
   m_ObjectHideFlags: 0

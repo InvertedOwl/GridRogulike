@@ -8,20 +8,21 @@ using Util;
 
 namespace Entities.Enemies
 {
-    public class EasyEnemyJimbo : Enemy
+    public class EasyEnemyBasic : Enemy
     {
         private AbstractAction _plannedAction;
         private int movementPerTurn = 1;
+        public int DefaultDamage = 10;
         
         public void Awake()
         {
-            AvailableActions.Add(new AttackAction(1, "basic", this, "n", 1, 10));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, 10));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, 10));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "ne", 1, 10));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "nw", 1, 10));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "se", 1, 10));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "sw", 1, 10));
+            AvailableActions.Add(new AttackAction(1, "basic", this, "n", 1, DefaultDamage));
+            AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, DefaultDamage));
+            AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, DefaultDamage));
+            AvailableActions.Add(new AttackAction(1, "basic", this, "ne", 1, DefaultDamage));
+            AvailableActions.Add(new AttackAction(1, "basic", this, "nw", 1, DefaultDamage));
+            AvailableActions.Add(new AttackAction(1, "basic", this, "se", 1, DefaultDamage));
+            AvailableActions.Add(new AttackAction(1, "basic", this, "sw", 1, DefaultDamage));
         }
         
 

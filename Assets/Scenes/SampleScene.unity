@@ -10844,7 +10844,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.51593
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12561,7 +12561,19 @@ MonoBehaviour:
   enemies:
   - enemyPrefab: {fileID: 3518368252074035926, guid: a6736deb3fc0bae42a57d844e364bf88, type: 3}
     enemyIconPrefab: {fileID: 0}
-    enemyName: Jimbo
+    enemyName: Basic1
+    DifficultyMin: 0
+    DifficultyMax: 2
+    EnemyType: 0
+  - enemyPrefab: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+    enemyIconPrefab: {fileID: 0}
+    enemyName: Basic2
+    DifficultyMin: 0
+    DifficultyMax: 2
+    EnemyType: 0
+  - enemyPrefab: {fileID: 3518368252074035926, guid: 7bc75e90b440afc4aa5c3100d2a841c6, type: 3}
+    enemyIconPrefab: {fileID: 0}
+    enemyName: Basic3
     DifficultyMin: 0
     DifficultyMax: 2
     EnemyType: 0
