@@ -31,17 +31,17 @@ namespace Cards.CardList
                     { 
                         // Direction does not matter for cards now, since player can choose where to attack.
                         // Distance DOES matter, though
-                        new AttackAction(1, "basic", null, "", 1, 10),
+                        new AttackAction(1, "basic", null, "", 1, 5),
                     }, Rarity.Common),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
                 ["AttackMedium"] = () => new(new Card("Slice", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "", 1, 15),
+                        new AttackAction(1, "basic", null, "", 1, 8),
                         new DiscardCardsAction(1, "basic", null, 1),
                     }, Rarity.Rare)),
                 ["AttackHigh"] = () => new(new Card("Assault", new List<AbstractAction>
                 { 
-                    new AttackAction(3, "basic", null, "", 1, 25),
+                    new AttackAction(3, "basic", null, "", 1, 15),
                 }, Rarity.Legendary)),
                 ["Obliterate"] = () => new(new Card("Obliterate", new List<AbstractAction>
                 { 
