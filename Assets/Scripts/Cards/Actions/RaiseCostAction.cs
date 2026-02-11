@@ -23,7 +23,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Temporarily raise cost of this card by 1";
+            return "Raise cost of this card by 1";
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,

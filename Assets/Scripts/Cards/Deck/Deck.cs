@@ -20,7 +20,7 @@ public class Deck : MonoBehaviour
     private List<CardMonobehaviour> _hand = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _scrap = new List<CardMonobehaviour>(); // NEW
 
-    private Random _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
+    public Random _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
     public static Deck Instance;
 
     public GameObject actionPrefab;
@@ -80,6 +80,38 @@ public class Deck : MonoBehaviour
             _hand.Remove(card);
         }
 
+        PositionHandCards(0);
+    }
+
+
+    public void DiscardRandomFromHand()
+    {
+        DiscardCard(Hand[_randomDeck.Next(0, Hand.Count)].Card.UniqueId);
+    }
+    
+    public void DiscardCard(String cardId)
+    {
+        CardMonobehaviour cardToDiscard = null;
+
+        // Find the card in hand with matching ID
+        foreach (CardMonobehaviour card in _hand)
+        {
+            if (card.Card.UniqueId == cardId)
+            {
+                cardToDiscard = card;
+                break;
+            }
+        }
+
+        if (cardToDiscard == null)
+        {
+            return;
+        }
+
+        cardToDiscard.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
+
+        _discard.Add(cardToDiscard);
+        _hand.Remove(cardToDiscard);
         PositionHandCards(0);
     }
 

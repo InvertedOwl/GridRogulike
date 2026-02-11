@@ -29,20 +29,41 @@ public class DeckView : MonoBehaviour
 
     public void ViewDeckButton()
     {
-        Enter();
-        SpawnCards();
+        ViewDeck();
     }
 
-    public void ViewDeck(Card[] cardBlacklist = null)
+    public void ViewDrawPileButton()
     {
-        Enter();
-        SpawnCards(cardBlacklist);
+        List<Card> cardsLoad = new List<Card>();
+        foreach (CardMonobehaviour card in Deck.Instance.Draw)
+        {
+            cardsLoad.Add(card.Card);
+        }
+        ViewDeck(cardsToLoad:cardsLoad);
+    }
+    public void ViewDiscardPileButton()
+    {
+        List<Card> cardsLoad = new List<Card>();
+        foreach (CardMonobehaviour card in Deck.Instance.Discard)
+        {
+            cardsLoad.Add(card.Card);
+        }
+        ViewDeck(cardsToLoad:cardsLoad);
     }
 
-    private void SpawnCards(Card[] cardBlacklist = null)
+    public void ViewDeck(Card[] cardBlacklist = null, List<Card> cardsToLoad = null)
+    {
+        Enter();
+        if (cardsToLoad == null)
+            SpawnCards(Deck.Instance.Cards, cardBlacklist);
+        else
+            SpawnCards(cardsToLoad, cardBlacklist);
+    }
+
+    private void SpawnCards(List<Card> cardsToLoad, Card[] cardBlacklist = null)
     {
 
-        foreach (Card card in Deck.Instance.Cards)
+        foreach (Card card in cardsToLoad)
         {
   
             
