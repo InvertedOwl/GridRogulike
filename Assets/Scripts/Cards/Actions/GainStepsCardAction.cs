@@ -26,7 +26,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "" + _steps;
+            return _steps + "<move>";
         }
 
         public override string ToString()

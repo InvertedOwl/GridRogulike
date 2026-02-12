@@ -338,6 +338,8 @@ public class Deck : MonoBehaviour
             float xPos = -width / 2 + spacing * (i + 1);
             Vector2 targetPos = new Vector2(xPos, 0);
             float delay = i * animationDelayFactor;
+            
+            card.transform.SetAsLastSibling();
 
             if (delay > 0)
             {

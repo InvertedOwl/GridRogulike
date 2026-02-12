@@ -51,7 +51,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return Amount.ToString();
+            return Amount + "<attack>";
         }
 
         public override string ToString()

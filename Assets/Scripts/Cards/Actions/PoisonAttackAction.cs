@@ -39,7 +39,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return poisonAmount.ToString();
+            return poisonAmount + "<p1oison>";
         }
 
         public override string ToString()

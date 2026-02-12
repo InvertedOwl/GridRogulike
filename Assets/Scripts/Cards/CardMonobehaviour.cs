@@ -7,6 +7,7 @@ using Entities;
 using StateManager;
 using TMPro;
 using Cards.CardEvents;
+using Cards.CardList;
 using Grid;
 using Passives;
 using Types.Tiles;
@@ -97,6 +98,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         this.CardClickedCallback = callback;
         _cardRandom = card.cardRandom;
+        
+        GoList.GetValue("rarityText").GetComponent<TextMeshProUGUI>().text = _card.Rarity.ToString();
     }
 
     public void SetInactive(bool setinactive)
@@ -125,6 +128,14 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             if (newInfo.ToLower().Contains(key))
             {
                 newInfo = Regex.Replace(newInfo, Regex.Escape(key), BattleStats.names[key](), RegexOptions.IgnoreCase);
+            }
+        }
+        
+        foreach (String iconsKey in CardActionTextMapper.icons.Keys)
+        {
+            if (newInfo.ToLower().Contains(iconsKey))
+            {
+                newInfo = Regex.Replace(newInfo, iconsKey, CardActionTextMapper.icons[iconsKey], RegexOptions.IgnoreCase);
             }
         }
         
@@ -228,20 +239,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
             switch (action)
             {
-                case MoveAction moveAction:
-                    text = Instantiate(GoList.GetValue("movePrefab"), MainPanel.transform);
-                    RotateArrow(moveAction.Direction, text.transform.GetChild(2));
-                    break;
-
-                case PoisonAttackAction:
-                    text = Instantiate(GoList.GetValue("poisonPrefab"), MainPanel.transform);
-                    break;
-
-                case AttackAction attackAction:
-                    text = Instantiate(GoList.GetValue("attackPrefab"), MainPanel.transform);
-                    // RotateArrow(attackAction.Direction, text.transform.GetChild(3));
-                    break;
-                
                 case SpawnPassiveAction spawnPassiveAction:
                     text = Instantiate(GoList.GetValue("environPrefab"), MainPanel.transform);
                     text.GetComponent<EnvironMonobehavior>().SetEnviron(spawnPassiveAction.GetPassive().Name, spawnPassiveAction.GetPassive().Desc, spawnPassiveAction.GetPassive().Color);
@@ -251,23 +248,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                     isPassiveAction = true;
                     break;
                 
-                case GainStepsCardAction:
-                    text = Instantiate(GoList.GetValue("stepsPrefab"), MainPanel.transform);
-                    break;
-
-                case ShieldAction:
-                    text = Instantiate(GoList.GetValue("shieldPrefab"), MainPanel.transform);
-                    GoList.GetValue("ShieldInfo").SetActive(true);
-                    break;
-
-                case DrawCardAction:
-                    text = Instantiate(GoList.GetValue("drawPrefab"), MainPanel.transform);
-                    break;
-                
-                case GainEnergyAction:
-                    text = Instantiate(GoList.GetValue("energyPrefab"), MainPanel.transform);
-                    break;
-
                 default:
                     text = Instantiate(GoList.GetValue("normalPrefab"), MainPanel.transform);
                     break;
