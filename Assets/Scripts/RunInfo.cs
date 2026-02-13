@@ -39,6 +39,7 @@ public class RunInfo : MonoBehaviour
         {
             _currentEnergy = value;
             UpdateEnergyText();
+            Deck.Instance.UpdatePlayability();
         }
     }
 

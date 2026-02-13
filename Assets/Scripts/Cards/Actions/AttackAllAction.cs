@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using Entities;
-using Grid;
 using StateManager;
 using Cards.CardEvents;
-using Types.Statuses;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Cards.Actions
 {
@@ -14,13 +11,26 @@ namespace Cards.Actions
         private int _amount;
         public AttackAllAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
         {
-            this._amount = amount;
-
+            _amount = amount;
+            this.entity = entity;
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new AttackAllCardEvent(_amount) };
+            List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
+            if (GameStateManager.Instance.IsCurrent<PlayingState>())
+            {
+                PlayingState playing = GameStateManager.Instance.GetCurrent<PlayingState>();
+                foreach (AbstractEntity ent in playing.GetEntities())
+                {
+                    if (entity == ent)
+                        continue;
+                    cardEvents.Add(new AttackCardEvent(ent.positionRowCol, _amount, manual:false));
+                    
+                }
+            }
+            
+            return cardEvents;
         }
 
         
@@ -40,7 +50,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Attack All " + _amount;
+            return "Attack All " +  _amount + "<attack>";
         }
 
         public override string ToString()

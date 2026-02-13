@@ -197,6 +197,7 @@ MonoBehaviour:
   hurtSystem: {fileID: 1386115888341186255}
   statusManager: {fileID: 8015900489651469602}
   healthBarManager: {fileID: 7732926284550110387}
+  DefaultDamage: 10
 --- !u!1 &436744844242049286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,7 +1143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1584612434480556848, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
-      value: 356
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3277531031008773237, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1186,19 +1187,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3839840020190712935, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
-      value: 225
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4080686812709799922, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
-      value: 336
+      value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 6986803412052912285, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
-      value: 225
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7767511413550048725, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
-      value: 429
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8256231394544675084, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_Name

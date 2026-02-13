@@ -18,7 +18,7 @@ public class Deck : MonoBehaviour
     private List<CardMonobehaviour> _draw = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _discard = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _hand = new List<CardMonobehaviour>();
-    private List<CardMonobehaviour> _scrap = new List<CardMonobehaviour>(); // NEW
+    private List<CardMonobehaviour> _scrap = new List<CardMonobehaviour>();
 
     public Random _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
     public static Deck Instance;
@@ -27,13 +27,12 @@ public class Deck : MonoBehaviour
     public Transform drawTransform;
     public Transform discardTransform;
 
-    // Optional but recommended so scrap cards have a consistent spot
-    public Transform scrapTransform; // NEW
+    public Transform scrapTransform;
 
     public List<CardMonobehaviour> Draw { get { return _draw; } }
     public List<CardMonobehaviour> Discard { get { return _discard; } }
     public List<CardMonobehaviour> Hand { get { return _hand; } }
-    public List<CardMonobehaviour> Scrap { get { return _scrap; } } // NEW
+    public List<CardMonobehaviour> Scrap { get { return _scrap; } }
 
     public void Awake()
     {
@@ -49,7 +48,7 @@ public class Deck : MonoBehaviour
         foreach (var card in _draw) card.SetInactive(inactive);
         foreach (var card in _discard) card.SetInactive(inactive);
         foreach (var card in _hand) card.SetInactive(inactive);
-        foreach (var card in _scrap) card.SetInactive(inactive); // NEW
+        foreach (var card in _scrap) card.SetInactive(inactive);
     }
 
     // TODO: Parameterize this
@@ -58,6 +57,24 @@ public class Deck : MonoBehaviour
         foreach (Card startingCard in CardData.GetStarter(StartingDecks.basic))
         {
             _draw.Add(CreateCard(startingCard));
+        }
+    }
+
+    public void UpdatePlayability()
+    {
+        if (!GameStateManager.Instance.GetState<PlayingState>().AllowUserInput)
+            return;
+        
+        foreach (CardMonobehaviour card in Hand)
+        {
+            if ((int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy)
+            {
+                card.SetInactive(true);
+            }
+            else
+            {
+                card.SetInactive(false);
+            }
         }
     }
 
@@ -326,48 +343,55 @@ public class Deck : MonoBehaviour
 
     public void PositionHandCards(float animationDelayFactor = 0.2f)
     {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        float width = rectTransform.rect.width;
+        RectTransform handRect = GetComponent<RectTransform>();
+        float width = (_hand.Count <= 3) ? handRect.rect.width * 0.65f : handRect.rect.width;
 
         int cardCount = _hand.Count;
-        float spacing = width / (cardCount + 1);
+        if (cardCount == 0) return;
 
-        for (float i = cardCount - 1; i >= 0; i--)
+        for (int i = 0; i < cardCount; i++)
         {
-            CardMonobehaviour card = _hand[(int)i];
-            float xPos = -width / 2 + spacing * (i + 1);
-            Vector2 targetPos = new Vector2(xPos, 0);
-            float delay = i * animationDelayFactor;
-            
-            card.transform.SetAsLastSibling();
+            CardMonobehaviour card = _hand[i];
 
-            if (delay > 0)
+            float xHandLocal;
+            if (cardCount == 1)
             {
-                StartCoroutine(DelayedAnimation(delay, card, targetPos));
+                xHandLocal = 0f;
             }
             else
             {
-                card.GetComponent<LerpPosition>().targetLocation = targetPos;
+                float t = i / (float)(cardCount - 1);          // 0..1
+                xHandLocal = Mathf.Lerp(-width / 2f, width / 2f, t); // edge to edge
             }
+
+            // Convert hand-local -> world -> card parent local (prevents off-screen issues)
+            Vector3 worldPoint = handRect.TransformPoint(new Vector3(xHandLocal, 0f, 0f));
+            Vector3 parentLocal = card.transform.parent.InverseTransformPoint(worldPoint);
+
+            Vector2 targetPos = new Vector2(parentLocal.x, parentLocal.y);
+
+            float delay = i * animationDelayFactor;
+
+            card.transform.SetAsLastSibling();
+
+            if (delay > 0f)
+                StartCoroutine(DelayedAnimation(delay, card, targetPos));
+            else
+                card.GetComponent<LerpPosition>().targetLocation = targetPos;
         }
 
         foreach (CardMonobehaviour card in _discard)
-        {
             card.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
-        }
+
         foreach (CardMonobehaviour card in _draw)
-        {
             card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
-        }
 
         if (scrapTransform != null)
-        {
             foreach (CardMonobehaviour card in _scrap)
-            {
                 card.GetComponent<LerpPosition>().targetLocation = scrapTransform.localPosition;
-            }
-        }
     }
+
+
     
     public string GetRandomHandCardId()
     {

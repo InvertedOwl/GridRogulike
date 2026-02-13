@@ -18,22 +18,22 @@ namespace StateManager
     {
         private readonly Dictionary<Rarity, double> rarityWeights = new()
         {
-            { Rarity.Common,    50 },
-            { Rarity.Uncommon,  25 },
-            { Rarity.Rare,      15 },
-            { Rarity.Epic,       7 },
-            { Rarity.Legendary,  2.5 },
-            { Rarity.Mythic,     0.5 }
+            { Rarity.Common,     60 },
+            { Rarity.Uncommon,   30 },
+            { Rarity.Rare,       6 },
+            { Rarity.Epic,       3 },
+            { Rarity.Legendary, .8 },
+            { Rarity.Mythic,    .2 }
         };
 
         private readonly Dictionary<Rarity, int[]> costRanges = new()
         {
-            { Rarity.Common,     new[] {1, 4} },
-            { Rarity.Uncommon,   new[] {3, 6} },
-            { Rarity.Rare,       new[] {6, 10} },
-            { Rarity.Epic,       new[] {10, 15} },
-            { Rarity.Legendary,  new[] {12, 16} },
-            { Rarity.Mythic,     new[] {15, 20} }
+            { Rarity.Common,     new[] {1, 3} },
+            { Rarity.Uncommon,   new[] {4, 6} },
+            { Rarity.Rare,       new[] {7, 10} },
+            { Rarity.Epic,       new[] {11, 15} },
+            { Rarity.Legendary,  new[] {16, 18} },
+            { Rarity.Mythic,     new[] {19, 23} }
         };
 
         public List<GameObject> shopActions;

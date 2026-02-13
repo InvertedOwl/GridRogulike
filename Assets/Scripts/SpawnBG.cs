@@ -150,6 +150,7 @@ public class SpawnBG : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(SpawnBG))]
 public class MyButtonExampleEditor : Editor
 {
@@ -164,3 +165,4 @@ public class MyButtonExampleEditor : Editor
         }
     }
 }
+#endif

@@ -141,13 +141,6 @@ namespace Cards.CardList
                     new DrawCardAction(1, "basic", null, 1),
                 }, Rarity.Rare)),
                 
-                
-                ["Refresh"] = () => new(new Card("Refresh", new List<AbstractAction>
-                    { 
-                        new DiscardHandCardAction(0, "basic", null),
-                        new DrawCardAction(1, "basic", null, 3),
-                    }, Rarity.Common)),
-                
                 ["DrawFewAndEnergy"] = () => new(new Card("Anticipate", new List<AbstractAction>
                 { 
                     new GainEnergyAction(0, "basic", null, 1),

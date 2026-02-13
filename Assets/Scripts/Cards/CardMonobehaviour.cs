@@ -366,6 +366,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (!_cardSet || inactive)
             return;
+
+        int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
         
         bool isLeftClick = Input.GetMouseButtonDown(0);
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
@@ -421,7 +423,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             // Extract attack actions for HexClick whatever its called
             foreach (AbstractCardEvent cardEvent in eventQueue) 
             {
-                if (cardEvent is AttackCardEvent)
+                if (cardEvent is AttackCardEvent && ((AttackCardEvent)cardEvent).manual)
                 {
                     attackCardEvents.Add((AttackCardEvent)cardEvent);
                 }   
@@ -439,7 +441,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 cardEvent.Activate(player);
             }
 
-            RunInfo.Instance.CurrentEnergy -= (int)((CostOverride>-1)?CostOverride:_card.Cost);
+            RunInfo.Instance.CurrentEnergy -= currentCost;
             used = true;
         }
         

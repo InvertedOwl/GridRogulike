@@ -28,10 +28,16 @@ namespace StateManager
             get => _allowUserInput;
             set
             {
+                bool changed = _allowUserInput != value;
                 _allowUserInput = value;
                 Deck.Instance.SetInactive(!value);
                 EndTurnButton.interactable = value;
                 RedrawButton.interactable = value;
+
+                if (changed)
+                {
+                    Deck.Instance.UpdatePlayability();
+                }
             }
         }
 
