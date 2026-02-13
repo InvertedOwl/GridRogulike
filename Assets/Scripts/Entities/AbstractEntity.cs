@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cards.Actions;
 using Cards.CardEvents;
 using Grid;
 using StateManager;
@@ -171,6 +172,52 @@ namespace Entities
             ScreenShake.Instance.Shake(0.1f, 7);
         }
 
+        
+        List<string> arrowUUIDs = new List<string>();
+
+        public virtual void HandleNextTurnActions(List<AbstractAction> actions)
+        {
+            foreach (string arrowUUID in arrowUUIDs)
+            {
+                SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
+            }
+            
+            
+            foreach (AbstractAction action in actions)
+            {
+                foreach (AbstractCardEvent abstractCardEvent in action.Activate(null))
+                {
+                    Vector2Int pos = new Vector2Int(-20000, -20000);
+                    if (abstractCardEvent is AttackCardEvent)
+                    {
+                        if (((AttackCardEvent)abstractCardEvent).usePosition)
+                        {
+                            pos = ((AttackCardEvent)abstractCardEvent).position;
+                        }
+                        else
+                        {
+                            pos = HexGridManager.MoveHex(positionRowCol,
+                                ((AttackCardEvent)abstractCardEvent).direction,
+                                ((AttackCardEvent)abstractCardEvent).distance);
+                        }
+                    }
+
+                    if (!pos.Equals(new Vector2Int(-20000, -20000)))
+                    {
+                        GameObject hex = HexGridManager.Instance.GetWorldHexObject(pos);
+                        HexPreviewHandler hexHandler = hex.GetComponent<HexPreviewHandler>();
+                        if (hexHandler.eventsOnThisHex.ContainsKey(this))
+                        {
+                            hexHandler.eventsOnThisHex[this].Add(abstractCardEvent);    
+                        }
+                        else
+                        {
+                            hexHandler.eventsOnThisHex[this] = new List<AbstractCardEvent> { abstractCardEvent };
+                        }
+                    }
+                }
+            }
+        }
 
         public abstract void Die();
         

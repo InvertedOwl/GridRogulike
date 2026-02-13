@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cards.Actions;
+using Cards.CardEvents;
 using Grid;
 using StateManager;
 using UnityEngine;
@@ -32,9 +33,24 @@ namespace Entities.Enemies
             {
                 yield break;
             }
+
+            foreach (AbstractCardEvent cardEvent in _plannedAction?.Activate(null))
+            {
+
+                if (cardEvent is AttackCardEvent)
+                {
+                    AttackCardEvent attackCardEvent = (AttackCardEvent)cardEvent;
+                    Vector2Int targetPos = HexGridManager.MoveHex(positionRowCol, attackCardEvent.direction,
+                        attackCardEvent.distance);
+                    transform.localPosition += ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position).normalized * 0.5f;
+                }
+                
+                
+                cardEvent.Activate(this);
+
+                yield return new WaitForSeconds(0.5f);
+            }
             
-            // TODO: Animation for action ?
-            _plannedAction?.Activate(null).ForEach(action => {action.Activate(this);});
             _plannedAction = null;
         }
 
@@ -109,5 +125,6 @@ namespace Entities.Enemies
             
             return new List<AbstractAction>{_plannedAction};
         }
+        
     }
 }

@@ -38,6 +38,12 @@ namespace StateManager
                 {
                     Deck.Instance.UpdatePlayability();
                 }
+
+                foreach (Vector2Int hex in HexGridManager.Instance.BoardDictionary.Keys)
+                {
+                    HexGridManager.Instance.GetWorldHexObject(hex).GetComponent<HexPreviewHandler>().DisablePreview =
+                        !value;
+                }   
             }
         }
 
@@ -86,6 +92,16 @@ namespace StateManager
             SetupPlayerHand();
 
             _currentTurnIndex = -1;
+
+            // Start all enemy turns
+            foreach (AbstractEntity e in _entities)
+            {
+                if (e is Enemy)
+                {
+                    ((Enemy)e).HandleNextTurnActions(((Enemy)e).NextTurn());
+                }
+            }
+            
             StartEntityTurn();
             turnIndicatorManager.UpdateTurnIndicatorList(_entities);
             TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
@@ -183,6 +199,7 @@ namespace StateManager
             foreach (var e in _entities)
             {
                 e.MoveEntity(e.positionRowCol);
+                
 
                 e.Health = e.initialHealth;
             }
@@ -305,6 +322,12 @@ namespace StateManager
             if (CheckForFinish() != "none") return;
             var entity = CurrentTurn;
 
+            // Clear all previews because the actions has been done
+            foreach (Vector2Int hex in HexGridManager.Instance.BoardDictionary.Keys)
+            {
+                HexGridManager.Instance.GetWorldHexObject(hex).GetComponent<HexPreviewHandler>().eventsOnThisHex.Remove(entity);
+            }
+            
             entity.EndTurn();
             
             HexClickPlayerController.instance.UpdateMovableParticles(this);
@@ -314,8 +337,12 @@ namespace StateManager
 
             if (entity is Enemy)
             {
-                ((Enemy)entity).NextTurn();
+                List<AbstractAction> actions = ((Enemy)entity).NextTurn();
+                ((Enemy)entity).HandleNextTurnActions(actions);
             }
+            
+
+            
             
             // Unified start for the next entity
             StartEntityTurn();
@@ -379,16 +406,7 @@ namespace StateManager
                 PlayerWon();
                 return;
             }
-
-            // foreach (AbstractEntity entity in _entities)
-            // {
-            //     if (entity is Enemy)
-            //     {
-            //         ((Enemy)entity).NextTurn();
-            //     }
-            // }
-
-            // Advance to next entity; StartEntityTurn() will be called inside EntityEndTurn
+            
             EntityEndTurn();
             
             AllowUserInput = false;
@@ -404,37 +422,37 @@ namespace StateManager
                 list.GetValue("Damage").SetActive(false);
             }
 
-            foreach (AbstractEntity entity in _entities)
-            {
-                if (entity is Enemy && !_entities[_currentTurnIndex].Equals(entity))
-                {
-                    List<AbstractAction> actions = ((Enemy)entity).NextTurn();
-
-                    Debug.Log("UpdateNextTurnIndicators: " + actions.Count);
-
-                    foreach (AbstractAction action in actions)
-                    {
-                        try
-                        {
-                            if (action is AttackAction)
-                            {
-                                Vector2Int posOfAttack = HexGridManager.MoveHex(entity.positionRowCol,
-                                    ((AttackAction)action).Direction, ((AttackAction)action).Distance);
-                                GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack)
-                                    .GetComponent<GOList>();
-                                // list.GetValue("Particles").SetActive(true);
-                                list.GetValue("Damage").SetActive(true);
-                                list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount + "";
-                            }
-                        }
-                        catch
-                        {
-                            
-                        }
-
-                    }
-                }
-            }
+            // foreach (AbstractEntity entity in _entities)
+            // {
+            //     if (entity is Enemy && !_entities[_currentTurnIndex].Equals(entity))
+            //     {
+            //         List<AbstractAction> actions = ((Enemy)entity).NextTurn();
+            //
+            //         Debug.Log("UpdateNextTurnIndicators: " + actions.Count);
+            //
+            //         foreach (AbstractAction action in actions)
+            //         {
+            //             try
+            //             {
+            //                 if (action is AttackAction)
+            //                 {
+            //                     Vector2Int posOfAttack = HexGridManager.MoveHex(entity.positionRowCol,
+            //                         ((AttackAction)action).Direction, ((AttackAction)action).Distance);
+            //                     GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack)
+            //                         .GetComponent<GOList>();
+            //                     // list.GetValue("Particles").SetActive(true);
+            //                     list.GetValue("Damage").SetActive(true);
+            //                     list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount + "";
+            //                 }
+            //             }
+            //             catch
+            //             {
+            //                 
+            //             }
+            //
+            //         }
+            //     }
+            // }
         }
 
         public void PlayerWon()

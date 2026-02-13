@@ -122,7 +122,7 @@ namespace Cards.CardList
                 ["Draw2"] = () => new(new Card("Draw 2", new List<AbstractAction>
                 { 
                     new RaiseCostAction(0, "basic", null),
-                    new DrawCardAction(1, "basic", null, 2),
+                    new DrawCardAction(0, "basic", null, 2),
                 }, Rarity.Common)),
                 
                 ["Draw3"] = () => new(new Card("Retry", new List<AbstractAction>
