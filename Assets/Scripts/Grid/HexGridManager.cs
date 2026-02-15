@@ -105,7 +105,7 @@ namespace Grid
                 newHex.transform.localPosition = GetHexCenter(pos.x, pos.y);
                 _hexObjects[pos] = newHex;
 
-                SpriteRenderer displayRenderer = newHex.transform.GetChild(2).GetComponent<SpriteRenderer>();
+                SpriteRenderer displayRenderer = newHex.transform.GetChild(3).GetComponent<SpriteRenderer>();
                 displayRenderer.sortingOrder = (int)(newHex.transform.position.y * -3);
 
                 AttachClickForwarder(newHex, pos);

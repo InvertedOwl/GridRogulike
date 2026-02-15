@@ -22,7 +22,7 @@ namespace Cards.CardEvents
         
         public override void Activate(AbstractEntity entity)
         {
-            if (!_perma && entity is Player)
+            if (!_perma && entity.entityType == EntityType.Player)
             {
                 _cardMono.SetCard(_newCard, costOverride: _costOverride);
             }

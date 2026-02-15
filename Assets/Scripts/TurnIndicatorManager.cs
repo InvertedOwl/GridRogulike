@@ -29,11 +29,11 @@ public class TurnIndicatorManager : MonoBehaviour
 
         foreach (AbstractEntity entity in newEntities)
         {
-            if (entity is Enemy)
+            if (entity.entityType == EntityType.Enemy)
             {
                 GameObject.Instantiate(TurnIndicatorEnemyPrefab, transform);
             }
-            if (entity is Player)
+            if (entity.entityType == EntityType.Friendly)
                 GameObject.Instantiate(TurnIndicatorPlayerPrefab, transform);
         }
         

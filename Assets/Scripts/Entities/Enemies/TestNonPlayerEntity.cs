@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Entities.Enemies
 {
-    public class TestEnemy: Enemy
+    public class TestNonPlayerEntity: NonPlayerEntity
     {
         public void Awake()
         {

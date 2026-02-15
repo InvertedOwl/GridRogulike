@@ -9,7 +9,7 @@ using Util;
 
 namespace Entities.Enemies
 {
-    public class EasyEnemyBasic : Enemy
+    public class EasyNonPlayerEntityBasic : NonPlayerEntity
     {
         private AbstractAction _plannedAction;
         private int movementPerTurn = 1;
@@ -75,7 +75,7 @@ namespace Entities.Enemies
                 
                 foreach (AbstractEntity e in entitiesOnHex)
                 {
-                    if (e is Player)
+                    if (e.entityType == EntityType.Player)
                     {
                         _plannedAction = action;
                     }

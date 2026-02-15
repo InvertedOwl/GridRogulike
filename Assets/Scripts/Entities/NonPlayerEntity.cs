@@ -12,7 +12,7 @@ using Util;
 
 namespace Entities
 {
-    public abstract class Enemy: AbstractEntity
+    public abstract class NonPlayerEntity: AbstractEntity
     {
         public List<AbstractAction> AvailableActions = new List<AbstractAction>();
 

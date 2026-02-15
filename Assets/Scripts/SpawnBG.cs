@@ -50,7 +50,7 @@ public class SpawnBG : MonoBehaviour
             for (int x = startX; x < startX + widthX; x++)
             {
                 GameObject hex = Instantiate(hexPrefab, transform);
-                hex.transform.position = HexGridManager.GetHexCenter(x, y);
+                hex.transform.localPosition = HexGridManager.GetHexCenter(x, y);
 
                 hex.GetComponent<BGTile>().SetColor(
                     RandomizeColor(grasslandColors[Random.Range(0, grasslandColors.Count)])

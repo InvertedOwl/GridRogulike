@@ -15,7 +15,7 @@ namespace Cards.CardEvents
         
         public override void Activate(AbstractEntity entity)
         {
-            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing && entity is Player)
+            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing && entity.entityType == EntityType.Player)
             {
                 RunInfo.Instance.CurrentSteps += _stepsToAdd;
             }

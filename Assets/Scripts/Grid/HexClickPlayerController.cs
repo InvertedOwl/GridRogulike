@@ -74,7 +74,7 @@ namespace Grid {
             
             foreach (AbstractEntity entity in playingState.GetEntities())
             {
-                if (!(entity is Enemy))
+                if (!(entity is NonPlayerEntity))
                     continue;
 
                 if (noBlockerMapFromPlayer[entity.positionRowCol] > ToAttack[0].distance ||
@@ -100,7 +100,7 @@ namespace Grid {
             
             foreach (AbstractEntity entity in playingState.GetEntities())
             {
-                if (!(entity is Enemy))
+                if (!(entity is NonPlayerEntity))
                     continue;
                 HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol).GetComponent<GOList>().GetValue("ToAttack").SetActive(false);
             }
@@ -117,7 +117,7 @@ namespace Grid {
             
             foreach (var key in currentMap.Keys)
             {
-                if (currentMap[key] <= RunInfo.Instance.CurrentSteps && currentMap[key] > 0 && playingState.CurrentTurn is Player)
+                if (currentMap[key] <= RunInfo.Instance.CurrentSteps && currentMap[key] > 0 && playingState.CurrentTurn.entityType == EntityType.Player)
                 {
                     GOList list = HexGridManager.Instance.GetWorldHexObject(key)
                         .GetComponent<GOList>();
@@ -170,7 +170,7 @@ namespace Grid {
             Debug.Log("CLICKED " + hexPosition);
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             
-            if (!(playingState.CurrentTurn is Player))
+            if (playingState.CurrentTurn.entityType != EntityType.Player)
                 return;
 
             if (!playingState.AllowUserInput && !isAttacking)
@@ -223,7 +223,7 @@ namespace Grid {
             
             foreach (AbstractEntity abstractEntity in playingState.GetEntities())
             {
-                if (abstractEntity is Player)
+                if (abstractEntity.entityType == EntityType.Player)
                     continue;
                 
                 blockers.Add(abstractEntity.positionRowCol);

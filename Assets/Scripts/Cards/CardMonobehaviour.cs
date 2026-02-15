@@ -234,6 +234,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         int posY = -175;
         foreach (AbstractAction action in _card.Actions)
         {
+            if (!action.visible)
+            {
+                continue;
+            }
+            
             GameObject text = null;
             bool setText = true;
             bool isPassiveAction = false;
@@ -374,7 +379,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            isPlayerTurn = playing.CurrentTurn is Player;
+            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
         
         if (isLeftClick && !used && hasEnoughEnergy && isPlayerTurn)
         {

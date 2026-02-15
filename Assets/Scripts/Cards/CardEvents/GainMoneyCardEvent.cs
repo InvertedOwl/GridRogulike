@@ -17,7 +17,7 @@ namespace Cards.CardEvents
         
         public override void Activate(AbstractEntity entity)
         {
-            if (entity is Player)
+            if (entity.entityType == EntityType.Friendly)
                 RunInfo.Instance.Money += amount;
             
         }

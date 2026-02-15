@@ -15,13 +15,13 @@ namespace Cards.CardList
                 // Passives
                 ["SpawnPassiveForest"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
-                        new ScrapCurrentCardAction(0, "basic", null),
+                        new ScrapCurrentCardAction(0, "basic", null, false),
                         new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("forest")),
                     }, Rarity.Rare)),
                 
                 ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
-                        new ScrapCurrentCardAction(0, "basic", null),
+                        new ScrapCurrentCardAction(0, "basic", null, false),
                         new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual")),
                     }, Rarity.Rare),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 1) }),

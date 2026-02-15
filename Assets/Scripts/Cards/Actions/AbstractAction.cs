@@ -13,6 +13,7 @@ namespace Cards.Actions
         private int _baseCost;
         private string _color;
         private AbstractEntity _entity;
+        public bool visible = true;
         
         public static Random guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
         public static string GenerateDeterministicId()
@@ -49,11 +50,12 @@ namespace Cards.Actions
         // Update later to check if cost has changed (?)
         public int Cost { get { return _baseCost; } }
         
-        public AbstractAction(int baseCost, string color, AbstractEntity entity)
+        public AbstractAction(int baseCost, string color, AbstractEntity entity, bool visible = true)
         {
             this._baseCost = baseCost;
             this._color = color;
             this.entity = entity;
+            this.visible = visible;
         }
         
         public abstract List<AbstractCardEvent> Activate(CardMonobehaviour cardMono);

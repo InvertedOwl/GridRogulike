@@ -93,12 +93,12 @@ namespace StateManager
 
             _currentTurnIndex = -1;
 
-            // Start all enemy turns
+            // Start all NonPlayer turns
             foreach (AbstractEntity e in _entities)
             {
-                if (e is Enemy)
+                if (e is NonPlayerEntity)
                 {
-                    ((Enemy)e).HandleNextTurnActions(((Enemy)e).NextTurn());
+                    ((NonPlayerEntity)e).HandleNextTurnActions(((NonPlayerEntity)e).NextTurn());
                 }
             }
             
@@ -142,7 +142,7 @@ namespace StateManager
         {
             _entities.Clear();
             _entities.Add(player);
-            _entities.AddRange(FindObjectsByType<TestEnemy>(FindObjectsSortMode.InstanceID));
+            _entities.AddRange(FindObjectsByType<TestNonPlayerEntity>(FindObjectsSortMode.InstanceID));
 
             Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
             
@@ -221,17 +221,17 @@ namespace StateManager
             return true;
         }
 
-        private Enemy SpawnEnemyAt(int difficulty, Vector2Int position, EnemyType enemyType)
+        private AbstractEntity SpawnEnemyAt(int difficulty, Vector2Int position, EnemyType enemyType)
         {
             EnemyEntry enemyEntry = GetComponent<EnemyData>().GetRandomEnemy(difficulty, enemyType, _entitySpawnRandom);
             GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
 
             enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
-            Enemy enemy = enemyObject.GetComponent<Enemy>();
+            AbstractEntity nonPlayerEntity = enemyObject.GetComponent<AbstractEntity>();
 
-            enemy.positionRowCol = position;
+            nonPlayerEntity.positionRowCol = position;
 
-            return enemy;
+            return nonPlayerEntity;
         }
         
         public List<MapData> maps = new List<MapData>();
@@ -298,19 +298,19 @@ namespace StateManager
             
             Debug.Log("Exiting Play State");
             Deck.Instance.DiscardHand();
-            List<Enemy> toRemove = new List<Enemy>();
+            List<NonPlayerEntity> toRemove = new List<NonPlayerEntity>();
             TurnIndicator.SendToLocation(new Vector3(0, 200, 0));
 
             foreach (AbstractEntity entity in _entities)
             {
-                if (entity is Enemy)
+                if (entity is NonPlayerEntity)
                 {
                     Debug.Log("Entity is an enemy!! WOOOOO");
-                    toRemove.Add((Enemy)entity);
+                    toRemove.Add((NonPlayerEntity)entity);
                 }
             }
 
-            foreach (Enemy enemy in toRemove)
+            foreach (NonPlayerEntity enemy in toRemove)
             {
                 _entities.Remove(enemy);
                 Destroy(enemy.gameObject);
@@ -345,10 +345,10 @@ namespace StateManager
 
             ClearDeadEnemies();
 
-            if (entity is Enemy)
+            if (entity is NonPlayerEntity)
             {
-                List<AbstractAction> actions = ((Enemy)entity).NextTurn();
-                ((Enemy)entity).HandleNextTurnActions(actions);
+                List<AbstractAction> actions = ((NonPlayerEntity)entity).NextTurn();
+                ((NonPlayerEntity)entity).HandleNextTurnActions(actions);
             }
             
 
@@ -361,22 +361,37 @@ namespace StateManager
         private void StartEntityTurn()
         {
             if (CheckForFinish() != "none") return;
-            _currentTurnIndex = (_currentTurnIndex + 1) % _entities.Count;
+
+            int attempts = 0;
+
+            do
+            {
+                _currentTurnIndex = (_currentTurnIndex + 1) % _entities.Count;
+                attempts++;
+
+                if (attempts > _entities.Count)
+                {
+                    Debug.LogWarning("All entities are Neutral (or no valid turn owner). Ending turn advance.");
+                    return;
+                }
+
+            } while (CurrentTurn.entityType == EntityType.Neutral);
+
             var entity = CurrentTurn;
-            
-            
+
             entity.StartTurn();
 
-            if (entity is Enemy enemy)
+            if (entity is NonPlayerEntity enemy)
             {
                 StartCoroutine(MakeEnemyTurn(enemy));
             }
         }
+
         
-        private IEnumerator MakeEnemyTurn(Enemy enemy)
+        private IEnumerator MakeEnemyTurn(NonPlayerEntity nonPlayerEntity)
         {
             yield return new WaitForSeconds(0.25f);
-            yield return enemy.MakeTurn();
+            yield return nonPlayerEntity.MakeTurn();
             yield return new WaitForSeconds(0.25f);
             EntityEndTurn();
         }
@@ -406,7 +421,7 @@ namespace StateManager
 
         public void PlayerEndTurn()
         {
-            if (!(CurrentTurn is Player))
+            if (CurrentTurn.entityType != EntityType.Player)
                 return;
 
             BattleStats.ResetStatsTurn();
@@ -479,12 +494,12 @@ namespace StateManager
             bool playerWin = true;
             foreach (AbstractEntity entity in _entities)
             {
-                if (entity is Player && entity.Health > 0)
+                if (entity.entityType == EntityType.Player && entity.Health > 0)
                 {
                     enemyWin = false;
                 }
 
-                if (entity is Enemy && entity.Health > 0)
+                if (entity.entityType == EntityType.Enemy && entity.Health > 0)
                 {
                     playerWin = false;
                 }
@@ -521,8 +536,9 @@ namespace StateManager
 
             ent.MoveEntity(target);
 
-            if (ent is Player)
+            if (ent.entityType == EntityType.Player)
             {
+                // Activate landing events
                 foreach (AbstractCardEvent cardEvent in TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke())
                 {
                     cardEvent.Activate(ent);
@@ -544,7 +560,7 @@ namespace StateManager
             
             ent.MoveEntity(target);
 
-            if (ent is Player)
+            if (ent.entityType == EntityType.Player)
             {
                 foreach (AbstractCardEvent cardEvent in 
                          TileData.tiles[HexGridManager.Instance.HexType(target)]

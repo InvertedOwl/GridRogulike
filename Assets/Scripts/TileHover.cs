@@ -14,6 +14,8 @@ public class TileHover : MonoBehaviour
     
     public bool hoverWhenNotPlaytate = true;
     
+    public GameObject sideThing;
+    
     void FixedUpdate()
     {
         
@@ -22,6 +24,11 @@ public class TileHover : MonoBehaviour
             if (lerpPosition)
             {
                 lerpPosition.targetLocation = new Vector3(0, 0, lerpPosition.startPosition.z);
+            }
+
+            if (sideThing)
+            {
+                sideThing.SetActive(true);
             }
 
             if (activateOnHover)
@@ -46,6 +53,11 @@ public class TileHover : MonoBehaviour
             {
                 activateOnHover.SetActive(true);
             }
+            
+            if (sideThing)
+            {
+                sideThing.SetActive(false);
+            }
             ticksHovered++;
         }
         else
@@ -58,6 +70,11 @@ public class TileHover : MonoBehaviour
             if (activateOnHover)
             {
                 activateOnHover.SetActive(false);
+            }
+            
+            if (sideThing)
+            {
+                sideThing.SetActive(true);
             }
             ticksHovered = 0;
         }

@@ -7,7 +7,7 @@ namespace Cards.Actions
 {
     public class ScrapCurrentCardAction : AbstractAction
     {
-        public ScrapCurrentCardAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity) { }
+        public ScrapCurrentCardAction(int baseCost, string color, AbstractEntity entity, bool visible = true) : base(baseCost, color, entity, visible) { }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
