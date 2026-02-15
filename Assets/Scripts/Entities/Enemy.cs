@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cards.Actions;
+using Cards.CardEvents;
 using Grid;
 using StateManager;
 using TMPro;
@@ -26,8 +27,19 @@ namespace Entities
             BattleStats.DamageDoneThisTurn += damage;
             base.Damage(damage, status);
         }
-        
-        
+
+
+        public List<AbstractCardEvent> ModifyEvents(List<AbstractCardEvent> events)
+        {
+            List<AbstractCardEvent> modifiedEvents = new List<AbstractCardEvent>(events);
+
+            foreach (AbstractStatus status in statusManager.statusList)
+            {
+                modifiedEvents = status.Modify(modifiedEvents);
+            }
+            
+            return modifiedEvents;
+        }
 
         
         public abstract IEnumerator MakeTurn();

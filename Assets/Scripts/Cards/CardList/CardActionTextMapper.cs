@@ -16,6 +16,7 @@ namespace Cards.CardList
                 ["<s1hield>"] = "<sprite name=\"shield\"> ",
                 ["<draw>"] = "<sprite name=\"draw\"> ",
                 ["<energy>"] = "<sprite name=\"EnergyIcon\"> ",
+                ["<frost>"] = "<sprite name=\"Snowflake_1\">"
             };
 
     }

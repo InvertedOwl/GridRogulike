@@ -3,11 +3,11 @@ using StateManager;
 
 namespace Cards.CardEvents
 {
-    public class AddStepsCardEvent : AbstractCardEvent
+    public class GainStepsCardEvent : AbstractCardEvent
     {
         private int _stepsToAdd = 1;
         
-        public AddStepsCardEvent(int stepsToAdd = 1)
+        public GainStepsCardEvent(int stepsToAdd = 1)
         {
             this._stepsToAdd = stepsToAdd;
         }

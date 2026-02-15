@@ -15,7 +15,7 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new AddStepsCardEvent(_steps) };
+            return new List<AbstractCardEvent> { new GainStepsCardEvent(_steps) };
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,

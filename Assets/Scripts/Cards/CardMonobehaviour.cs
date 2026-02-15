@@ -114,14 +114,15 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         string newInfo = info;
 
-        foreach (InfoEntry entry in InfoData.info)
-        {
-            if (newInfo.ToLower().Contains(entry.name))
-            {
-                newInfo = Regex.Replace(newInfo, entry.name, entry.formattedName, RegexOptions.IgnoreCase);
-                entry.infoPanel.SetActive(true);
-            }
-        }
+        // TODO: re add this but better :3
+        // foreach (InfoEntry entry in InfoData.info)
+        // {
+        //     if (newInfo.ToLower().Contains(entry.name))
+        //     {
+        //         newInfo = Regex.Replace(newInfo, entry.name, entry.formattedName, RegexOptions.IgnoreCase);
+        //         entry.infoPanel.SetActive(true);
+        //     }
+        // }
 
         foreach (string key in BattleStats.names.Keys)
         {

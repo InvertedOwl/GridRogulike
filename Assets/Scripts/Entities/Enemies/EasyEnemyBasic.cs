@@ -42,11 +42,16 @@ namespace Entities.Enemies
                     AttackCardEvent attackCardEvent = (AttackCardEvent)cardEvent;
                     Vector2Int targetPos = HexGridManager.MoveHex(positionRowCol, attackCardEvent.direction,
                         attackCardEvent.distance);
-                    transform.localPosition += ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position).normalized * 0.5f;
+                    transform.localPosition +=
+                        ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position)
+                        .normalized * 0.5f;
                 }
-                
-                
-                cardEvent.Activate(this);
+
+                foreach (AbstractCardEvent modifiedEvent in ModifyEvents(new List<AbstractCardEvent> { cardEvent }))
+                {
+                    modifiedEvent.Activate(this);
+                }
+
 
                 yield return new WaitForSeconds(0.5f);
             }

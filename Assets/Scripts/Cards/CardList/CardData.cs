@@ -34,9 +34,15 @@ namespace Cards.CardList
                         new AttackAction(1, "basic", null, "", 1, 5),
                     }, Rarity.Common),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
+                ["AttackHigh"] = () => new(new Card("Smash", new List<AbstractAction>
+                    { 
+                        // Direction does not matter for cards now, since player can choose where to attack.
+                        // Distance DOES matter, though
+                        new AttackAction(1, "basic", null, "", 1, 10),
+                    }, Rarity.Uncommon)),
                 ["AttackMedium"] = () => new(new Card("Slice", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "", 1, 8),
+                        new AttackAction(1, "basic", null, "", 1, 25),
                         new DiscardCardsAction(1, "basic", null, 1),
                     }, Rarity.Rare)),
                 ["AttackHigh"] = () => new(new Card("Assault", new List<AbstractAction>
@@ -50,8 +56,12 @@ namespace Cards.CardList
                 }, Rarity.Legendary)),
                 ["PoisonStrike"] = () => new(new Card("Poison Strike", new List<AbstractAction>
                 { 
-                    new PoisonAttackAction(1, "basic", null, "n", 1, 0, 8),
+                    new PoisonAttackAction(1, "basic", null, "n", 1, 0, 3),
                 }, Rarity.Rare)),
+                ["FrostStrike"] = () => new(new Card("Frost Blast", new List<AbstractAction>
+                { 
+                    new FrostAttackAction(1, "basic", null, "n", 1, 0, 1),
+                }, Rarity.Uncommon)),
                 ["Swipe"] = () => new(new Card("Ambush", new List<AbstractAction>
                 { 
                     new AttackAction(1, "basic", null, "", 1, 3),

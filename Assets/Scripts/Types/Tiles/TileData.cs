@@ -22,7 +22,7 @@ namespace Types.Tiles
                 (e) => e,
                 () => new List<AbstractCardEvent>
                 {
-                    new AddStepsCardEvent(1)
+                    new GainStepsCardEvent(1)
                 }),
             
             ["basic"] = new ( 
