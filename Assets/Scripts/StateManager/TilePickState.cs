@@ -54,18 +54,19 @@ namespace StateManager
             if (!_newTile)
                 return;
 
+            _newTile.GetComponent<GOList>().GetValue("Display4").GetComponent<SpriteRenderer>().sortingOrder = 500;
+
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z = 0f;
             Vector2Int gridPos = HexGridManager.GetHexCoordinates(mouseWorldPos);
-            if (_grid.HexType(gridPos) == "none" &&
-                HexGridManager.AdjacentHexes(gridPos).Any(pos => _grid.HexType(pos) != "none"))
+            if (_grid.HexType(gridPos) != "none")
             {
                 _newTile.GetComponent<LerpPosition>().targetLocation = HexGridManager.GetHexCenter(gridPos.x, gridPos.y);
 
                 if (Input.GetMouseButtonDown(0))
                 {
                     
-                    _grid.TryAdd(gridPos, choices[_chosenIndex]);
+                    _grid.Replace(gridPos, choices[_chosenIndex]);
                     _grid.UpdateBoard();
                     Destroy(_newTile);
                     _newTile = null;

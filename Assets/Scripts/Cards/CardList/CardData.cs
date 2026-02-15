@@ -23,7 +23,8 @@ namespace Cards.CardList
                     { 
                         new ScrapCurrentCardAction(0, "basic", null),
                         new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual")),
-                    }, Rarity.Rare)),
+                    }, Rarity.Rare),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 1) }),
                 
 
                 // Attacks
