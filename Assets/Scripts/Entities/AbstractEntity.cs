@@ -95,7 +95,7 @@ namespace Entities
             positionRowCol = newCoords;
             GetComponent<LerpPosition>().targetLocation = Vector3.zero;
             GameObject currentHex = HexGridManager.Instance.GetWorldHexObject(positionRowCol);
-            transform.SetParent(currentHex.transform.GetChild(3));
+            transform.SetParent(currentHex.transform.GetChild(2));
             
         }
 
