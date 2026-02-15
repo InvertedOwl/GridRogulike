@@ -291,7 +291,6 @@ namespace Grid
 
             GOList goList = tile.GetComponentInChildren<GOList>();
 
-            goList.GetValue("Display1").GetComponent<SpriteRenderer>().color = darker;
             goList.GetValue("Display2").GetComponent<SpriteRenderer>().color = darker;
             goList.GetValue("Display3").GetComponent<SpriteRenderer>().color = darker;
             goList.GetValue("Display4").GetComponent<SpriteRenderer>().color = color;

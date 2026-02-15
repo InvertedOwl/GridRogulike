@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/EntityType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/EntityType.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic3.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +52,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DrawCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/MoveCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ShieldCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/comma/Projects/GridRogulike/Assets/Scripts/Cards/CardList/CardActionTextMapper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardActionTextMapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardList/StartingDeckEntry.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/comma/Projects/GridRogulike/Assets/Scripts/Entities/AbstractEntity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EasyEnemyBasic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" root0="FORCE_HIGHLIGHTING" />
@@ -273,6 +269,7 @@
       <workItem from="1770782918779" duration="81000" />
       <workItem from="1770834265699" duration="5471000" />
       <workItem from="1771111416384" duration="2271000" />
+      <workItem from="1771175657522" duration="697000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -402,7 +399,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771003842677</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Minor adjustments">
+      <option name="closed" value="true" />
+      <created>1771175680723</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1771175680723</updated>
+    </task>
+    <task id="LOCAL-00018" summary="New icons">
+      <option name="closed" value="true" />
+      <created>1771175699928</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1771175699928</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +446,9 @@
     <MESSAGE value="Allow scrapping" />
     <MESSAGE value="Content + minor bugfixes" />
     <MESSAGE value="Bug Fixes + features" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes + features" />
+    <MESSAGE value="Minor adjustments" />
+    <MESSAGE value="New icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="New icons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

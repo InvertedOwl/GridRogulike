@@ -24,13 +24,13 @@ public class AreYouSure : MonoBehaviour
     {
         callback?.Invoke(true);
         callback = null;
-        GetComponent<LerpPosition>().targetLocation = new Vector2(0, 10);
+        GetComponent<LerpPosition>().targetLocation = new Vector2(0, 700);
     }
 
     public void Cancel()
     {
         callback?.Invoke(false);
         callback = null;
-        GetComponent<LerpPosition>().targetLocation = new Vector2(0, 10);
+        GetComponent<LerpPosition>().targetLocation = new Vector2(0, 700);
     }
 }

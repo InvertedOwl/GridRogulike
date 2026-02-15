@@ -59,7 +59,9 @@ namespace StateManager
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z = 0f;
             Vector2Int gridPos = HexGridManager.GetHexCoordinates(mouseWorldPos);
-            if (_grid.HexType(gridPos) != "none")
+            // Either replacing, or adding new
+            if (_grid.HexType(gridPos) != "none" || (_grid.HexType(gridPos) == "none" &&
+                                                     HexGridManager.AdjacentHexes(gridPos).Any(pos => _grid.HexType(pos) != "none")))
             {
                 _newTile.GetComponent<LerpPosition>().targetLocation = HexGridManager.GetHexCenter(gridPos.x, gridPos.y);
 
