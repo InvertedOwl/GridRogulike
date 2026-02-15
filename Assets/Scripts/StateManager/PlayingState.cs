@@ -233,12 +233,22 @@ namespace StateManager
 
             return enemy;
         }
+        
+        public List<MapData> maps = new List<MapData>();
 
         private void SetupInitialTiles()
         {
             var origin = new Vector2Int(0, 0);
-            _grid.TryAdd(origin, "start");
-            _grid.TryAdd(HexGridManager.MoveHex(origin, "n", 1), "basic");
+            // _grid.TryAdd(origin, "start");
+
+            foreach (MapData map in maps)
+            {
+                foreach (MapEntry mapEntry in map.entries)
+                {
+                    _grid.TryAdd(mapEntry.key, mapEntry.value);
+                }
+            }
+            
             _grid.UpdateBoard();
         }
 

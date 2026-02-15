@@ -11173,7 +11173,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.51593
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12856,6 +12856,48 @@ MonoBehaviour:
   TurnIndicator: {fileID: 328626457}
   GoList: {fileID: 1327594992}
   turnIndicatorManager: {fileID: 1474974203}
+  maps:
+  - entries:
+    - key: {x: 0, y: 0}
+      value: start
+    - key: {x: 1, y: 0}
+      value: basic
+    - key: {x: 0, y: 1}
+      value: basic
+    - key: {x: 1, y: -1}
+      value: basic
+    - key: {x: -1, y: 0}
+      value: basic
+    - key: {x: 0, y: -1}
+      value: basic
+    - key: {x: -1, y: -1}
+      value: basic
+    - key: {x: -1, y: -2}
+      value: basic
+    - key: {x: -2, y: -1}
+      value: basic
+    - key: {x: -2, y: -1}
+      value: basic
+    - key: {x: 1, y: -2}
+      value: basic
+    - key: {x: 2, y: 1}
+      value: basic
+    - key: {x: 0, y: -2}
+      value: basic
+    - key: {x: 2, y: -1}
+      value: basic
+    - key: {x: 2, y: 0}
+      value: basic
+    - key: {x: 1, y: 1}
+      value: basic
+    - key: {x: 0, y: 2}
+      value: basic
+    - key: {x: -1, y: 1}
+      value: basic
+    - key: {x: -2, y: 0}
+      value: basic
+    - key: {x: -2, y: 1}
+      value: basic
 --- !u!114 &1327594992
 MonoBehaviour:
   m_ObjectHideFlags: 0

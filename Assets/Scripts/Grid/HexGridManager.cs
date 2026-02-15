@@ -70,6 +70,11 @@ namespace Grid
             }
         }
 
+        public void Replace(Vector2Int current, string type)
+        {
+            _boardDictionary[current] = type;
+        }
+
         public void UpdateBoard()
         {
             if (grid != null)
