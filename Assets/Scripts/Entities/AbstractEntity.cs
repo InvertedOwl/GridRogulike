@@ -20,6 +20,7 @@ namespace Entities
         public float initialHealth;
 
         public float _health;
+        public EntityType entityType = EntityType.Enemy;
         
         
         // Generic random to generate specific entity randoms predictably 
