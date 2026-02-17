@@ -146,6 +146,14 @@ namespace StateManager
 
             Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
             
+            _entities.ForEach(e =>
+            {
+                if (e.Health <= 0)
+                {
+                    e.Die();
+                }
+            });
+            
             _entities.RemoveAll(e => e.Health <= 0);
             
 
@@ -201,7 +209,8 @@ namespace StateManager
                 e.MoveEntity(e.positionRowCol);
                 
 
-                e.Health = e.initialHealth;
+                if (e.entityType != EntityType.Player)
+                    e.Health = e.initialHealth;
             }
         }
 
@@ -324,6 +333,11 @@ namespace StateManager
                 tile.GetComponent<TileHover>().activeHover = false;
             }
             MoveEntitiesOut();
+            
+            foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
+            {
+                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Clear();
+            }
         }
 
         #region Turn System ---------------
@@ -404,9 +418,8 @@ namespace StateManager
             {
                 if (entity.Health <= 0)
                 {
+                    entity.Die();
                     toRemove.Add(entity);
-
-
                 }
             }
             foreach (AbstractEntity enemy in toRemove)

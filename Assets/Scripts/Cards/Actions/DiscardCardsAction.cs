@@ -33,7 +33,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Discard Cards in Hand";
+            return "Discard " + _numCards + " Cards in Hand";
         }
 
         public override string ToString()

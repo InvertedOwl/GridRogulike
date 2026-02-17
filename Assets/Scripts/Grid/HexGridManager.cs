@@ -23,7 +23,7 @@ namespace Grid
 
         public GameObject hexPrefab;
         private Dictionary<Vector2Int, string> _boardDictionary = new Dictionary<Vector2Int, string>();
-        private Dictionary<Vector2Int, GameObject> _hexObjects = new Dictionary<Vector2Int, GameObject>();
+        public Dictionary<Vector2Int, GameObject> _hexObjects = new Dictionary<Vector2Int, GameObject>();
         public Transform grid;
         public static HexGridManager Instance;
 
@@ -107,6 +107,8 @@ namespace Grid
 
                 SpriteRenderer displayRenderer = newHex.transform.GetChild(3).GetComponent<SpriteRenderer>();
                 displayRenderer.sortingOrder = (int)(newHex.transform.position.y * -3);
+
+                newHex.GetComponent<HexPreviewHandler>().currentPos = pos;
 
                 AttachClickForwarder(newHex, pos);
 
@@ -286,7 +288,7 @@ namespace Grid
         public void UpdateHexObject(TileEntry entry, GameObject tile)
         {
             Color color = entry.color;
-
+            
             Color darker = new Color(color.r * .6f, color.g * .6f, color.b * .6f);
 
             GOList goList = tile.GetComponentInChildren<GOList>();

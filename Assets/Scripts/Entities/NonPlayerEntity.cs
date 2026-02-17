@@ -15,11 +15,7 @@ namespace Entities
     public abstract class NonPlayerEntity: AbstractEntity
     {
         public List<AbstractAction> AvailableActions = new List<AbstractAction>();
-
-        public override void Die()
-        {
-            Destroy(gameObject);
-        }
+        
 
         public override void Damage(int damage, AbstractStatus status)
         {

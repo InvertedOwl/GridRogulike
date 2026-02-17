@@ -19,11 +19,7 @@ namespace Entities
             
             Instance = this;
         }
-
-        public override void Die()
-        {
-            
-        }
+        
 
         public override void StartTurn()
         {

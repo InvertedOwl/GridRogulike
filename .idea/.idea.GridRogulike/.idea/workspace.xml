@@ -5,39 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals/UnmovingNeutral.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals/UnmovingNeutral.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ScrapCurrentCardAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ScrapCurrentCardAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DestroyCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DestroyCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DiscardCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DiscardCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DiscardHandCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DiscardHandCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DrawCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DrawCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/EditCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/EditCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainEnergyCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainEnergyCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainMoneyCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainMoneyCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainStepsCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainStepsCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/HealCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/HealCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ScrapCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ScrapCardEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardCardsAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardCardsAction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EasyEnemyBasic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EasyNonPlayerEntityBasic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EasyEnemyBasic.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EasyNonPlayerEntityBasic.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestEnemy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals/UnmovingNeutral.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals/UnmovingNeutral.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,10 +146,8 @@
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="MIXED_MODE_DEBUG" value="0" />
       <method v="2" />
     </configuration>
@@ -180,10 +156,8 @@
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\comma\Projects\GridRogulike -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="MIXED_MODE_DEBUG" value="0" />
       <method v="2" />
     </configuration>
@@ -192,14 +166,12 @@
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\comma\Projects\GridRogulike -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="MIXED_MODE_DEBUG" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
@@ -210,10 +182,9 @@
       <option name="selectedOptions">
         <list />
       </option>
-      <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
@@ -224,7 +195,6 @@
       <option name="selectedOptions">
         <list />
       </option>
-      <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="Attach to" type="UnityDevicePlayer" factoryName="UnityAttachToDevicePlayer">
@@ -302,6 +272,8 @@
       <workItem from="1770834265699" duration="5471000" />
       <workItem from="1771111416384" duration="2271000" />
       <workItem from="1771175657522" duration="7004000" />
+      <workItem from="1771267572324" duration="1245000" />
+      <workItem from="1771354643716" duration="2817000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />

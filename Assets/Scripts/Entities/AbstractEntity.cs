@@ -220,7 +220,15 @@ namespace Entities
             }
         }
 
-        public abstract void Die();
+        public void Die()
+        {
+            // Rip entity :(
+            foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
+            {
+                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Remove(this);
+            }
+
+        }
         
     }
 }
