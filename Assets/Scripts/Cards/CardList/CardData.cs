@@ -29,7 +29,7 @@ namespace Cards.CardList
                 ["Offensive Move"] = () => new(new Card("Offensive Move", new List<AbstractAction>
                 { 
                     new AttackAction(1, "basic", null, "", 1, 4),
-                    new GainStepsCardAction(1, "basic", null, 1)
+                    new GainStepsCardAction(0, "basic", null, 1)
                 }, Rarity.Common)),
 
                 ["Stomp"] = () => new(new Card("Stomp", new List<AbstractAction>
@@ -212,7 +212,7 @@ namespace Cards.CardList
 
                 ["AttackAllPotion"] = () => new(new Card("Attack Potion", new List<AbstractAction>
                 { 
-                    new AttackAllAction(0, "basic", null, 5),
+                    new AttackAllAction(0, "basic", null, 20),
                     new DestroyCurrentCardAction(0, "basic", null),
                 }, Rarity.Rare)),
 
