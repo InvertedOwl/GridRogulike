@@ -105,8 +105,8 @@ namespace StateManager
 
             if (node.target == MapTarget.Event)
             {
-                PlayingState.RewardMoney = 5;
-                GameStateManager.Instance.Change<PlayingState>();
+                // TODO: new state
+                GameStateManager.Instance.Change<MapState>();
             }
             
         }
