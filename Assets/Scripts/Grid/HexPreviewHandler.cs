@@ -37,6 +37,7 @@ public class HexPreviewHandler : MonoBehaviour
     {
         if (eventsOnThisHex.Count == 0)
             return;
+        ClearArrows();
 
         foreach (AbstractEntity entity in eventsOnThisHex.Keys)
         {
@@ -53,12 +54,19 @@ public class HexPreviewHandler : MonoBehaviour
 
     private void OnMouseExit()
     {
+        ClearArrows();
+    }
+
+    private void ClearArrows()
+    {
         foreach (String uuid in arrowUUIDS)
         {
             SpriteArrowManager.Instance.DestroyArrow(uuid);
         }
+        
+        arrowUUIDS.Clear();
     }
-
+    
     public void UpdatePreview(Dictionary<AbstractEntity, List<AbstractCardEvent>> localEvents)
     {
         bool hasAttack = false;

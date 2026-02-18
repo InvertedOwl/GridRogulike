@@ -11300,7 +11300,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.51593
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12973,6 +12973,12 @@ MonoBehaviour:
     DifficultyMin: 0
     DifficultyMax: 2
     EnemyType: 0
+  - enemyPrefab: {fileID: 3326344764978528588, guid: 641c30a9e40f80e44b8d3ae79546acdc, type: 3}
+    enemyIconPrefab: {fileID: 0}
+    enemyName: HardEnemy1
+    DifficultyMin: 0
+    DifficultyMax: 2
+    EnemyType: 1
 --- !u!114 &1327594994
 MonoBehaviour:
   m_ObjectHideFlags: 0

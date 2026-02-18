@@ -115,13 +115,6 @@ namespace Entities
             
             Debug.Log("Shield: " + Shield);
             
-            // Activate tile events
-            TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(positionRowCol)];
-            foreach (AbstractCardEvent cardEvent in tile.landEvent.Invoke())
-            {
-                cardEvent.Activate(this);
-            }
-            
         }
         public virtual void EndTurn()
         {
@@ -203,7 +196,7 @@ namespace Entities
                         }
                     }
 
-                    if (!pos.Equals(new Vector2Int(-20000, -20000)))
+                    if (!pos.Equals(new Vector2Int(-20000, -20000)) && HexGridManager.Instance.GetAllGridPositions().Contains(pos))
                     {
                         GameObject hex = HexGridManager.Instance.GetWorldHexObject(pos);
                         HexPreviewHandler hexHandler = hex.GetComponent<HexPreviewHandler>();
@@ -223,13 +216,12 @@ namespace Entities
         public void Die()
         {
             // Rip entity :(
+            Debug.Log("I have died");
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
             {
                 HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Remove(this);
             }
-
         }
-        
     }
 }
 

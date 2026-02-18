@@ -343,7 +343,7 @@ namespace StateManager
         #region Turn System ---------------
         public void EntityEndTurn()
         {
-            if (CheckForFinish() != "none") return;
+
             var entity = CurrentTurn;
 
             // Clear all previews because the actions has been done
@@ -353,9 +353,13 @@ namespace StateManager
             }
             
             entity.EndTurn();
-            
+            Debug.Log("Entity end turn");
+            if (CheckForFinish() != "none")
+            {
+                CaptureFinish();
+                return;
+            };
             HexClickPlayerController.instance.UpdateMovableParticles(this);
-            if (CheckForFinish() != "none") return;
 
             ClearDeadEnemies();
 
@@ -439,16 +443,24 @@ namespace StateManager
 
             BattleStats.ResetStatsTurn();
 
-            if (CheckForFinish() == "player")
-            {
-                PlayerWon();
-                return;
-            }
+            CaptureFinish();
             
             EntityEndTurn();
             
             AllowUserInput = false;
             
+        }
+
+        public void CaptureFinish()
+        {
+            if (CheckForFinish() == "player")
+            {
+                PlayerWon();
+            }
+            else
+            {
+                EntityWon();
+            }
         }
 
         private void UpdateNextTurnIndicators()
@@ -499,6 +511,11 @@ namespace StateManager
             GameStateManager.Instance.Change<TilePickState>();
 
             RunInfo.Instance.Money += RewardMoney;
+        }
+
+        public void EntityWon()
+        {
+            Debug.Log("Aww bummer you fuckin dork you lost");
         }
 
         public string CheckForFinish()

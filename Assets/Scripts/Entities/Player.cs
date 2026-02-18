@@ -1,6 +1,9 @@
 using System;
+using Cards.CardEvents;
+using Grid;
 using StateManager;
 using TMPro;
+using Types.Tiles;
 using UnityEngine;
 
 namespace Entities
@@ -27,6 +30,12 @@ namespace Entities
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
             RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
             GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = true;
+            
+            TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(positionRowCol)];
+            foreach (AbstractCardEvent cardEvent in tile.landEvent.Invoke())
+            {
+                cardEvent.Activate(this);
+            }
         }
 
         public override void EndTurn()

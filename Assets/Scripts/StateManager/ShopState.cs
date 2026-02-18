@@ -19,11 +19,11 @@ namespace StateManager
         private readonly Dictionary<Rarity, double> rarityWeights = new()
         {
             { Rarity.Common,     60 },
-            { Rarity.Uncommon,   30 },
-            { Rarity.Rare,       6 },
-            { Rarity.Epic,       3 },
-            { Rarity.Legendary, .8 },
-            { Rarity.Mythic,    .2 }
+            { Rarity.Uncommon,   37 },
+            { Rarity.Rare,       3 },
+            { Rarity.Epic,       0 },
+            { Rarity.Legendary,  0 },
+            { Rarity.Mythic,     0 }
         };
 
         private readonly Dictionary<Rarity, int[]> costRanges = new()
@@ -73,6 +73,7 @@ namespace StateManager
             PickCards();
             PickActions();
             _refreshCost = 5;
+            
         }
         public override void Exit()
         {
@@ -102,6 +103,15 @@ namespace StateManager
             refreshCostText.text = "$" + _refreshCost;
             refreshCostText.GetComponent<RectTransform>().localPosition += new Vector3(0, 5, 0);
             refreshButton.interactable = false;
+            
+            for (int i = 0; i < cardOptions.Count; i++)
+            {
+                if (_cardPurchased[i])
+                {
+                    cardOptions[i].GetComponent<LerpPosition>().targetLocation =
+                        cardOptions[i].transform.localPosition - new Vector3(0, 450, 0);
+                }
+            }
         }
 
         IEnumerator SwapCards()

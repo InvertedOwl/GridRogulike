@@ -19,6 +19,11 @@ namespace Cards.CardList
                         new AttackAction(1, "basic", null, "", 1, 5),
                     }, Rarity.Common),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
+                
+                ["PoisonEase"] = () => new(new Card("Poison", new List<AbstractAction>
+                    { 
+                        new PoisonAttackAction(1, "basic", null, "", 2, 0, 6),
+                    }, Rarity.Common)),
 
                 ["Crack"] = () => new(new Card("Crack", new List<AbstractAction>
                 { 
@@ -83,14 +88,14 @@ namespace Cards.CardList
 
                 ["FrostStrike"] = () => new(new Card("Frost Blast", new List<AbstractAction>
                 { 
-                    new FrostAttackAction(1, "basic", null, "n", 2, 0, 5),
+                    new FrostAttackAction(1, "basic", null, "n", 5, 0, 5),
                 }, Rarity.Uncommon)),
 
                 ["Swipe"] = () => new(new Card("Ambush", new List<AbstractAction>
                 { 
-                    new AttackAction(1, "basic", null, "", 1, 4),
-                    new AttackAction(0, "basic", null, "", 1, 4),
-                    new AttackAction(0, "basic", null, "", 1, 4),
+                    new AttackAction(1, "basic", null, "", 1, 3),
+                    new AttackAction(0, "basic", null, "", 1, 3),
+                    new AttackAction(0, "basic", null, "", 1, 3),
                 }, Rarity.Uncommon)),
 
                 ["Leap"] = () => new(new Card("Leap", new List<AbstractAction>
@@ -144,8 +149,7 @@ namespace Cards.CardList
                 { 
                     new ScrapCurrentCardAction(0, "basic", null, false),
                     new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual")),
-                }, Rarity.Rare),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 1) }),
+                }, Rarity.Rare)),
 
                 ["AttackMedium"] = () => new(new Card("Slice", new List<AbstractAction>
                 { 

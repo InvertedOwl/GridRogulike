@@ -97,12 +97,16 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: _health
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: DefaultDamage
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: initialHealth
-      value: 5
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5387418325193270740, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_text

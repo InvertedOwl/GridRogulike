@@ -93,7 +93,7 @@ namespace StateManager
             PlayingState.numHardEnemy = node.numHardEnemy;
             PlayingState.numBossEnemy = node.numBossEnemy;
 
-            if (node.target == MapTarget.Enemy)
+            if (node.target == MapTarget.Enemy || node.target == MapTarget.HardEnemy)
             {
                 GameStateManager.Instance.Change<PlayingState>();
             }
