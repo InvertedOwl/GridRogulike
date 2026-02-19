@@ -164,10 +164,30 @@ namespace StateManager
             _cardData.Clear();
             _cardCostValues.Clear();
             _cardPurchased = new List<bool> { false, false, false };
-            
+
+            HashSet<string> used = new HashSet<string>();
+
             for (int i = 0; i < 3; i++)
             {
-                Card card = GetRandomItem();
+                Card card = default;
+
+                const int maxAttempts = 50;
+                for (int attempt = 0; attempt < maxAttempts; attempt++)
+                {
+                    var candidate = GetRandomItem();
+                    var key = candidate.UniqueId;
+
+                    if (used.Add(key))
+                    {
+                        card = candidate;
+                        break;
+                    }
+                }
+
+                // Fallback: if you truly can't find a unique one, just allow it or leave blank
+                if (card.Equals(default(Card)))
+                    card = GetRandomItem();
+
                 _cardData.Add(card);
 
                 int cost = _shopRandom.Next(costRanges[card.Rarity][0], costRanges[card.Rarity][1]);
@@ -177,18 +197,15 @@ namespace StateManager
                 cardCostTexts[i].text = "$" + cost;
 
                 int index = i;
-                
-                // PURCHASE CALLBACK
+
                 cardOptions[i].CardClickedCallback = () =>
                 {
                     if (_cardPurchased[index]) return;
+                    if (RunInfo.Instance.Money < _cardCostValues[index]) return;
 
-                    if (RunInfo.Instance.Money < _cardCostValues[index])
-                        return;
-                    
                     RunInfo.Instance.Money -= _cardCostValues[index];
-                        
                     Deck.Instance.CreateCard(card);
+
                     cardOptions[index].GetComponent<LerpPosition>().speed = 10;
                     cardOptions[index].GetComponent<LerpPosition>().targetLocation =
                         cardOptions[index].transform.localPosition + new Vector3(0, 450, 0);
@@ -197,6 +214,7 @@ namespace StateManager
                 };
             }
         }
+
 
         public void SetShopState()
         {

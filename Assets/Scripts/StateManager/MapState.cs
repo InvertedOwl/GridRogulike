@@ -106,7 +106,7 @@ namespace StateManager
             if (node.target == MapTarget.Event)
             {
                 // TODO: new state
-                GameStateManager.Instance.Change<MapState>();
+                GameStateManager.Instance.Change<EventState>();
             }
             
         }

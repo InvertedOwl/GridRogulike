@@ -41,7 +41,8 @@ namespace Entities
         public override void EndTurn()
         {
             Deck.Instance.DiscardHand();
-            GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = false;
+            if (GameStateManager.Instance.IsCurrent<PlayingState>())
+                GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = false;
             RunInfo.Instance.CurrentSteps = 0;
         }
     }

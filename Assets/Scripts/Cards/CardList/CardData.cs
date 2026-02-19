@@ -51,13 +51,14 @@ namespace Cards.CardList
 
                 ["Shield5"] = () => new(new Card("Small Shield", new List<AbstractAction>
                 { 
-                    new ShieldAction(1, "basic", null, 2)
-                }, Rarity.Common)),
+                    new ShieldAction(1, "basic", null, 5)
+                }, Rarity.Common),
+                new [] { new StartingDeckEntry(StartingDecks.basic, 2)}),
 
                 ["ShieldTradeOff"] = () => new(new Card("Trade Off", new List<AbstractAction>
                 { 
-                    new ShieldAction(1, "basic", null, 8),
-                    new DiscardHandCardAction(0, "basic", null),
+                    new ShieldAction(1, "basic", null, 12),
+                    new DiscardHandCardAction(1, "basic", null),
                 }, Rarity.Common)),
 
                 ["Defensive"] = () => new(new Card("Defensive Strike", new List<AbstractAction>
@@ -105,21 +106,20 @@ namespace Cards.CardList
                 
                 ["Flee"] = () => new(new Card("Flee", new List<AbstractAction>
                 { 
-                    new GainStepsCardAction(2, "basic", null, 2),
-                    new ShieldAction(0, "basic", null, 5),
+                    new GainStepsCardAction(1, "basic", null, 2),
+                    new ShieldAction(1, "basic", null, 5),
                 }, Rarity.Uncommon)),
 
                 ["Revitalize"] = () => new(new Card("Revitalize", new List<AbstractAction>
                 { 
                     new ShieldAction(1, "basic", null, 5),
-                    new DrawCardAction(1, "basic", null, 1),
+                    new DrawCardAction(0, "basic", null, 1),
                 }, Rarity.Uncommon)),
 
                 ["MedShield"] = () => new(new Card("Shield", new List<AbstractAction>
                 { 
-                    new ShieldAction(1, "basic", null, 4)
-                }, Rarity.Uncommon),
-                new [] { new StartingDeckEntry(StartingDecks.basic, 2) }),
+                    new ShieldAction(1, "basic", null, 12)
+                }, Rarity.Uncommon)),
 
                 ["Draw3"] = () => new(new Card("Mulligan", new List<AbstractAction>
                 { 
@@ -130,6 +130,11 @@ namespace Cards.CardList
                 ["DrawSome"] = () => new(new Card("Picky", new List<AbstractAction>
                 { 
                     new DrawCardAction(1, "basic", null, 2),
+                }, Rarity.Uncommon)),
+                ["SpawnPassivePoison"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                { 
+                    new ScrapCurrentCardAction(0, "basic", null, false),
+                    new SpawnPassiveAction(2, "basic", null, PassiveData.GetPassiveEntry("poisonswamp")),
                 }, Rarity.Uncommon)),
 
 
@@ -164,7 +169,7 @@ namespace Cards.CardList
 
                 ["BigShield"] = () => new(new Card("Large Shield", new List<AbstractAction>
                 { 
-                    new ShieldAction(3, "basic", null, 20)
+                    new ShieldAction(2, "basic", null, 20)
                 }, Rarity.Rare)),
 
                 ["DoubleDouble"] = () => new(new Card("Armory", new List<AbstractAction>

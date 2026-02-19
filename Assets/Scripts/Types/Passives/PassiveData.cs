@@ -15,7 +15,13 @@ namespace Types.Passives
                 ["forest"] = () => new("The Forest", "20% of all cards are played twice",
                     new PercentChanceCardCondition(20), new AgainCardModifier(), new Color(0.0196f, 0.2588f, 0.0275f)),
                 ["bloodritual"] = () => new("The Blood Ritual", "1.5x All damage",
-                    new PercentChanceCardCondition(100), new MoreDamageCardModifier(), new Color(0.2588f, 0.0392f, 0.0196f))
+                    new PercentChanceCardCondition(100), new MoreDamageCardModifier(), new Color(0.2588f, 0.0392f, 0.0196f)),
+                ["poisonswamp"] = () => new("Murky Swamp", "All attacks apply 1 poison",
+                    new PercentChanceCardCondition(100), new PoisonCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
+                ["noattack"] = () => new("Disarmed", "Half of attacks fail",
+                    new PercentChanceCardCondition(50), new DisableAttacksCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
+                ["drawcard"] = () => new("Ace", "For every step gained, ",
+                    new PercentChanceCardCondition(50), new DisableAttacksCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
             };
         
         public static PassiveEntry GetPassiveEntry(string name)

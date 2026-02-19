@@ -23,13 +23,12 @@ namespace Entities.Enemies
                 foreach (AbstractCardEvent cardEvent in ModifyEvents(new AttackAction(0, "basic", this, _direction, i + 1, DefaultDamage).Activate(null)))
                 {
                     cardEvent.Activate(this);
-                    Vector2Int pos = HexGridManager.MoveHex(positionRowCol, _direction, 1);
+                    Vector2Int pos = HexGridManager.MoveHex(positionRowCol, _direction, i+1);
                     
                     transform.localPosition +=
                         
-                        ((Vector3)HexGridManager.GetHexCenter(pos.x, pos.y) - transform.position)
-                        .normalized * 0.5f;
-                    yield return new WaitForSeconds(0.1f);
+                        ((Vector3)HexGridManager.GetHexCenter(pos.x, pos.y) - transform.position) * 0.5f;
+                    yield return new WaitForSeconds(0.25f);
                 }
             }
         }
