@@ -164,7 +164,7 @@ namespace Cards.CardList
 
                 ["PoisonStrike"] = () => new(new Card("Poison Strike", new List<AbstractAction>
                 { 
-                    new PoisonAttackAction(1, "basic", null, "", 1, 0, 6),
+                    new PoisonAttackAction(1, "basic", null, "", 1, 0, 4),
                 }, Rarity.Rare)),
 
                 ["BigShield"] = () => new(new Card("Large Shield", new List<AbstractAction>

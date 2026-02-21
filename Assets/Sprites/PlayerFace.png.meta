@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 7469a693d6492e144b5d921357456534
+guid: 3871bd2175016d04c830aac5ddb00919
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5445245667323321397
-    second: droplets_0
-  - first:
-      213: 1160436829583988270
-    second: droplets_1
-  - first:
-      213: 8407721543326836823
-    second: droplets_2
+      213: 8575162299666230460
+    second: PlayerFace_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: droplets_0
+      name: PlayerFace_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 164
-        width: 161
-        height: 331
+        x: 7
+        y: 3
+        width: 298
+        height: 294
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 53c9a839516619b40800000000000000
-      internalID: 5445245667323321397
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: droplets_1
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 20
-        width: 251
-        height: 441
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e2652a3f523ba1010800000000000000
-      internalID: 1160436829583988270
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: droplets_2
-      rect:
-        serializedVersion: 2
-        x: 331
-        y: 164
-        width: 162
-        height: 331
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7582568923a3ea470800000000000000
-      internalID: 8407721543326836823
+      spriteID: cbc6deaada8110770800000000000000
+      internalID: 8575162299666230460
       vertices: []
       indices: 
       edges: []
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      droplets_0: 5445245667323321397
-      droplets_1: 1160436829583988270
-      droplets_2: 8407721543326836823
+      PlayerFace_0: 8575162299666230460
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
