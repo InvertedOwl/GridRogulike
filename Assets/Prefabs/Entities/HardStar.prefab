@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3670034809583585440
+--- !u!1001 &3176401745532699450
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Name
-      value: EnemyBasic3
+      value: HardStar
       objectReference: {fileID: 0}
     - target: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77,9 +77,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_Size.x
+      value: 3.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_Size.y
+      value: 3.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -4950528340502253884, guid: d3d802985089a47a08ed22addc20bb7a, type: 3}
+      objectReference: {fileID: 21300000, guid: 1ada5d0e3887d3c45b4505a76f2a907f, type: 3}
     - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -93,42 +101,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-      propertyPath: _health
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-      propertyPath: DefaultDamage
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-      propertyPath: initialHealth
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387418325193270740, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-      propertyPath: m_text
-      value: '0/0
-
-'
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6036022424588401823, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.9602933
+      value: 0.47616106
       objectReference: {fileID: 0}
     - target: {fileID: 6036022424588401823, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9602933
+      value: 0.47616106
       objectReference: {fileID: 0}
     - target: {fileID: 6036022424588401823, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.9602933
-      objectReference: {fileID: 0}
-    - target: {fileID: 6036022424588401823, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.47616106
       objectReference: {fileID: 0}
     - target: {fileID: 7136508808463139608, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchorMax.y
@@ -154,8 +140,76 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6414198009395434826}
   m_SourcePrefab: {fileID: 100100000, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+--- !u!1 &3326344764978528588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6414198009395434826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326344764978528588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df3069c532894aa1944f7237d84ce05f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.DirectionalAttackEnemy
+  eyesFollowMouse: {fileID: 4421155946633991437}
+  initialHealth: 45
+  _health: 45
+  entityType: 0
+  positionRowCol: {x: 0, y: 0}
+  hurtSystem: {fileID: 4551064997210469877}
+  statusManager: {fileID: 4839939721375677976}
+  healthBarManager: {fileID: 5135238214336626569}
+  DefaultDamage: 10
+--- !u!114 &4421155946633991437 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1247428267075556919, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86109a714e079c44db2d1a784b753e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EyesFollowMouse
+--- !u!198 &4551064997210469877 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1386115888341186255, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4839939721375677976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8015900489651469602, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1e1f834d6545058fe09046effae3a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Types.Statuses.StatusManager
+--- !u!114 &5135238214336626569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7732926284550110387, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3212144da0f0c149b258aadf187c43e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'

@@ -63,9 +63,7 @@ namespace StateManager
         public Button RedrawButton;
         
         public static int RewardMoney;
-        public static int numNormalEnemy = 1;
-        public static int numHardEnemy;
-        public static int numBossEnemy;
+        public static EncounterData encounterData;
         
         public LerpPosition cameraLerpPosition;
 
@@ -156,7 +154,19 @@ namespace StateManager
             
             _entities.RemoveAll(e => e.Health <= 0);
             
+            int numNormalEnemy = 0;
+            int numHardEnemy = 0;
+            int numBossEnemy = 0;
 
+            foreach (EnemyEntry enemyEntry in encounterData.enemies)
+            {
+                if (enemyEntry.enemyType == EnemyType.Normal)
+                    numNormalEnemy += 1;
+                if (enemyEntry.enemyType == EnemyType.Hard)
+                    numHardEnemy += 1;
+                if (enemyEntry.enemyType == EnemyType.Boss)
+                    numBossEnemy += 1;
+            }
 
             var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
                 .Where(p => !_entities.Any(e => e.positionRowCol == p))
@@ -164,29 +174,31 @@ namespace StateManager
                 .Take(numNormalEnemy + numBossEnemy + numHardEnemy)
                 .ToList();
 
-            foreach (var pos in spawnSpots)
-            {
-                EnemyType enemyType = EnemyType.Normal;
-                if (numNormalEnemy > 0)
-                {
-                    enemyType = EnemyType.Normal;
-                    numNormalEnemy -= 1;
-                }
-
-                if (numHardEnemy > 0)
-                {
-                    enemyType = EnemyType.Hard;
-                    numHardEnemy -= 1;
-                }
-
-                if (numBossEnemy > 0)
-                {
-                    enemyType = EnemyType.Boss;
-                    numBossEnemy -= 1;
-                }
+            // foreach (var pos in spawnSpots)
+            // {
+                // EnemyType enemyType = EnemyType.Normal;
+                // if (numNormalEnemy > 0)
+                // {
+                //     enemyType = EnemyType.Normal;
+                //     numNormalEnemy -= 1;
+                // }
+                //
+                // if (numHardEnemy > 0)
+                // {
+                //     enemyType = EnemyType.Hard;
+                //     numHardEnemy -= 1;
+                // }
+                //
+                // if (numBossEnemy > 0)
+                // {
+                //     enemyType = EnemyType.Boss;
+                //     numBossEnemy -= 1;
+                // }
                 
-                _entities.Add(SpawnEnemyAt(RunInfo.Instance.Difficulty, pos, enemyType));
-            }
+            // }
+
+            
+            _entities.AddRange(SpawnEncounter(spawnSpots));
 
             // Not enough spawn spots
             if (numNormalEnemy > 0 || numHardEnemy > 0 || numBossEnemy > 0)
@@ -230,17 +242,27 @@ namespace StateManager
             return true;
         }
 
-        private AbstractEntity SpawnEnemyAt(int difficulty, Vector2Int position, EnemyType enemyType)
+        private List<AbstractEntity> SpawnEncounter(List<Vector2Int> positions)
         {
-            EnemyEntry enemyEntry = GetComponent<EnemyData>().GetRandomEnemy(difficulty, enemyType, _entitySpawnRandom);
-            GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
+            List<AbstractEntity> encounter = new List<AbstractEntity>();
 
-            enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
-            AbstractEntity nonPlayerEntity = enemyObject.GetComponent<AbstractEntity>();
-
-            nonPlayerEntity.positionRowCol = position;
-
-            return nonPlayerEntity;
+            if (positions.Count < encounterData.enemies.Count)
+            {
+                throw new Exception("Not enough spawn spots"); // TODO: Handle this
+            }
+            
+            for (int i = 0; i < encounterData.enemies.Count; i++)
+            {
+                EnemyEntry enemy = encounterData.enemies[i];
+                Vector2Int position = positions[i];
+                GameObject enemyObject = Instantiate(enemy.enemyPrefab, GoList.GetValue("board_container").transform);
+                enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
+                AbstractEntity abstractEntity = enemyObject.GetComponent<AbstractEntity>();
+                abstractEntity.positionRowCol = position;
+                encounter.Add(abstractEntity);
+                
+            }
+            return encounter;
         }
         
         public List<MapData> maps = new List<MapData>();

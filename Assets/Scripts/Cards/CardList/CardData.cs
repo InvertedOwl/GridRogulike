@@ -22,7 +22,12 @@ namespace Cards.CardList
                 
                 ["PoisonEase"] = () => new(new Card("Poison", new List<AbstractAction>
                     { 
-                        new PoisonAttackAction(1, "basic", null, "", 2, 0, 6),
+                        new PoisonAttackAction(1, "basic", null, "", 2, 0, 3),
+                    }, Rarity.Common)),
+                
+                ["Invest"] = () => new(new Card("Invest", new List<AbstractAction>
+                    {   
+                        new GainMoneyAction(2, "basic", null, 3),
                     }, Rarity.Common)),
 
                 ["Crack"] = () => new(new Card("Crack", new List<AbstractAction>
@@ -77,7 +82,7 @@ namespace Cards.CardList
                 ["QuickDraw"] = () => new(new Card("Quick Draw", new List<AbstractAction>
                 { 
                     new RaiseCostAction(0, "basic", null),
-                    new DrawCardAction(0, "basic", null, 1),
+                    new DrawCardAction(0, "basic", null, 3),
                 }, Rarity.Common)),
 
                 
@@ -164,7 +169,7 @@ namespace Cards.CardList
 
                 ["PoisonStrike"] = () => new(new Card("Poison Strike", new List<AbstractAction>
                 { 
-                    new PoisonAttackAction(1, "basic", null, "", 1, 0, 4),
+                    new PoisonAttackAction(1, "basic", null, "", 1, 0, 6),
                 }, Rarity.Rare)),
 
                 ["BigShield"] = () => new(new Card("Large Shield", new List<AbstractAction>

@@ -89,9 +89,7 @@ namespace StateManager
             currentNode = node;
             UpdateCurrentNode();
             PlayingState.RewardMoney = node.rewardMoney;
-            PlayingState.numNormalEnemy = node.numNormalEnemy;
-            PlayingState.numHardEnemy = node.numHardEnemy;
-            PlayingState.numBossEnemy = node.numBossEnemy;
+            PlayingState.encounterData = node.encounterData;
 
             if (node.target == MapTarget.Enemy || node.target == MapTarget.HardEnemy)
             {

@@ -9,6 +9,7 @@ namespace Entities.Enemies
 {
     public class TestNonPlayerEntity: NonPlayerEntity
     {
+        
         public void Awake()
         {
             AvailableActions.Add(new PoisonAttackAction(1, "basic", this, "s", 1, 10, 2));

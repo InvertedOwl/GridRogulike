@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Entities.Enemies;
+using StateManager;
 using TMPro;
 using UnityEngine;
 using Random = System.Random;
@@ -15,9 +17,7 @@ namespace Map
         public GOList GoList;
 
         public int rewardMoney;
-        public int numNormalEnemy;
-        public int numHardEnemy;
-        public int numBossEnemy;
+        public EncounterData encounterData;
         
         
         public static Random guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
@@ -32,33 +32,38 @@ namespace Map
 
         public void Start()
         {
+            GameState mapState = GameStateManager.Instance.GetCurrent<MapState>();
             if (target == MapTarget.Enemy)
             {
-                rewardMoney = _mapNodeRandom.Next(0, 3) + 3;
-                numNormalEnemy = _mapNodeRandom.Next(0, 2) + 1;
-                numHardEnemy = 0;
-                numBossEnemy = 0;
-                
-                
-
+                encounterData = mapState.GetComponent<EnemyData>().GetRandomEncounter(0, EnemyType.Normal, _mapNodeRandom);
             }
             
             if (target == MapTarget.HardEnemy)
             {
-                rewardMoney = _mapNodeRandom.Next(0, 3) + 5;
-                numNormalEnemy = _mapNodeRandom.Next(0, 3);
-                numHardEnemy = 1;
-                numBossEnemy = 0;
+                encounterData = mapState.GetComponent<EnemyData>().GetRandomEncounter(0, EnemyType.Hard, _mapNodeRandom);
             }
             
             if (target == MapTarget.Boss)
             {
-                rewardMoney = _mapNodeRandom.Next(0, 3) + 8;
-                numNormalEnemy = _mapNodeRandom.Next(0, 3);
-                numHardEnemy = _mapNodeRandom.Next(0, 2);
-                numBossEnemy = 1;
+                encounterData = mapState.GetComponent<EnemyData>().GetRandomEncounter(0, EnemyType.Boss, _mapNodeRandom);
             }
 
+            int numNormalEnemy = 0;
+            int numHardEnemy = 0;
+            int numBossEnemy = 0;
+
+            foreach (EnemyEntry enemyEntry in encounterData.enemies)
+            {
+                if (enemyEntry.enemyType == EnemyType.Normal)
+                    numNormalEnemy += 1;
+                if (enemyEntry.enemyType == EnemyType.Hard)
+                    numHardEnemy += 1;
+                if (enemyEntry.enemyType == EnemyType.Boss)
+                    numBossEnemy += 1;
+            }
+
+            rewardMoney = (numNormalEnemy * 2) + (numHardEnemy * 3) + (numBossEnemy * 5);
+            
             if (GoList)
             {
                 GoList.GetValue("Reward").GetComponent<TextMeshProUGUI>().text = "$" + rewardMoney;

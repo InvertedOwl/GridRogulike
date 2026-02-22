@@ -88,7 +88,7 @@ namespace Entities.Enemies
             {
                 actions.Add(new AttackAction(0, "basic", this, _direction, i + 1, DefaultDamage));
             }
-            
+            _plannedAction = actions;
             return actions;
         }
         

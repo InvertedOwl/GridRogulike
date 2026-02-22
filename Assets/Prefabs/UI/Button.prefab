@@ -139,13 +139,13 @@ MonoBehaviour:
   enableScale: 1
   scalePercent: 1.05
   scaleTime: 0.3
-  scaleTimeOffsetBefore: 0
-  scaleTimeOffsetAfter: 0
+  scaleOffsetBefore: 0
+  scaleOffsetAfter: 0
   enablePosition: 1
   positionOffset: {x: 0, y: 1, z: 0}
   positionTime: 0.3
-  positionTimeOffsetBefore: 0
-  positionTimeOffsetAfter: 0
+  positionOffsetBefore: 0
+  positionOffsetAfter: 0
   scaleGraphic: {fileID: 4612005314234437133}
   positionGraphic: {fileID: 5426899804073744674}
 --- !u!114 &4612005314234437133
@@ -244,8 +244,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Heal Full
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 32bc9bc2e463f405da06930c84597ab1, type: 2}
-  m_sharedMaterial: {fileID: 1168597778816674416, guid: 32bc9bc2e463f405da06930c84597ab1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -269,8 +269,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 18.62
+  m_fontSizeBase: 18.62
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -279,7 +279,8 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -12.2
+  m_characterSpacing: -2.4
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

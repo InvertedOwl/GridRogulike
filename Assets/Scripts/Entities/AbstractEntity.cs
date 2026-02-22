@@ -17,7 +17,9 @@ namespace Entities
 
     public abstract class AbstractEntity : MonoBehaviour
     {
+        public EyesFollowMouse eyesFollowMouse;
         public float initialHealth;
+        protected List<AbstractAction> _plannedAction = new List<AbstractAction>();
 
         public float _health;
         public EntityType entityType = EntityType.Enemy;
@@ -104,9 +106,40 @@ namespace Entities
             healthBarManager.health = Health;
             healthBarManager.initialHealth = initialHealth;
             healthBarManager.shield = Shield;
+
+
+            FollowEyes();
         }
 
 
+        public void FollowEyes()
+        {
+            if (eyesFollowMouse == null)
+            {
+                return;
+            }
+            bool attacking = false;
+            if (_plannedAction.Count > 0)
+            {
+                
+                foreach (AbstractAction action in _plannedAction)
+                {
+                    if (action is AttackAction attackAction)
+                    {
+                        Vector2Int targetHexPos = HexGridManager.MoveHex(positionRowCol, attackAction.Direction,
+                            attackAction.Distance);
+                        eyesFollowMouse.setTargetPosition = HexGridManager.GetHexCenter(targetHexPos.x, targetHexPos.y);
+                        attacking = true;
+                    }
+                }
+            }
+            if (!attacking)
+            {
+                PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+                Vector2Int playerPos = playingState.player.positionRowCol;
+                eyesFollowMouse.setTargetPosition = HexGridManager.GetHexCenter(playerPos.x, playerPos.y);
+            }        
+        }
         
         public virtual void StartTurn()
         {

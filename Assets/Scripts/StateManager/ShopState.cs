@@ -28,12 +28,12 @@ namespace StateManager
 
         private readonly Dictionary<Rarity, int[]> costRanges = new()
         {
-            { Rarity.Common,     new[] {2, 3} },
-            { Rarity.Uncommon,   new[] {3, 5} },
-            { Rarity.Rare,       new[] {5, 8} },
-            { Rarity.Epic,       new[] {8, 10} },
-            { Rarity.Legendary,  new[] {10, 11} },
-            { Rarity.Mythic,     new[] {20, 20} }
+            { Rarity.Common,     new[] {5, 6} },
+            { Rarity.Uncommon,   new[] {6, 8} },
+            { Rarity.Rare,       new[] {8, 11} },
+            { Rarity.Epic,       new[] {11, 13} },
+            { Rarity.Legendary,  new[] {20, 20} },
+            { Rarity.Mythic,     new[] {25, 25} }
         };
 
         public List<GameObject> shopActions;

@@ -11,7 +11,7 @@ namespace Entities.Enemies
 {
     public class MoveAttackEnemy : NonPlayerEntity
     {
-        private List<AbstractAction> _plannedAction = new List<AbstractAction>();
+
         private int movementPerTurn = 3;
         public int DefaultDamage = 10;
         
