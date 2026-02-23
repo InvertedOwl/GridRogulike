@@ -215,6 +215,8 @@ namespace Grid {
             {
                 StartCoroutine(MovePlayer(distanceMap, playingState, hexPosition));
             }
+            
+            playingState.CaptureFinish();
         }
 
         public Dictionary<Vector2Int, int> CalculateDistanceMap(Vector2Int hexPosition, PlayingState playingState)

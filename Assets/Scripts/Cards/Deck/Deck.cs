@@ -150,7 +150,7 @@ public class Deck : MonoBehaviour
                 PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
                 if (playingState.CheckForFinish() == "player")
                 {
-                    playingState.PlayerWon();
+                    playingState.CaptureFinish();
                 }
             }
         };

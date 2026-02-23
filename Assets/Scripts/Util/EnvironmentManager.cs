@@ -30,10 +30,10 @@ public class EnvironmentManager : MonoBehaviour
     {
         if (passiveEntries.Count == 3)
         {
-            SpawnBG.instance.currentColors.Remove(passiveEntries[2].Color);
-            passiveEntries.RemoveAt(2);
-            Destroy(entryGameObjects[2]);
-            entryGameObjects.RemoveAt(2);
+            SpawnBG.instance.currentColors.Remove(passiveEntries[0].Color);
+            passiveEntries.RemoveAt(0);
+            Destroy(entryGameObjects[0]);
+            entryGameObjects.RemoveAt(0);
         }
         passiveEntries.Add(entry);
         CreatePassiveObject(entry);

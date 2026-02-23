@@ -5,68 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EyesFollowMouse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EyesFollowMouse.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/EnemyEyes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/EnemyEyes.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PentagonBody.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PentagonBody.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlayerBody.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlayerBody.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlayerEyes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/PlayerEyes.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/SquareEnemyBody.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/SquareEnemyBody.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/SquareFace.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/SquareFace.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/StarBody.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/StarBody.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TriangleEnemyBody.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TriangleEnemyBody.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TriangleFace.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/TriangleFace.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic1.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic1.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2 1.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2 1.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic3.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/EnemyBasic3.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardEnemy.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardEnemy.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Button.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Button.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Status.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Status.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Statuses.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Statuses.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/PlayerFace.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/PlayerFace.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/draw.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/draw.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/draw.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/draw.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -341,7 +292,10 @@
       <workItem from="1771267572324" duration="1245000" />
       <workItem from="1771354643716" duration="2817000" />
       <workItem from="1771518793244" duration="5529000" />
-      <workItem from="1771780398974" duration="3018000" />
+      <workItem from="1771780398974" duration="3061000" />
+      <workItem from="1771784414751" duration="22000" />
+      <workItem from="1771793581473" duration="607000" />
+      <workItem from="1771867912651" duration="2822000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -511,7 +465,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771707651616</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Stream + minor adjustments">
+      <option name="closed" value="true" />
+      <created>1771784371065</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1771784371065</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Updated sprites.af">
+      <option name="closed" value="true" />
+      <created>1771784429782</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1771784429782</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -558,7 +528,9 @@
     <MESSAGE value="Nothin out of the ordinary :3" />
     <MESSAGE value="Minor fix" />
     <MESSAGE value="Icons and stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Icons and stuff" />
+    <MESSAGE value="Stream + minor adjustments" />
+    <MESSAGE value="Updated sprites.af" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated sprites.af" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

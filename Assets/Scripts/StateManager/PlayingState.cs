@@ -360,6 +360,8 @@ namespace StateManager
             {
                 HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Clear();
             }
+            
+            HexClickPlayerController.instance.ToAttack.Clear();
         }
 
         #region Turn System ---------------
@@ -475,11 +477,12 @@ namespace StateManager
 
         public void CaptureFinish()
         {
-            if (CheckForFinish() == "player")
+            string finish = CheckForFinish();
+            if (finish == "player")
             {
                 PlayerWon();
             }
-            else
+            else if (finish == "enemy")
             {
                 EntityWon();
             }

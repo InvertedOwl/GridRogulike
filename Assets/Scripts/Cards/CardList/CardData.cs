@@ -62,14 +62,14 @@ namespace Cards.CardList
 
                 ["ShieldTradeOff"] = () => new(new Card("Trade Off", new List<AbstractAction>
                 { 
-                    new ShieldAction(1, "basic", null, 12),
+                    new ShieldAction(1, "basic", null, 18),
                     new DiscardHandCardAction(1, "basic", null),
                 }, Rarity.Common)),
 
                 ["Defensive"] = () => new(new Card("Defensive Strike", new List<AbstractAction>
                 { 
-                    new ShieldAction(1, "basic", null, 5),
-                    new AttackAction(1, "basic", null, "", 1, 5)
+                    new ShieldAction(1, "basic", null, 7),
+                    new AttackAction(1, "basic", null, "", 1, 7)
                 }, Rarity.Common)),
 
                 ["Equipped"] = () => new(new Card("Equipped", new List<AbstractAction>
