@@ -52,14 +52,17 @@ namespace Map
             int numHardEnemy = 0;
             int numBossEnemy = 0;
 
-            foreach (EnemyEntry enemyEntry in encounterData.enemies)
+            if (encounterData != null)
             {
-                if (enemyEntry.enemyType == EnemyType.Normal)
-                    numNormalEnemy += 1;
-                if (enemyEntry.enemyType == EnemyType.Hard)
-                    numHardEnemy += 1;
-                if (enemyEntry.enemyType == EnemyType.Boss)
-                    numBossEnemy += 1;
+                foreach (EnemyEntry enemyEntry in encounterData.enemies)
+                {
+                    if (enemyEntry.enemyType == EnemyType.Normal)
+                        numNormalEnemy += 1;
+                    if (enemyEntry.enemyType == EnemyType.Hard)
+                        numHardEnemy += 1;
+                    if (enemyEntry.enemyType == EnemyType.Boss)
+                        numBossEnemy += 1;
+                }
             }
 
             rewardMoney = (numNormalEnemy * 2) + (numHardEnemy * 3) + (numBossEnemy * 5);

@@ -41,7 +41,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 2.34
+    m_Scale: 1.7
     m_Name: BowAndArrow
   m_GlyphTable:
   - m_Index: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
       m_Width: 314
       m_Height: 313
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 225.07
+      m_HorizontalBearingY: 229.4
       m_HorizontalAdvance: 314
     m_GlyphRect:
       m_X: 0

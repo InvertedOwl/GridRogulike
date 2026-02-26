@@ -19,7 +19,6 @@ namespace Entities.Enemies
         {
             AvailableActions.Add(new AttackAction(1, "basic", this, "n", 1, DefaultDamage));
             AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, DefaultDamage));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, DefaultDamage));
             AvailableActions.Add(new AttackAction(1, "basic", this, "ne", 1, DefaultDamage));
             AvailableActions.Add(new AttackAction(1, "basic", this, "nw", 1, DefaultDamage));
             AvailableActions.Add(new AttackAction(1, "basic", this, "se", 1, DefaultDamage));

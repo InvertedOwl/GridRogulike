@@ -21,6 +21,7 @@ public class IndicatorItem : MonoBehaviour
         color2.a = 0;
         darkenOverlay.SendToColor(color2);
         easeScale.SetScale(new Vector3(.85f, .85f, .85f));
+        Debug.Log("Activated");
     }
 
     public void Inactive()

@@ -49,7 +49,6 @@ namespace StateManager
 
         private readonly List<AbstractEntity> _entities = new();
         private HexGridManager _grid = null!;
-        private int _currentTurnIndex;
         public Player player;
         public GameObject gameUI;
         protected Random random;
@@ -71,25 +70,29 @@ namespace StateManager
 
         public GOList GoList;
 
-        public AbstractEntity CurrentTurn => _entities[_currentTurnIndex];
         
         public TurnIndicatorManager turnIndicatorManager;
 
         private static Random _entitySpawnRandom = RunInfo.NewRandom("espawn".GetHashCode());
         
-
+        private readonly List<int> _turnOrder = new();
+        private int _currentTurnIndex;
+        public AbstractEntity CurrentTurn => _entities[_turnOrder[_currentTurnIndex]];
+        
         public override void Enter()
         {
             MoveEntitiesIn();
             InitializeDeckAndGrid();
             SetupInitialTiles();
             SetupEntities();
+            RebuildTurnOrder();
             SetupUI();
+            _currentTurnIndex = -1;
             EnableTileHovers();
-            UpdateNextTurnIndicators();
+            UpdateNextTurnAttacks();
             SetupPlayerHand();
 
-            _currentTurnIndex = -1;
+
 
             // Start all NonPlayer turns
             foreach (AbstractEntity e in _entities)
@@ -100,17 +103,31 @@ namespace StateManager
                 }
             }
             
+            turnIndicatorManager.Rebuild(_entities, _turnOrder);
+            StartCoroutine(WaitFrame());
             StartEntityTurn();
-            turnIndicatorManager.UpdateTurnIndicatorList(_entities);
             TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
-            turnIndicatorManager.ThisEnemy(_entities);
-            // RunInfo.Instance.Difficulty += 1;
             BattleStats.ResetStatsBattle();
             
             HexGridManager.Instance.RegisterHexClickCallback(HexClickPlayerController.StaticHexClickCallback);
             HexGridManager.Instance.RegisterHexHoverEnterCallback(HexClickPlayerController.StaticHexHoverOnCallback);
             HexGridManager.Instance.RegisterHexHoverExitCallback(HexClickPlayerController.StaticHexHoverOffCallback);
 
+        }
+
+        IEnumerator WaitFrame()
+        {
+            yield return new WaitForFixedUpdate();
+            turnIndicatorManager.SetCurrentTurn(_turnOrder, _entities, 0);
+        }
+        
+        // TODO: Add speed stuff so you can have more turns more often
+        private void RebuildTurnOrder()
+        {
+            _turnOrder.Clear();
+
+            for (int i = 0; i < _entities.Count; i++)
+                _turnOrder.Add(i);
         }
 
         public void Update()
@@ -394,8 +411,6 @@ namespace StateManager
             }
             
 
-            
-            
             // Unified start for the next entity
             StartEntityTurn();
         }
@@ -404,29 +419,39 @@ namespace StateManager
         {
             if (CheckForFinish() != "none") return;
 
+            if (_turnOrder.Count == 0)
+            {
+                Debug.LogWarning("No turn order entries exist.");
+                return;
+            }
+
             int attempts = 0;
 
             do
             {
-                _currentTurnIndex = (_currentTurnIndex + 1) % _entities.Count;
+                _currentTurnIndex = (_currentTurnIndex + 1) % _turnOrder.Count;
                 attempts++;
 
-                if (attempts > _entities.Count)
+                if (attempts > _turnOrder.Count)
                 {
-                    Debug.LogWarning("All entities are Neutral (or no valid turn owner). Ending turn advance.");
+                    Debug.LogWarning("All entities in turn order are Neutral (or invalid).");
                     return;
                 }
 
-            } while (CurrentTurn.entityType == EntityType.Neutral);
+                int entIndex = _turnOrder[_currentTurnIndex];
+
+                if (entIndex < 0 || entIndex >= _entities.Count)
+                    continue;
+
+            } while (_entities[_turnOrder[_currentTurnIndex]].entityType == EntityType.Neutral);
 
             var entity = CurrentTurn;
+            turnIndicatorManager.SetCurrentTurn(_turnOrder, _entities, _currentTurnIndex);
 
             entity.StartTurn();
 
             if (entity is NonPlayerEntity enemy)
-            {
                 StartCoroutine(MakeEnemyTurn(enemy));
-            }
         }
 
         
@@ -440,23 +465,40 @@ namespace StateManager
 
         public void ClearDeadEnemies()
         {
-            List<AbstractEntity> toRemove = new List<AbstractEntity>();
-            
-            foreach (AbstractEntity entity in _entities)
+            bool removedAny = false;
+
+            for (int i = _entities.Count - 1; i >= 0; i--)
             {
-                if (entity.Health <= 0)
-                {
-                    entity.Die();
-                    toRemove.Add(entity);
-                }
+                var entity = _entities[i];
+                if (entity.Health > 0) continue;
+
+                removedAny = true;
+                entity.Die();
+                _entities.RemoveAt(i);
+                Destroy(entity.gameObject);
             }
-            foreach (AbstractEntity enemy in toRemove)
+
+            if (removedAny)
             {
-                _entities.Remove(enemy);
-                Destroy(enemy.gameObject);
-                
-                turnIndicatorManager.UpdateTurnIndicatorList(_entities);
-                turnIndicatorManager.ThisEnemy(_entities);
+                RebuildTurnOrder();
+
+                if (_turnOrder.Count == 0)
+                {
+                    _currentTurnIndex = -1;
+                    turnIndicatorManager.Rebuild(_entities, _turnOrder);
+                    return;
+                }
+
+                // Keep progression sane: next StartEntityTurn() increments, so keep it within [-1 .. Count-1]
+                _currentTurnIndex = Mathf.Clamp(_currentTurnIndex, -1, _turnOrder.Count - 1);
+
+                turnIndicatorManager.Rebuild(_entities, _turnOrder);
+                turnIndicatorManager.SetCurrentTurn(_turnOrder, _entities, _currentTurnIndex);
+            }
+            else
+            {
+                // still rebuild UI if you want, but not necessary for turn logic
+                // turnIndicatorManager.Rebuild(_entities);
             }
         }
 
@@ -488,7 +530,7 @@ namespace StateManager
             }
         }
 
-        private void UpdateNextTurnIndicators()
+        private void UpdateNextTurnAttacks()
         {
             foreach (Vector2Int pos in HexGridManager.Instance.GetAllGridPositions())
             {
@@ -497,37 +539,6 @@ namespace StateManager
                 list.GetValue("Damage").SetActive(false);
             }
 
-            // foreach (AbstractEntity entity in _entities)
-            // {
-            //     if (entity is Enemy && !_entities[_currentTurnIndex].Equals(entity))
-            //     {
-            //         List<AbstractAction> actions = ((Enemy)entity).NextTurn();
-            //
-            //         Debug.Log("UpdateNextTurnIndicators: " + actions.Count);
-            //
-            //         foreach (AbstractAction action in actions)
-            //         {
-            //             try
-            //             {
-            //                 if (action is AttackAction)
-            //                 {
-            //                     Vector2Int posOfAttack = HexGridManager.MoveHex(entity.positionRowCol,
-            //                         ((AttackAction)action).Direction, ((AttackAction)action).Distance);
-            //                     GOList list = HexGridManager.Instance.GetWorldHexObject(posOfAttack)
-            //                         .GetComponent<GOList>();
-            //                     // list.GetValue("Particles").SetActive(true);
-            //                     list.GetValue("Damage").SetActive(true);
-            //                     list.GetValue("DamageText").GetComponent<TextMeshProUGUI>().text = ((AttackAction)action).Amount + "";
-            //                 }
-            //             }
-            //             catch
-            //             {
-            //                 
-            //             }
-            //
-            //         }
-            //     }
-            // }
         }
 
         public void PlayerWon()

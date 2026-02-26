@@ -41,15 +41,15 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.8
+    m_Scale: 1.3
     m_Name: shield
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
       m_Width: 263
       m_Height: 288
-      m_HorizontalBearingX: 17.6
-      m_HorizontalBearingY: 212.8
+      m_HorizontalBearingX: 46
+      m_HorizontalBearingY: 232.51
       m_HorizontalAdvance: 263
     m_GlyphRect:
       m_X: 0

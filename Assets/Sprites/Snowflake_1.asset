@@ -83,7 +83,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.8
+    m_Scale: 1.4
     m_Name: Snowflake_1
   m_GlyphTable:
   - m_Index: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
       m_Width: 123
       m_Height: 117
       m_HorizontalBearingX: 6.36
-      m_HorizontalBearingY: 90.4
+      m_HorizontalBearingY: 93.2
       m_HorizontalAdvance: 123
     m_GlyphRect:
       m_X: 0

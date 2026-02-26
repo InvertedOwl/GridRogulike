@@ -5,20 +5,94 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/AttackingCondition.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/AttackingCondition.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/ShieldingCondition.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/ShieldingCondition.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/DoubleShieldModifier.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/DoubleShieldModifier.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-ExtraBold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-ExtraBold.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular SDF.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular SDF.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/OFL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/OFL.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght SDF.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght SDF.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/OFL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/OFL.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/README.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Bold.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-BoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-BoldItalic.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLight.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLightItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLightItalic.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Italic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Italic.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Light.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-LightItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-LightItalic.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Medium.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-MediumItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-MediumItalic.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Regular.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBold.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBoldItalic.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Thin.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Thin.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ThinItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ThinItalic.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Neutral1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Neutral1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Button.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Button.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Status.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Status.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Statuses.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Statuses.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IndicatorItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IndicatorItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/CardConditionsData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/CardConditionsData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/EasePosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EasePosition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/EnergyIcon.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/EnergyIcon.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/draw.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/draw.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/droplets.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/droplets.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/footsteps.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/footsteps.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/shield.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/shield.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,14 +225,12 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.2\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="MIXED_MODE_DEBUG" value="0" />
       <method v="2" />
     </configuration>
@@ -167,10 +239,8 @@
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\comma\Projects\GridRogulike -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="MIXED_MODE_DEBUG" value="0" />
       <method v="2" />
     </configuration>
@@ -179,14 +249,12 @@
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\comma\Projects\GridRogulike -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="MIXED_MODE_DEBUG" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
@@ -197,10 +265,9 @@
       <option name="selectedOptions">
         <list />
       </option>
-      <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
@@ -211,7 +278,6 @@
       <option name="selectedOptions">
         <list />
       </option>
-      <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="Attach to" type="UnityDevicePlayer" factoryName="UnityAttachToDevicePlayer">
@@ -296,6 +362,7 @@
       <workItem from="1771784414751" duration="22000" />
       <workItem from="1771793581473" duration="607000" />
       <workItem from="1771867912651" duration="2822000" />
+      <workItem from="1772052674220" duration="14908000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />

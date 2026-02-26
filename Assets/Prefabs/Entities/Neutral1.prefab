@@ -152,7 +152,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 536503033082195714, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ba3cdedb4e474fade6af3823fc48b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Neutrals.UnmovingNeutral
+  eyesFollowMouse: {fileID: 0}
   initialHealth: 5
   _health: 5
   entityType: 3

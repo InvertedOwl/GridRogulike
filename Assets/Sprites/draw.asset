@@ -83,15 +83,15 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.9
+    m_Scale: 1.4
     m_Name: draw
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
       m_Width: 265
       m_Height: 275
-      m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 209.6
+      m_HorizontalBearingX: 27.55
+      m_HorizontalBearingY: 217.3
       m_HorizontalAdvance: 265
     m_GlyphRect:
       m_X: 0

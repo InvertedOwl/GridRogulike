@@ -174,7 +174,7 @@ MonoBehaviour:
   hurtSystem: {fileID: 4551064997210469877}
   statusManager: {fileID: 4839939721375677976}
   healthBarManager: {fileID: 5135238214336626569}
-  DefaultDamage: 10
+  DefaultDamage: 15
 --- !u!114 &4421155946633991437 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1247428267075556919, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}

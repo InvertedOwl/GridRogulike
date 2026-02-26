@@ -5,94 +5,112 @@ namespace Util
 {
     public class EasePosition : MonoBehaviour
     {
-        public float durationSeconds = 1;
-        public bool isLocal;
+        public float durationSeconds = 1f;
+        public bool isLocal = true;
         public float _elapsedTime;
-        
+
         private Vector3 _lastPosition;
         private Vector3 _targetPosition;
         private Action _onComplete;
 
+        private RectTransform _rectTransform;
+        private bool _useRectTransform;
+
         public Vector3 targetLocation
         {
-            set { SendToLocation(value); }
-            get { return _targetPosition; }
+            get => _targetPosition;
+            set => SendToLocation(value);
         }
 
         public static double EaseInOutCubic(double x)
         {
-            return x < 0.5 ? 4 * x * x * x : 1 - Math.Pow(-2 * x + 2, 3) / 2;
+            return x < 0.5
+                ? 4 * x * x * x
+                : 1 - Math.Pow(-2 * x + 2, 3) / 2;
         }
 
-        public void Start()
+        void Awake()
         {
-            _lastPosition = isLocal ? transform.localPosition : transform.position;
-            _targetPosition = isLocal ? transform.localPosition : transform.position;
+            _rectTransform = GetComponent<RectTransform>();
+            _useRectTransform = _rectTransform != null;
+        }
+
+        void Start()
+        {
+            Vector3 pos = GetCurrentPosition();
+            _lastPosition = pos;
+            _targetPosition = pos;
         }
 
         public void InstantSend(Vector3 position)
         {
             _lastPosition = position;
             _targetPosition = position;
-            _elapsedTime = 0;
+            _elapsedTime = 0f;
 
-            // Clear or capture the callback BEFORE invoking it to prevent re-entrancy loops
-            if (isLocal)
-                transform.localPosition = position;
-            else
-                transform.position = position;
+            SetPosition(position);
         }
 
         public void SendToLocation(Vector3 location, Action onComplete = null)
         {
-
-            // CHANGED: Set _lastPosition to current position to prevent jumping
-            _lastPosition = isLocal ? transform.localPosition : transform.position;
+            _lastPosition = GetCurrentPosition();
             _targetPosition = location;
             _elapsedTime = 0f;
-
             _onComplete = onComplete;
 
             if (durationSeconds <= 0f)
             {
-                if (isLocal)
-                    transform.localPosition = _targetPosition;
-                else
-                    transform.position = _targetPosition;
-
+                SetPosition(_targetPosition);
                 _onComplete?.Invoke();
                 _onComplete = null;
             }
         }
 
-        public void Update()
+        void Update()
         {
-            if (_elapsedTime < durationSeconds)
+            if (_elapsedTime >= durationSeconds)
+                return;
+
+            _elapsedTime += Time.deltaTime;
+
+            float progress = durationSeconds > 0f
+                ? Mathf.Clamp01(_elapsedTime / durationSeconds)
+                : 1f;
+
+            float eased = (float)EaseInOutCubic(progress);
+            Vector3 pos = Vector3.Lerp(_lastPosition, _targetPosition, eased);
+
+            SetPosition(pos);
+
+            if (progress >= 1f)
             {
-                _elapsedTime += Time.deltaTime;
-                float progress = durationSeconds > 0f
-                    ? Mathf.Clamp01(_elapsedTime / durationSeconds)
-                    : 1f;
+                SetPosition(_targetPosition);
+                _onComplete?.Invoke();
+                _onComplete = null;
+            }
+        }
 
-                float eased = (float)EaseInOutCubic(progress);
+        private Vector3 GetCurrentPosition()
+        {
+            if (_useRectTransform)
+                return _rectTransform.anchoredPosition3D;
 
-                Vector3 pos = Vector3.Lerp(_lastPosition, _targetPosition, eased);
+            return isLocal ? transform.localPosition : transform.position;
+        }
 
-                if (isLocal)
-                    transform.localPosition = pos;
-                else
-                    transform.position = pos;
-
-                if (progress >= 1f)
-                {
-                    if (isLocal)
-                        transform.localPosition = _targetPosition;
-                    else
-                        transform.position = _targetPosition;
-
-                    _onComplete?.Invoke();
-                    _onComplete = null;
-                }
+        private void SetPosition(Vector3 position)
+        {
+            if (_useRectTransform)
+            {
+                _rectTransform.anchoredPosition3D = position;
+            }
+            else if (isLocal)
+            {
+                transform.localPosition = position;
+            }
+            else
+            {
+                transform.position = position;
             }
         }
     }

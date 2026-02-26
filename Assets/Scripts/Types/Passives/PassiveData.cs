@@ -20,8 +20,10 @@ namespace Types.Passives
                     new PercentChanceCardCondition(100), new PoisonCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
                 ["noattack"] = () => new("Disarmed", "Half of attacks fail",
                     new PercentChanceCardCondition(50), new DisableAttacksCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
-                ["drawcard"] = () => new("Ace", "For every step gained, ",
-                    new PercentChanceCardCondition(50), new DisableAttacksCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
+                ["support"] = () => new("Support", "For every attack done, gain 3 shield",
+                    new AttackingCondition(), new GainShieldModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
+                ["block"] = () => new("Block", "For every time shield gained, double that shield",
+                    new ShieldingCondition(), new DoubleShieldModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
             };
         
         public static PassiveEntry GetPassiveEntry(string name)
