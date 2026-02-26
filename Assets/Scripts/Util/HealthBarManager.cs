@@ -24,7 +24,7 @@ public class HealthBarManager : MonoBehaviour
             float shieldRatio = shield / initialHealth;
 
             healthBarRect.sizeDelta = new Vector2(healthRatio * fullWidth, healthBarRect.sizeDelta.y);
-            healthBar.GetComponent<Image>().color = LerpLinearRGB(Color.red, Color.green, healthRatio);
+            healthBar.GetComponent<Image>().color = LerpLinearRGB(new Color(0.8980f, 0.4863f, 0.4863f), new Color(0.4863f, 0.8980f, 0.5333f), healthRatio);
             RectTransform shieldBarRect = shieldBar.GetComponent<RectTransform>();
             shieldBarRect.sizeDelta =  new Vector2(shieldRatio * fullWidth, shieldBarRect.sizeDelta.y);
             healthTextUI.text = health + "/" + initialHealth;
