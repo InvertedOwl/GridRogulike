@@ -23,7 +23,8 @@ namespace Entities
 
         public float _health;
         public EntityType entityType = EntityType.Enemy;
-        
+
+        public Image turnIndicatorIcon;
         
         // Generic random to generate specific entity randoms predictably 
         public static System.Random guidRandom = RunInfo.NewRandom("eguid".GetHashCode());

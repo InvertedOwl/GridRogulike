@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Entities;
@@ -42,21 +43,39 @@ public class TurnIndicatorManager : MonoBehaviour
 
             if (entity.entityType == EntityType.Enemy)
             {
-                Instantiate(TurnIndicatorEnemyPrefab, enemiesLeft.transform);
-                Instantiate(TurnIndicatorEnemyPrefab, enemiesRight.transform);
-                Instantiate(TurnIndicatorEnemyPrefab, center.transform);
+                CreateIndicatorIcon(entity, TurnIndicatorEnemyPrefab, enemiesLeft.transform);
+                CreateIndicatorIcon(entity, TurnIndicatorEnemyPrefab, enemiesRight.transform);
+                CreateIndicatorIcon(entity, TurnIndicatorEnemyPrefab, center.transform);
             }
             else
             {
-                Instantiate(TurnIndicatorPlayerPrefab, enemiesLeft.transform);
-                Instantiate(TurnIndicatorPlayerPrefab, enemiesRight.transform);
-                Instantiate(TurnIndicatorPlayerPrefab, center.transform);
+                CreateIndicatorIcon(entity, TurnIndicatorPlayerPrefab, enemiesLeft.transform);
+                CreateIndicatorIcon(entity, TurnIndicatorPlayerPrefab, enemiesRight.transform);
+                CreateIndicatorIcon(entity, TurnIndicatorPlayerPrefab, center.transform);
             }
         }
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(enemiesLeft.GetComponent<RectTransform>());
         LayoutRebuilder.ForceRebuildLayoutImmediate(center.GetComponent<RectTransform>());
         LayoutRebuilder.ForceRebuildLayoutImmediate(enemiesRight.GetComponent<RectTransform>());
+    }
+
+    public void CreateIndicatorIcon(AbstractEntity entity, GameObject prefab, Transform parent)
+    {
+        GameObject go = Instantiate(prefab, parent);
+
+        try
+        {
+            Image image = go.transform.GetChild(4).GetChild(0).GetComponent<Image>();
+            image.sprite = entity.turnIndicatorIcon.sprite;
+            image.type = entity.turnIndicatorIcon.type;
+            image.preserveAspect = entity.turnIndicatorIcon.preserveAspect;
+        }
+        catch (Exception _)
+        {
+            Debug.LogError("Entity " + entity.name + " does not have a turn indicator icon.");
+        }
+
     }
 
     public void SetCurrentTurn(List<int> turnOrder, List<AbstractEntity> liveEntities, int current)

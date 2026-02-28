@@ -5,94 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/AttackingCondition.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/AttackingCondition.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/ShieldingCondition.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/ShieldingCondition.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/DoubleShieldModifier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/DoubleShieldModifier.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-ExtraBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-ExtraBold.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular SDF.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/Coda-Regular.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/OFL.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Coda/OFL.txt.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght SDF.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/OFL.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/OFL.txt.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/README.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/README.txt.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Bold.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-BoldItalic.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLight.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLight.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ExtraLightItalic.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Italic.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Light.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-LightItalic.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Medium.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-MediumItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-MediumItalic.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Regular.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBold.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-SemiBoldItalic.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Thin.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-Thin.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ThinItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Josefin_Sans/static/JosefinSans-ThinItalic.ttf.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Neutral1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Neutral1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Button.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Button.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/EnemyTurnIndicator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/EnemyTurnIndicator.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/PlayerTurnIndicator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/PlayerTurnIndicator.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IndicatorItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IndicatorItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/CardConditionsData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/CardConditionsData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/EasePosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EasePosition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/EnergyIcon.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/EnergyIcon.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/draw.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/draw.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/droplets.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/droplets.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/footsteps.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/footsteps.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/shield.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/shield.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/StarBody.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/StarBody.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,34 +48,55 @@
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Resources.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAllAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardCardsAction.cs.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DrawCardAction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/FrostAttackAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MultiAttackAction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AbstractCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AttackCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DiscardCardEvent.cs.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DrawCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/HealCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/MoveCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ShieldCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardActionTextMapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardList/StartingDeckEntry.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/comma/Projects/GridRogulike/Assets/Scripts/Entities/AbstractEntity.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/EntityType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals/UnmovingNeutral.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EyesFollowMouse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EyesFollowMouse.cs.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexClickForwarder.cs.meta" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexHoverForwarder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexMapSerializable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs.meta" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/comma/Projects/GridRogulike/Assets/Scripts/Map/MapNode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Map/MapTarget.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardCondition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardModifier.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/CardConditionsData.cs" root0="FORCE_HIGHLIGHTING" />
@@ -166,24 +112,24 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Statuses/AbstractStatus.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Statuses/PoisonStatus.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Statuses/StatusManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/BattleStats.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/ButtonHoverScale.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/DebugStats.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/EasePosition.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoEntry.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/SideCardManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/comma/Projects/GridRogulike/Assets/Sprites/BowAndArrow.asset" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Sprites/EnemyEyes.png.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Sprites/PlayerFace.png.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/comma/Projects/GridRogulike/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Recovery/0 (11).unity" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Recovery/0 (12).unity.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Recovery/0 (17).unity.meta" root0="FORCE_HIGHLIGHTING" />
@@ -225,7 +171,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.2\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -363,6 +309,7 @@
       <workItem from="1771793581473" duration="607000" />
       <workItem from="1771867912651" duration="2822000" />
       <workItem from="1772052674220" duration="14908000" />
+      <workItem from="1772301890033" duration="1441000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />

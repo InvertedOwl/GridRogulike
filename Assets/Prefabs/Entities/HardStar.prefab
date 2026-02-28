@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1341593030411954701, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6790864274914521092, guid: a46cf1a31cae59341b00ee3aefa071cc, type: 3}
     - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Size.x
       value: 3.96
@@ -170,6 +174,7 @@ MonoBehaviour:
   initialHealth: 45
   _health: 45
   entityType: 0
+  turnIndicatorIcon: {fileID: 4506576340902766903}
   positionRowCol: {x: 0, y: 0}
   hurtSystem: {fileID: 4551064997210469877}
   statusManager: {fileID: 4839939721375677976}
@@ -186,6 +191,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86109a714e079c44db2d1a784b753e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EyesFollowMouse
+--- !u!114 &4506576340902766903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1341593030411954701, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!198 &4551064997210469877 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1386115888341186255, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
