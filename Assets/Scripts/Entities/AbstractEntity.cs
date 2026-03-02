@@ -107,6 +107,7 @@ namespace Entities
             healthBarManager.health = Health;
             healthBarManager.initialHealth = initialHealth;
             healthBarManager.shield = Shield;
+            
 
 
             FollowEyes();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Cards;
@@ -114,23 +115,28 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
     }
 
-    public void SetCardStatus(CardStatusDatabase.CardStatus? cardStatusNullable)
+    public void SetCardStatus(CardStatusDatabase.CardStatus cardStatusNullable)
     {
+        StartCoroutine(WaitFrameToCardStatus(cardStatusNullable));
+    }
+
+    IEnumerator WaitFrameToCardStatus(CardStatusDatabase.CardStatus cardStatusNullable)
+    {
+        yield return new WaitForFixedUpdate();
         CardStatus = cardStatusNullable;
         if (cardStatusNullable == null)
         {
-            GoList.GetValue("CardStatusBorder2").gameObject.SetActive(false);
-            GoList.GetValue("CardStatusIconParent").gameObject.SetActive(false);
-            GoList.GetValue("CardStatusBorder1").GetComponent<Image>().color = new Color32(29, 59, 94, 255);
-            return;
+            GoList.GetValue("CardStatusBorder2").GetComponent<EaseColor>().targetColor = new Color32(29, 59, 94, 0);
+            GoList.GetValue("CardStatusIconParent").GetComponent<EaseScale>().SetScale(Vector3.zero);
+            GoList.GetValue("CardStatusBorder1").GetComponent<EaseColor>().targetColor = new Color32(29, 59, 94, 255);
+            yield break;
         }
         
         CardStatusDatabase.CardStatus cardStatus = cardStatusNullable;
         InfoPanel.AddPanels(cardStatus.key);
-        GoList.GetValue("CardStatusBorder1").GetComponent<Image>().color = cardStatus.color;
-        GoList.GetValue("CardStatusBorder2").gameObject.SetActive(true);
-        GoList.GetValue("CardStatusBorder2").GetComponent<Image>().color = new Color(cardStatus.color.r, cardStatus.color.g, cardStatus.color.b, .4f);
-        GoList.GetValue("CardStatusIconParent").gameObject.SetActive(true);
+        GoList.GetValue("CardStatusBorder1").GetComponent<EaseColor>().targetColor = cardStatus.color;
+        GoList.GetValue("CardStatusBorder2").GetComponent<EaseColor>().targetColor = new Color(cardStatus.color.r, cardStatus.color.g, cardStatus.color.b, .4f);
+        GoList.GetValue("CardStatusIconParent").GetComponent<EaseScale>().SetScale(Vector3.one);
         GoList.GetValue("BGColor").GetComponent<Image>().color = cardStatus.color;
         GoList.GetValue("CardStatusIcon").GetComponent<Image>().sprite = cardStatus.sprite;
     }

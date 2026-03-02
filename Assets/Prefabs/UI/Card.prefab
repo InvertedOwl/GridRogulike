@@ -1305,6 +1305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8608855600738783246}
+  - component: {fileID: 5862411590527465808}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -1334,6 +1335,20 @@ RectTransform:
   m_AnchoredPosition: {x: 864, y: 1109}
   m_SizeDelta: {x: 375.34595, y: 375.34595}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5862411590527465808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4017561522879386450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b8ad8d7dcf8264488664cb40980799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EaseScale
+  durationSeconds: 0.25
+  _elapsedTime: 0
 --- !u!1 &4412282589710930536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,6 +2725,7 @@ GameObject:
   - component: {fileID: 3017523166215266780}
   - component: {fileID: 7305664127294933988}
   - component: {fileID: 4168800585417053165}
+  - component: {fileID: 465929905166085369}
   m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
@@ -2774,6 +2790,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &465929905166085369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480675516468438990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5456a2032702054885b976126b0fcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Util.EaseColor
+  durationSeconds: 0.25
+  useMaterialColor: 1
+  _elapsedTime: 0
 --- !u!1 &7556849086692630547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2860,6 +2891,7 @@ GameObject:
   - component: {fileID: 6589271569942399428}
   - component: {fileID: 7604680638589607839}
   - component: {fileID: 582304440322165602}
+  - component: {fileID: 6814012788536900629}
   m_Layer: 5
   m_Name: Border (1)
   m_TagString: Untagged
@@ -2924,6 +2956,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.76
+--- !u!114 &6814012788536900629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969729214944187282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5456a2032702054885b976126b0fcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Util.EaseColor
+  durationSeconds: 0.25
+  useMaterialColor: 1
+  _elapsedTime: 0
 --- !u!1 &8233068123080547121
 GameObject:
   m_ObjectHideFlags: 0
