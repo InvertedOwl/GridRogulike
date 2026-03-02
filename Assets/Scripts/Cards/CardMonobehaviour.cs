@@ -104,15 +104,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         GoList.GetValue("rarityText").GetComponent<TextMeshProUGUI>().text = _card.Rarity.ToString();
         InfoPanel.RemovePanels();
 
-        if (_cardRandom.Next(2) == 1)
-        {
-            SetCardStatus(cardStatusDatabase.Get("bramble"));
-            
-        }
-        else
-        {
-            SetCardStatus(null);
-        }
+
+        SetCardStatus(null);
     }
 
     public void SetCardStatus(CardStatusDatabase.CardStatus cardStatusNullable)

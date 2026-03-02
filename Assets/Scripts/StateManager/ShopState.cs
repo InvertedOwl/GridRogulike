@@ -69,11 +69,13 @@ namespace StateManager
                 .ToList();
             
             // buyEnergyText.text = EnergyCost(RunInfo.Instance.MaxEnergy) + "$";
-
+            _refreshCost = 5;
+            UpdateRefreshCost();
+            
             PickCards();
             PickActions();
-            _refreshCost = 5;
-            
+
+
         }
         public override void Exit()
         {
@@ -88,6 +90,11 @@ namespace StateManager
             }
         }
 
+        public void UpdateRefreshCost()
+        {
+            refreshCostText.text = "$" + _refreshCost;
+            refreshCostText.GetComponent<RectTransform>().localPosition += new Vector3(0, 5, 0);
+        }
 
         public void Refresh()
         {
@@ -100,8 +107,8 @@ namespace StateManager
             
             StartCoroutine(SwapCards());
             _refreshCost += 1;
-            refreshCostText.text = "$" + _refreshCost;
-            refreshCostText.GetComponent<RectTransform>().localPosition += new Vector3(0, 5, 0);
+            UpdateRefreshCost();
+
             refreshButton.interactable = false;
             
             for (int i = 0; i < cardOptions.Count; i++)

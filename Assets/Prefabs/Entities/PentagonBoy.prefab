@@ -429,7 +429,7 @@ Transform:
   m_GameObject: {fileID: 536503033082195714}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.10899999, z: 0}
+  m_LocalPosition: {x: 0, y: -0.26999998, z: 0}
   m_LocalScale: {x: 1.152525, y: 1.152525, z: 1.15252}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -563,7 +563,7 @@ Transform:
   m_GameObject: {fileID: 979881919768956381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15599999, z: 0}
+  m_LocalPosition: {x: 0, y: -0.432, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -811,7 +811,7 @@ Transform:
   m_GameObject: {fileID: 4789969464924533070}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15599999, z: 0}
+  m_LocalPosition: {x: 0, y: -0.317, z: 0}
   m_LocalScale: {x: 0.43705112, y: 0.43705112, z: 0.43705112}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1496,7 +1496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3277531031008773237, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.362
+      value: -0.585
       objectReference: {fileID: 0}
     - target: {fileID: 3277531031008773237, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1532,7 +1532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3839840020190712935, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
-      value: 60
+      value: 85
       objectReference: {fileID: 0}
     - target: {fileID: 4080686812709799922, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
@@ -1544,7 +1544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7767511413550048725, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_SortingOrder
-      value: 60
+      value: 85
       objectReference: {fileID: 0}
     - target: {fileID: 8256231394544675084, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_Name
