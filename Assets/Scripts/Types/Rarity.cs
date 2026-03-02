@@ -8,5 +8,6 @@ namespace Types
         Epic,
         Legendary,
         Mythic,
+        Developer
     }
 }

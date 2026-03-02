@@ -12,19 +12,24 @@ namespace Cards.CardList
         private static readonly IReadOnlyDictionary<string, Func<CardEntry>> defs =
             new Dictionary<string, Func<CardEntry>>
             {
+                // Developer
+                ["DeveloperAttack"] = () => new(new Card("Developer Attack", new List<AbstractAction>
+                { 
+                    new AttackAllAction(1, "basic", null, 500),
+                }, Rarity.Developer)),
+                
                 // - Common -
                     // Basic Starting Deck x2
                 ["AttackLow"] = () => new(new Card("Attack", new List<AbstractAction>
                     { 
                         new AttackAction(1, "basic", null, "", 1, 5),
                     }, Rarity.Common),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 4) }),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 4) }, false),
                 
                 ["AttackNearIsh"] = () => new(new Card("Dagger Strike", new List<AbstractAction>
                     { 
                         new AttackAction(1, "basic", null, "", 2, 8),
                     }, Rarity.Common)),
-                
                 
                 ["AttackFar"] = () => new(new Card("Lance", new List<AbstractAction>
                     { 
@@ -40,7 +45,6 @@ namespace Cards.CardList
                     {   
                         new GainMoneyAction(2, "basic", null, 3),
                     }, Rarity.Common)),
-                
 
                 ["Offensive Move"] = () => new(new Card("Offensive Move", new List<AbstractAction>
                 { 
@@ -52,13 +56,20 @@ namespace Cards.CardList
                 { 
                     new AttackAllAction(1, "basic", null, 4),
                 }, Rarity.Common)),
+                
+                ["Options"] = () => new(new Card("Options", new List<AbstractAction>
+                { 
+                    new AttackAction(1, "basic", null, "", 1, 6),
+                    new DiscardCardsAction(0, "basic", null, 1),
+                    new DrawCardAction(0, "basic", null, 1),
+                }, Rarity.Common)),
 
-                    // Basic Starting Deck x2
+                // Basic Starting Deck x2
                 ["AddMovement"] = () => new(new Card("Walk", new List<AbstractAction>
                     { 
                         new GainStepsCardAction(1, "basic", null, 1),
                     }, Rarity.Common),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 2) }),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
 
                 ["Shield5"] = () => new(new Card("Small Shield", new List<AbstractAction>
                 { 
@@ -165,6 +176,11 @@ namespace Cards.CardList
                 ["GainMoney"] = () => new(new Card("401k", new List<AbstractAction>
                 { 
                     new GainMoneyForCardAction(1, "basic", null),
+                }, Rarity.Rare)),
+                
+                ["GainEnergy"] = () => new(new Card("Thunder", new List<AbstractAction>
+                { 
+                    new GainEnergyAction(0, "basic", null, 1),
                 }, Rarity.Rare)),
 
                 ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
@@ -287,13 +303,18 @@ namespace Cards.CardList
                         .SelectMany(sd => Enumerable.Repeat(entry.LocalCard, sd.numberOfCards))
                 )
                 .ToList();
-
         
         public static List<Card> GetCardsByRarity(Rarity rarity) =>
             defs.Values
                 .Where(entry => entry().LocalCard.Rarity == rarity)
                 .Select(entry => entry().LocalCard)
                 .ToList();
-
+        public static List<Card> GetShopCards() =>
+            defs.Values
+                .Select(def => def())
+                .Where(entry => entry.ShowUpInShop)
+                .Select(entry => entry.LocalCard)
+                .ToList();
     }
+    
 }

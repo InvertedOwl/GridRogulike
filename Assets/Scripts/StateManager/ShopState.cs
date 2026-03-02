@@ -64,11 +64,8 @@ namespace StateManager
         {
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));
 
-            CardOptions = CardData.AllIds
-                .Select(id => CardData.Get(id).LocalCard)
-                .ToList();
+            CardOptions = CardData.GetShopCards();
             
-            // buyEnergyText.text = EnergyCost(RunInfo.Instance.MaxEnergy) + "$";
             _refreshCost = 5;
             UpdateRefreshCost();
             
