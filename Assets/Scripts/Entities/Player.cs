@@ -41,6 +41,12 @@ namespace Entities
 
         public override void EndTurn()
         {
+            foreach (CardMonobehaviour card in Deck.Instance.Hand)
+            {
+                if (card.CardStatus?.NotPlayed != null)
+                    card.CardStatus?.NotPlayed(card.Card);
+            }
+            
             Deck.Instance.DiscardHand();
             if (GameStateManager.Instance.IsCurrent<PlayingState>())
                 GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = false;

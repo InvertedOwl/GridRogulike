@@ -103,7 +103,16 @@ public class Deck : MonoBehaviour
 
     public void DiscardRandomFromHand()
     {
-        DiscardCard(Hand[_randomDeck.Next(0, Hand.Count)].Card.UniqueId);
+        if (Hand.Count == 0) return;
+
+        CardMonobehaviour chosen = Hand[_randomDeck.Next(0, Hand.Count)];
+
+        if (chosen.CardStatus?.OnDiscard != null && !chosen.CardStatus.OnDiscard(chosen.Card))
+        {
+            return;
+        }
+
+        DiscardCard(chosen.Card.UniqueId);
     }
     
     public void DiscardCard(String cardId)
@@ -121,6 +130,11 @@ public class Deck : MonoBehaviour
         }
 
         if (cardToDiscard == null)
+        {
+            return;
+        }
+        
+        if (cardToDiscard.CardStatus?.OnDiscard != null && !cardToDiscard.CardStatus.OnDiscard(cardToDiscard.Card))
         {
             return;
         }
@@ -226,12 +240,21 @@ public class Deck : MonoBehaviour
 
     public void DiscardHand()
     {
+        List<CardMonobehaviour> toKeep = new List<CardMonobehaviour>();
+
         foreach (CardMonobehaviour card in _hand)
         {
+            if (card.CardStatus?.OnDiscard != null && !card.CardStatus.OnDiscard(card.Card))
+            {
+                toKeep.Add(card);
+                continue;
+            }
             card.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
+            _discard.Add(card);
         }
-        _discard.AddRange(_hand);
+
         _hand.Clear();
+        _hand.AddRange(toKeep);
         PositionHandCards(0);
     }
 

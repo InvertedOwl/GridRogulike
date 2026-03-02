@@ -11,6 +11,8 @@ using UnityEngine.Events;
 
 namespace Grid
 {
+
+    
     [Serializable]
     public class HexClickedEvent : UnityEvent<int, int> { }
 
@@ -19,6 +21,16 @@ namespace Grid
 
     public class HexGridManager : MonoBehaviour
     {
+        public static readonly Dictionary<string, List<string>> neighborDirections = new Dictionary<string, List<string>>()
+        {
+            ["n"] = new List<string> { "ne", "nw" },
+            ["ne"] = new List<string> { "n", "se" },
+            ["nw"] = new List<string> { "n", "sw" },
+            ["s"] = new List<string> { "se", "sw" },
+            ["se"] = new List<string> { "ne", "s" },
+            ["sw"] = new List<string> { "nw", "s" },
+        };
+        
         private static float _hexWidth = 1f;
 
         public GameObject hexPrefab;

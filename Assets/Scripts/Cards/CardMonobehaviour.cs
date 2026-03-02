@@ -8,6 +8,7 @@ using StateManager;
 using TMPro;
 using Cards.CardEvents;
 using Cards.CardList;
+using Cards.CardStatuses;
 using Grid;
 using Passives;
 using Types.Tiles;
@@ -39,6 +40,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public TextMeshProUGUI costText;
     public TextMeshProUGUI actionText;
     public bool used = false;
+    public CardStatusDatabase.CardStatus? CardStatus;
     private Card _card;
     
     public Card Card => _card;
@@ -51,10 +53,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public GameObject inactiveImage;
     public GOList GoList;
     
-    public GameObject Condition;
-    public GameObject Modifier;
-    public GameObject InfoPanel;
-    public InfoData InfoData;
+    public InfoPanelManager InfoPanel;
+    
+    public CardStatusDatabase cardStatusDatabase;
     
     public float hoverScale = 1.05f;
     public float hoverOffset = 60;
@@ -100,6 +101,38 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _cardRandom = card.cardRandom;
         
         GoList.GetValue("rarityText").GetComponent<TextMeshProUGUI>().text = _card.Rarity.ToString();
+        InfoPanel.RemovePanels();
+
+        if (_cardRandom.Next(2) == 1)
+        {
+            SetCardStatus(cardStatusDatabase.Get("bramble"));
+            
+        }
+        else
+        {
+            SetCardStatus(null);
+        }
+    }
+
+    public void SetCardStatus(CardStatusDatabase.CardStatus? cardStatusNullable)
+    {
+        CardStatus = cardStatusNullable;
+        if (cardStatusNullable == null)
+        {
+            GoList.GetValue("CardStatusBorder2").gameObject.SetActive(false);
+            GoList.GetValue("CardStatusIconParent").gameObject.SetActive(false);
+            GoList.GetValue("CardStatusBorder1").GetComponent<Image>().color = new Color32(29, 59, 94, 255);
+            return;
+        }
+        
+        CardStatusDatabase.CardStatus cardStatus = cardStatusNullable;
+        InfoPanel.AddPanels(cardStatus.key);
+        GoList.GetValue("CardStatusBorder1").GetComponent<Image>().color = cardStatus.color;
+        GoList.GetValue("CardStatusBorder2").gameObject.SetActive(true);
+        GoList.GetValue("CardStatusBorder2").GetComponent<Image>().color = new Color(cardStatus.color.r, cardStatus.color.g, cardStatus.color.b, .4f);
+        GoList.GetValue("CardStatusIconParent").gameObject.SetActive(true);
+        GoList.GetValue("BGColor").GetComponent<Image>().color = cardStatus.color;
+        GoList.GetValue("CardStatusIcon").GetComponent<Image>().sprite = cardStatus.sprite;
     }
 
     public void SetInactive(bool setinactive)
@@ -114,15 +147,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         string newInfo = info;
 
-        // TODO: re add this but better :3
-        // foreach (InfoEntry entry in InfoData.info)
-        // {
-        //     if (newInfo.ToLower().Contains(entry.name))
-        //     {
-        //         newInfo = Regex.Replace(newInfo, entry.name, entry.formattedName, RegexOptions.IgnoreCase);
-        //         entry.infoPanel.SetActive(true);
-        //     }
-        // }
+        InfoPanel.AddPanels(info);
+        
 
         foreach (string key in BattleStats.names.Keys)
         {
@@ -334,7 +360,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void HandleHoverEffects()
     {
-        InfoPanel.SetActive(true);
+        InfoPanel.gameObject.SetActive(true);
         siblingIndex = transform.GetSiblingIndex();
         LerpPosition lerpPosition = transform.GetChild(0).GetChild(0).GetComponent<LerpPosition>();
         lerpPosition.targetLocation = new Vector2(0, hoverOffset);
@@ -357,7 +383,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     private void ResetHoverEffects()
     {
-        InfoPanel.SetActive(false);
+        InfoPanel.gameObject.SetActive(false);
         LerpPosition lerpPosition = transform.GetChild(0).GetChild(0).GetComponent<LerpPosition>();
         lerpPosition.targetLocation = new Vector2(0, 0);
         lerpPosition.targetScale = lerpPosition.startScale * 1f;
@@ -406,8 +432,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             if (_card.Condition != null && _card.Modifier != null && _card.Condition.Condition(_card))
                 eventQueue = _card.Modifier.Modify(eventQueue);
 
-
-
+            // Modify by card status
+            if (CardStatus != null && CardStatus.ModifyPlay != null)
+                eventQueue = CardStatus.ModifyPlay(eventQueue, _card);
+            
+            // Modify by environment
             foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
             {
                 Debug.Log(entry + " Current entry");

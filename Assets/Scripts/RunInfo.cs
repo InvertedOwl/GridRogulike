@@ -102,7 +102,7 @@ public class RunInfo : MonoBehaviour
     
     private const int DefaultMaxEnergy = 4;
     private const int InitialEnergy = 4;
-    private const int InitialMoney = 5000;
+    private const int InitialMoney = 15;
     private const int DefaultDifficulty = 0;
     
 

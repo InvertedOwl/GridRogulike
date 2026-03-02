@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad0c823e0014c4fb0fa1566b7ad70d8, type: 3}
+  m_Name: InfoPanelDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.InfoPanelsData
+  infoPanels:
+  - key: sticky
+    sprite: {fileID: -2892740419126503564, guid: e1615694ff7204cdcb48049215f7b610, type: 3}
+    color: {r: 0.3647059, g: 0.8196079, b: 0.33333334, a: 1}
+    title: Sticky
+    description: This card cannot be discarded unless played.
+  - key: poison
+    sprite: {fileID: 21300000, guid: 7469a693d6492e144b5d921357456534, type: 3}
+    color: {r: 0.49803925, g: 0.8078432, b: 0, a: 1}
+    title: Poison
+    description: 1 Damage per turn for each poison.
+  - key: shield
+    sprite: {fileID: 21300000, guid: a41294bee8f2e4aa4bb1780c6f3f7ea1, type: 3}
+    color: {r: 0.36862746, g: 0.72156864, b: 1, a: 1}
+    title: Shield
+    description: Temporary HP that does not last between rounds.
+  - key: burning
+    sprite: {fileID: 1098286324429101383, guid: fea4cd5b7ae97fd4684cb5169b64f60d, type: 3}
+    color: {r: 1, g: 0.41974682, b: 0.3537736, a: 1}
+    title: Burning
+    description: If card not played, deal 5 damage to self.
+  - key: bramble
+    sprite: {fileID: 21300000, guid: 1d9cb7607e7c219449787c1f670b8154, type: 3}
+    color: {r: 0.6226415, g: 0.36691377, b: 0, a: 1}
+    title: Bramble
+    description: When card played, deal 5 damage to self.

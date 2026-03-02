@@ -12,8 +12,8 @@ namespace Cards.CardList
             {
                 ["<attack>"] = "<sprite name=\"Damage4\"> ",
                 ["<move>"] = "<sprite name=\"footsteps\"> ",
-                ["<p1oison>"] = "<sprite name=\"droplets\"> ",
-                ["<s1hield>"] = "<sprite name=\"shield\"> ",
+                ["<poison>"] = "<sprite name=\"droplets\"> ",
+                ["<shield>"] = "<sprite name=\"shield\"> ",
                 ["<draw>"] = "<sprite name=\"draw\"> ",
                 ["<energy>"] = "<sprite name=\"EnergyIcon\"> ",
                 ["<frost>"] = "<sprite name=\"Snowflake_1\">",
