@@ -9228,6 +9228,17 @@ Transform:
   - {fileID: 1421692197}
   m_Father: {fileID: 3822521650445261320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1046952485 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+  m_PrefabInstance: {fileID: 528944316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1057898702
 GameObject:
   m_ObjectHideFlags: 0
@@ -11072,6 +11083,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
   m_PrefabInstance: {fileID: 1147573171}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1147573177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+  m_PrefabInstance: {fileID: 1147573171}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1157034336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11743,7 +11765,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.5159298
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14095,6 +14117,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
   m_PrefabInstance: {fileID: 1383529138}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1383529144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
+  m_PrefabInstance: {fileID: 1383529138}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1396114703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14280,7 +14313,10 @@ MonoBehaviour:
   window: {fileID: 33424587}
   Name: {fileID: 1185718437}
   Desc: {fileID: 1485745576}
-  Buttons: []
+  Buttons:
+  - {fileID: 1383529144}
+  - {fileID: 1046952485}
+  - {fileID: 1147573177}
 --- !u!1 &1403452949
 GameObject:
   m_ObjectHideFlags: 0
