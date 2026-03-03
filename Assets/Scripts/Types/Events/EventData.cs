@@ -30,6 +30,11 @@ namespace Types.Events
 
         public static EventEntry GetRandomEvent(System.Random random)
         {
+            if (Events == null || Events.Count == 0)
+            {
+                Debug.LogError("Events dictionary is null or empty!");
+                return null;
+            }
             return Events[Events.Keys.ToList()[random.Next(Events.Count)]];
         }
     }

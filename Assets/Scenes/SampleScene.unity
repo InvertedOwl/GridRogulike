@@ -326,7 +326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.59998, y: -86.269875}
+  m_AnchoredPosition: {x: 327.59995, y: -86.269875}
   m_SizeDelta: {x: 630.54, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &32353971
@@ -14278,8 +14278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateManager.EventState
   window: {fileID: 33424587}
-  Name: {fileID: 0}
-  Desc: {fileID: 0}
+  Name: {fileID: 1185718437}
+  Desc: {fileID: 1485745576}
   Buttons: []
 --- !u!1 &1403452949
 GameObject:
