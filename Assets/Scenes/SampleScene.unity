@@ -326,7 +326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.59995, y: -86.269875}
+  m_AnchoredPosition: {x: 327.59998, y: -86.269875}
   m_SizeDelta: {x: 630.54, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &32353971
@@ -4604,7 +4604,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 4.3
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -11742,7 +11742,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1247426030}
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -14278,12 +14278,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateManager.EventState
   window: {fileID: 33424587}
-  Name: {fileID: 1185718437}
-  Desc: {fileID: 1485745576}
-  Buttons:
-  - {fileID: 1407674525}
-  - {fileID: 1949010605}
-  - {fileID: 1597532171}
+  Name: {fileID: 0}
+  Desc: {fileID: 0}
+  Buttons: []
 --- !u!1 &1403452949
 GameObject:
   m_ObjectHideFlags: 0
@@ -14337,17 +14334,6 @@ MonoBehaviour:
   - {fileID: 718152285}
   - {fileID: 1352220798}
   - {fileID: 10541665}
---- !u!114 &1407674525 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
-  m_PrefabInstance: {fileID: 1383529138}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1421692196
 GameObject:
   m_ObjectHideFlags: 0
@@ -15661,17 +15647,6 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1597532171 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
-  m_PrefabInstance: {fileID: 1147573171}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1624584298
 GameObject:
   m_ObjectHideFlags: 0
@@ -18160,17 +18135,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
   m_PrefabInstance: {fileID: 678403874}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1949010605 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7983323505425925827, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
-  m_PrefabInstance: {fileID: 528944316}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1957893816
 GameObject:
   m_ObjectHideFlags: 0
@@ -21809,6 +21773,7 @@ MonoBehaviour:
   healthText: {fileID: 0}
   healthTextUI: {fileID: 38838490}
   shieldTextUI: {fileID: 110918865}
+  baseBar: {fileID: 0}
   healthBar: {fileID: 1084512258}
   shieldBar: {fileID: 1115871082}
   initialHealth: 0

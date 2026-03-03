@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriangleBoy
       objectReference: {fileID: 0}
+    - target: {fileID: 450700906269000552, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.821
+      objectReference: {fileID: 0}
     - target: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -304,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7381440550638889531, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.53
+      value: -0.639
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
