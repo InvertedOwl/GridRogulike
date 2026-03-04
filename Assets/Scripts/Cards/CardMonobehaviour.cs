@@ -75,6 +75,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void SetCard(Card card, Action callback = null, bool active = true, float costOverride = -1f)
     {
+        InfoPanel.RemovePanels();
+
         this.CostOverride = costOverride;
         _card = card;
         _cardSet = true;
@@ -104,7 +106,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         GoList.GetValue("rarityText").GetComponent<TextMeshProUGUI>().text = _card.Rarity.ToString();
         InfoPanel.RemovePanels();
 
-
         SetCardStatus(null);
     }
 
@@ -127,6 +128,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         
         CardStatusDatabase.CardStatus cardStatus = cardStatusNullable;
         InfoPanel.AddPanels(cardStatus.key);
+
         GoList.GetValue("CardStatusBorder1").GetComponent<EaseColor>().targetColor = cardStatus.color;
         GoList.GetValue("CardStatusBorder2").GetComponent<EaseColor>().targetColor = new Color(cardStatus.color.r, cardStatus.color.g, cardStatus.color.b, .4f);
         GoList.GetValue("CardStatusIconParent").GetComponent<EaseScale>().SetScale(Vector3.one);

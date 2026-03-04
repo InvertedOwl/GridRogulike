@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f2535f4f2885b6f43af1084e0310947f
+guid: 63b689c7275f6fc42a4a8b2c0f9a5795
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2840336364714655594
-    second: QuestionMark_0
+      213: -28202542330227813
+    second: DamageAll_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: QuestionMark_0
+      name: DamageAll_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 181
-        height: 261
+        width: 297
+        height: 302
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a6ff07dffd6ea6720800000000000000
-      internalID: 2840336364714655594
+      spriteID: b93d4aaefedcb9ff0800000000000000
+      internalID: -28202542330227813
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      QuestionMark_0: 2840336364714655594
+      DamageAll_0: -28202542330227813
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

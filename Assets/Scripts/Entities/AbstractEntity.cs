@@ -247,6 +247,7 @@ namespace Entities
                 }
             }
         }
+        
 
         public void Die()
         {

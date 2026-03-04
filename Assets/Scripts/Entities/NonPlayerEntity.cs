@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cards.Actions;
 using Cards.CardEvents;
 using Grid;
+using ScriptableObjects;
 using StateManager;
 using TMPro;
 using Types.Statuses;
@@ -14,6 +15,9 @@ namespace Entities
 {
     public abstract class NonPlayerEntity: AbstractEntity
     {
+        public SpriteRenderer plannedActionSprite;
+        public SpriteDatabase SpriteDatabase;
+        
         public List<AbstractAction> AvailableActions = new List<AbstractAction>();
         
 
@@ -40,5 +44,19 @@ namespace Entities
         
         public abstract IEnumerator MakeTurn();
         public abstract List<AbstractAction> NextTurn();
+
+        public void SetIntent()
+        {
+            AbstractAction actionChosen = _plannedAction[_plannedAction.Count - 1];
+
+
+            plannedActionSprite.sprite = SpriteDatabase.Get(actionChosen.Icon).Value.sprite;
+            plannedActionSprite.transform.parent.GetComponent<EaseScale>().SetScale(Vector3.one);
+        }
+
+        public void RemoveIntent()
+        {
+            plannedActionSprite.transform.parent.GetComponent<EaseScale>().SetScale(Vector3.zero);
+        }
     }
 }

@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 1632207786464854307}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.38128, y: 0.38128, z: 0.18174514}
+  m_LocalScale: {x: 0.15971264, y: 0.15971264, z: 0.0761304}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4460989998532928306}
@@ -370,14 +370,14 @@ RectTransform:
   m_GameObject: {fileID: 7024873066696189170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.14263, y: 0.14263, z: 0.14263}
+  m_LocalScale: {x: 0.28952038, y: 0.28952038, z: 0.28952038}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 677852483816020738}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.0000072527, y: -0.000000013607}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4192950447953472695
@@ -405,7 +405,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2698446635624605986, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -449,10 +449,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: '10
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
-  m_sharedMaterial: {fileID: 2698446635624605986, guid: 7b7e2b516a56f47199c0cbd16a19dc26, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

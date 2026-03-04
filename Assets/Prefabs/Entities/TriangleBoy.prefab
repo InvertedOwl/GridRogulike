@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriangleBoy
       objectReference: {fileID: 0}
+    - target: {fileID: 197153193419897735, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.149
+      objectReference: {fileID: 0}
     - target: {fileID: 450700906269000552, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.821

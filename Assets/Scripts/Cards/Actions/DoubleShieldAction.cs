@@ -21,7 +21,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Double Current <s1hield>";
+            return "Double Current <shield>";
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,

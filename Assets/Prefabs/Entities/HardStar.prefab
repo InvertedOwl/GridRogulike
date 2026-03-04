@@ -8,13 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_Size.x
+      value: 1.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_Size.y
+      value: 2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f2535f4f2885b6f43af1084e0310947f, type: 3}
+    - target: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Name
       value: HardStar
-      objectReference: {fileID: 0}
-    - target: {fileID: 450700906269000552, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -158,7 +170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7381440550638889531, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5119999
+      value: -0.719
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
@@ -169,6 +181,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6414198009395434826}
   m_SourcePrefab: {fileID: 100100000, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+--- !u!212 &3260014615399079367 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3326344764978528588 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
@@ -195,6 +212,8 @@ MonoBehaviour:
   hurtSystem: {fileID: 4551064997210469877}
   statusManager: {fileID: 4839939721375677976}
   healthBarManager: {fileID: 5135238214336626569}
+  plannedActionSprite: {fileID: 3260014615399079367}
+  SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
   DefaultDamage: 15
 --- !u!114 &4421155946633991437 stripped
 MonoBehaviour:

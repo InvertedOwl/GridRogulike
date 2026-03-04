@@ -6,8 +6,18 @@ using UnityEngine;
 
 namespace Cards.Actions
 {
+    
+    
     public class AttackAllAction: AbstractAction
     {
+        public override string Icon
+        {
+            get
+            {
+                return "DamageAll";
+            }
+        }
+        
         private int _amount;
         public AttackAllAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
         {

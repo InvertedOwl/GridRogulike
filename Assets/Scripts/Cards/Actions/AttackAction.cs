@@ -11,6 +11,15 @@ namespace Cards.Actions
 {
     public class AttackAction: AbstractAction
     {
+        
+        public override string Icon
+        {
+            get
+            {
+                return "Damage4";
+            }
+        }
+        
         protected string _direction;
         public string Direction { get { return _direction; } set { _direction = value; } }
         protected int _distance;

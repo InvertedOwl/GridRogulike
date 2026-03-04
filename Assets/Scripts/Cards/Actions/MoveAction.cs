@@ -12,6 +12,14 @@ namespace Cards.Actions
 {
     public class MoveAction: AbstractAction
     {
+        public override string Icon
+        {
+            get
+            {
+                return "footsteps";
+            }
+        }
+        
         private string _direction;
         public string Direction { get { return _direction; } set { _direction = value; } }
         private int _distance;

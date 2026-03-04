@@ -78,6 +78,13 @@ namespace StateManager
         private readonly List<int> _turnOrder = new();
         private int _currentTurnIndex;
         public AbstractEntity CurrentTurn => _entities[_turnOrder[_currentTurnIndex]];
+
+        public EaseScale playingUI;
+        
+        [SerializeField] private LerpCameraSize cameraSizeLerp;
+        [SerializeField] private float minViewSize = 5f;
+        [SerializeField] private float viewPadding = 2f;
+        [SerializeField] private float zoomSpeed = 3f;
         
         public override void Enter()
         {
@@ -92,14 +99,15 @@ namespace StateManager
             UpdateNextTurnAttacks();
             SetupPlayerHand();
 
-
+            playingUI.SetScale(Vector3.one);
 
             // Start all NonPlayer turns
             foreach (AbstractEntity e in _entities)
             {
-                if (e is NonPlayerEntity)
+                if (e is NonPlayerEntity nonPlayerEntity)
                 {
-                    ((NonPlayerEntity)e).HandleNextTurnActions(((NonPlayerEntity)e).NextTurn());
+                    nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.NextTurn());
+                    nonPlayerEntity.SetIntent();
                 }
             }
             
@@ -134,7 +142,7 @@ namespace StateManager
         {
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
-            
+
             Vector3 averagePos = Vector3.zero;
 
             foreach (var entity in _entities)
@@ -142,8 +150,19 @@ namespace StateManager
                 averagePos += entity.transform.position;
             }
             averagePos /= _entities.Count;
-            
-            cameraLerpPosition.targetLocation = new Vector3(averagePos.x, averagePos.y -1, -10); // -1 y for adjusted center. It's made up
+
+            float maxHeight = 0f;
+            foreach (var entity in _entities)
+            {
+                float height = Mathf.Abs(entity.transform.position.y - averagePos.y);
+                if (height > maxHeight)
+                    maxHeight = height;
+            }
+
+            float targetSize = Mathf.Max(minViewSize, maxHeight + viewPadding);
+
+            cameraLerpPosition.targetLocation = new Vector3(averagePos.x, averagePos.y - 1f, -10);
+            cameraSizeLerp.targetHeight = targetSize;
         }
         
         
@@ -335,6 +354,10 @@ namespace StateManager
 
         public override void Exit()
         {
+            cameraLerpPosition.targetLocation = new Vector3(0, 0, -10);
+            cameraSizeLerp.targetHeight = 4;
+            playingUI.SetScale(new Vector3(2, 2, 2));
+
             player.transform.SetParent(this.transform);
             
             EnvironmentManager.instance.ClearPassives();
@@ -404,10 +427,10 @@ namespace StateManager
 
             ClearDeadEnemies();
 
-            if (entity is NonPlayerEntity)
+            if (entity is NonPlayerEntity nonPlayerEntity)
             {
-                List<AbstractAction> actions = ((NonPlayerEntity)entity).NextTurn();
-                ((NonPlayerEntity)entity).HandleNextTurnActions(actions);
+                nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.NextTurn());
+                nonPlayerEntity.SetIntent();
             }
             
 
@@ -447,6 +470,11 @@ namespace StateManager
 
             var entity = CurrentTurn;
             turnIndicatorManager.SetCurrentTurn(_turnOrder, _entities, _currentTurnIndex);
+
+            if (entity is NonPlayerEntity nonPlayerEntity)
+            {
+                nonPlayerEntity.RemoveIntent();
+            }
 
             entity.StartTurn();
 

@@ -14,8 +14,17 @@ namespace Cards.Actions
         private string _color;
         private AbstractEntity _entity;
         public bool visible = true;
+
+        public virtual string Icon
+        {
+            get
+            {
+                return "Question";
+            }
+        }
         
         public static Random guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
+        
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];
