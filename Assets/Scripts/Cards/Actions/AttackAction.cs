@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Entities;
 using Grid;
@@ -40,20 +41,24 @@ namespace Cards.Actions
         {
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             List<AbstractEntity> entities = new List<AbstractEntity>();
-            playingState.EntitiesOnHex(HexGridManager.MoveHex(entity.positionRowCol, _direction, _distance), out entities);
-            bool containsFriend = false;
-            foreach (AbstractEntity e in entities)
+            if (!String.IsNullOrEmpty(_direction) && _distance > 0)
             {
-                if (e.entityType == entity.entityType)
+                playingState.EntitiesOnHex(HexGridManager.MoveHex(entity.positionRowCol, _direction, _distance), out entities);
+                bool containsFriend = false;
+                foreach (AbstractEntity e in entities)
                 {
-                    containsFriend = true;
+                    if (e.entityType == entity.entityType)
+                    {
+                        containsFriend = true;
+                    }
+                }
+
+                if (containsFriend)
+                {
+                    return new List<AbstractCardEvent>();
                 }
             }
 
-            if (containsFriend)
-            {
-                return new List<AbstractCardEvent>();
-            }
             
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount) };
         }
