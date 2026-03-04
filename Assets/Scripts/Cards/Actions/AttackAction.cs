@@ -38,6 +38,23 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            List<AbstractEntity> entities = new List<AbstractEntity>();
+            playingState.EntitiesOnHex(HexGridManager.MoveHex(entity.positionRowCol, _direction, _distance), out entities);
+            bool containsFriend = false;
+            foreach (AbstractEntity e in entities)
+            {
+                if (e.entityType == entity.entityType)
+                {
+                    containsFriend = true;
+                }
+            }
+
+            if (containsFriend)
+            {
+                return new List<AbstractCardEvent>();
+            }
+            
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount) };
         }
 
