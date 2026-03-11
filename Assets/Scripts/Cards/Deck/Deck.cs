@@ -26,6 +26,7 @@ public class Deck : MonoBehaviour
     public GameObject actionPrefab;
     public Transform drawTransform;
     public Transform discardTransform;
+    public Transform playTransform;
 
     public Transform scrapTransform;
 
@@ -89,6 +90,7 @@ public class Deck : MonoBehaviour
                 card.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
                 _discard.Add(card);
                 toRemove.Add(card);
+                StartCoroutine(RemoveUsed(card));
             }
         }
 
@@ -98,6 +100,12 @@ public class Deck : MonoBehaviour
         }
 
         PositionHandCards(0);
+    }
+
+    IEnumerator RemoveUsed(CardMonobehaviour cardMonobehaviour)
+    {
+        yield return new WaitForSeconds(.45f);
+        cardMonobehaviour.used = false;
     }
 
 
@@ -270,7 +278,7 @@ public class Deck : MonoBehaviour
 
     public void DrawHand()
     {
-        FullDrawHand(5);
+        FullDrawHand(4);
         PositionHandCards(0);
         Debug.Log("Cards in hand: " + _hand.Count);
     }
@@ -404,10 +412,22 @@ public class Deck : MonoBehaviour
         }
 
         foreach (CardMonobehaviour card in _discard)
+        {
+            if (card.used)
+                continue;
             card.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
+        }
 
         foreach (CardMonobehaviour card in _draw)
             card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
+
+        foreach (CardMonobehaviour card in _discard)
+        {
+            if (card.used)
+            {
+                card.GetComponent<LerpPosition>().targetLocation = new Vector3(0, 180, 0);
+            }
+        }
 
         if (scrapTransform != null)
             foreach (CardMonobehaviour card in _scrap)
