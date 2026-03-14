@@ -108,7 +108,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.41509432, g: 0.39747238, b: 0.39747238, a: 0.3137255}
+    m_DisabledColor: {r: 0.1509434, g: 0.118903525, b: 0.118903525, a: 0.78039217}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -156,9 +156,11 @@ MonoBehaviour:
   isOn: 0
   GoList: {fileID: 5193831972917420785}
   rewardMoney: 0
-  numNormalEnemy: 0
-  numHardEnemy: 0
-  numBossEnemy: 0
+  encounterData:
+    DifficultyMin: 0
+    DifficultyMax: 0
+    enemies: []
+    EncounterType: 0
 --- !u!114 &8741738719534483158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +178,7 @@ MonoBehaviour:
   waitTicks: 10
   activeHover: 1
   hoverWhenNotPlaytate: 1
+  sideThing: {fileID: 0}
 --- !u!61 &7726371369128276998
 BoxCollider2D:
   m_ObjectHideFlags: 0
