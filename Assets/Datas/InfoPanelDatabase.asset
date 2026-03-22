@@ -22,12 +22,12 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 7469a693d6492e144b5d921357456534, type: 3}
     color: {r: 0.49803925, g: 0.8078432, b: 0, a: 1}
     title: Poison
-    description: 1 Damage per turn for each poison.
+    description: X Damage per turn for each poison.
   - key: shield
     sprite: {fileID: 21300000, guid: a41294bee8f2e4aa4bb1780c6f3f7ea1, type: 3}
     color: {r: 0.36862746, g: 0.72156864, b: 1, a: 1}
     title: Shield
-    description: Temporary HP that does not last between rounds.
+    description: Temporary HP that does not last between turns.
   - key: burning
     sprite: {fileID: 1098286324429101383, guid: fea4cd5b7ae97fd4684cb5169b64f60d, type: 3}
     color: {r: 1, g: 0.41974682, b: 0.3537736, a: 1}
@@ -38,3 +38,8 @@ MonoBehaviour:
     color: {r: 0.6226415, g: 0.36691377, b: 0, a: 1}
     title: Bramble
     description: When card played, deal 5 damage to self.
+  - key: frost
+    sprite: {fileID: 21300000, guid: b2fbebe2d73f4cd40bde3ef22e54f709, type: 3}
+    color: {r: 0, g: 1, b: 1, a: 1}
+    title: Frost
+    description: Cannot Move. Moving lowers Frost by 1.

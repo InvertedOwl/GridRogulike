@@ -20,6 +20,7 @@ namespace Cards
         public string CardName;
         public Rarity Rarity;
         public string UniqueId;
+        public CardSet CardSet;
 
         public bool isReal;
 
@@ -46,6 +47,7 @@ namespace Cards
             Rarity = Rarity.Common;
             UniqueId = "";
             cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
+            CardSet = CardSet.Base;
         }
 
         public Card(Card card)
@@ -58,6 +60,7 @@ namespace Cards
             Condition = card.Condition;
             Modifier = card.Modifier;
             cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
+            CardSet = card.CardSet;
         }
 
         public void RandomizeModifiers()
@@ -67,7 +70,7 @@ namespace Cards
             
         }
 
-        public Card(string cardName, List<AbstractAction> actions, Rarity rarity)
+        public Card(string cardName, List<AbstractAction> actions, Rarity rarity, CardSet cardSet)
         {
             Actions = actions;
             CardName = cardName;
@@ -79,6 +82,7 @@ namespace Cards
             // Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
             // Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(rarity).ModifierType);
             cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
+            CardSet = cardSet;
         }
     }
 }

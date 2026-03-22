@@ -21,3 +21,5 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: fc3dcfe7939ccba41a453a023d983976, type: 3}
   - key: DamageAll
     sprite: {fileID: 21300000, guid: 63b689c7275f6fc42a4a8b2c0f9a5795, type: 3}
+  - key: Base
+    sprite: {fileID: 21300000, guid: 6b84cc8f097f34e4497e1fbe33dc41cb, type: 3}
