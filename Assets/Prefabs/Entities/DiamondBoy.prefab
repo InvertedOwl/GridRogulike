@@ -383,7 +383,7 @@ MonoBehaviour:
   healthBarManager: {fileID: 6466687800303399955}
   plannedActionSprite: {fileID: 3731139645100365405}
   SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
-  DefaultDamage: 8
+  DefaultDamage: 5
 --- !u!212 &3731139645100365405 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}

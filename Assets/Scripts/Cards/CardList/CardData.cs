@@ -23,8 +23,8 @@ namespace Cards.CardList
                 ["AttackLow"] = () => new(new Card("Attack", new List<AbstractAction>
                     { 
                         new AttackAction(1, "basic", null, "", 1, 5),
-                    }, Rarity.Common, CardSet.Base),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 4) }, false),
+                    }, Rarity.Common, CardSet.Squar),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
                 
                 ["AttackNearIsh"] = () => new(new Card("Dagger Strike", new List<AbstractAction>
                     { 

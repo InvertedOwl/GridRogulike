@@ -206,7 +206,7 @@ MonoBehaviour:
   healthBarManager: {fileID: 7732926284550110387}
   plannedActionSprite: {fileID: 83666838346129149}
   SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
-  DefaultDamage: 10
+  DefaultDamage: 4
 --- !u!1 &436744844242049286
 GameObject:
   m_ObjectHideFlags: 0

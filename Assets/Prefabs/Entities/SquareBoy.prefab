@@ -266,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: DefaultDamage
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: initialHealth

@@ -12,6 +12,7 @@ using Cards.CardList;
 using Cards.CardStatuses;
 using Grid;
 using Passives;
+using ScriptableObjects;
 using Types.Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -57,6 +58,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public InfoPanelManager InfoPanel;
     
     public CardStatusDatabase cardStatusDatabase;
+    public SpriteDatabase spriteDatabase;
     
     public float hoverScale = 1.05f;
     public float hoverOffset = 60;
@@ -106,7 +108,15 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         GoList.GetValue("rarityText").GetComponent<TextMeshProUGUI>().text = _card.Rarity.ToString();
         InfoPanel.RemovePanels();
 
+        SetCardSetIcon();
+        
         SetCardStatus(null);
+    }
+
+    public void SetCardSetIcon()
+    {
+        GoList.GetValue("CardSetImage").GetComponent<Image>().sprite =
+            spriteDatabase.Get(_card.CardSet.ToString()).Value.sprite;
     }
 
     public void SetCardStatus(CardStatusDatabase.CardStatus cardStatusNullable)
