@@ -7,8 +7,10 @@ using Entities;
 using Entities.Enemies;
 using Grid;
 using ScriptableObjects;
+using Serializer;
 using Types.Statuses;
 using Types.Tiles;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
@@ -19,6 +21,7 @@ namespace StateManager
     {
 
         private bool _allowUserInput = true;
+        
 
         public bool AllowUserInput
         {
@@ -86,6 +89,13 @@ namespace StateManager
         
         public override void Enter()
         {
+            Debug.Log("Save is  " + SaveData);
+            if (SaveData != null)
+            {
+                encounterData = ((PlayingStateSaveData) SaveData).encounterData;
+                SaveData = null;
+            }
+            
             if (random == null)
             {
                 random = RunInfo.NewRandom("playing".GetHashCode());
@@ -683,5 +693,14 @@ namespace StateManager
                 if (e.positionRowCol == coords) e.Damage(dmg, status);
         }
         #endregion
+
+        public override object CaptureSaveData()
+        {
+            return new PlayingStateSaveData
+            {
+                encounterData = encounterData
+            };
+        }
+
     }
 }

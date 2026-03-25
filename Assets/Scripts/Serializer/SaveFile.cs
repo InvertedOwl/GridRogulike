@@ -13,6 +13,7 @@ namespace Serializer
     {
         public List<Card> deck;
         public Dictionary<int, RandomState> randoms;
+        public string stateData;
 
         // Run Info
         public int MaxEnergy;
@@ -32,13 +33,18 @@ namespace Serializer
 
         public static string ToJSON()
         {
+            var currentState = GameStateManager.Instance.GetCurrent();
+            object stateData = currentState.CaptureSaveData();
             SaveFile saveFile = new SaveFile
             {
                 deck = Deck.Instance.Cards,
                 randoms = RunInfo.randoms,
                 MaxEnergy = RunInfo.Instance.MaxEnergy,
                 Difficulty = RunInfo.Instance.Difficulty,
-                currentGameState = GameStateManager.Instance.GetCurrentStateType().FullName
+                currentGameState = GameStateManager.Instance.GetCurrentStateType().FullName,
+                stateData = stateData != null
+                    ? JsonConvert.SerializeObject(stateData, settings)
+                    : null
             };
 
             return JsonConvert.SerializeObject(saveFile, settings);
@@ -63,7 +69,13 @@ namespace Serializer
                 Type stateType = Type.GetType(saveFile.currentGameState);
                 if (stateType != null)
                 {
+                    GameState state = GameStateManager.Instance.GetCurrent();
+                    Type dataType = state.GetSaveDataType();
+                    object data = JsonConvert.DeserializeObject(saveFile.stateData, dataType, settings);
+                    GameState.SaveData = data;
                     GameStateManager.Instance.Change(stateType);
+
+
                 }
                 else
                 {
@@ -74,8 +86,9 @@ namespace Serializer
             // MapState.Instance.mapLayers = saveFile.mapLayers;
             //
             RunInfo.Instance.MaxEnergy = saveFile.MaxEnergy;
-            // RunInfo.Instance.Di
             RunInfo.Instance.Difficulty = saveFile.Difficulty;
+            
+            
         }
     }
 }

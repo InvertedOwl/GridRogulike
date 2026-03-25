@@ -13,6 +13,11 @@ namespace StateManager
         private readonly Dictionary<Type, GameState> _states = new();
         private GameState _current;
         public T GetCurrent<T>() where T : GameState => _current as T;
+
+        public GameState GetCurrent()
+        {
+            return _current;
+        }
         public bool IsCurrent<T>() where T : GameState => _current is T;
         public Type GetCurrentStateType()
         {

@@ -5,13 +5,14 @@ namespace StateManager
 
     public abstract class GameState : MonoBehaviour
     {
+        public static object SaveData;
+        
         public virtual void Enter() { }
         public virtual void Exit() { }
 
-        // public abstract object CaptureSaveData();
-        // public abstract void RestoreSaveData(object data);
-        //
-        // public abstract  Type GetSaveDataType();
+        public virtual object CaptureSaveData() => null;
+
+        public virtual Type GetSaveDataType() => null;
 
         protected GameStateManager Manager => GameStateManager.Instance;
     }
