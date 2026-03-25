@@ -3,13 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Cards;
 using Cards.CardList;
-using Entities;
-using NUnit.Framework;
 using StateManager;
-using Unity.VisualScripting;
 using UnityEngine;
 using Util;
-using Random = System.Random;
 
 public class Deck : MonoBehaviour
 {
@@ -20,7 +16,7 @@ public class Deck : MonoBehaviour
     private List<CardMonobehaviour> _hand = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _scrap = new List<CardMonobehaviour>();
 
-    public Random _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
+    public RandomState _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
     public static Deck Instance;
 
     public GameObject actionPrefab;
@@ -55,6 +51,13 @@ public class Deck : MonoBehaviour
     // TODO: Parameterize this
     public void StartGame()
     {
+        
+        // Dont duplicate cards when loading saved
+        if (Cards.Count != 0)
+        {
+            return;
+        }
+        
         foreach (Card startingCard in CardData.GetStarter(StartingDecks.basic))
         {
             _draw.Add(CreateCard(startingCard));
@@ -63,8 +66,8 @@ public class Deck : MonoBehaviour
 
     public void UpdatePlayability()
     {
-        if (!GameStateManager.Instance.GetState<PlayingState>().AllowUserInput)
-            return;
+        // if (!GameStateManager.Instance.GetState<PlayingState>().AllowUserInput)
+        //     return;
         
         foreach (CardMonobehaviour card in Hand)
         {
@@ -226,8 +229,6 @@ public class Deck : MonoBehaviour
         _draw.AddRange(_discard);
         _hand.Clear();
         _discard.Clear();
-
-        RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
     }
 
     public void DiscardButton()

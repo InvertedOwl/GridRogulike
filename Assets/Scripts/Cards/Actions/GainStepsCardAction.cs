@@ -7,7 +7,7 @@ namespace Cards.Actions
 {
     public class GainStepsCardAction : AbstractAction
     {
-        private int _steps;
+        public int _steps;
         public GainStepsCardAction(int baseCost, string color, AbstractEntity entity, int steps) : base(baseCost, color, entity)
         {
             this._steps = steps;

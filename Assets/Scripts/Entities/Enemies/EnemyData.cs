@@ -5,34 +5,22 @@ using UnityEngine;
 
 namespace Entities.Enemies
 {
-    
-    [Serializable]
-    public class EnemyEntry
-    {
-        public GameObject enemyPrefab;
-        public EnemyType enemyType;
-        public GameObject enemyIconPrefab;
-        public string enemyName;
-    }
-    
     [Serializable]
     public class EncounterData
     {
         public float DifficultyMin; 
         public float DifficultyMax;
-        public List<EnemyEntry> enemies;
+        public List<string> enemies;
         public EnemyType EncounterType;
             
     }
-    
-    
     
     public class EnemyData : MonoBehaviour
     {
         [SerializeField]
         public List<EncounterData> enemies;
 
-        public EncounterData GetRandomEncounter(float difficulty, EnemyType enemyType, System.Random random)
+        public EncounterData GetRandomEncounter(float difficulty, EnemyType enemyType, RandomState random)
         {
             var validEncounter = enemies
                 .Where(e => difficulty >= e.DifficultyMin && difficulty <= e.DifficultyMax).Where(e => e.EncounterType == enemyType)

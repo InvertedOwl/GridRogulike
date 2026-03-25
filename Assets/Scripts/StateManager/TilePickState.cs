@@ -5,7 +5,6 @@ using Grid;
 using Types.Tiles;
 using UnityEngine;
 using Util;
-using Random = System.Random;
 
 namespace StateManager
 {
@@ -17,7 +16,7 @@ namespace StateManager
         private HexGridManager _grid;
         private int _chosenIndex;
 
-        public Random tilePickRandom = RunInfo.NewRandom("tilepick".GetHashCode());
+        public RandomState tilePickRandom = RunInfo.NewRandom("tilepick".GetHashCode());
         
         public List<GameObject> tiles;
         public override void Enter()

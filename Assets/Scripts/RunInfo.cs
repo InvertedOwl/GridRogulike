@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
-using Random = System.Random;
 
 public class RunInfo : MonoBehaviour
 {
@@ -104,11 +103,20 @@ public class RunInfo : MonoBehaviour
     private const int InitialEnergy = 2;
     private const int InitialMoney = 15;
     private const int DefaultDifficulty = 0;
-    
 
-    public static Random NewRandom(int nudge)
+    [SerializeField] public static Dictionary<int, RandomState> randoms = new Dictionary<int, RandomState>();
+
+    public static RandomState NewRandom(int nudge)
     {
-        return new Random(seed.GetHashCode() + nudge);
+        if (randoms.ContainsKey(nudge))
+        {
+            return randoms[nudge];
+        }
+
+        RandomState random = new RandomState(nudge, 0); 
+        
+        randoms[nudge] = random;
+        return random;
     }
     
     

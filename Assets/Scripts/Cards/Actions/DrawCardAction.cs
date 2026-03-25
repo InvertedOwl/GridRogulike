@@ -7,7 +7,7 @@ namespace Cards.Actions
 {
     public class DrawCardAction : AbstractAction
     {
-        private int _amount;
+        public int _amount;
         public DrawCardAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
         {
             this._amount = amount;

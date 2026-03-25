@@ -6,7 +6,7 @@ namespace Types.CardModifiers
 {
     public abstract class AbstractCardModifier
     {
-        public static Random guidRandom = RunInfo.NewRandom("cmguid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("cmguid".GetHashCode());
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];
@@ -14,7 +14,7 @@ namespace Types.CardModifiers
             return new Guid(bytes).ToString();
         }
         
-        protected Random cardModifierRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        protected RandomState cardModifierRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
 
         
         public string ModifierText;

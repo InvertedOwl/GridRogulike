@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Types.Tiles;
 using UnityEngine;
 
 namespace Types.Events
@@ -28,7 +27,7 @@ namespace Types.Events
             })
         };
 
-        public static EventEntry GetRandomEvent(System.Random random)
+        public static EventEntry GetRandomEvent(RandomState random)
         {
             if (Events == null || Events.Count == 0)
             {

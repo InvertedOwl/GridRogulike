@@ -2,19 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cards.Actions;
 using Cards.CardEvents;
 using Entities;
 using Entities.Enemies;
 using Grid;
-using TMPro;
+using ScriptableObjects;
 using Types.Statuses;
 using Types.Tiles;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UI.Extensions.EasingCore;
 using Util;
-using Random = System.Random;
 
 namespace StateManager
 {
@@ -51,9 +48,10 @@ namespace StateManager
         private HexGridManager _grid = null!;
         public Player player;
         public GameObject gameUI;
-        protected Random random;
+        public EnemiesData enemiesData;
+        protected RandomState random;
         
-        public void Awake()
+        public void Start()
         {
             random = RunInfo.NewRandom("playing".GetHashCode());
         }
@@ -73,7 +71,7 @@ namespace StateManager
         
         public TurnIndicatorManager turnIndicatorManager;
 
-        private static Random _entitySpawnRandom = RunInfo.NewRandom("espawn".GetHashCode());
+        private static RandomState _entitySpawnRandom = RunInfo.NewRandom("espawn".GetHashCode());
         
         private readonly List<int> _turnOrder = new();
         private int _currentTurnIndex;
@@ -88,6 +86,11 @@ namespace StateManager
         
         public override void Enter()
         {
+            if (random == null)
+            {
+                random = RunInfo.NewRandom("playing".GetHashCode());
+            }
+            
             MoveEntitiesIn();
             InitializeDeckAndGrid();
             SetupInitialTiles();
@@ -178,7 +181,6 @@ namespace StateManager
             _entities.Add(player);
             _entities.AddRange(FindObjectsByType<TestNonPlayerEntity>(FindObjectsSortMode.InstanceID));
 
-            Debug.Log("Difficulty: " + RunInfo.Instance.Difficulty);
             
             _entities.ForEach(e =>
             {
@@ -194,16 +196,20 @@ namespace StateManager
             int numHardEnemy = 0;
             int numBossEnemy = 0;
 
-            foreach (EnemyEntry enemyEntry in encounterData.enemies)
+            foreach (string enemyEntry in encounterData.enemies)
             {
-                if (enemyEntry.enemyType == EnemyType.Normal)
+                EnemiesData.EnemyEntry enemy = enemiesData.Get(enemyEntry).Value;
+                    
+                if (enemy.enemyType == EnemyType.Normal)
                     numNormalEnemy += 1;
-                if (enemyEntry.enemyType == EnemyType.Hard)
+                if (enemy.enemyType == EnemyType.Hard)
                     numHardEnemy += 1;
-                if (enemyEntry.enemyType == EnemyType.Boss)
+                if (enemy.enemyType == EnemyType.Boss)
                     numBossEnemy += 1;
             }
 
+            Debug.Log(random);
+            
             var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
                 .Where(p => !_entities.Any(e => e.positionRowCol == p))
                 .OrderBy(_ => random.Next())
@@ -289,9 +295,10 @@ namespace StateManager
             
             for (int i = 0; i < encounterData.enemies.Count; i++)
             {
-                EnemyEntry enemy = encounterData.enemies[i];
+                string enemy = encounterData.enemies[i];
                 Vector2Int position = positions[i];
-                GameObject enemyObject = Instantiate(enemy.enemyPrefab, GoList.GetValue("board_container").transform);
+                EnemiesData.EnemyEntry enemyEntry = enemiesData.Get(enemy).Value;
+                GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
                 enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
                 AbstractEntity abstractEntity = enemyObject.GetComponent<AbstractEntity>();
                 abstractEntity.positionRowCol = position;

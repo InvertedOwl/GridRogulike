@@ -7,7 +7,7 @@ namespace Cards.Actions
 {
     public class DiscardCardsAction : AbstractAction
     {
-        private int _numCards;
+        public int _numCards;
         public DiscardCardsAction(int baseCost, string color, AbstractEntity entity, int numCards) : base(baseCost, color, entity)
         {
             _numCards = numCards;

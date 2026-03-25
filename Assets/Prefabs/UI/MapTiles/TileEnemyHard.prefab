@@ -156,9 +156,12 @@ MonoBehaviour:
   isOn: 0
   GoList: {fileID: 9060529153436036153}
   rewardMoney: 0
-  numNormalEnemy: 0
-  numHardEnemy: 0
-  numBossEnemy: 0
+  encounterData:
+    DifficultyMin: 0
+    DifficultyMax: 0
+    enemies: []
+    EncounterType: 0
+  enemiesData: {fileID: 11400000, guid: 45b07377f58a1e447ae961790d89f437, type: 2}
 --- !u!114 &8741738719534483158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +179,7 @@ MonoBehaviour:
   waitTicks: 10
   activeHover: 1
   hoverWhenNotPlaytate: 1
+  sideThing: {fileID: 0}
 --- !u!61 &7726371369128276998
 BoxCollider2D:
   m_ObjectHideFlags: 0

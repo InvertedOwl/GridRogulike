@@ -1,35 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cards;
 using Cards.Actions;
-using Types.CardModifiers;
-using Types.CardModifiers.Conditions;
+using Newtonsoft.Json;
 using UnityEngine;
 using Types;
-using Types.CardModifiers.Modifiers;
-using Random = System.Random;
 
 namespace Cards
 {
+    [System.Serializable]
     public struct Card
     {
-        public List<AbstractAction> Actions;
-        public AbstractCardCondition Condition;
-        public AbstractCardModifier Modifier;
-        public string CardName;
-        public Rarity Rarity;
-        public string UniqueId;
-        public CardSet CardSet;
+        [SerializeField] public List<AbstractAction> Actions;
+        [SerializeField] public string CardName;
+        [SerializeField] public Rarity Rarity;
+        [SerializeField] public string UniqueId;
+        [SerializeField] public CardSet CardSet;
 
-        public bool isReal;
+        [SerializeField] public bool isReal;
 
-        public Random cardRandom;
+        [SerializeField] public RandomState cardRandom;
 
+        [JsonIgnore]
         public int Cost =>
             (int)Mathf.Round(Actions.Sum(action => action.Cost) * 0.75f);
 
-        public static Random guidRandom = RunInfo.NewRandom("guid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("guid".GetHashCode());
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];
@@ -41,8 +37,6 @@ namespace Cards
         {
             this.isReal = isReal;
             Actions = new List<AbstractAction>();
-            Condition = null;
-            Modifier = null;
             CardName = null;
             Rarity = Rarity.Common;
             UniqueId = "";
@@ -57,17 +51,8 @@ namespace Cards
             Rarity = card.Rarity;
             UniqueId = GenerateDeterministicId();
             isReal = card.isReal;
-            Condition = card.Condition;
-            Modifier = card.Modifier;
             cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
             CardSet = card.CardSet;
-        }
-
-        public void RandomizeModifiers()
-        {
-            Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
-            Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(Rarity).ModifierType);
-            
         }
 
         public Card(string cardName, List<AbstractAction> actions, Rarity rarity, CardSet cardSet)
@@ -77,10 +62,6 @@ namespace Cards
             Rarity = rarity;
             UniqueId = GenerateDeterministicId();
             isReal = true;
-            Condition = null;
-            Modifier = null;
-            // Condition = (AbstractCardCondition) Activator.CreateInstance(CardConditionsData.GetRandomCondition().ConditionType);
-            // Modifier = (AbstractCardModifier) Activator.CreateInstance(CardModifiersData.GetRandomModifier(rarity).ModifierType);
             cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
             CardSet = cardSet;
         }

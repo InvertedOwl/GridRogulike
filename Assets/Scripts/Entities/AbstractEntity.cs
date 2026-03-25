@@ -27,7 +27,7 @@ namespace Entities
         public Image turnIndicatorIcon;
         
         // Generic random to generate specific entity randoms predictably 
-        public static System.Random guidRandom = RunInfo.NewRandom("eguid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("eguid".GetHashCode());
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];
@@ -36,7 +36,7 @@ namespace Entities
         }
         
         // Unique entity random
-        protected System.Random _entityRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        protected RandomState _entityRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
         
         public Dictionary<Vector2Int, int> CalculateDistanceMap(Vector2Int hexPosition, PlayingState playingState, AbstractEntity nonblock = null)
         {

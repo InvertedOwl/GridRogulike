@@ -8,7 +8,7 @@ namespace Types.ShopActions
 {
     public static class ShopActionData
     {
-        public static Random shopActionRandom = RunInfo.NewRandom("shopaction".GetHashCode());
+        public static RandomState shopActionRandom = RunInfo.NewRandom("shopaction".GetHashCode());
         
         public static List<ShopActionEntry> ShopActionEntries = new List<ShopActionEntry>
         {

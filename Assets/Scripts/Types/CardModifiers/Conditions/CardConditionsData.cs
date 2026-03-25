@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Types.CardModifiers.Conditions
 {
@@ -26,7 +25,7 @@ namespace Types.CardModifiers.Conditions
             new (typeof(AttackingCondition))
         };
         
-        public static System.Random cardConditionRandom = RunInfo.NewRandom("cardcond".GetHashCode());
+        public static RandomState cardConditionRandom = RunInfo.NewRandom("cardcond".GetHashCode());
         
         public static CardConditionsEntry GetRandomCondition()
         {

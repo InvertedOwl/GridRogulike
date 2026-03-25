@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Serializer;
 using UnityEngine;
 
 namespace StateManager
@@ -12,8 +14,12 @@ namespace StateManager
         private GameState _current;
         public T GetCurrent<T>() where T : GameState => _current as T;
         public bool IsCurrent<T>() where T : GameState => _current is T;
+        public Type GetCurrentStateType()
+        {
+            return _current?.GetType();
+        }
 
-        void Awake()
+        public void Awake()
         {
             if (Instance != null && Instance != this)
             {
@@ -28,17 +34,38 @@ namespace StateManager
                 _states[s.GetType()] = s;
                 s.enabled = false;
             }
-            
         }
 
-        public void Start()
+        public void Change(Type stateType)
         {
+            Debug.Log("attempting change " + stateType.FullName + " with current " + _current?.GetType().FullName);
+            
+            // if (_current != null && _current.GetType() == stateType) return;
+
+            _current?.Exit();
+            if (_current) _current.enabled = false;
+
+            _current = _states[stateType];
+            _current.enabled = true;
+            // SaveFile.currentJSON = SaveFile.ToJSON();
+            _current.Enter();
+            Debug.Log("Entered game state " + stateType.FullName);
+        }
+        
+        void Start()
+        {
+
+            
             // DEBUG, REMOVE LATER WHEN MAKING MENUS
             Debug.Log("Enter Game StateManager");
+            if (_current == null)
+            {
+                Change<ShopState>();
+            }
             Deck.Instance.StartGame();
-            Change<ShopState>();
+            
         }
-
+        
         public void Change<T>() where T : GameState
         {
             if (_current is T) return;
@@ -48,6 +75,7 @@ namespace StateManager
 
             _current = _states[typeof(T)];
             _current.enabled = true;
+            SaveFile.currentJSON = SaveFile.ToJSON();
             _current.Enter();
         }
         public T GetState<T>() where T : GameState =>

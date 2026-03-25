@@ -161,6 +161,7 @@ MonoBehaviour:
     DifficultyMax: 0
     enemies: []
     EncounterType: 0
+  enemiesData: {fileID: 11400000, guid: 45b07377f58a1e447ae961790d89f437, type: 2}
 --- !u!114 &8741738719534483158
 MonoBehaviour:
   m_ObjectHideFlags: 0

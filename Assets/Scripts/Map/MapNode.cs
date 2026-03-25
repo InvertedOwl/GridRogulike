@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Entities.Enemies;
+using ScriptableObjects;
 using StateManager;
 using TMPro;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Map
 {
@@ -18,9 +18,10 @@ namespace Map
 
         public int rewardMoney;
         public EncounterData encounterData;
+        public EnemiesData enemiesData;
         
         
-        public static Random guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];
@@ -28,7 +29,7 @@ namespace Map
             return new Guid(bytes).ToString();
         }
         
-        private Random _mapNodeRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        private RandomState _mapNodeRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
 
         public void Start()
         {
@@ -54,13 +55,23 @@ namespace Map
 
             if (encounterData != null)
             {
-                foreach (EnemyEntry enemyEntry in encounterData.enemies)
+                foreach (string enemyEntry in encounterData.enemies)
                 {
-                    if (enemyEntry.enemyType == EnemyType.Normal)
+                    Debug.Log("Loading " + enemyEntry);
+
+                    if (!enemiesData.Get(enemyEntry).HasValue)
+                    {
+                        Debug.Log("For some fucking reason this is null");
+                        continue;
+                    }
+                    EnemiesData.EnemyEntry enemy = enemiesData.Get(enemyEntry).Value;
+
+                    
+                    if (enemy.enemyType == EnemyType.Normal)
                         numNormalEnemy += 1;
-                    if (enemyEntry.enemyType == EnemyType.Hard)
+                    if (enemy.enemyType == EnemyType.Hard)
                         numHardEnemy += 1;
-                    if (enemyEntry.enemyType == EnemyType.Boss)
+                    if (enemy.enemyType == EnemyType.Boss)
                         numBossEnemy += 1;
                 }
             }

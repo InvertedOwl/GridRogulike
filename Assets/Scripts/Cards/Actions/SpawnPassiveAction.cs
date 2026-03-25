@@ -12,7 +12,7 @@ namespace Cards.Actions
 {
     public class SpawnPassiveAction: AbstractAction
     {
-        private PassiveEntry _passive;
+        public PassiveEntry _passive;
         public SpawnPassiveAction(int baseCost, string color, AbstractEntity entity, PassiveEntry passive) : base(baseCost, color, entity)
         {
             this._passive = passive;

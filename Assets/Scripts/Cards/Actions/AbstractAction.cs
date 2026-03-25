@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using Entities;
 using StateManager;
 using Cards.CardEvents;
+using Newtonsoft.Json;
 using UnityEngine;
-using Random = System.Random;
+
 
 namespace Cards.Actions
 {
+    [Serializable]
     public abstract class AbstractAction
     {
-        private int _baseCost;
-        private string _color;
-        private AbstractEntity _entity;
-        public bool visible = true;
+        [SerializeField] public int _baseCost;
+        [SerializeField] public string _color;
+        [JsonIgnore] private AbstractEntity _entity;
+        [SerializeField] public bool visible = true;
 
         public virtual string Icon
         {
@@ -23,7 +25,7 @@ namespace Cards.Actions
             }
         }
         
-        public static Random guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
         
         public static string GenerateDeterministicId()
         {
@@ -32,8 +34,9 @@ namespace Cards.Actions
             return new Guid(bytes).ToString();
         }
         
-        protected Random _actionRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        protected RandomState _actionRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
         
+        [JsonIgnore]
         public AbstractEntity entity
         {
             get

@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Map;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using Util;
-using Random = System.Random;
 
 namespace StateManager
 {
@@ -35,13 +33,20 @@ namespace StateManager
 
         public int numShops = 5;
         
-        private MapNode currentNode;
 
-        private List<List<MapNode>> mapLayers = new List<List<MapNode>>();
-        
         private List<GameObject> linesList = new List<GameObject>();
         
-        public static Random mapRandom = RunInfo.NewRandom("map".GetHashCode());
+        public MapNode currentNode;
+        public List<List<MapNode>> mapLayers = new List<List<MapNode>>();
+        
+        public static MapState Instance;
+
+        public void Awake()
+        {
+            Instance = this;
+        }
+
+        public static RandomState mapRandom = RunInfo.NewRandom("map".GetHashCode());
         
         public override void Enter()
         {

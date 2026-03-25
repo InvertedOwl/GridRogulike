@@ -1,17 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Cards;
-using Cards.CardList;
 using TMPro;
 using UnityEngine;
 using Util;
-using Types;
 using Types.Events;
-using Types.ShopActions;
 using UnityEngine.UI;
-using Random = System.Random;
 
 namespace StateManager
 {
@@ -19,7 +11,7 @@ namespace StateManager
     {
         public GameObject window;
 
-        private Random _eventRandom;
+        private RandomState _eventRandom;
         
         public TextMeshProUGUI Name;
         public TextMeshProUGUI Desc;

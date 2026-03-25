@@ -18,7 +18,7 @@ namespace Cards.Actions
             }
         }
         
-        private int _amount;
+        public int _amount;
         public AttackAllAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
         {
             _amount = amount;

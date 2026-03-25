@@ -8,7 +8,7 @@ namespace Cards.Actions
 {
     public class GainMoneyAction : AbstractAction
     {
-        private int _amount;
+        public int _amount;
         public int Amount { get { return _amount; } set { _amount = value; } }
         public GainMoneyAction(int baseCost, string color, AbstractEntity entity, int _amount) : base(baseCost, color, entity)
         {

@@ -23,9 +23,9 @@ namespace Cards.Actions
         
         protected string _direction;
         public string Direction { get { return _direction; } set { _direction = value; } }
-        protected int _distance;
+        public int _distance;
         public int Distance { get { return _distance; } set { _distance = value; } }
-        protected int _amount;
+        public int _amount;
         public int Amount { get { return _amount; } set { _amount = value; } }
         protected HexGridManager _grid;
         public AttackAction(int baseCost, string color, AbstractEntity entity, string direction, int distance, int _amount) : base(baseCost, color, entity)

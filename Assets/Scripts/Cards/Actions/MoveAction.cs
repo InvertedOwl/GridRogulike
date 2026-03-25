@@ -20,9 +20,9 @@ namespace Cards.Actions
             }
         }
         
-        private string _direction;
+        public string _direction;
         public string Direction { get { return _direction; } set { _direction = value; } }
-        private int _distance;
+        public int _distance;
         public int Distance { get { return _distance; } set { _distance = value; } }
         public MoveAction(int baseCost, string color, AbstractEntity entity, string direction, int distance) : base(baseCost, color, entity)
         {

@@ -8,7 +8,7 @@ namespace Cards.Actions
 {
     public class HealAction : AbstractAction
     {
-        private int _heal;
+        public int _heal;
         
         public HealAction(int baseCost, string color, AbstractEntity entity, int heal) : base(baseCost, color, entity)
         {

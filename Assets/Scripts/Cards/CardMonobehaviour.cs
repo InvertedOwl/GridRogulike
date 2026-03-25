@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Cards;
 using Cards.Actions;
@@ -18,7 +19,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Util;
-using Random = System.Random;
 
 public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -71,7 +71,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public int sortingLayer = 170;
     public int siblingIndex;
 
-    private Random _cardRandom;
+    private RandomState _cardRandom;
 
     public Image modifierBG;
 
@@ -348,27 +348,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         UpdateTypesTitles();
     }
 
-    public void UpdateCondition()
-    {
-        if (_card.Condition == null)
-            return;
-        if (GameStateManager.Instance.IsCurrent<PlayingState>())
-        {
-            if (_card.Condition.Condition(_card))
-            {
-                modifierBG.color = new Color(1, 1, 1, 1);
-            }
-            else
-            {
-                modifierBG.color = new Color(1, 1, 1, 0.5f);
-            }
-        }
-        else
-        {
-            modifierBG.color = new Color(1, 1, 1, 1);
-        }
-    }
-
     private void HandleHoverEffects()
     {
         InfoPanel.gameObject.SetActive(true);
@@ -409,6 +388,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (!_cardSet || inactive)
             return;
+        
+        Debug.Log(_card.Actions.Sum(action => action.Cost) + " COST");
 
         int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
         
@@ -438,10 +419,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 }
                 
             }
-            
-            // Only modify events if condition is satisfied
-            if (_card.Condition != null && _card.Modifier != null && _card.Condition.Condition(_card))
-                eventQueue = _card.Modifier.Modify(eventQueue);
 
             // Modify by card status
             if (CardStatus != null && CardStatus.ModifyPlay != null)

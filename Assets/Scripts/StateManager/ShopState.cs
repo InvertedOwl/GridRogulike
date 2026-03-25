@@ -10,7 +10,6 @@ using Util;
 using Types;
 using Types.ShopActions;
 using UnityEngine.UI;
-using Random = System.Random;
 
 namespace StateManager
 {
@@ -50,7 +49,7 @@ namespace StateManager
         public GameObject CardCombine;
         private bool isCardCombine;
 
-        private Random _shopRandom;
+        private RandomState _shopRandom;
         public TextMeshProUGUI refreshCostText;
         private int _refreshCost = 5;
         public Button refreshButton;
