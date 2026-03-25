@@ -37,8 +37,8 @@ public class RunInfo : MonoBehaviour
         set
         {
             _currentEnergy = value;
-            UpdateEnergyText();
-            Deck.Instance.UpdatePlayability();
+            // UpdateEnergyText();
+            // Deck.Instance.UpdatePlayability();
         }
     }
 
@@ -48,7 +48,7 @@ public class RunInfo : MonoBehaviour
         set
         {
             _maxEnergy = value;
-            UpdateEnergyText();
+            // UpdateEnergyText();
         }
     }
 

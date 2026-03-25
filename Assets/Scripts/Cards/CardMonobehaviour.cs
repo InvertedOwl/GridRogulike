@@ -389,8 +389,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (!_cardSet || inactive)
             return;
         
-        Debug.Log(_card.Actions.Sum(action => action.Cost) + " COST");
-
         int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
         
         bool isLeftClick = Input.GetMouseButtonDown(0);

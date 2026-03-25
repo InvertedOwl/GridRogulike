@@ -1,3 +1,5 @@
+using Serializer;
+
 namespace StateManager
 {
     using System;
@@ -10,7 +12,7 @@ namespace StateManager
         public virtual void Enter() { }
         public virtual void Exit() { }
 
-        public virtual object CaptureSaveData() => null;
+        public virtual PlayingStateSaveData CaptureSaveData() => null;
 
         public virtual Type GetSaveDataType() => null;
 

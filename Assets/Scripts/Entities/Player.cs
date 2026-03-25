@@ -29,7 +29,6 @@ namespace Entities
             Shield = 0;
             Deck.Instance.DrawHand();
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
-            RunInfo.Instance.Redraws = RunInfo.Instance.maxRedraws;
             GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = true;
             
             TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(positionRowCol)];

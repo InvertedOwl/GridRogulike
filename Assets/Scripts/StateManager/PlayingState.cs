@@ -134,6 +134,16 @@ namespace StateManager
             HexGridManager.Instance.RegisterHexHoverEnterCallback(HexClickPlayerController.StaticHexHoverOnCallback);
             HexGridManager.Instance.RegisterHexHoverExitCallback(HexClickPlayerController.StaticHexHoverOffCallback);
 
+            
+            foreach (var e in _entities)
+            {
+                e.MoveEntity(e.positionRowCol);
+                e.transform.position = HexGridManager.GetHexCenter(e.positionRowCol.x, e.positionRowCol.y);
+                
+
+                if (e.entityType != EntityType.Player)
+                    e.Health = e.initialHealth;
+            }
         }
 
         IEnumerator WaitFrame()
@@ -261,21 +271,15 @@ namespace StateManager
             {
                 player.positionRowCol = playerStart;
             }
-
             else
             {
                 player.positionRowCol = new Vector2Int(0, 0);
                 Debug.LogError("No empty hexes found for player; defaulting to (0,0).");
             }
-
-            foreach (var e in _entities)
-            {
-                e.MoveEntity(e.positionRowCol);
-                
-
-                if (e.entityType != EntityType.Player)
-                    e.Health = e.initialHealth;
-            }
+            Debug.Log("Player position: " + player.positionRowCol);
+            
+            Debug.Log("Player is in " + _entities
+                .Contains(player));
         }
 
         private bool TryGetRandomEmptyHex(out Vector2Int pos)
@@ -694,7 +698,7 @@ namespace StateManager
         }
         #endregion
 
-        public override object CaptureSaveData()
+        public override PlayingStateSaveData CaptureSaveData()
         {
             return new PlayingStateSaveData
             {

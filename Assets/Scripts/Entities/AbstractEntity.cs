@@ -95,6 +95,8 @@ namespace Entities
 
         public void MoveEntity(Vector2Int newCoords)
         {
+            Debug.Log("Target new coords " + newCoords);
+            
             positionRowCol = newCoords;
             GetComponent<LerpPosition>().targetLocation = Vector3.zero;
             GameObject currentHex = HexGridManager.Instance.GetWorldHexObject(positionRowCol);

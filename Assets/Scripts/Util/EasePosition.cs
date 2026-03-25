@@ -33,10 +33,6 @@ namespace Util
         {
             _rectTransform = GetComponent<RectTransform>();
             _useRectTransform = _rectTransform != null;
-        }
-
-        void Start()
-        {
             Vector3 pos = GetCurrentPosition();
             _lastPosition = pos;
             _targetPosition = pos;

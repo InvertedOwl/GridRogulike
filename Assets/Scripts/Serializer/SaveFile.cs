@@ -13,7 +13,7 @@ namespace Serializer
     {
         public List<Card> deck;
         public Dictionary<int, RandomState> randoms;
-        public string stateData;
+        public PlayingStateSaveData stateData;
 
         // Run Info
         public int MaxEnergy;
@@ -34,7 +34,12 @@ namespace Serializer
         public static string ToJSON()
         {
             var currentState = GameStateManager.Instance.GetCurrent();
-            object stateData = currentState.CaptureSaveData();
+            PlayingStateSaveData stateData = null;
+            if (currentState is PlayingState)
+            {
+                stateData = ((PlayingState) currentState).CaptureSaveData();
+                
+            }
             SaveFile saveFile = new SaveFile
             {
                 deck = Deck.Instance.Cards,
@@ -42,9 +47,7 @@ namespace Serializer
                 MaxEnergy = RunInfo.Instance.MaxEnergy,
                 Difficulty = RunInfo.Instance.Difficulty,
                 currentGameState = GameStateManager.Instance.GetCurrentStateType().FullName,
-                stateData = stateData != null
-                    ? JsonConvert.SerializeObject(stateData, settings)
-                    : null
+                stateData = stateData
             };
 
             return JsonConvert.SerializeObject(saveFile, settings);
@@ -53,7 +56,7 @@ namespace Serializer
         public static void FromJSON(string json)
         {
             SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(json, settings);
-
+            // RunInfo.Instance.MaxEnergy = saveFile.MaxEnergy;
             if (saveFile.deck != null)
                 Deck.Instance.Cards = saveFile.deck;
             if (saveFile.randoms != null)
@@ -63,19 +66,15 @@ namespace Serializer
                 keyValuePair.Value.RebuildRandom();
             }
 
+            GameState.SaveData = saveFile.stateData;
+            
             if (!string.IsNullOrEmpty(saveFile.currentGameState))
             {
                 Debug.Log("Loading state " + saveFile.currentGameState);
                 Type stateType = Type.GetType(saveFile.currentGameState);
                 if (stateType != null)
                 {
-                    GameState state = GameStateManager.Instance.GetCurrent();
-                    Type dataType = state.GetSaveDataType();
-                    object data = JsonConvert.DeserializeObject(saveFile.stateData, dataType, settings);
-                    GameState.SaveData = data;
                     GameStateManager.Instance.Change(stateType);
-
-
                 }
                 else
                 {
@@ -85,8 +84,8 @@ namespace Serializer
             // MapState.Instance.currentNode = saveFile.currentNode;
             // MapState.Instance.mapLayers = saveFile.mapLayers;
             //
-            RunInfo.Instance.MaxEnergy = saveFile.MaxEnergy;
-            RunInfo.Instance.Difficulty = saveFile.Difficulty;
+            Debug.Log("Max Energy " + RunInfo.Instance.MaxEnergy);
+            // RunInfo.Instance.Difficulty = saveFile.Difficulty;
             
             
         }
