@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f455a60e9b34871b5f3bcb76a9bb0f5, type: 3}
+  m_Name: EnemiesDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.EnemiesData
+  enemies:
+  - enemyName: DiamondBoy
+    enemyPrefab: {fileID: 3518368252074035926, guid: 0c72f0a4c3b0e4c44b1d9018d814b059, type: 3}
+    enemyType: 0
+    enemyIconPrefab: {fileID: 0}
+  - enemyName: HardStar
+    enemyPrefab: {fileID: 3326344764978528588, guid: 641c30a9e40f80e44b8d3ae79546acdc, type: 3}
+    enemyType: 1
+    enemyIconPrefab: {fileID: 0}
+  - enemyName: PentagonBoy
+    enemyPrefab: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+    enemyType: 0
+    enemyIconPrefab: {fileID: 0}
+  - enemyName: SquareBoy
+    enemyPrefab: {fileID: 3518368252074035926, guid: a6736deb3fc0bae42a57d844e364bf88, type: 3}
+    enemyType: 0
+    enemyIconPrefab: {fileID: 0}
+  - enemyName: TriangleBoy
+    enemyPrefab: {fileID: 3518368252074035926, guid: 7bc75e90b440afc4aa5c3100d2a841c6, type: 3}
+    enemyType: 0
+    enemyIconPrefab: {fileID: 0}
