@@ -25,7 +25,13 @@ namespace Cards.Actions
             }
         }
         
+        
         public static RandomState guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
+        }
         
         public static string GenerateDeterministicId()
         {

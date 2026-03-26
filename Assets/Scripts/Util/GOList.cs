@@ -17,7 +17,7 @@ public class GOList : MonoBehaviour
     private Dictionary<string, GameObject> myDictionary = new Dictionary<string, GameObject>();
 
     // Populate the dictionary from the list
-    private void Awake()
+    private void Awake ()
     {
         RebuildDictionary();
     }

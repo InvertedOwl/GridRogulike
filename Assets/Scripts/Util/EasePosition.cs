@@ -29,7 +29,7 @@ namespace Util
                 : 1 - Math.Pow(-2 * x + 2, 3) / 2;
         }
 
-        void Awake()
+        void Start()
         {
             _rectTransform = GetComponent<RectTransform>();
             _useRectTransform = _rectTransform != null;
@@ -54,7 +54,7 @@ namespace Util
             _elapsedTime = 0f;
             _onComplete = onComplete;
 
-            if (durationSeconds <= 0f)
+            if ((durationSeconds / GameplayNavSettings.speed) <= 0f)
             {
                 SetPosition(_targetPosition);
                 _onComplete?.Invoke();
@@ -64,13 +64,13 @@ namespace Util
 
         void Update()
         {
-            if (_elapsedTime >= durationSeconds)
+            if (_elapsedTime >= (durationSeconds / GameplayNavSettings.speed))
                 return;
 
             _elapsedTime += Time.deltaTime;
 
-            float progress = durationSeconds > 0f
-                ? Mathf.Clamp01(_elapsedTime / durationSeconds)
+            float progress = (durationSeconds / GameplayNavSettings.speed) > 0f
+                ? Mathf.Clamp01(_elapsedTime / (durationSeconds / GameplayNavSettings.speed))
                 : 1f;
 
             float eased = (float)EaseInOutCubic(progress);

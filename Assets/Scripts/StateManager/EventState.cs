@@ -18,7 +18,7 @@ namespace StateManager
         
         public Button[] Buttons;
 
-        public void Awake()
+        public void Start()
         {
             _eventRandom = RunInfo.NewRandom("events".GetHashCode());
         }

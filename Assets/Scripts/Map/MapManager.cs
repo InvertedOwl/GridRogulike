@@ -20,22 +20,15 @@ public class MapManager : MonoBehaviour
         }
     }
 
+
     private int rewardMoney;
     private float difficultyLevel;
     private bool isBossFight;
     private int enemyCount;
 
-    private void Awake()
+    private void Awake ()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
     }
 
     public int RewardMoney

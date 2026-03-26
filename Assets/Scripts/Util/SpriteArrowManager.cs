@@ -10,16 +10,9 @@ public class SpriteArrowManager : MonoBehaviour
     
     public Dictionary<string, GameObject> arrows = new Dictionary<string, GameObject>();
 
-    void Awake()
+    void Awake ()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
     
     public GameObject arrowPrefab;

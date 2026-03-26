@@ -8,6 +8,11 @@ namespace StateManager
     public abstract class GameState : MonoBehaviour
     {
         public static object SaveData;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            SaveData = null;
+        }
         
         public virtual void Enter() { }
         public virtual void Exit() { }

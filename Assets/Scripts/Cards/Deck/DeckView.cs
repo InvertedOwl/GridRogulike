@@ -108,7 +108,7 @@ public class DeckView : MonoBehaviour
             Callback.Invoke(new Card(false));
         }
         
-        GetComponent<EasePosition>().targetLocation = new Vector3(0, 750, 0);
+        GetComponent<EasePosition>().targetLocation = new Vector3(0, 550, 0);
 
         foreach (Transform card in cards)
         {

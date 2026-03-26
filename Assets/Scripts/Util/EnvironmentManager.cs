@@ -18,12 +18,9 @@ public class EnvironmentManager : MonoBehaviour
     }
     
     
-    private void Awake()
+    private void Awake ()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        instance = this;
     }
 
     public void AddPassive(PassiveEntry entry)

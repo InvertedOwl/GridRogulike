@@ -64,6 +64,12 @@ namespace StateManager
         
         public static int RewardMoney;
         public static EncounterData encounterData;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            RewardMoney = 0;
+            encounterData = null;
+        }
         
         public LerpPosition cameraLerpPosition;
 
@@ -73,8 +79,6 @@ namespace StateManager
 
         
         public TurnIndicatorManager turnIndicatorManager;
-
-        private static RandomState _entitySpawnRandom = RunInfo.NewRandom("espawn".GetHashCode());
         
         private readonly List<int> _turnOrder = new();
         private int _currentTurnIndex;
@@ -705,6 +709,6 @@ namespace StateManager
                 encounterData = encounterData
             };
         }
-
+        
     }
 }

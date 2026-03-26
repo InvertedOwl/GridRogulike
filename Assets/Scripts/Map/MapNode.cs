@@ -22,6 +22,11 @@ namespace Map
         
         
         public static RandomState guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
+        }
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];

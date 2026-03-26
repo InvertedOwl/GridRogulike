@@ -31,7 +31,7 @@ public class Deck : MonoBehaviour
     public List<CardMonobehaviour> Hand { get { return _hand; } }
     public List<CardMonobehaviour> Scrap { get { return _scrap; } }
 
-    public void Awake()
+    public void Awake ()
     {
         Instance = this;
     }
@@ -233,16 +233,12 @@ public class Deck : MonoBehaviour
 
     public void DiscardButton()
     {
-        if (RunInfo.Instance.Redraws > 0)
-        {
-            StartCoroutine(DiscardButtonPatient());
-        }
+        StartCoroutine(DiscardButtonPatient());
     }
 
     private IEnumerator DiscardButtonPatient()
     {
         DiscardHand();
-        RunInfo.Instance.Redraws--;
         yield return new WaitForSeconds(0.25f);
         DrawHand();
     }

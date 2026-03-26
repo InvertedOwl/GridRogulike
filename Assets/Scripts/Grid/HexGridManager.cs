@@ -51,7 +51,7 @@ namespace Grid
         public HexHoveredEvent onHexHoverEnter;
         public HexHoveredEvent onHexHoverExit;
 
-        void Awake()
+        void Awake ()
         {
             Instance = this;
         }
@@ -397,5 +397,6 @@ namespace Grid
 
             return "none";
         }
+
     }
 }

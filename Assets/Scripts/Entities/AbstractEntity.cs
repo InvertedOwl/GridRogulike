@@ -28,12 +28,19 @@ namespace Entities
         
         // Generic random to generate specific entity randoms predictably 
         public static RandomState guidRandom = RunInfo.NewRandom("eguid".GetHashCode());
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            guidRandom = RunInfo.NewRandom("eguid".GetHashCode());
+        }
+        
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];
             guidRandom.NextBytes(bytes);
             return new Guid(bytes).ToString();
         }
+        
         
         // Unique entity random
         protected RandomState _entityRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());

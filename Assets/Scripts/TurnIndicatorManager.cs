@@ -20,7 +20,7 @@ public class TurnIndicatorManager : MonoBehaviour
 
     private int lastTurn = -1;
     
-    private void Awake()
+    private void Start()
     {
         _easePosition = GetComponent<EasePosition>();
     }

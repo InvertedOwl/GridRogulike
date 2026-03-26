@@ -54,13 +54,20 @@ namespace StateManager
         private int _refreshCost = 5;
         public Button refreshButton;
         
-        public void Awake()
+        public void Start()
         {
+            Debug.Log("Set shop random");
             _shopRandom = RunInfo.NewRandom("shop".GetHashCode());
         }
 
         public override void Enter()
         {
+            Debug.Log("Shop random exists: " + (_shopRandom != null));
+            if (_shopRandom == null)
+            {
+                _shopRandom = RunInfo.NewRandom("shop".GetHashCode());
+            }
+            
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));
 
             CardOptions = CardData.GetShopCards();
@@ -71,6 +78,7 @@ namespace StateManager
             PickCards();
             PickActions();
 
+            Debug.Log("Shop random calls: " + _shopRandom.calls);
 
         }
         public override void Exit()

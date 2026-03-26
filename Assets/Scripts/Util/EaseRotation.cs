@@ -26,7 +26,7 @@ namespace Util
             set => SendToRotation(Quaternion.Euler(value));
         }
 
-        private void Awake()
+        private void Start()
         {
             InitializeIfNeeded();
         }

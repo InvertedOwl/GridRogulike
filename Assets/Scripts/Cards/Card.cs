@@ -26,6 +26,12 @@ namespace Cards
             (int)Mathf.Round(Actions.Sum(action => action.Cost) * 0.75f);
 
         public static RandomState guidRandom = RunInfo.NewRandom("guid".GetHashCode());
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            guidRandom = RunInfo.NewRandom("guid".GetHashCode());
+        }
+        
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];

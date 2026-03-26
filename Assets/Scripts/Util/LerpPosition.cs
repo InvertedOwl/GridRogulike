@@ -47,15 +47,15 @@ namespace Util
         {
             if (isLocal)
             {
-                transform.localPosition = Vector3.Lerp(transform.localPosition, targetLocation, speed * Time.deltaTime);
-                transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, speed * Time.deltaTime);
-                transform.localScale = Vector3.Lerp(transform.localScale, targetScale, speed * Time.deltaTime);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, targetLocation, (speed * GameplayNavSettings.speed) * Time.deltaTime);
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, (speed * GameplayNavSettings.speed) * Time.deltaTime);
+                transform.localScale = Vector3.Lerp(transform.localScale, targetScale, (speed * GameplayNavSettings.speed) * Time.deltaTime);
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, targetLocation, speed * Time.deltaTime);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, speed * Time.deltaTime);
-                transform.localScale = Vector3.Lerp(transform.localScale, targetScale, speed * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, targetLocation, (speed * GameplayNavSettings.speed) * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, (speed * GameplayNavSettings.speed) * Time.deltaTime);
+                transform.localScale = Vector3.Lerp(transform.localScale, targetScale, (speed * GameplayNavSettings.speed) * Time.deltaTime);
             }
 
             bool wasAtLocation = _isAtLocation;

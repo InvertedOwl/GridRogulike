@@ -41,12 +41,12 @@ namespace StateManager
         
         public static MapState Instance;
 
-        public void Awake()
+        public void Awake ()
         {
             Instance = this;
         }
 
-        public static RandomState mapRandom = RunInfo.NewRandom("map".GetHashCode());
+        public RandomState mapRandom = RunInfo.NewRandom("map".GetHashCode());
         
         public override void Enter()
         {

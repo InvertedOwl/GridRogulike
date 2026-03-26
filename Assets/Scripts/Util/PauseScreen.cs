@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Util;
 
 public class PauseScreen : MonoBehaviour
@@ -25,6 +26,12 @@ public class PauseScreen : MonoBehaviour
             }
             
         }
+    }
+
+    public void GoToMainMenu()
+    {
+        RunInfo.ResetRandoms();
+        SceneManager.LoadScene("Scenes/MainMenu");
     }
 
     public void Pause()

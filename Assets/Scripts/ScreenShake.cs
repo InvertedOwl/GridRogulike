@@ -9,12 +9,9 @@ public class ScreenShake : MonoBehaviour
     private float targetShakeMagnitude;
     private float dampingSpeed;
 
-    private void Awake()
+    private void Awake ()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        Instance = this;
     }
 
     private void OnEnable()
@@ -29,7 +26,7 @@ public class ScreenShake : MonoBehaviour
         initialPosition = transform.localPosition;
         dampingSpeed = damping;
     }
-
+    
     // Another instance of allowed UnityEngine.Random because screen shake should absolutely not be seeded
     private void Update()
     {

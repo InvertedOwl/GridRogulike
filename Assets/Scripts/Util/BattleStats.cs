@@ -61,5 +61,21 @@ namespace Util
             HealDoneThisTurn = 0;
             ShieldDoneThisTurn = 0;
         }
+
+        public static void ResetStatics()
+        {
+            MoneyGainedThisBattle = 0;
+            MoneyGainedThisTurn = 0;
+            CardsPlayedThisBattle = 0;
+            CardsPlayedThisTurn = 0;
+            DamageDoneThisBattle = 0;
+            DamageDoneThisTurn = 0;
+            ShieldDoneThisBattle = 0;
+            ShieldDoneThisTurn = 0;
+            HealDoneThisBattle = 0;
+            HealDoneThisTurn = 0;
+            TilesMovedThisBattle = 0;
+            TilesMovedThisTurn = 0;
+        }
     }
 }

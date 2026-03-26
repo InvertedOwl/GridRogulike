@@ -1,12 +1,18 @@
 ﻿using System;
 using Cards;
 using Cards.CardEvents;
+using UnityEngine;
 
 namespace Types.CardModifiers
 {
     public abstract class AbstractCardCondition
     {
         public static RandomState guidRandom = RunInfo.NewRandom("ccguid".GetHashCode());
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            guidRandom = RunInfo.NewRandom("ccguid".GetHashCode());
+        }
         public static string GenerateDeterministicId()
         {
             byte[] bytes = new byte[16];

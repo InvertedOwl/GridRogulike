@@ -24,15 +24,9 @@ namespace StateManager
             return _current?.GetType();
         }
 
-        public void Awake()
+        public void Awake ()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
             Instance = this;
-            DontDestroyOnLoad(gameObject);
 
             foreach (var s in GetComponentsInChildren<GameState>(true))
             {
@@ -45,14 +39,11 @@ namespace StateManager
         {
             Debug.Log("attempting change " + stateType.FullName + " with current " + _current?.GetType().FullName);
             
-            // if (_current != null && _current.GetType() == stateType) return;
-
             _current?.Exit();
             if (_current) _current.enabled = false;
 
             _current = _states[stateType];
             _current.enabled = true;
-            // SaveFile.currentJSON = SaveFile.ToJSON();
             _current.Enter();
             Debug.Log("Entered game state " + stateType.FullName);
         }
@@ -85,5 +76,6 @@ namespace StateManager
         }
         public T GetState<T>() where T : GameState =>
             _states.TryGetValue(typeof(T), out var s) ? (T)s : null;
+        
     }
 }

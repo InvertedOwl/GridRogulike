@@ -1,6 +1,7 @@
 using System;
 using Cards.CardEvents;
 using Grid;
+using Serializer;
 using StateManager;
 using TMPro;
 using Types.Tiles;
@@ -13,13 +14,8 @@ namespace Entities
 
         public static Player Instance;
 
-        public void Awake()
+        public void Awake ()
         {
-            if (Instance != null)
-            {
-                throw new Exception("Duplicate player instance");
-            }
-            
             Instance = this;
         }
         
@@ -50,6 +46,23 @@ namespace Entities
             if (GameStateManager.Instance.IsCurrent<PlayingState>())
                 GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = false;
             RunInfo.Instance.CurrentSteps = 0;
+        }
+        
+        
+        public PlayerSaveData CaptureSaveData()
+        {
+            return new PlayerSaveData()
+            {
+                maxHealth = initialHealth,
+                health = _health
+            };
+        }
+        
+        public void RestoreFromSaveData(PlayerSaveData data)
+        {
+            if (data == null) return;
+            initialHealth = data.maxHealth;
+            _health = data.health;
         }
     }
 }

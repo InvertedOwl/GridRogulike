@@ -12,8 +12,7 @@ public class AreYouSure : MonoBehaviour
     {
         Instance = this;
     }
-
-
+    
     public void AskConfirm(Action<bool> confirmCallback)
     {
         this.callback = confirmCallback;

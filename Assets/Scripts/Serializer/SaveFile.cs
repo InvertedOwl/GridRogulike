@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cards;
+using Entities;
 using Map;
 using StateManager;
 using Newtonsoft.Json;
@@ -12,13 +13,10 @@ namespace Serializer
     public class SaveFile
     {
         public List<Card> deck;
-        public Dictionary<int, RandomState> randoms;
+        public RunInfoSaveData runInfo;
         public PlayingStateSaveData stateData;
-
-        // Run Info
-        public int MaxEnergy;
-        public int Difficulty;
-
+        public PlayerSaveData player;
+        
         public string currentGameState;
 
         private static JsonSerializerSettings settings = new JsonSerializerSettings
@@ -30,64 +28,63 @@ namespace Serializer
         };
 
         public static string currentJSON;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            currentJSON = null;
+        }
 
         public static string ToJSON()
         {
             var currentState = GameStateManager.Instance.GetCurrent();
             PlayingStateSaveData stateData = null;
-            if (currentState is PlayingState)
+
+            if (currentState is PlayingState playingState)
             {
-                stateData = ((PlayingState) currentState).CaptureSaveData();
-                
+                stateData = playingState.CaptureSaveData();
             }
+
             SaveFile saveFile = new SaveFile
             {
                 deck = Deck.Instance.Cards,
-                randoms = RunInfo.randoms,
-                MaxEnergy = RunInfo.Instance.MaxEnergy,
-                Difficulty = RunInfo.Instance.Difficulty,
-                currentGameState = GameStateManager.Instance.GetCurrentStateType().FullName,
-                stateData = stateData
+                runInfo = RunInfo.Instance.CaptureSaveData(),
+                currentGameState = GameStateManager.Instance.GetCurrentStateType()?.FullName,
+                stateData = stateData,
+                player = Player.Instance.CaptureSaveData()
             };
 
             return JsonConvert.SerializeObject(saveFile, settings);
         }
 
-        public static void FromJSON(string json)
+        public static Type FromJSON(string json)
         {
+            Type stateType = null;
             SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(json, settings);
-            // RunInfo.Instance.MaxEnergy = saveFile.MaxEnergy;
+            
+            Player.Instance.RestoreFromSaveData(saveFile.player);
+
+            // Load deck
             if (saveFile.deck != null)
                 Deck.Instance.Cards = saveFile.deck;
-            if (saveFile.randoms != null)
-                RunInfo.randoms = saveFile.randoms;
-            foreach (KeyValuePair<int, RandomState> keyValuePair in RunInfo.randoms)
-            {
-                keyValuePair.Value.RebuildRandom();
-            }
 
+            // Load run info
+            if (saveFile.runInfo != null)
+                RunInfo.Instance.RestoreFromSaveData(saveFile.runInfo);
+
+            // Load game state
             GameState.SaveData = saveFile.stateData;
-            
             if (!string.IsNullOrEmpty(saveFile.currentGameState))
             {
                 Debug.Log("Loading state " + saveFile.currentGameState);
-                Type stateType = Type.GetType(saveFile.currentGameState);
-                if (stateType != null)
-                {
-                    GameStateManager.Instance.Change(stateType);
-                }
-                else
+                stateType = Type.GetType(saveFile.currentGameState);
+
+                if (stateType == null)
                 {
                     Debug.LogError($"Could not resolve game state type: {saveFile.currentGameState}");
                 }
             }
-            // MapState.Instance.currentNode = saveFile.currentNode;
-            // MapState.Instance.mapLayers = saveFile.mapLayers;
-            //
-            Debug.Log("Max Energy " + RunInfo.Instance.MaxEnergy);
-            // RunInfo.Instance.Difficulty = saveFile.Difficulty;
-            
-            
+
+            return stateType;
         }
     }
 }

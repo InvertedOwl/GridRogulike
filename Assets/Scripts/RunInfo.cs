@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Serializer;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,14 +11,13 @@ public class RunInfo : MonoBehaviour
 {
     public static RunInfo Instance;
     
-    public int maxRedraws = 0;
     public List<TextMeshProUGUI> energyText;
     public List<TextMeshProUGUI> moneyText;
     public List<TextMeshProUGUI> redrawText;
     public Button redrawButton;
     public List<TextMeshProUGUI> difficultyText;
     public List<TextMeshProUGUI> stepsText;
-    public static string seed = "Testing";
+    public static string seed = "Testing123";
     public readonly int combineCost = 2;
 
 
@@ -37,8 +37,9 @@ public class RunInfo : MonoBehaviour
         set
         {
             _currentEnergy = value;
-            // UpdateEnergyText();
-            // Deck.Instance.UpdatePlayability();
+            UpdateEnergyText();
+            if (Deck.Instance != null)
+                Deck.Instance.UpdatePlayability();
         }
     }
 
@@ -48,27 +49,10 @@ public class RunInfo : MonoBehaviour
         set
         {
             _maxEnergy = value;
-            // UpdateEnergyText();
+            UpdateEnergyText();
         }
     }
 
-    public int Redraws
-    {
-        get => _redraws;
-        set
-        {
-            _redraws = value;
-            UpdateRedrawText();
-            if (value == 0)
-            {
-                redrawButton.interactable = false;
-            }
-            else
-            {
-                redrawButton.interactable = true;
-            }
-        }
-    }
 
     public int Money 
     { 
@@ -106,6 +90,11 @@ public class RunInfo : MonoBehaviour
 
     [SerializeField] public static Dictionary<int, RandomState> randoms = new Dictionary<int, RandomState>();
 
+    public static void ResetRandoms()
+    {
+        randoms.Clear();
+    }
+    
     public static RandomState NewRandom(int nudge)
     {
         if (randoms.ContainsKey(nudge))
@@ -113,15 +102,16 @@ public class RunInfo : MonoBehaviour
             return randoms[nudge];
         }
 
-        RandomState random = new RandomState(nudge, 0); 
+        RandomState random = new RandomState(nudge + seed.GetHashCode(), 0); 
         
         randoms[nudge] = random;
         return random;
     }
     
     
+    
     // Initialize singleton and default values
-    void Awake()
+    void Awake ()
     {
         Instance = this;
         CurrentEnergy = InitialEnergy;
@@ -155,11 +145,7 @@ public class RunInfo : MonoBehaviour
     }
 
     
-    // Update redraw display text elements
-    private void UpdateRedrawText()
-    {
-        UpdateTextCollection(redrawText, FormatRedrawText());
-    }
+
     
     // Update difficulty display text elements
     private void UpdateDifficultyText()
@@ -198,15 +184,44 @@ public class RunInfo : MonoBehaviour
         return _money + "";
     }
 
-    // Format current/max redraws display
-    private string FormatRedrawText()
-    {
-        return _redraws + "/" + maxRedraws;
-    }
     
     private string FormatDifficultyText()
     {
         return "Difficulty: " + _difficulty;
+    }
+    
+    
+    public RunInfoSaveData CaptureSaveData()
+    {
+        return new RunInfoSaveData
+        {
+            MaxEnergy = MaxEnergy,
+            CurrentEnergy = CurrentEnergy,
+            Money = Money,
+            Difficulty = Difficulty,
+            CurrentSteps = CurrentSteps,
+            Seed = seed,
+            randoms = randoms
+        };
+    }
+    
+    public void RestoreFromSaveData(RunInfoSaveData data)
+    {
+        if (data == null) return;
+
+        MaxEnergy = data.MaxEnergy;
+        CurrentEnergy = data.CurrentEnergy;
+        Money = data.Money;
+        Difficulty = data.Difficulty;
+        CurrentSteps = data.CurrentSteps;
+
+        seed = data.Seed;
+        randoms = data.randoms ?? new Dictionary<int, RandomState>();
+
+        foreach (var kv in randoms)
+        {
+            kv.Value.RebuildRandom();
+        }
     }
 
 }

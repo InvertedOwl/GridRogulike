@@ -41,7 +41,7 @@ namespace Grid {
         
         public static HexClickPlayerController instance;
 
-        public void Awake()
+        public void Awake ()
         {
             instance = this;
         }

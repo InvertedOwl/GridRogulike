@@ -22,9 +22,9 @@ public class SpawnBG : MonoBehaviour
     // How long EaseScale takes to animate to the target scale (match your EaseScale duration)
     [SerializeField] private float flipAnimDuration = 0.2f;
 
-    public void Awake()
+    public void Awake ()
     {
-        if (instance == null) { instance = this; }
+        instance = this;
     }
 
     // This class is allowed to use UnityEngine.Random because the BG colors

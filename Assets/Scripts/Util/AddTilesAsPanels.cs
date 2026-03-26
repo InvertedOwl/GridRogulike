@@ -10,7 +10,7 @@ public class AddTilesAsPanels : MonoBehaviour
     public GameObject panelPrefab;
     public InfoData infoData;
     
-    void Awake()
+    void Awake ()
     {
         foreach (KeyValuePair<string, TileEntry> tile in TileData.tiles)
         {
