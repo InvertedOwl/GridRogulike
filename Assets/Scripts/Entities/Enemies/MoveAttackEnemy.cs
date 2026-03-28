@@ -15,7 +15,7 @@ namespace Entities.Enemies
         private int movementPerTurn = 3;
         public int DefaultDamage = 10;
         
-        public void Start()
+        public void Awake()
         {
             AvailableActions.Add(new AttackAction(1, "basic", this, "n", 1, DefaultDamage));
             AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, DefaultDamage));
@@ -28,6 +28,7 @@ namespace Entities.Enemies
 
         public override IEnumerator MakeTurn()
         {
+            
             if (_plannedAction.Count == 0)
             {
                 yield break;
@@ -66,16 +67,22 @@ namespace Entities.Enemies
         
         private void PlanTurn()
         {
+            
+            Debug.Log("LIST AVAILABLE ACTIONS: " + AvailableActions.Count);
+            
             // Plan next turn
             foreach (AttackAction action in AvailableActions)
             {
                 string dir = action.Direction;
 
+                Debug.Log("CURRENT POSITION " + positionRowCol);
                 List<AbstractEntity> entitiesOnHex = new List<AbstractEntity>();
                 GameStateManager.Instance.GetCurrent<PlayingState>().EntitiesOnHex(HexGridManager.MoveHex(this.positionRowCol, dir, 1), out entitiesOnHex);
                 
                 foreach (AbstractEntity e in entitiesOnHex)
                 {
+                    Debug.Log(e.positionRowCol + " ENTITY ON HEX");
+                    
                     if (e.entityType == EntityType.Player)
                     {
                         _plannedAction.Add(action);
@@ -89,6 +96,8 @@ namespace Entities.Enemies
                 // Move towards player if can't attack them (Add player as non blocker)
                 PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
                 Dictionary<Vector2Int, int> distanceMap = CalculateDistanceMap(state.player.positionRowCol, state, state.player);
+                
+                
                 
                 Vector2Int currentPosition = positionRowCol;
                 for (int i = 0; i < movementPerTurn; i++)
@@ -131,6 +140,16 @@ namespace Entities.Enemies
         // For assigning to things, need to tell controllers what enemies next turn is
         public override List<AbstractAction> NextTurn()
         {
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            Debug.Log("NUM ENTITIES: " + playingState.entities.Count);
+
+            foreach (AbstractEntity e in playingState.entities)
+            {
+                Debug.Log("A POSITION: " + e.positionRowCol);
+                Debug.Log("TYPE: " + e.entityType);
+
+            }
+            
             if (_plannedAction.Count == 0)
             {
                 PlanTurn();

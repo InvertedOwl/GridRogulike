@@ -20,6 +20,7 @@ namespace Entities
         public EyesFollowMouse eyesFollowMouse;
         public float initialHealth;
         protected List<AbstractAction> _plannedAction = new List<AbstractAction>();
+        public GOList GoList;
 
         public float _health;
         public EntityType entityType = EntityType.Enemy;
@@ -177,6 +178,9 @@ namespace Entities
         {
             Debug.Log("Damaged for " + damage);
 
+
+            
+            
             hurtSystem.Play();
             
             if (Shield > 0)
@@ -208,6 +212,17 @@ namespace Entities
 
             Health = Mathf.Clamp(Health, 0, initialHealth);
             ScreenShake.Instance.Shake(0.1f, 7);
+
+            if (_health <= 0)
+            {
+                Die();
+            }
+            
+            
+            // Instantiate damage number
+            GameObject newDamageNumber = Instantiate(GoList.GetValue("DamageValueParticle"), transform);
+            newDamageNumber.GetComponent<TextMeshPro>().text = "" + damage;
+            
         }
 
         
@@ -258,13 +273,22 @@ namespace Entities
         }
         
 
-        public void Die()
+        public virtual void Die()
         {
             // Rip entity :(
             Debug.Log("I have died");
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
             {
                 HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Remove(this);
+            }
+
+
+            _plannedAction = new List<AbstractAction>();
+            HandleNextTurnActions(_plannedAction);
+            if (GoList.HasValue("DeadEyes"))
+            {
+                eyesFollowMouse.gameObject.SetActive(false);
+                GoList.GetValue("DeadEyes").SetActive(true);
             }
         }
     }

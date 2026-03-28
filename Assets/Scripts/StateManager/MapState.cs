@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Map;
+using Serializer;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
@@ -32,7 +33,8 @@ namespace StateManager
         public int scrollDistance = 120;
 
         public int numShops = 5;
-        
+
+        public static MapSaveData mapSaveData;
 
         private List<GameObject> linesList = new List<GameObject>();
         
@@ -47,7 +49,13 @@ namespace StateManager
         }
 
         public RandomState mapRandom = RunInfo.NewRandom("map".GetHashCode());
-        
+
+        public void Start()
+        {
+            mapRandom.calls = 0;
+            mapRandom.RebuildRandom();
+        }
+
         public override void Enter()
         {
             if (!hasSetup)
@@ -61,6 +69,16 @@ namespace StateManager
             DrawConnections();
             MoveMap();
             tempMapOffset = 0;
+
+
+            if (mapSaveData != null)
+            {
+                currentNode = mapLayers[mapSaveData.currentLayer][mapSaveData.currentNodeInLayer];
+                tempMapOffset = mapSaveData.tempMapOffset;
+
+                UpdateCurrentNode();
+                mapSaveData = null;
+            }
         }
         
         public void SetMapState()
@@ -314,8 +332,25 @@ namespace StateManager
             }
         }
 
+        public MapSaveData GetSaveData()
+        {
+            if (mapLayers.Count == 0)
+            {
+                return null;
+            }
+            return new MapSaveData
+            {
+                currentLayer = GetLayerIndex(currentNode),
+                currentNodeInLayer = mapLayers[GetLayerIndex(currentNode)].IndexOf(currentNode),
+                tempMapOffset = tempMapOffset,
+            };
+        }
 
-
+        public static void LoadFromSaveData(MapSaveData data)
+        {
+            mapSaveData = data;
+        }
+        
         private GameObject GetRandomTargetForLayer(int layerIndex)
         {
             if (layerIndex == 0)

@@ -41,6 +41,13 @@ namespace Entities
             return modifiedEvents;
         }
 
+        public override void Die()
+        {
+            base.Die();
+            RemoveIntent();
+            
+        }
+
         
         public abstract IEnumerator MakeTurn();
         public abstract List<AbstractAction> NextTurn();

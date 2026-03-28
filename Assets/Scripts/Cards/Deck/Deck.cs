@@ -16,7 +16,7 @@ public class Deck : MonoBehaviour
     private List<CardMonobehaviour> _hand = new List<CardMonobehaviour>();
     private List<CardMonobehaviour> _scrap = new List<CardMonobehaviour>();
 
-    public RandomState _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
+    public RandomState _randomDeck;
     public static Deck Instance;
 
     public GameObject actionPrefab;
@@ -38,6 +38,7 @@ public class Deck : MonoBehaviour
 
     public void Start()
     {
+        _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
     }
 
     public void SetInactive(bool inactive)

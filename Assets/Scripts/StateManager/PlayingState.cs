@@ -47,7 +47,7 @@ namespace StateManager
             }
         }
 
-        private readonly List<AbstractEntity> _entities = new();
+        public readonly List<AbstractEntity> entities = new();
         private HexGridManager _grid = null!;
         public Player player;
         public GameObject gameUI;
@@ -82,7 +82,7 @@ namespace StateManager
         
         private readonly List<int> _turnOrder = new();
         private int _currentTurnIndex;
-        public AbstractEntity CurrentTurn => _entities[_turnOrder[_currentTurnIndex]];
+        public AbstractEntity CurrentTurn => entities[_turnOrder[_currentTurnIndex]];
 
         public EaseScale playingUI;
         
@@ -117,18 +117,9 @@ namespace StateManager
             SetupPlayerHand();
 
             playingUI.SetScale(Vector3.one);
-
-            // Start all NonPlayer turns
-            foreach (AbstractEntity e in _entities)
-            {
-                if (e is NonPlayerEntity nonPlayerEntity)
-                {
-                    nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.NextTurn());
-                    nonPlayerEntity.SetIntent();
-                }
-            }
             
-            turnIndicatorManager.Rebuild(_entities, _turnOrder);
+            
+            turnIndicatorManager.Rebuild(entities, _turnOrder);
             StartCoroutine(WaitFrame());
             StartEntityTurn();
             TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
@@ -139,7 +130,7 @@ namespace StateManager
             HexGridManager.Instance.RegisterHexHoverExitCallback(HexClickPlayerController.StaticHexHoverOffCallback);
 
             
-            foreach (var e in _entities)
+            foreach (var e in entities)
             {
                 e.MoveEntity(e.positionRowCol);
                 e.transform.position = HexGridManager.GetHexCenter(e.positionRowCol.x, e.positionRowCol.y);
@@ -153,7 +144,7 @@ namespace StateManager
         IEnumerator WaitFrame()
         {
             yield return new WaitForFixedUpdate();
-            turnIndicatorManager.SetCurrentTurn(_turnOrder, _entities, 0);
+            turnIndicatorManager.SetCurrentTurn(_turnOrder, entities, 0);
         }
         
         // TODO: Add speed stuff so you can have more turns more often
@@ -161,7 +152,7 @@ namespace StateManager
         {
             _turnOrder.Clear();
 
-            for (int i = 0; i < _entities.Count; i++)
+            for (int i = 0; i < entities.Count; i++)
                 _turnOrder.Add(i);
         }
 
@@ -172,14 +163,14 @@ namespace StateManager
 
             Vector3 averagePos = Vector3.zero;
 
-            foreach (var entity in _entities)
+            foreach (var entity in entities)
             {
                 averagePos += entity.transform.position;
             }
-            averagePos /= _entities.Count;
+            averagePos /= entities.Count;
 
             float maxHeight = 0f;
-            foreach (var entity in _entities)
+            foreach (var entity in entities)
             {
                 float height = Mathf.Abs(entity.transform.position.y - averagePos.y);
                 if (height > maxHeight)
@@ -201,12 +192,12 @@ namespace StateManager
 
         private void SetupEntities()
         {
-            _entities.Clear();
-            _entities.Add(player);
-            _entities.AddRange(FindObjectsByType<TestNonPlayerEntity>(FindObjectsSortMode.InstanceID));
+            entities.Clear();
+            entities.Add(player);
+            entities.AddRange(FindObjectsByType<TestNonPlayerEntity>(FindObjectsSortMode.InstanceID));
 
             
-            _entities.ForEach(e =>
+            entities.ForEach(e =>
             {
                 if (e.Health <= 0)
                 {
@@ -214,7 +205,7 @@ namespace StateManager
                 }
             });
             
-            _entities.RemoveAll(e => e.Health <= 0);
+            entities.RemoveAll(e => e.Health <= 0);
             
             int numNormalEnemy = 0;
             int numHardEnemy = 0;
@@ -222,49 +213,33 @@ namespace StateManager
 
             foreach (string enemyEntry in encounterData.enemies)
             {
-                EnemiesData.EnemyEntry enemy = enemiesData.Get(enemyEntry).Value;
+                if (enemiesData.Get(enemyEntry).HasValue)
+                {
+                    EnemiesData.EnemyEntry enemy = enemiesData.Get(enemyEntry).Value;
+                    if (enemy.enemyType == EnemyType.Normal)
+                        numNormalEnemy += 1;
+                    if (enemy.enemyType == EnemyType.Hard)
+                        numHardEnemy += 1;
+                    if (enemy.enemyType == EnemyType.Boss)
+                        numBossEnemy += 1;
+                }
+                else
+                {
+                    Debug.Log("Could not fine enemy: " + enemyEntry);
+                }
                     
-                if (enemy.enemyType == EnemyType.Normal)
-                    numNormalEnemy += 1;
-                if (enemy.enemyType == EnemyType.Hard)
-                    numHardEnemy += 1;
-                if (enemy.enemyType == EnemyType.Boss)
-                    numBossEnemy += 1;
+
             }
 
             Debug.Log(random);
             
             var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
-                .Where(p => !_entities.Any(e => e.positionRowCol == p))
+                .Where(p => !entities.Any(e => e.positionRowCol == p))
                 .OrderBy(_ => random.Next())
-                .Take(numNormalEnemy + numBossEnemy + numHardEnemy)
                 .ToList();
-
-            // foreach (var pos in spawnSpots)
-            // {
-                // EnemyType enemyType = EnemyType.Normal;
-                // if (numNormalEnemy > 0)
-                // {
-                //     enemyType = EnemyType.Normal;
-                //     numNormalEnemy -= 1;
-                // }
-                //
-                // if (numHardEnemy > 0)
-                // {
-                //     enemyType = EnemyType.Hard;
-                //     numHardEnemy -= 1;
-                // }
-                //
-                // if (numBossEnemy > 0)
-                // {
-                //     enemyType = EnemyType.Boss;
-                //     numBossEnemy -= 1;
-                // }
-                
-            // }
-
             
-            _entities.AddRange(SpawnEncounter(spawnSpots));
+            
+            entities.AddRange(SpawnEncounter(spawnSpots));
 
             // Not enough spawn spots
             if (numNormalEnemy > 0 || numHardEnemy > 0 || numBossEnemy > 0)
@@ -282,15 +257,24 @@ namespace StateManager
             }
             Debug.Log("Player position: " + player.positionRowCol);
             
-            Debug.Log("Player is in " + _entities
+            Debug.Log("Player is in " + entities
                 .Contains(player));
+            
+            foreach (AbstractEntity e in entities)
+            {
+                if (e is NonPlayerEntity nonPlayerEntity)
+                {
+                    nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.NextTurn());
+                    nonPlayerEntity.SetIntent();
+                }
+            }
         }
 
         private bool TryGetRandomEmptyHex(out Vector2Int pos)
         {
             var allHexes = HexGridManager.Instance.BoardDictionary.Keys;
 
-            var empties = allHexes.Where(p => !_entities.Any(e => e.positionRowCol == p)).OrderBy(_ => random.Next()).ToList();
+            var empties = allHexes.Where(p => !entities.Any(e => e.positionRowCol == p)).OrderBy(_ => random.Next()).ToList();
 
             if (empties.Count == 0)
             {
@@ -305,6 +289,7 @@ namespace StateManager
         private List<AbstractEntity> SpawnEncounter(List<Vector2Int> positions)
         {
             List<AbstractEntity> encounter = new List<AbstractEntity>();
+            Debug.Log("Positions count " + positions.Count + " enemies: " + encounterData.enemies.Count);
 
             if (positions.Count < encounterData.enemies.Count)
             {
@@ -315,6 +300,7 @@ namespace StateManager
             {
                 string enemy = encounterData.enemies[i];
                 Vector2Int position = positions[i];
+                Debug.Log("enemy: " + enemy);
                 EnemiesData.EnemyEntry enemyEntry = enemiesData.Get(enemy).Value;
                 GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
                 enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
@@ -364,14 +350,14 @@ namespace StateManager
 
         public void MoveEntitiesOut()
         {
-            foreach (AbstractEntity entity in _entities)
+            foreach (AbstractEntity entity in entities)
             {
                 entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, -750);
             }
         }
         public void MoveEntitiesIn()
         {
-            foreach (AbstractEntity entity in _entities)
+            foreach (AbstractEntity entity in entities)
             {
                 entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, 750);
             }
@@ -397,7 +383,7 @@ namespace StateManager
             List<NonPlayerEntity> toRemove = new List<NonPlayerEntity>();
             TurnIndicator.SendToLocation(new Vector3(0, 200, 0));
 
-            foreach (AbstractEntity entity in _entities)
+            foreach (AbstractEntity entity in entities)
             {
                 if (entity is NonPlayerEntity)
                 {
@@ -408,7 +394,7 @@ namespace StateManager
 
             foreach (NonPlayerEntity enemy in toRemove)
             {
-                _entities.Remove(enemy);
+                entities.Remove(enemy);
                 Destroy(enemy.gameObject);
             }
 
@@ -488,13 +474,13 @@ namespace StateManager
 
                 int entIndex = _turnOrder[_currentTurnIndex];
 
-                if (entIndex < 0 || entIndex >= _entities.Count)
+                if (entIndex < 0 || entIndex >= entities.Count)
                     continue;
 
-            } while (_entities[_turnOrder[_currentTurnIndex]].entityType == EntityType.Neutral);
+            } while (entities[_turnOrder[_currentTurnIndex]].entityType == EntityType.Neutral);
 
             var entity = CurrentTurn;
-            turnIndicatorManager.SetCurrentTurn(_turnOrder, _entities, _currentTurnIndex);
+            turnIndicatorManager.SetCurrentTurn(_turnOrder, entities, _currentTurnIndex);
 
             if (entity is NonPlayerEntity nonPlayerEntity)
             {
@@ -520,14 +506,14 @@ namespace StateManager
         {
             bool removedAny = false;
 
-            for (int i = _entities.Count - 1; i >= 0; i--)
+            for (int i = entities.Count - 1; i >= 0; i--)
             {
-                var entity = _entities[i];
+                var entity = entities[i];
                 if (entity.Health > 0) continue;
 
                 removedAny = true;
                 entity.Die();
-                _entities.RemoveAt(i);
+                entities.RemoveAt(i);
                 Destroy(entity.gameObject);
             }
 
@@ -538,15 +524,15 @@ namespace StateManager
                 if (_turnOrder.Count == 0)
                 {
                     _currentTurnIndex = -1;
-                    turnIndicatorManager.Rebuild(_entities, _turnOrder);
+                    turnIndicatorManager.Rebuild(entities, _turnOrder);
                     return;
                 }
 
                 // Keep progression sane: next StartEntityTurn() increments, so keep it within [-1 .. Count-1]
                 _currentTurnIndex = Mathf.Clamp(_currentTurnIndex, -1, _turnOrder.Count - 1);
 
-                turnIndicatorManager.Rebuild(_entities, _turnOrder);
-                turnIndicatorManager.SetCurrentTurn(_turnOrder, _entities, _currentTurnIndex);
+                turnIndicatorManager.Rebuild(entities, _turnOrder);
+                turnIndicatorManager.SetCurrentTurn(_turnOrder, entities, _currentTurnIndex);
             }
             else
             {
@@ -611,7 +597,7 @@ namespace StateManager
         {
             bool enemyWin = true;
             bool playerWin = true;
-            foreach (AbstractEntity entity in _entities)
+            foreach (AbstractEntity entity in entities)
             {
                 if (entity.entityType == EntityType.Player && entity.Health > 0)
                 {
@@ -633,13 +619,13 @@ namespace StateManager
         #region Entity Manager ---------------
         public bool EntitiesOnHex(Vector2Int coords, out List<AbstractEntity> list)
         {
-            list = _entities.FindAll(e => e.positionRowCol == coords);
+            list = entities.FindAll(e => e.positionRowCol == coords);
             return list.Count > 0;
         }
 
         public List<AbstractEntity> GetEntities()
         {
-            return _entities;
+            return entities;
         }
 
         public bool IsValidHex(Vector2Int coords)
@@ -697,7 +683,7 @@ namespace StateManager
 
         public void DamageEntities(Vector2Int coords, int dmg, AbstractStatus status)
         {
-            foreach (var e in _entities)
+            foreach (var e in entities)
                 if (e.positionRowCol == coords) e.Damage(dmg, status);
         }
         #endregion

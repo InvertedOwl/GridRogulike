@@ -1708,11 +1708,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 125.8
+      value: 361
       objectReference: {fileID: 0}
     - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 199
+      value: 152
       objectReference: {fileID: 0}
     - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2674,7 +2674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 115.08}
+  m_AnchoredPosition: {x: 0, y: 69}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &328626457
@@ -2769,6 +2769,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760818ca7633b4e18aed236bd2daabe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &336093635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2594246618520563391, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
+  m_PrefabInstance: {fileID: 8661953392321858148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &347450815 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
@@ -15587,7 +15592,7 @@ MonoBehaviour:
     DifficultyMax: 2
     enemies:
     - TriangleBoy
-    - DiamongBoy
+    - DiamondBoy
     - HardStar
     EncounterType: 1
 --- !u!114 &1461430464 stripped
@@ -18654,7 +18659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 224.56
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 7518071777461944750, guid: 46bbbbb5f3262473d9ef567ab7b69fcb, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -23226,12 +23231,27 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5304682182257518711, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
   m_PrefabInstance: {fileID: 8661953392321858148}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 336093635}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 909a8f6b453b4364963ccc0c7dbbb10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8026772340970594452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336093635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fc10d5ec12942e7ba610a821f3cc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GOList
+  myDictionaryList:
+  - Key: DamageValueParticle
+    Value: {fileID: 989911552943838377, guid: 8aba4addd9bd2ae4dbf3436418771676, type: 3}
 --- !u!1001 &8083078737271408257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23842,6 +23862,10 @@ PrefabInstance:
       value: 0.51543874
       objectReference: {fileID: 0}
     - target: {fileID: 5304682182257518711, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
+      propertyPath: GoList
+      value: 
+      objectReference: {fileID: 8026772340970594452}
+    - target: {fileID: 5304682182257518711, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: shield
       value: 20
       objectReference: {fileID: 0}
@@ -23889,6 +23913,10 @@ PrefabInstance:
       propertyPath: turnIndicatorIcon
       value: 
       objectReference: {fileID: 962720077}
+    - target: {fileID: 5304682182257518711, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
+      propertyPath: attackValueParticle
+      value: 
+      objectReference: {fileID: 989911552943838377, guid: 8aba4addd9bd2ae4dbf3436418771676, type: 3}
     - target: {fileID: 5328414066004628805, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -23928,6 +23956,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 962720076}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2594246618520563391, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8026772340970594452}
     - targetCorrespondingSourceObject: {fileID: 5900568430355880558, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}

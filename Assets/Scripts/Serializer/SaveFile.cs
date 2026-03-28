@@ -16,6 +16,7 @@ namespace Serializer
         public RunInfoSaveData runInfo;
         public PlayingStateSaveData stateData;
         public PlayerSaveData player;
+        public MapSaveData mapData;
         
         public string currentGameState;
 
@@ -50,7 +51,8 @@ namespace Serializer
                 runInfo = RunInfo.Instance.CaptureSaveData(),
                 currentGameState = GameStateManager.Instance.GetCurrentStateType()?.FullName,
                 stateData = stateData,
-                player = Player.Instance.CaptureSaveData()
+                player = Player.Instance.CaptureSaveData(),
+                mapData = MapState.Instance.GetSaveData()
             };
 
             return JsonConvert.SerializeObject(saveFile, settings);
@@ -83,6 +85,8 @@ namespace Serializer
                     Debug.LogError($"Could not resolve game state type: {saveFile.currentGameState}");
                 }
             }
+            
+            MapState.mapSaveData = saveFile.mapData;
 
             return stateType;
         }

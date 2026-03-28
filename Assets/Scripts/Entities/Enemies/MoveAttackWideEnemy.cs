@@ -15,7 +15,7 @@ namespace Entities.Enemies
         private int movementPerTurn = 1;
         public int DefaultDamage = 10;
         
-        public void Start()
+        public void Awake()
         {
             AvailableActions.Add(new AttackAction(1, "basic", this, "n", 1, DefaultDamage));
             AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, DefaultDamage));
