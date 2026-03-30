@@ -9,13 +9,14 @@ using StateManager;
 using TMPro;
 using Types.Statuses;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 
 namespace Entities
 {
     public abstract class NonPlayerEntity: AbstractEntity
     {
-        public SpriteRenderer plannedActionSprite;
+        public Image plannedActionSprite;
         public SpriteDatabase SpriteDatabase;
         
         public List<AbstractAction> AvailableActions = new List<AbstractAction>();
@@ -54,6 +55,7 @@ namespace Entities
 
         public void SetIntent()
         {
+            return;
             AbstractAction actionChosen = _plannedAction[_plannedAction.Count - 1];
 
 
@@ -63,6 +65,7 @@ namespace Entities
 
         public void RemoveIntent()
         {
+            return;
             plannedActionSprite.transform.parent.GetComponent<EaseScale>().SetScale(Vector3.zero);
         }
     }

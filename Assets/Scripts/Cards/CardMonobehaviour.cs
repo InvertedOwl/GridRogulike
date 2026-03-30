@@ -42,6 +42,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public TextMeshProUGUI costText;
     public TextMeshProUGUI actionText;
     public bool used = false;
+    public bool played;
     public CardStatusDatabase.CardStatus? CardStatus;
     private Card _card;
     
@@ -388,17 +389,30 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (!_cardSet || inactive)
             return;
+
+
         
         int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
         
         bool isLeftClick = Input.GetMouseButtonDown(0);
+
+        bool wasUsed = used;
+        if (isLeftClick)
+        {
+            Deck.Instance.SetHandToUnused();
+            used = true;
+            CardClickedCallback?.Invoke();
+        }
+        if (!wasUsed)
+            return;
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
         
-        if (isLeftClick && !used && hasEnoughEnergy && isPlayerTurn)
+        if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn)
         {
+            played = true;
             Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
             
             List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
@@ -463,12 +477,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
 
             RunInfo.Instance.CurrentEnergy -= currentCost;
-            used = true;
         }
         
-        if (isLeftClick)
-            CardClickedCallback?.Invoke();
-        
+
         HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
     }
 

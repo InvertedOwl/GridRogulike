@@ -34,10 +34,7 @@ namespace StateManager
                 EndTurnButton.interactable = value;
                 RedrawButton.interactable = value;
 
-                if (changed)
-                {
-                    Deck.Instance.UpdatePlayability();
-                }
+                Deck.Instance.UpdatePlayability();
 
                 foreach (Vector2Int hex in HexGridManager.Instance.BoardDictionary.Keys)
                 {
@@ -85,6 +82,7 @@ namespace StateManager
         public AbstractEntity CurrentTurn => entities[_turnOrder[_currentTurnIndex]];
 
         public EaseScale playingUI;
+        public EasePosition playingHealth;
         
         [SerializeField] private LerpCameraSize cameraSizeLerp;
         [SerializeField] private float minViewSize = 5f;
@@ -93,6 +91,7 @@ namespace StateManager
         
         public override void Enter()
         {
+            playingHealth.targetLocation = new Vector3(0, 0, 0);
             Debug.Log("Save is  " + SaveData);
             if (SaveData != null)
             {
@@ -232,6 +231,7 @@ namespace StateManager
             }
 
             Debug.Log(random);
+            player.positionRowCol = new Vector2Int(0, 0);
             
             var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
                 .Where(p => !entities.Any(e => e.positionRowCol == p))
@@ -245,15 +245,6 @@ namespace StateManager
             if (numNormalEnemy > 0 || numHardEnemy > 0 || numBossEnemy > 0)
             {
                 Debug.Log("Not enough spawn spots");
-            }
-            if (TryGetRandomEmptyHex(out var playerStart))
-            {
-                player.positionRowCol = playerStart;
-            }
-            else
-            {
-                player.positionRowCol = new Vector2Int(0, 0);
-                Debug.LogError("No empty hexes found for player; defaulting to (0,0).");
             }
             Debug.Log("Player position: " + player.positionRowCol);
             
@@ -365,6 +356,8 @@ namespace StateManager
 
         public override void Exit()
         {
+            playingHealth.targetLocation = new Vector3(0, -600, 0);
+            
             cameraLerpPosition.targetLocation = new Vector3(0, 0, -10);
             cameraSizeLerp.targetHeight = 4;
             playingUI.SetScale(new Vector3(2, 2, 2));
@@ -496,9 +489,9 @@ namespace StateManager
         
         private IEnumerator MakeEnemyTurn(NonPlayerEntity nonPlayerEntity)
         {
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
             yield return nonPlayerEntity.MakeTurn();
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
             EntityEndTurn();
         }
 

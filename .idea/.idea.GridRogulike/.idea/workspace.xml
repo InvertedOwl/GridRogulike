@@ -5,28 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/MapNodeSaveData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/MapNodeSaveData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/MapSaveData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/MapSaveData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Datas/SpriteDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Datas/SpriteDatabase.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyNormal.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyNormal.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileShop.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileShop.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackWideEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackWideEnemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/MainMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +70,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Prefabs/UI/DamageValueParticle.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/UI/HealthActive.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" root0="FORCE_HIGHLIGHTING" />
@@ -74,6 +85,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MultiAttackAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Card.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AbstractCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AttackCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DiscardCardEvent.cs.meta" root0="FORCE_HIGHLIGHTING" />
@@ -94,6 +106,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackWideEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/EntityType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Neutrals/UnmovingNeutral.cs" root0="FORCE_HIGHLIGHTING" />
@@ -108,6 +121,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexMapSerializable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs.meta" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Map/MapManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Map/MapTarget.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RandomState.cs" root0="FORCE_HIGHLIGHTING" />
@@ -116,10 +130,14 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Serializer/PlayerSaveData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Serializer/PlayingStateSaveData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Serializer/RunInfoSaveData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Serializer/SaveGameObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TileHover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardCondition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardModifier.cs" root0="FORCE_HIGHLIGHTING" />
@@ -133,6 +151,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/MoreDamageCardModifier.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Events/EventData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Events/EventEntry.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveEntry.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/ShopActions/ShopActionData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/ShopActions/ShopActionEntry.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Types/Statuses/AbstractStatus.cs" root0="FORCE_HIGHLIGHTING" />
@@ -147,9 +166,11 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/EasePosition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs.meta" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/GOList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoEntry.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/ScaleWithSin.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/SetGravityFromAnimationSpeed.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/SideCardManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" root0="FORCE_HIGHLIGHTING" />
@@ -201,7 +222,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.4\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.5\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -349,6 +370,9 @@
       <workItem from="1773361358582" duration="2217000" />
       <workItem from="1774391824437" duration="10286000" />
       <workItem from="1774632082069" duration="10108000" />
+      <workItem from="1774727599039" duration="1825000" />
+      <workItem from="1774813727445" duration="7902000" />
+      <workItem from="1774887032851" duration="8659000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -590,7 +614,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774464282336</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Streamed the changes here.">
+      <option name="closed" value="true" />
+      <created>1774727635881</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1774727635881</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,7 +649,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="minor adjustment" />
     <MESSAGE value="Non Directional Attack. This hijacks the attack actions when the player is playing them via cards. The AttackCardEven has not changed." />
     <MESSAGE value="Allow for multiple cards in deck. There might be an issue with uuids, but its fine for now. Also, make sure that the player does not get stuck if they cannot attack." />
     <MESSAGE value="Bug fixes: &#10;https://trello.com/c/IsuCnAiq/46-view-deck-moves-whole-board&#10;&#10;https://trello.com/c/8JQIYgv5/34-skipping-a-hex-sends-you-to-shop-and-not-the-map" />
@@ -642,7 +673,8 @@
     <MESSAGE value="WOW! not much" />
     <MESSAGE value="Saving and stuff. Still need to make game states save important stuff (specifically the encounter data for playingstate)" />
     <MESSAGE value="Minor other things" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor other things" />
+    <MESSAGE value="Streamed the changes here." />
+    <option name="LAST_COMMIT_MESSAGE" value="Streamed the changes here." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

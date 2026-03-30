@@ -234,39 +234,48 @@ namespace Entities
             {
                 SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
             }
-            
-            
+            arrowUUIDs.Clear();
+
             foreach (AbstractAction action in actions)
             {
                 foreach (AbstractCardEvent abstractCardEvent in action.Activate(null))
                 {
                     Vector2Int pos = new Vector2Int(-20000, -20000);
-                    if (abstractCardEvent is AttackCardEvent)
+
+                    if (abstractCardEvent is AttackCardEvent attackCardEvent)
                     {
-                        if (((AttackCardEvent)abstractCardEvent).usePosition)
+                        if (attackCardEvent.usePosition)
                         {
-                            pos = ((AttackCardEvent)abstractCardEvent).position;
+                            pos = attackCardEvent.position;
                         }
                         else
                         {
-                            pos = HexGridManager.MoveHex(positionRowCol,
-                                ((AttackCardEvent)abstractCardEvent).direction,
-                                ((AttackCardEvent)abstractCardEvent).distance);
+                            pos = HexGridManager.MoveHex(
+                                positionRowCol,
+                                attackCardEvent.direction,
+                                attackCardEvent.distance
+                            );
                         }
                     }
 
-                    if (!pos.Equals(new Vector2Int(-20000, -20000)) && HexGridManager.Instance.GetAllGridPositions().Contains(pos))
+                    if (!pos.Equals(new Vector2Int(-20000, -20000)) &&
+                        HexGridManager.Instance.GetAllGridPositions().Contains(pos))
                     {
                         GameObject hex = HexGridManager.Instance.GetWorldHexObject(pos);
                         HexPreviewHandler hexHandler = hex.GetComponent<HexPreviewHandler>();
+
                         if (hexHandler.eventsOnThisHex.ContainsKey(this))
                         {
-                            hexHandler.eventsOnThisHex[this].Add(abstractCardEvent);    
+                            hexHandler.eventsOnThisHex[this].Add(abstractCardEvent);
                         }
                         else
                         {
                             hexHandler.eventsOnThisHex[this] = new List<AbstractCardEvent> { abstractCardEvent };
                         }
+
+                        // Always show arrow
+                        arrowUUIDs.Add(SpriteArrowManager.Instance.CreateArrow(positionRowCol, 
+                            pos, Color.red, "AttackIcon", 0));
                     }
                 }
             }

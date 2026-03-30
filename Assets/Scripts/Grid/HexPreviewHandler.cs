@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cards.CardEvents;
 using Entities;
+using StateManager;
 using UnityEngine;
 
 public class HexPreviewHandler : MonoBehaviour
@@ -35,21 +36,25 @@ public class HexPreviewHandler : MonoBehaviour
     
     private void OnMouseEnter()
     {
+        if (!GameStateManager.Instance.IsCurrent<PlayingState>())
+            return;
+        if (!GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput)
+            return;
         if (eventsOnThisHex.Count == 0)
             return;
-        ClearArrows();
-
-        foreach (AbstractEntity entity in eventsOnThisHex.Keys)
-        {
-            foreach (AbstractCardEvent abstractCardEvent in eventsOnThisHex[entity])
-            {
-                if (abstractCardEvent is AttackCardEvent attackCardEvent)
-                {
-                    arrowUUIDS.Add(SpriteArrowManager.Instance.CreateArrow(entity.positionRowCol, 
-                        currentPos, Color.red, "AttackIcon", attackCardEvent.amount));
-                }
-            }
-        }
+        // ClearArrows();
+        //
+        // foreach (AbstractEntity entity in eventsOnThisHex.Keys)
+        // {
+        //     foreach (AbstractCardEvent abstractCardEvent in eventsOnThisHex[entity])
+        //     {
+        //         if (abstractCardEvent is AttackCardEvent attackCardEvent)
+        //         {
+        //             arrowUUIDS.Add(SpriteArrowManager.Instance.CreateArrow(entity.positionRowCol, 
+        //                 currentPos, Color.red, "AttackIcon", attackCardEvent.amount));
+        //         }
+        //     }
+        // }
     }
 
     private void OnMouseExit()

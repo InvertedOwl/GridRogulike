@@ -240,6 +240,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Name
       value: DiamondBoy
@@ -316,6 +332,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 87
       objectReference: {fileID: 0}
+    - target: {fileID: 2817801657758168708, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Size.x
       value: 3.65
@@ -352,6 +372,22 @@ PrefabInstance:
       propertyPath: myDictionaryList.Array.data[1].Value
       value: 
       objectReference: {fileID: 5605377866389474756}
+    - target: {fileID: 3779301272054038754, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3779301272054038754, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3779301272054038754, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3779301272054038754, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: DefaultDamage
       value: 8
@@ -489,14 +525,9 @@ MonoBehaviour:
   hurtSystem: {fileID: 2437270075847589487}
   statusManager: {fileID: 6760085768087172482}
   healthBarManager: {fileID: 6466687800303399955}
-  plannedActionSprite: {fileID: 3731139645100365405}
+  plannedActionSprite: {fileID: 8570861467835659647}
   SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
   DefaultDamage: 5
---- !u!212 &3731139645100365405 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-  m_PrefabInstance: {fileID: 3670034809583585440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3822521651334489867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
@@ -524,3 +555,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1e1f834d6545058fe09046effae3a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Types.Statuses.StatusManager
+--- !u!114 &8570861467835659647 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4908717086636850655, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3670034809583585440}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image

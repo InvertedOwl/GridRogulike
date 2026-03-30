@@ -67,49 +67,68 @@ public class Deck : MonoBehaviour
 
     public void UpdatePlayability()
     {
-        // if (!GameStateManager.Instance.GetState<PlayingState>().AllowUserInput)
-        //     return;
-        
+        var playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        if (playingState != null && !playingState.AllowUserInput)
+        {
+            foreach (CardMonobehaviour card in Hand)
+            {
+                card.SetInactive(true);
+                card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
+
+
+            }
+            return;
+        }
+
         foreach (CardMonobehaviour card in Hand)
         {
             if ((int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy)
             {
                 card.SetInactive(true);
+                card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
             }
             else
             {
                 card.SetInactive(false);
+                card.GetComponent<GOList>().GetValue("Glow").SetActive(true);
             }
         }
     }
+
+    public void SetHandToUnused()
+    {
+        foreach (CardMonobehaviour card in Hand)
+        {
+            card.used = false;
+        }
+    }
+
+    private HashSet<CardMonobehaviour> _removingPlayed = new HashSet<CardMonobehaviour>();
 
     public void Update()
     {
-        List<CardMonobehaviour> toRemove = new List<CardMonobehaviour>();
-
         foreach (CardMonobehaviour card in _hand)
         {
-            if (card.used)
+            if (card.played && !_removingPlayed.Contains(card))
             {
-                card.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
-                _discard.Add(card);
-                toRemove.Add(card);
-                StartCoroutine(RemoveUsed(card));
+                _removingPlayed.Add(card);
+                StartCoroutine(RemovePlayed(card));
             }
         }
 
-        foreach (CardMonobehaviour card in toRemove)
-        {
-            _hand.Remove(card);
-        }
-
         PositionHandCards(0);
+        UpdatePlayability();
+        
     }
 
-    IEnumerator RemoveUsed(CardMonobehaviour cardMonobehaviour)
+    IEnumerator RemovePlayed(CardMonobehaviour cardMonobehaviour)
     {
-        yield return new WaitForSeconds(.45f);
+        yield return new WaitForSeconds(.45f * (1/GameplayNavSettings.speed));
         cardMonobehaviour.used = false;
+        cardMonobehaviour.played = false;
+        _discard.Add(cardMonobehaviour);
+        _hand.Remove(cardMonobehaviour);
+        PositionHandCards();
     }
 
 
@@ -192,7 +211,7 @@ public class Deck : MonoBehaviour
         Purge(_hand, card);
         Purge(_draw, card);
         Purge(_discard, card);
-        Purge(_scrap, card); // NEW
+        Purge(_scrap, card);
 
         PositionHandCards(0);
     }
@@ -240,7 +259,7 @@ public class Deck : MonoBehaviour
     private IEnumerator DiscardButtonPatient()
     {
         DiscardHand();
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
         DrawHand();
     }
 
@@ -276,6 +295,7 @@ public class Deck : MonoBehaviour
 
     public void DrawHand()
     {
+        _removingPlayed.Clear();
         FullDrawHand(4);
         PositionHandCards(0);
         Debug.Log("Cards in hand: " + _hand.Count);
@@ -321,6 +341,7 @@ public class Deck : MonoBehaviour
             drawnCard.transform.position = drawTransform.position;
             drawnLerp.targetLocation = drawTransform.localPosition;
             drawnCard.used = false;
+            drawnCard.played = false;
             drawnCard.transform.SetSiblingIndex(i);
             drawnCard.siblingIndex = i;
         }
@@ -330,7 +351,7 @@ public class Deck : MonoBehaviour
 
     IEnumerator WaitToDrawHand(int numToDraw)
     {
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(0f * (1/GameplayNavSettings.speed));
         FullDrawHand(numToDraw);
         yield break;
     }
@@ -399,6 +420,11 @@ public class Deck : MonoBehaviour
 
             Vector2 targetPos = new Vector2(parentLocal.x, parentLocal.y);
 
+            if (card.used)
+            {
+                targetPos += new Vector2(0, 50);
+            }
+
             float delay = i * animationDelayFactor;
 
             card.transform.SetAsLastSibling();
@@ -419,9 +445,9 @@ public class Deck : MonoBehaviour
         foreach (CardMonobehaviour card in _draw)
             card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
 
-        foreach (CardMonobehaviour card in _discard)
+        foreach (CardMonobehaviour card in _hand)
         {
-            if (card.used)
+            if (card.played)
             {
                 card.GetComponent<LerpPosition>().targetLocation = new Vector3(0, 180, 0);
             }
@@ -446,7 +472,7 @@ public class Deck : MonoBehaviour
 
     IEnumerator DelayedAnimation(float delaySecs, CardMonobehaviour card, Vector2 vector)
     {
-        yield return new WaitForSeconds(delaySecs);
+        yield return new WaitForSeconds(delaySecs * (1/GameplayNavSettings.speed));
         card.GetComponent<LerpPosition>().targetLocation = vector;
     }
 }

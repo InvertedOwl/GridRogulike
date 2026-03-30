@@ -45,7 +45,7 @@ namespace Util
             lerpPosition.targetRotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Rad2Deg * arrowAngle - 90));
             lerpIcon.targetLocation = arrowWorldPos;
             lerpIcon.transform.localPosition = arrowWorldPos;
-            lerpHeight.targetHeight = (float) Math.Sqrt((height * height) + (width * width)) * heightScale;
+            lerpHeight.targetHeight = ((float) Math.Sqrt((height * height) + (width * width)) * heightScale) - 0.75f;
         }
     }
 }

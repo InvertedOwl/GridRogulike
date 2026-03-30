@@ -24,6 +24,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1471314066812941477, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6278348
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471314066812941477, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6278348
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471314066812941477, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6278348
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471314066812941477, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1610136553960030327, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -42,15 +58,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1958293954019016894, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Color.b
-      value: 0.2004717
+      value: 0.12726371
       objectReference: {fileID: 0}
     - target: {fileID: 1958293954019016894, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Color.g
-      value: 0.22127227
+      value: 0.4528302
       objectReference: {fileID: 0}
     - target: {fileID: 1958293954019016894, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Color.r
-      value: 0.5
+      value: 0.07903168
       objectReference: {fileID: 0}
     - target: {fileID: 3996030904306477842, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -149,25 +165,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7131091972100408986, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131091972100408986, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Color.b
-      value: 0.41963333
+      value: 0.46274513
       objectReference: {fileID: 0}
     - target: {fileID: 7131091972100408986, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Color.g
-      value: 0.4449156
+      value: 0.7803922
       objectReference: {fileID: 0}
     - target: {fileID: 7131091972100408986, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Color.r
-      value: 0.7735849
+      value: 0.4156863
       objectReference: {fileID: 0}
     - target: {fileID: 7576115366016721614, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Name
-      value: TileEnemyNormal
+      value: TileCampfire
       objectReference: {fileID: 0}
     - target: {fileID: 7670174855461020526, guid: aa978b1380106c0459e213db08b9dba6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3753825769889500098, guid: e2bc5a19d3dbe4e3e9c3f0417a41cfb8, type: 3}
+      objectReference: {fileID: 21300000, guid: ba8c1f177ad184531b739d8a7e4fcea6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

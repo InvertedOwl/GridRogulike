@@ -54,7 +54,7 @@ namespace Entities.Enemies
                     }
 
 
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.5f * (1/GameplayNavSettings.speed));
                 }
             }
 

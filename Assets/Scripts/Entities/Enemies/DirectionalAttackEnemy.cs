@@ -28,7 +28,7 @@ namespace Entities.Enemies
                     transform.localPosition +=
                         
                         ((Vector3)HexGridManager.GetHexCenter(pos.x, pos.y) - transform.position) * 0.5f;
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
                 }
             }
         }

@@ -56,7 +56,7 @@ namespace StateManager
             Debug.Log("Enter Game StateManager");
             if (_current == null)
             {
-                Change<ShopState>();
+                Change<MapState>();
             }
             Deck.Instance.StartGame();
             

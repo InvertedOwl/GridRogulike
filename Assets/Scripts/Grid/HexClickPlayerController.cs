@@ -138,6 +138,7 @@ namespace Grid {
         {
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
+            
 
             if (!isAttacking)
                 return;
@@ -265,7 +266,7 @@ namespace Grid {
                     {
                         if (playingState.MoveEntity(playingState.player, pos)) 
                         {
-                            yield return new WaitForSeconds(0.3f);
+                            yield return new WaitForSeconds(0.3f * (1/GameplayNavSettings.speed));
                             moved = true;
                             RunInfo.Instance.CurrentSteps -= 1;
                                         
