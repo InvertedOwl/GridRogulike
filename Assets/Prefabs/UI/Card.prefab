@@ -1149,6 +1149,7 @@ MonoBehaviour:
   costText: {fileID: 5130388971783682000}
   actionText: {fileID: 0}
   used: 0
+  played: 0
   CardStatus:
     key: 
     sprite: {fileID: 0}
@@ -1164,7 +1165,7 @@ MonoBehaviour:
   hoverOffset: 60
   types: []
   inactive: 0
-  sortingLayer: 170
+  sortingLayer: 201
   siblingIndex: 0
   modifierBG: {fileID: 8387894236043471956}
 --- !u!114 &467273126732281349

@@ -48,9 +48,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 131
       m_Height: 133
-      m_HorizontalBearingX: -4
-      m_HorizontalBearingY: 101.7
-      m_HorizontalAdvance: 105.88
+      m_HorizontalBearingX: 7.2
+      m_HorizontalBearingY: 97.8
+      m_HorizontalAdvance: 146.6
     m_GlyphRect:
       m_X: 0
       m_Y: 0
@@ -69,6 +69,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ff1c3a2245a8c8c4a8a138bfec59d78c, type: 2}
   - {fileID: 11400000, guid: f12e260988bc0204d984d2ce06bb5c41, type: 2}
   - {fileID: 11400000, guid: d7eb7b0ccb455f44e8f10bd48c29056c, type: 2}
+  - {fileID: 11400000, guid: c7031e3633e325847b8bde69bd7cea4b, type: 2}
 --- !u!21 &6544335570700892589
 Material:
   serializedVersion: 8

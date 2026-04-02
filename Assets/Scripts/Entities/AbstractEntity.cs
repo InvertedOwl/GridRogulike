@@ -274,8 +274,11 @@ namespace Entities
                         }
 
                         // Always show arrow
-                        arrowUUIDs.Add(SpriteArrowManager.Instance.CreateArrow(positionRowCol, 
-                            pos, Color.red, "AttackIcon", 0));
+                        if (abstractCardEvent is AttackCardEvent attack)
+                        {
+                            arrowUUIDs.Add(SpriteArrowManager.Instance.CreateArrow(positionRowCol,
+                                pos, Color.red, "AttackIcon", attack.amount));
+                        }
                     }
                 }
             }

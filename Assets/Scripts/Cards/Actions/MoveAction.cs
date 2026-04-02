@@ -19,7 +19,12 @@ namespace Cards.Actions
                 return "footsteps";
             }
         }
-        
+
+        public override string ToSimpleText()
+        {
+            return "<sprite name=footsteps>";
+        }
+
         public string _direction;
         public string Direction { get { return _direction; } set { _direction = value; } }
         public int _distance;

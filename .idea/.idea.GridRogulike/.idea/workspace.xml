@@ -7,36 +7,23 @@
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyBoss.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyHard.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyNormal.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEnemyNormal.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileShop.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileShop.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MoveAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MoveAction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackWideEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackWideEnemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/draw.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/draw.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/droplets.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/droplets.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/footsteps.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/footsteps.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/shield.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/shield.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -372,7 +359,8 @@
       <workItem from="1774632082069" duration="10108000" />
       <workItem from="1774727599039" duration="1825000" />
       <workItem from="1774813727445" duration="7902000" />
-      <workItem from="1774887032851" duration="8659000" />
+      <workItem from="1774887032851" duration="10672000" />
+      <workItem from="1775062257821" duration="1412000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -622,7 +610,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774727635881</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Lots of changes + broken intents">
+      <option name="closed" value="true" />
+      <created>1774905890510</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1774905890510</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -649,7 +645,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Non Directional Attack. This hijacks the attack actions when the player is playing them via cards. The AttackCardEven has not changed." />
     <MESSAGE value="Allow for multiple cards in deck. There might be an issue with uuids, but its fine for now. Also, make sure that the player does not get stuck if they cannot attack." />
     <MESSAGE value="Bug fixes: &#10;https://trello.com/c/IsuCnAiq/46-view-deck-moves-whole-board&#10;&#10;https://trello.com/c/8JQIYgv5/34-skipping-a-hex-sends-you-to-shop-and-not-the-map" />
     <MESSAGE value="Little animation for free" />
@@ -674,7 +669,8 @@
     <MESSAGE value="Saving and stuff. Still need to make game states save important stuff (specifically the encounter data for playingstate)" />
     <MESSAGE value="Minor other things" />
     <MESSAGE value="Streamed the changes here." />
-    <option name="LAST_COMMIT_MESSAGE" value="Streamed the changes here." />
+    <MESSAGE value="Lots of changes + broken intents" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lots of changes + broken intents" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -24,6 +24,11 @@ namespace Cards.Actions
                 return "Question";
             }
         }
+
+        public virtual string ToSimpleText()
+        {
+            return "<sprite name=question>";
+        }
         
         
         public static RandomState guidRandom = RunInfo.NewRandom("aguid".GetHashCode());

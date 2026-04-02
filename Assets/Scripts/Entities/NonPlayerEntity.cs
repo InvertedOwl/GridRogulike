@@ -55,18 +55,23 @@ namespace Entities
 
         public void SetIntent()
         {
-            return;
+            // return;
             AbstractAction actionChosen = _plannedAction[_plannedAction.Count - 1];
 
+            if (actionChosen is AttackAction)
+                return;
+            
+            
 
-            plannedActionSprite.sprite = SpriteDatabase.Get(actionChosen.Icon).Value.sprite;
-            plannedActionSprite.transform.parent.GetComponent<EaseScale>().SetScale(Vector3.one);
+            // plannedActionSprite.sprite = SpriteDatabase.Get(actionChosen.Icon).Value.sprite;
+            plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.one);
+            plannedActionSprite.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionChosen.ToSimpleText();
         }
 
         public void RemoveIntent()
         {
-            return;
-            plannedActionSprite.transform.parent.GetComponent<EaseScale>().SetScale(Vector3.zero);
+            // return;
+            plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.zero);
         }
     }
 }

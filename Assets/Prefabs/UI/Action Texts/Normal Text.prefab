@@ -401,7 +401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 7<sprite name="droplets">
+  m_text: 7<sprite name="question">
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
   m_sharedMaterial: {fileID: -4673465573792361752, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}

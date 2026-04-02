@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Size.x
       value: 1.81
@@ -100,6 +116,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 6790864274914521092, guid: a46cf1a31cae59341b00ee3aefa071cc, type: 3}
+    - target: {fileID: 2817801657758168708, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2924551331595889280, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Size.x
       value: 3.96
@@ -192,11 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fc10d5ec12942e7ba610a821f3cc9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GOList
---- !u!212 &3260014615399079367 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 83666838346129149, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-  m_PrefabInstance: {fileID: 3176401745532699450}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3326344764978528588 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
@@ -224,7 +239,7 @@ MonoBehaviour:
   hurtSystem: {fileID: 4551064997210469877}
   statusManager: {fileID: 4839939721375677976}
   healthBarManager: {fileID: 5135238214336626569}
-  plannedActionSprite: {fileID: 3260014615399079367}
+  plannedActionSprite: {fileID: 6033234443483992721}
   SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
   DefaultDamage: 10
 --- !u!114 &4421155946633991437 stripped
@@ -276,3 +291,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3212144da0f0c149b258aadf187c43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &6033234443483992721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9200434352245936555, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_PrefabInstance: {fileID: 3176401745532699450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image

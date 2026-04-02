@@ -43,7 +43,7 @@ public class TileHover : MonoBehaviour
         {
             if (lerpPosition)
             {
-                lerpPosition.targetLocation = new Vector3(0, -0.08f, lerpPosition.startPosition.z);
+                lerpPosition.targetLocation = new Vector3(0, -0.04f, lerpPosition.startPosition.z);
             }
 
             if (activateOnHover && ticksHovered > waitTicks)
