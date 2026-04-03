@@ -5,47 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/DirectionalAttackEnemy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/DirectionalAttackEnemy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/EnemyMovementBehavior.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/EnemyMovementBehavior.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackEnemy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackEnemy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackWideEnemy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackWideEnemy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/TestNonPlayerEntity.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/TestNonPlayerEntity.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/AbstractEntityBehavior.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/AbstractEntityBehavior.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/DirectionalAttackEnemy.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyMovementBehavior.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyMovementBehavior.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackEnemy.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackWideEnemy.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/MoveAttackWideEnemy.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/TestNonPlayerEntity.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/StatusManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/StatusManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Diamond.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Diamond.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/PentagonBody.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/PentagonBody.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/SquareEnemyBody.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/SquareEnemyBody.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/StarBody.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/StarBody.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/TriangleEnemyBody.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/TriangleEnemyBody.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -389,7 +352,7 @@
       <workItem from="1775062257821" duration="1412000" />
       <workItem from="1775099039415" duration="4100000" />
       <workItem from="1775150572225" duration="345000" />
-      <workItem from="1775151435822" duration="13719000" />
+      <workItem from="1775151435822" duration="16309000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -663,7 +626,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775234499714</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Ui changes mostly (minor entity changes)">
+      <option name="closed" value="true" />
+      <created>1775242524606</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1775242524606</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -690,7 +661,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Bug fixes: &#10;https://trello.com/c/IsuCnAiq/46-view-deck-moves-whole-board&#10;&#10;https://trello.com/c/8JQIYgv5/34-skipping-a-hex-sends-you-to-shop-and-not-the-map" />
     <MESSAGE value="Little animation for free" />
     <MESSAGE value="Small update to inital board. TODO: Make this based on the starting character" />
     <MESSAGE value="Allow scrapping" />
@@ -715,7 +685,8 @@
     <MESSAGE value="Lots of changes + broken intents" />
     <MESSAGE value="Minor adjustments" />
     <MESSAGE value="Big boy changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Big boy changes" />
+    <MESSAGE value="Ui changes mostly (minor entity changes)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ui changes mostly (minor entity changes)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -16,8 +16,9 @@ namespace Types.Tiles
         public bool canAppearInShop;
         public Rarity rarity;
         public TileType tileType;
+        public string icon;
 
-        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType, Func<List<AbstractCardEvent>, List<AbstractCardEvent>> cardModifier, Func<List<AbstractCardEvent>> landEvent)
+        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType, Func<List<AbstractCardEvent>, List<AbstractCardEvent>> cardModifier, Func<List<AbstractCardEvent>> landEvent, string icon = "none")
         {
             this.name = name;
             this.description = description;
