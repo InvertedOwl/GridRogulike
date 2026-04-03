@@ -14,7 +14,7 @@ using Util;
 
 namespace Entities
 {
-    public abstract class NonPlayerEntity: AbstractEntity
+    public class NonPlayerEntity: AbstractEntity
     {
         public Image plannedActionSprite;
         public SpriteDatabase SpriteDatabase;
@@ -50,13 +50,13 @@ namespace Entities
         }
 
         
-        public abstract IEnumerator MakeTurn();
-        public abstract List<AbstractAction> NextTurn();
+        // public abstract IEnumerator MakeTurn();
+        // public abstract List<AbstractAction> NextTurn();
 
         public void SetIntent()
         {
             // return;
-            AbstractAction actionChosen = _plannedAction[_plannedAction.Count - 1];
+            AbstractAction actionChosen = plannedAction[plannedAction.Count - 1];
 
             if (actionChosen is AttackAction)
                 return;

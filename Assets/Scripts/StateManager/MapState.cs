@@ -63,13 +63,11 @@ namespace StateManager
                 hasSetup = true;
                 SetupMap();
             }
-            
-            window.SendToLocation(new Vector3(0, 20, 0));
-            
-            DrawConnections();
-            MoveMap();
-            tempMapOffset = 0;
 
+            window.SendToLocation(new Vector3(0, 20, 0));
+
+            DrawConnections();
+            tempMapOffset = 0;
 
             if (mapSaveData != null)
             {
@@ -77,7 +75,12 @@ namespace StateManager
                 tempMapOffset = mapSaveData.tempMapOffset;
 
                 UpdateCurrentNode();
+                MoveMap();
                 mapSaveData = null;
+            }
+            else
+            {
+                MoveMap();
             }
         }
         
@@ -119,14 +122,13 @@ namespace StateManager
                 GameStateManager.Instance.Change<PlayingState>();
             }
 
-            if (node.target == MapTarget.Shop)
+            if (node.target == MapTarget.Campfire)
             {
-                GameStateManager.Instance.Change<ShopState>();
+                GameStateManager.Instance.Change<CampfireState>();
             }
 
             if (node.target == MapTarget.Event)
             {
-                // TODO: new state
                 GameStateManager.Instance.Change<EventState>();
             }
             

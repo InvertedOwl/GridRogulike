@@ -393,6 +393,26 @@ public class Deck : MonoBehaviour
 
     public void PositionHandCards(float animationDelayFactor = 0.2f)
     {
+        if (!GameStateManager.Instance.IsCurrent<PlayingState>())
+        {
+            foreach (CardMonobehaviour card in _draw)
+                card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
+
+            foreach (CardMonobehaviour card in _discard)
+                card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
+
+            foreach (CardMonobehaviour card in _hand)
+                card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
+
+            if (scrapTransform != null)
+            {
+                foreach (CardMonobehaviour card in _scrap)
+                    card.GetComponent<LerpPosition>().targetLocation = scrapTransform.localPosition;
+            }
+
+            return;
+        }
+        
         RectTransform handRect = GetComponent<RectTransform>();
         float width = (_hand.Count <= 3) ? handRect.rect.width * 0.65f : handRect.rect.width;
 

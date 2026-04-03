@@ -15,8 +15,11 @@ namespace Cards.CardList
                 // Developer
                 ["DeveloperAttack"] = () => new(new Card("Developer Attack", new List<AbstractAction>
                 { 
-                    new AttackAllAction(1, "basic", null, 500),
-                }, Rarity.Developer, CardSet.Base)),
+                    new AttackAllAction(0, "basic", null, 500),
+                    new GainStepsCardAction(0,  "basic", null, 500),
+                    new ShieldAction(0, "basic", null, 500),
+                }, Rarity.Developer, CardSet.Developer),
+                new [] { new StartingDeckEntry(StartingDecks.basic, 5) }, false),
                 
                 // - Common -
                     // Basic Starting Deck x2
@@ -75,7 +78,7 @@ namespace Cards.CardList
                 { 
                     new ShieldAction(1, "basic", null, 10)
                 }, Rarity.Common, CardSet.Base),
-                new [] { new StartingDeckEntry(StartingDecks.basic, 2)}),
+                new [] { new StartingDeckEntry(StartingDecks.basic, 2)}, false),
 
                 ["ShieldTradeOff"] = () => new(new Card("Trade Off", new List<AbstractAction>
                 { 
@@ -293,16 +296,19 @@ namespace Cards.CardList
                 .Select(kv => kv.Key);
 
 
-        public static List<Card> GetStarter(StartingDecks deck) =>
-            defs.Values
-                .Select(def => def())
-                .Where(entry => entry.StartingDecks?.Any(sd => sd.startingDeck == deck) == true)
-                .SelectMany(entry =>
-                    entry.StartingDecks!
-                        .Where(sd => sd.startingDeck == deck)
-                        .SelectMany(sd => Enumerable.Repeat(entry.LocalCard, sd.numberOfCards))
-                )
-                .ToList();
+    public static List<Card> GetStarter(StartingDecks deck) =>
+        defs.Values
+            .Select(def => def())
+            .Where(entry => entry.StartingDecks?.Any(sd => sd.startingDeck == deck) == true)
+            .SelectMany(entry =>
+                entry.StartingDecks!
+                    .Where(sd => sd.startingDeck == deck)
+                    .SelectMany(sd =>
+                        Enumerable.Range(0, sd.numberOfCards)
+                            .Select(_ => new Card(entry.LocalCard))
+                    )
+            )
+            .ToList();
         
         public static List<Card> GetCardsByRarity(Rarity rarity) =>
             defs.Values

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
+using Random = System.Random;
 
 public class RunInfo : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class RunInfo : MonoBehaviour
     public Button redrawButton;
     public List<TextMeshProUGUI> difficultyText;
     public List<TextMeshProUGUI> stepsText;
-    public static string seed = "Testing1234";
+    public static string seed = new Random().Next().ToString();
     public readonly int combineCost = 2;
 
 

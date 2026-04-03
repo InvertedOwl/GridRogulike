@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Map.MapNode
   children: []
-  target: 1
+  target: 2
   isOn: 0
   GoList: {fileID: 838441361691567007}
   rewardMoney: 0

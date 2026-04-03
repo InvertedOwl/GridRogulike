@@ -34,6 +34,7 @@ namespace Types.Events
                 Debug.LogError("Events dictionary is null or empty!");
                 return null;
             }
+            Debug.Log(random);
             return Events[Events.Keys.ToList()[random.Next(Events.Count)]];
         }
     }

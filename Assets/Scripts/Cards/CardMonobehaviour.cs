@@ -45,6 +45,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public bool played;
     public CardStatusDatabase.CardStatus? CardStatus;
     private Card _card;
+    public bool onlyDisplay = false;
     
     public Card Card => _card;
     public float CostOverride = -1f;
@@ -387,6 +388,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void HandleCardUsage()
     {
+
         if (!_cardSet || inactive)
             return;
 
@@ -403,7 +405,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             used = true;
             CardClickedCallback?.Invoke();
         }
-        if (!wasUsed)
+        if (!wasUsed || onlyDisplay)
             return;
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
         bool isPlayerTurn = false;

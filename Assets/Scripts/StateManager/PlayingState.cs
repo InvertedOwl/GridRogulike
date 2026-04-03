@@ -255,7 +255,7 @@ namespace StateManager
             {
                 if (e is NonPlayerEntity nonPlayerEntity)
                 {
-                    nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.NextTurn());
+                    nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.behavior.NextTurn());
                     nonPlayerEntity.SetIntent();
                 }
             }
@@ -433,7 +433,7 @@ namespace StateManager
 
             if (entity is NonPlayerEntity nonPlayerEntity)
             {
-                nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.NextTurn());
+                nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.behavior.NextTurn());
                 nonPlayerEntity.SetIntent();
             }
             
@@ -490,7 +490,7 @@ namespace StateManager
         private IEnumerator MakeEnemyTurn(NonPlayerEntity nonPlayerEntity)
         {
             yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
-            yield return nonPlayerEntity.MakeTurn();
+            yield return nonPlayerEntity.behavior.MakeTurn();
             yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
             EntityEndTurn();
         }

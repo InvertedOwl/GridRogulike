@@ -9,7 +9,7 @@ using Util;
 
 namespace Entities.Enemies
 {
-    public class DirectionalAttackEnemy : NonPlayerEntity
+    public class DirectionalAttackEnemy : AbstractEntityBehavior
     {
         public int DefaultDamage = 10;
 
@@ -20,10 +20,10 @@ namespace Entities.Enemies
         {
             for (int i = 0; i < 4; i++)
             {
-                foreach (AbstractCardEvent cardEvent in ModifyEvents(new AttackAction(0, "basic", this, _direction, i + 1, DefaultDamage).Activate(null)))
+                foreach (AbstractCardEvent cardEvent in self.ModifyEvents(new AttackAction(0, "basic", self, _direction, i + 1, DefaultDamage).Activate(null)))
                 {
-                    cardEvent.Activate(this);
-                    Vector2Int pos = HexGridManager.MoveHex(positionRowCol, _direction, i+1);
+                    cardEvent.Activate(self);
+                    Vector2Int pos = HexGridManager.MoveHex(self.positionRowCol, _direction, i+1);
                     
                     transform.localPosition +=
                         
@@ -39,7 +39,7 @@ namespace Entities.Enemies
         public override List<AbstractAction> NextTurn()
         {
             string[] directions = new[] { "n", "ne", "nw", "s", "se", "sw" };
-            _direction = directions[_entityRandom.Next(0, directions.Length)];
+            _direction = directions[self.EntityRandom.Next(0, directions.Length)];
 
             string maxDirection = "-";
             int maxDirectionCount = 0;
@@ -53,11 +53,11 @@ namespace Entities.Enemies
                 for (int i = 0; i < 4; i++)
                 {
                     if (HexGridManager.Instance.GetAllGridPositions()
-                        .Contains(HexGridManager.MoveHex(this.positionRowCol, direction, i + 1)))
+                        .Contains(HexGridManager.MoveHex(self.positionRowCol, direction, i + 1)))
                         countDirection++;
                     
                     List<AbstractEntity> entitiesOnHex = new List<AbstractEntity>();
-                    playingState.EntitiesOnHex(HexGridManager.MoveHex(this.positionRowCol, direction, i+1), out entitiesOnHex);
+                    playingState.EntitiesOnHex(HexGridManager.MoveHex(self.positionRowCol, direction, i+1), out entitiesOnHex);
                     
                     bool hasPlayer = false;
                     foreach (AbstractEntity entityOnHex in entitiesOnHex)
@@ -86,9 +86,9 @@ namespace Entities.Enemies
 
             for (int i = 0; i < 4; i++)
             {
-                actions.Add(new AttackAction(0, "basic", this, _direction, i + 1, DefaultDamage));
+                actions.Add(new AttackAction(0, "basic", self, _direction, i + 1, DefaultDamage));
             }
-            _plannedAction = actions;
+            self.plannedAction = actions;
             return actions;
         }
         

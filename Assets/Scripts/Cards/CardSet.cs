@@ -7,6 +7,7 @@ namespace Cards
          Triangle,
          Star,
          Semi,
-         Squar
+         Squar,
+         Developer
     }
 }

@@ -21,6 +21,12 @@ public class DeckView : MonoBehaviour
         ViewDeck(cardBlacklist);
     }
     
+    public void GetCard(Action<Card> callback)
+    {
+        Callback = callback;
+        ViewDeck();
+    }
+    
     
     public void Start()
     {
@@ -83,6 +89,7 @@ public class DeckView : MonoBehaviour
                 Callback = null;
                 Exit();
             };
+            cardMono.onlyDisplay = true;
             cardObject.transform.localScale = new Vector3(0.1239199f, 0.1239199f, 0.1239199f);
             Destroy(cardObject.GetComponent<LerpPosition>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(cards.GetComponent<RectTransform>());

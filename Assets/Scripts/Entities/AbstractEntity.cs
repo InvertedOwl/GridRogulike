@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cards.Actions;
 using Cards.CardEvents;
+using Entities.Enemies;
 using Grid;
 using StateManager;
 using TMPro;
@@ -19,7 +20,8 @@ namespace Entities
     {
         public EyesFollowMouse eyesFollowMouse;
         public float initialHealth;
-        protected List<AbstractAction> _plannedAction = new List<AbstractAction>();
+        public List<AbstractAction> plannedAction = new List<AbstractAction>();
+        public AbstractEntityBehavior behavior;
         public GOList GoList;
 
         public float _health;
@@ -44,7 +46,7 @@ namespace Entities
         
         
         // Unique entity random
-        protected RandomState _entityRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        public RandomState EntityRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
         
         public Dictionary<Vector2Int, int> CalculateDistanceMap(Vector2Int hexPosition, PlayingState playingState, AbstractEntity nonblock = null)
         {
@@ -131,10 +133,10 @@ namespace Entities
                 return;
             }
             bool attacking = false;
-            if (_plannedAction.Count > 0)
+            if (plannedAction.Count > 0)
             {
                 
-                foreach (AbstractAction action in _plannedAction)
+                foreach (AbstractAction action in plannedAction)
                 {
                     if (action is AttackAction attackAction)
                     {
@@ -295,8 +297,8 @@ namespace Entities
             }
 
 
-            _plannedAction = new List<AbstractAction>();
-            HandleNextTurnActions(_plannedAction);
+            plannedAction = new List<AbstractAction>();
+            HandleNextTurnActions(plannedAction);
             if (GoList.HasValue("DeadEyes"))
             {
                 eyesFollowMouse.gameObject.SetActive(false);

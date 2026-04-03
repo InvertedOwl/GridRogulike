@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7643140958966430800}
   - component: {fileID: 6176410947071014646}
   - component: {fileID: 8419187899751538705}
-  - component: {fileID: 4426133997993981819}
   - component: {fileID: 3739634389966307953}
   - component: {fileID: 8149859710638922124}
+  - component: {fileID: 5286917440407922032}
+  - component: {fileID: 5709112935243033909}
   m_Layer: 0
   m_Name: PentagonBoy
   m_TagString: Untagged
@@ -167,31 +168,6 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4426133997993981819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161378063130477174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ad60e4d4d54cc28769bf8b30d1ff08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EasyEnemyJimbo
-  eyesFollowMouse: {fileID: 1247428267075556919}
-  initialHealth: 15
-  GoList: {fileID: 3739634389966307953}
-  _health: 0
-  entityType: 0
-  turnIndicatorIcon: {fileID: 1341593030411954701}
-  positionRowCol: {x: 0, y: 0}
-  hurtSystem: {fileID: 1386115888341186255}
-  statusManager: {fileID: 8015900489651469602}
-  healthBarManager: {fileID: 7732926284550110387}
-  plannedActionSprite: {fileID: 9200434352245936555}
-  SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
-  DefaultDamage: 4
 --- !u!114 &3739634389966307953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +203,49 @@ MonoBehaviour:
   activeHover: 1
   hoverWhenNotPlaytate: 0
   sideThing: {fileID: 0}
+--- !u!114 &5286917440407922032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161378063130477174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f283e13fea49deb34238e8bc800b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.NonPlayerEntity
+  eyesFollowMouse: {fileID: 1247428267075556919}
+  initialHealth: 20
+  behavior: {fileID: 5709112935243033909}
+  GoList: {fileID: 3739634389966307953}
+  _health: 20
+  entityType: 0
+  turnIndicatorIcon: {fileID: 0}
+  positionRowCol: {x: 0, y: 0}
+  hurtSystem: {fileID: 1386115888341186255}
+  statusManager: {fileID: 8015900489651469602}
+  healthBarManager: {fileID: 7732926284550110387}
+  plannedActionSprite: {fileID: 9200434352245936555}
+  SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
+--- !u!114 &5709112935243033909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161378063130477174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ad60e4d4d54cc28769bf8b30d1ff08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveAttackEnemy
+  self: {fileID: 5286917440407922032}
+  maxMovesPerTurn: 5
+  stopMovingWhenWithinDistance: 1
+  attackRange: 1
+  defaultDamage: 10
+  actionDelay: 0.5
 --- !u!1 &436744844242049286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,8 +1621,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 66.3, y: -50}
-  m_SizeDelta: {x: 132.6, y: 100}
+  m_AnchoredPosition: {x: 30.15, y: -50}
+  m_SizeDelta: {x: 60.3, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6032224164995805346
 CanvasRenderer:
@@ -1633,7 +1652,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5<sprite name=droplets>
+  m_text: ':)
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
   m_sharedMaterial: {fileID: -4673465573792361752, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}

@@ -5,158 +5,137 @@ using Cards.CardEvents;
 using Grid;
 using StateManager;
 using UnityEngine;
-using Util;
 
 namespace Entities.Enemies
 {
-    public class MoveAttackEnemy : NonPlayerEntity
+    public class MoveAttackEnemy : MoveTowardsPlayerEnemy
     {
+        [Header("Attack")]
+        public int attackRange = 1;
+        public int defaultDamage = 10;
+        public float actionDelay = 0.5f;
 
-        private int movementPerTurn = 3;
-        public int DefaultDamage = 10;
-        
-        public void Awake()
+        private void Awake()
         {
-            AvailableActions.Add(new AttackAction(1, "basic", this, "n", 1, DefaultDamage));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "s", 1, DefaultDamage));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "ne", 1, DefaultDamage));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "nw", 1, DefaultDamage));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "se", 1, DefaultDamage));
-            AvailableActions.Add(new AttackAction(1, "basic", this, "sw", 1, DefaultDamage));
+            InitializeAttackActions();
         }
-        
+
+        private void InitializeAttackActions()
+        {
+            self.AvailableActions.Clear();
+
+            foreach (string direction in HexDirections)
+            {
+                self.AvailableActions.Add(
+                    new AttackAction(1, "basic", self, direction, attackRange, defaultDamage)
+                );
+            }
+        }
 
         public override IEnumerator MakeTurn()
         {
-            
-            if (_plannedAction.Count == 0)
+            if (self.plannedAction == null || self.plannedAction.Count == 0)
             {
                 yield break;
             }
 
-            foreach (AbstractAction action in _plannedAction)
+            foreach (AbstractAction action in self.plannedAction)
             {
                 foreach (AbstractCardEvent cardEvent in action.Activate(null))
                 {
+                    HandlePreEventVisual(cardEvent);
 
-                    if (cardEvent is AttackCardEvent)
+                    foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(new List<AbstractCardEvent> { cardEvent }))
                     {
-                        AttackCardEvent attackCardEvent = (AttackCardEvent)cardEvent;
-                        Vector2Int targetPos = HexGridManager.MoveHex(positionRowCol, attackCardEvent.direction,
-                            attackCardEvent.distance);
-                        transform.localPosition +=
-                            ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position)
-                            .normalized * 0.5f;
+                        modifiedEvent.Activate(self);
                     }
 
-                    foreach (AbstractCardEvent modifiedEvent in ModifyEvents(new List<AbstractCardEvent> { cardEvent }))
-                    {
-                        modifiedEvent.Activate(this);
-                    }
-
-
-                    yield return new WaitForSeconds(0.5f * (1/GameplayNavSettings.speed));
+                    yield return new WaitForSeconds(actionDelay * (1 / GameplayNavSettings.speed));
                 }
             }
 
-            
-            _plannedAction.Clear();
+            self.plannedAction.Clear();
         }
 
-        
-        
-        private void PlanTurn()
-        {
-            
-            Debug.Log("LIST AVAILABLE ACTIONS: " + AvailableActions.Count);
-            
-            // Plan next turn
-            foreach (AttackAction action in AvailableActions)
-            {
-                string dir = action.Direction;
-
-                Debug.Log("CURRENT POSITION " + positionRowCol);
-                List<AbstractEntity> entitiesOnHex = new List<AbstractEntity>();
-                GameStateManager.Instance.GetCurrent<PlayingState>().EntitiesOnHex(HexGridManager.MoveHex(this.positionRowCol, dir, 1), out entitiesOnHex);
-                
-                foreach (AbstractEntity e in entitiesOnHex)
-                {
-                    Debug.Log(e.positionRowCol + " ENTITY ON HEX");
-                    
-                    if (e.entityType == EntityType.Player)
-                    {
-                        _plannedAction.Add(action);
-                    }
-                }
-            }
-
-
-            if (_plannedAction.Count == 0)
-            {
-                // Move towards player if can't attack them (Add player as non blocker)
-                PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
-                Dictionary<Vector2Int, int> distanceMap = CalculateDistanceMap(state.player.positionRowCol, state, state.player);
-                
-                
-                
-                Vector2Int currentPosition = positionRowCol;
-                for (int i = 0; i < movementPerTurn; i++)
-                {
-                    List<MoveAction> moveActions = new List<MoveAction>();
-                    moveActions.Add(new MoveAction(1, "basic", this, "n", 1));
-                    moveActions.Add(new MoveAction(1, "basic", this, "ne", 1));
-                    moveActions.Add(new MoveAction(1, "basic", this, "nw", 1));
-                    moveActions.Add(new MoveAction(1, "basic", this, "s", 1));
-                    moveActions.Add(new MoveAction(1, "basic", this, "se", 1));
-                    moveActions.Add(new MoveAction(1, "basic", this, "sw", 1));
-
-                    int minDistance = int.MaxValue;
-                    MoveAction actionToTake = null;
-                
-                    foreach (MoveAction a in moveActions)
-                    {
-                        string dir = a.Direction;
-                        Vector2Int movedHex = HexGridManager.MoveHex(currentPosition, dir, 1);
-
-                        if (distanceMap.ContainsKey(movedHex) && distanceMap[movedHex] < minDistance && distanceMap[movedHex] != -1)
-                        {
-                            minDistance = distanceMap[movedHex];
-                            actionToTake = a;
-                        }
-                    }
-
-                    currentPosition = HexGridManager.MoveHex(currentPosition, actionToTake.Direction, 1);
-                
-                    _plannedAction.Add(actionToTake);
-                    
-                    if (distanceMap[currentPosition] <= 1)
-                    {
-                        break;
-                    }
-                }   
-            }
-        }
-
-        // For assigning to things, need to tell controllers what enemies next turn is
         public override List<AbstractAction> NextTurn()
         {
-            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-            Debug.Log("NUM ENTITIES: " + playingState.entities.Count);
-
-            foreach (AbstractEntity e in playingState.entities)
+            if (self.plannedAction == null)
             {
-                Debug.Log("A POSITION: " + e.positionRowCol);
-                Debug.Log("TYPE: " + e.entityType);
-
+                self.plannedAction = new List<AbstractAction>();
             }
-            
-            if (_plannedAction.Count == 0)
+
+            if (self.plannedAction.Count == 0)
             {
                 PlanTurn();
             }
-            
-            return _plannedAction;
+
+            return self.plannedAction;
         }
-        
+
+        private void PlanTurn()
+        {
+            self.plannedAction.Clear();
+
+            if (TryPlanAttack())
+            {
+                return;
+            }
+
+            PlanMovementTowardsPlayer();
+        }
+
+        private bool TryPlanAttack()
+        {
+            foreach (AttackAction attackAction in self.AvailableActions)
+            {
+                if (CanAttackPlayer(attackAction))
+                {
+                    self.plannedAction.Add(attackAction);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CanAttackPlayer(AttackAction attackAction)
+        {
+            Vector2Int targetHex = HexGridManager.MoveHex(
+                self.positionRowCol,
+                attackAction.Direction,
+                attackAction._distance
+            );
+
+            PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
+            state.EntitiesOnHex(targetHex, out List<AbstractEntity> entitiesOnHex);
+
+            foreach (AbstractEntity entity in entitiesOnHex)
+            {
+                if (entity.entityType == EntityType.Player)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void HandlePreEventVisual(AbstractCardEvent cardEvent)
+        {
+            if (cardEvent is not AttackCardEvent attackCardEvent)
+            {
+                return;
+            }
+
+            Vector2Int targetPos = HexGridManager.MoveHex(
+                self.positionRowCol,
+                attackCardEvent.direction,
+                attackCardEvent.distance
+            );
+
+            transform.localPosition +=
+                ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position)
+                .normalized * 0.5f;
+        }
     }
 }

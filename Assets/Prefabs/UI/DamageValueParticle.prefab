@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1948790581289561086}
   - component: {fileID: 2312852480708622797}
   - component: {fileID: 2854589881320375097}
+  - component: {fileID: 6143409782595562975}
   m_Layer: 0
   m_Name: DamageValueParticle
   m_TagString: Untagged
@@ -39,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.2267, y: 0.29946}
-  m_SizeDelta: {x: 4.7441, y: 3.5296}
+  m_SizeDelta: {x: 0, y: 3.5296}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8355591662259627027
 MeshRenderer:
@@ -110,7 +111,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12
+  m_text: 500
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
   m_sharedMaterial: {fileID: -4673465573792361752, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
@@ -252,3 +253,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a467b012594f58d41962024d890d7701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &6143409782595562975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989911552943838377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 2
+  m_VerticalFit: 0

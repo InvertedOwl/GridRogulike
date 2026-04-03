@@ -2,10 +2,9 @@ namespace Map
 {
     public enum MapTarget
     {
-        Shop,
+        Campfire,
         Enemy,
         HardEnemy,
-        Mystery,
         Event,
         Boss
     }

@@ -242,19 +242,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 60.3
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 30.15
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Name
@@ -400,6 +404,14 @@ PrefabInstance:
       propertyPath: eyesFollowMouse
       value: 
       objectReference: {fileID: 2972820130270987686}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: behavior
+      value: 
+      objectReference: {fileID: 3287205965066659470}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: eyesFollowMouse
+      value: 
+      objectReference: {fileID: 2972820130270987686}
     - target: {fileID: 5387418325193270740, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_text
       value: '0/0
@@ -460,6 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4426133997993981819, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+    - {fileID: 5709112935243033909, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
     m_RemovedGameObjects:
     - {fileID: 536503033082195714, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
     m_AddedGameObjects:
@@ -471,33 +484,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3287205965066659470}
   m_SourcePrefab: {fileID: 100100000, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
---- !u!114 &75238055862766289 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3739634389966307953, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-  m_PrefabInstance: {fileID: 3670034809583585440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3518368252074035926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fc10d5ec12942e7ba610a821f3cc9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GOList
---- !u!114 &2337613355693662893 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1341593030411954701, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-  m_PrefabInstance: {fileID: 3670034809583585440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
---- !u!198 &2437270075847589487 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1386115888341186255, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-  m_PrefabInstance: {fileID: 3670034809583585440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3518368252074035926 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
@@ -515,54 +501,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6254b6ad063d439d979dbea54a19d8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveAttackWideEnemy
-  eyesFollowMouse: {fileID: 2972820130270987686}
-  initialHealth: 16
-  GoList: {fileID: 75238055862766289}
-  _health: 16
-  entityType: 0
-  turnIndicatorIcon: {fileID: 2337613355693662893}
-  positionRowCol: {x: 0, y: 0}
-  hurtSystem: {fileID: 2437270075847589487}
-  statusManager: {fileID: 6760085768087172482}
-  healthBarManager: {fileID: 6466687800303399955}
-  plannedActionSprite: {fileID: 5566474955713403147}
-  SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
-  DefaultDamage: 5
+  self: {fileID: 8912749352281746896}
+  maxMovesPerTurn: 1
+  stopMovingWhenWithinDistance: 1
+  defaultDamage: 10
 --- !u!4 &3822521651334489867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
   m_PrefabInstance: {fileID: 3670034809583585440}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5566474955713403147 stripped
+--- !u!114 &8912749352281746896 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9200434352245936555, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
   m_PrefabInstance: {fileID: 3670034809583585440}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3518368252074035926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 88f283e13fea49deb34238e8bc800b83, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
---- !u!114 &6466687800303399955 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7732926284550110387, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-  m_PrefabInstance: {fileID: 3670034809583585440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3212144da0f0c149b258aadf187c43e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!114 &6760085768087172482 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8015900489651469602, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-  m_PrefabInstance: {fileID: 3670034809583585440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f1e1f834d6545058fe09046effae3a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Types.Statuses.StatusManager
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.NonPlayerEntity
