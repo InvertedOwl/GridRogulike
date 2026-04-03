@@ -56,6 +56,8 @@ namespace Entities
         public void SetIntent()
         {
             // return;
+            if (plannedAction.Count == 0)
+                return;
             AbstractAction actionChosen = plannedAction[plannedAction.Count - 1];
 
             if (actionChosen is AttackAction)

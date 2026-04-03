@@ -64,6 +64,7 @@ public class TurnIndicatorManager : MonoBehaviour
     {
         GameObject go = Instantiate(prefab, parent);
 
+        go.transform.eulerAngles =  new Vector3(0, 0, 0);
         try
         {
             Image image = go.transform.GetChild(4).GetChild(0).GetComponent<Image>();
@@ -95,14 +96,14 @@ public class TurnIndicatorManager : MonoBehaviour
         if (current == 0 && lastTurn != -1)
         {
             float indexFromMiddleFudged = ((turnOrder.Count-1) / 2.0f) - turnOrder.Count;
-            _easePosition.SendToLocation(new Vector3(indexFromMiddleFudged * 50, 0), () =>
+            _easePosition.SendToLocation(new Vector3((indexFromMiddleFudged * 50) - 68, 0), () =>
             {
-                _easePosition.InstantSend(new Vector3(indexFromMiddle * 50, 0));
+                _easePosition.InstantSend(new Vector3((indexFromMiddle * 50) - 68, 0));
             });
         }
         else
         {
-            _easePosition.SendToLocation(new Vector3(indexFromMiddle * 50, 0));
+            _easePosition.SendToLocation(new Vector3((indexFromMiddle * 50) - 68, 0));
         }
 
         

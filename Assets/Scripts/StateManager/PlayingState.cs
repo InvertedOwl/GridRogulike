@@ -121,7 +121,7 @@ namespace StateManager
             turnIndicatorManager.Rebuild(entities, _turnOrder);
             StartCoroutine(WaitFrame());
             StartEntityTurn();
-            TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
+            // TurnIndicator.SendToLocation(new Vector3(0, 0, 0));
             BattleStats.ResetStatsBattle();
             
             HexGridManager.Instance.RegisterHexClickCallback(HexClickPlayerController.StaticHexClickCallback);
@@ -374,7 +374,7 @@ namespace StateManager
             Debug.Log("Exiting Play State");
             Deck.Instance.DiscardHand();
             List<NonPlayerEntity> toRemove = new List<NonPlayerEntity>();
-            TurnIndicator.SendToLocation(new Vector3(0, 200, 0));
+            // TurnIndicator.SendToLocation(new Vector3(0, 200, 0));
 
             foreach (AbstractEntity entity in entities)
             {
