@@ -23,7 +23,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return _amount + "<energy>";
+            return "<energy>" + _amount;
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,

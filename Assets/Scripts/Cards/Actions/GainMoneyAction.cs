@@ -23,7 +23,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "$" + Amount.ToString();
+            return "Gain $" + Amount.ToString();
         }
         
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,

@@ -88,22 +88,23 @@ public class TurnIndicatorManager : MonoBehaviour
             return;
         }
         
-        float indexFromMiddle = ((turnOrder.Count-1) / 2.0f) - current;
+        float distanceFromStart = (current * -50) - 85;
 
 
         // If we are going back to the start (and this isn't the first turn) send to the next like normal but then warp to start after done.
         // Thus, it can be infinite
         if (current == 0 && lastTurn != -1)
         {
-            float indexFromMiddleFudged = ((turnOrder.Count-1) / 2.0f) - turnOrder.Count;
-            _easePosition.SendToLocation(new Vector3((indexFromMiddleFudged * 50) - 68, 0), () =>
+            float distanceFromStartFudged = (turnOrder.Count * -50) - 100;
+
+            _easePosition.SendToLocation(new Vector3(distanceFromStartFudged, 0), () =>
             {
-                _easePosition.InstantSend(new Vector3((indexFromMiddle * 50) - 68, 0));
+                _easePosition.InstantSend(new Vector3(distanceFromStart, 0));
             });
         }
         else
         {
-            _easePosition.SendToLocation(new Vector3((indexFromMiddle * 50) - 68, 0));
+            _easePosition.SendToLocation(new Vector3(distanceFromStart, 0));
         }
 
         

@@ -2328,11 +2328,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3783797141293221999, guid: 50591dbf9cf96634b9f3f1e0d3668f76, type: 3}
       propertyPath: m_MaxValue
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3783797141293221999, guid: 50591dbf9cf96634b9f3f1e0d3668f76, type: 3}
       propertyPath: m_MinValue
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3783797141293221999, guid: 50591dbf9cf96634b9f3f1e0d3668f76, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size

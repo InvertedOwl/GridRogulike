@@ -82,7 +82,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return Amount + "<attack>     " + Distance + "<arrow>";
+            return "<attack>" + Amount + "     " + "<arrow>" + Distance;
         }
 
         public override string ToString()

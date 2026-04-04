@@ -250,7 +250,8 @@ MonoBehaviour:
   widthY: 21
   grasslandColors:
   - {r: 0.11747953, g: 0.23218532, b: 0.41509432, a: 0}
-  - {r: 0.08410467, g: 0.17952496, b: 0.3301887, a: 0}
+  - {r: 0.080099694, g: 0.19352739, b: 0.3773585, a: 0}
+  - {r: 0.057271283, g: 0.15421122, b: 0.31132078, a: 0}
   currentColors: []
   flipAnimDuration: 0.2
 --- !u!1 &32353969
@@ -2818,7 +2819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2331980006320001789, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: scaleBarWithMaxHealth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3277531031008773237, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_LocalScale.x
@@ -13459,7 +13460,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.51593
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16632,8 +16633,11 @@ MonoBehaviour:
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
-    - DiamondBoy
     - TriangleBoy
+    - SquareBoy
+    - SquareBoy
+    - SquareBoy
+    - SquareBoy
     - SquareBoy
     EncounterType: 0
   - DifficultyMin: 0
@@ -16687,16 +16691,16 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1075828674}
   - {fileID: 1272112534}
   - {fileID: 1993691823}
+  - {fileID: 1075828674}
   m_Father: {fileID: 1479005294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -75, y: 0}
+  m_AnchoredPosition: {x: -75.00001, y: -0.0000076293945}
   m_SizeDelta: {x: 0, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1474974201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16714,7 +16718,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -24110,8 +24114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthBarManager
   healthText: {fileID: 0}
   shieldText: {fileID: 0}
-  healthTextUI: {fileID: 38838490}
-  shieldTextUI: {fileID: 110918865}
   baseBar: {fileID: 0}
   healthBar: {fileID: 1084512258}
   shieldBar: {fileID: 1115871082}
@@ -24119,7 +24121,6 @@ MonoBehaviour:
   health: 0
   shield: 0
   scaleBarWithMaxHealth: 1
-  uiWidthPerHealth: 1.321
   worldWidthPerHealth: 0.0158992
   fixedWorldReferenceHealth: 100
 --- !u!114 &6097504617308708764

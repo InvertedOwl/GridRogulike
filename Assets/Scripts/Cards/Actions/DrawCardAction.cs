@@ -26,7 +26,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return _amount + "<draw>";
+            return "<draw>" + _amount;
         }
 
         public override string ToString()

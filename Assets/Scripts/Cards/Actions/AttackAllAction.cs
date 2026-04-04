@@ -60,7 +60,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Attack All " +  _amount + "<attack>";
+            return "Attack All " + "<attack>" +  _amount;
         }
 
         public override string ToString()

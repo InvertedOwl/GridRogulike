@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cards.CardEvents;
 using Entities;
 using StateManager;
+using TMPro;
 using UnityEngine;
 
 public class HexPreviewHandler : MonoBehaviour
@@ -74,6 +75,32 @@ public class HexPreviewHandler : MonoBehaviour
     
     public void UpdatePreview(Dictionary<AbstractEntity, List<AbstractCardEvent>> localEvents)
     {
+        int amountOfDamage = 0;
+
+        foreach (AbstractEntity entity in localEvents.Keys)
+        {
+            foreach (AbstractCardEvent cardEvent in localEvents[entity])
+            {
+                if (cardEvent is AttackCardEvent attackCardEvent)
+                {
+                    amountOfDamage += attackCardEvent.amount;
+                }
+            }
+        }
+        
+        
+        Debug.Log("Amount of this tile! " + amountOfDamage);
+        if (amountOfDamage > 0)
+        {
+            GoList.GetValue("TileWarning").SetActive(true);
+            GoList.GetValue("TileWarning").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "This tile will receive "  + "<sprite name=\"damage4\"> " + amountOfDamage.ToString();
+        }
+        else
+        {
+            GoList.GetValue("TileWarning").SetActive(false);
+        }
+        
+        
         bool hasAttack = false;
 
         foreach (AbstractEntity entity in localEvents.Keys)

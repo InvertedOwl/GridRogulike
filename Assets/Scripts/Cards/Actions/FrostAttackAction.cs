@@ -39,7 +39,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return frostAmount + "<frost>     " + Distance + "<arrow>";
+            return  "<frost>" + frostAmount + "     " + "<arrow>" + Distance;
         }
 
         public override string ToString()

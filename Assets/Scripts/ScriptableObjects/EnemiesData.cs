@@ -14,7 +14,7 @@ namespace ScriptableObjects
             public string enemyName;
             public GameObject enemyPrefab;
             public EnemyType enemyType;
-            public GameObject enemyIconPrefab;
+            public Sprite enemyIconPrefab;
         }
 
         [SerializeField] private List<EnemyEntry> enemies = new List<EnemyEntry>();
