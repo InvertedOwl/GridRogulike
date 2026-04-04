@@ -88,14 +88,14 @@ public class TurnIndicatorManager : MonoBehaviour
             return;
         }
         
-        float distanceFromStart = (current * -50) - 85;
+        float distanceFromStart = (current * -50) - 90;
 
 
         // If we are going back to the start (and this isn't the first turn) send to the next like normal but then warp to start after done.
         // Thus, it can be infinite
         if (current == 0 && lastTurn != -1)
         {
-            float distanceFromStartFudged = (turnOrder.Count * -50) - 100;
+            float distanceFromStartFudged = (turnOrder.Count * -50) - 90;
 
             _easePosition.SendToLocation(new Vector3(distanceFromStartFudged, 0), () =>
             {

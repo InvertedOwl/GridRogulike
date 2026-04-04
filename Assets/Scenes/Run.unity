@@ -13460,7 +13460,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.51593
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16634,11 +16634,6 @@ MonoBehaviour:
     DifficultyMax: 2
     enemies:
     - TriangleBoy
-    - SquareBoy
-    - SquareBoy
-    - SquareBoy
-    - SquareBoy
-    - SquareBoy
     EncounterType: 0
   - DifficultyMin: 0
     DifficultyMax: 2
@@ -16647,6 +16642,12 @@ MonoBehaviour:
     - DiamondBoy
     - HardStar
     EncounterType: 1
+  - DifficultyMin: 0
+    DifficultyMax: 2
+    enemies:
+    - SquareBoy
+    - DiamondBoy
+    EncounterType: 0
 --- !u!114 &1461430464 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9083969289869459694, guid: 57609e1eb4ad74ebba2bca406dcec7ad, type: 3}
