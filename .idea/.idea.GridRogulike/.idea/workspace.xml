@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TurnIndicatorManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -347,7 +346,7 @@
       <workItem from="1775099039415" duration="4100000" />
       <workItem from="1775150572225" duration="345000" />
       <workItem from="1775151435822" duration="17597000" />
-      <workItem from="1775323628911" duration="7488000" />
+      <workItem from="1775323628911" duration="9066000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -653,7 +652,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775333834479</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Minor build changes">
+      <option name="closed" value="true" />
+      <created>1775337754890</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1775337754890</updated>
+    </task>
+    <task id="LOCAL-00040" summary="woohoo">
+      <option name="closed" value="true" />
+      <created>1775337937015</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1775337937015</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -680,8 +695,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Content + minor bugfixes" />
-    <MESSAGE value="Bug Fixes + features" />
     <MESSAGE value="New icons" />
     <MESSAGE value="Nothin out of the ordinary :3" />
     <MESSAGE value="Minor fix" />
@@ -705,7 +718,9 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="minor visual changes" />
     <MESSAGE value="Major changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Major changes" />
+    <MESSAGE value="Minor build changes" />
+    <MESSAGE value="woohoo" />
+    <option name="LAST_COMMIT_MESSAGE" value="woohoo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
