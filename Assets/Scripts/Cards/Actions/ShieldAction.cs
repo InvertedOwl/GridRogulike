@@ -25,7 +25,12 @@ namespace Cards.Actions
         {
             return "<shield>" + Amount;
         }
-        
+
+        public override string ToSimpleText()
+        {
+            return "<sprite name=shield>" + Amount;
+        }
+
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
             GameObject arrowPrefab)
         {

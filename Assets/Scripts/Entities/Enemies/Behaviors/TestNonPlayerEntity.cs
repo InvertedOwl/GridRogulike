@@ -9,15 +9,6 @@ namespace Entities.Enemies
 {
     public class TestNonPlayerEntity: AbstractEntityBehavior
     {
-        
-        public void Start()
-        {
-        }
-
-        public override IEnumerator MakeTurn()
-        {
-            yield break;
-        }
 
         public override List<AbstractAction> NextTurn()
         {

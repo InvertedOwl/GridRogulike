@@ -94,6 +94,7 @@ namespace Entities
                     BattleStats.ShieldDoneThisTurn += Math.Max((int) (value-_shield), 0);
                 }
                 _shield = value;
+                
             }
         }
         

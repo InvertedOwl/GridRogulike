@@ -68,6 +68,7 @@ namespace Entities
             // plannedActionSprite.sprite = SpriteDatabase.Get(actionChosen.Icon).Value.sprite;
             plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.one);
             plannedActionSprite.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionChosen.ToSimpleText();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(plannedActionSprite.GetComponent<RectTransform>());
         }
 
         public void RemoveIntent()

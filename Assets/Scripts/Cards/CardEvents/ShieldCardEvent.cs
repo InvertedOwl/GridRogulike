@@ -21,7 +21,7 @@ namespace Cards.CardEvents
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
                 
-                playing.player.Shield += amount;
+                entity.Shield += amount;
             }
             
         }

@@ -31,31 +31,7 @@ namespace Entities.Enemies
                 );
             }
         }
-
-        public override IEnumerator MakeTurn()
-        {
-            if (self.plannedAction == null || self.plannedAction.Count == 0)
-            {
-                yield break;
-            }
-
-            foreach (AbstractAction action in self.plannedAction)
-            {
-                foreach (AbstractCardEvent cardEvent in action.Activate(null))
-                {
-                    HandlePreEventVisual(cardEvent);
-
-                    foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(new List<AbstractCardEvent> { cardEvent }))
-                    {
-                        modifiedEvent.Activate(self);
-                    }
-
-                    yield return new WaitForSeconds(actionDelay * (1 / GameplayNavSettings.speed));
-                }
-            }
-
-            self.plannedAction.Clear();
-        }
+        
 
         public override List<AbstractAction> NextTurn()
         {
@@ -64,24 +40,14 @@ namespace Entities.Enemies
                 self.plannedAction = new List<AbstractAction>();
             }
 
-            if (self.plannedAction.Count == 0)
-            {
-                PlanTurn();
-            }
-
-            return self.plannedAction;
-        }
-
-        private void PlanTurn()
-        {
             self.plannedAction.Clear();
 
-            if (TryPlanAttack())
+            if (IsTargetNearby(attackRange) && TryPlanAttack())
             {
-                return;
+                return self.plannedAction;
             }
 
-            PlanMovementTowardsPlayer();
+            return base.NextTurn();
         }
 
         private bool TryPlanAttack()

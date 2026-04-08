@@ -89,7 +89,6 @@ public class HexPreviewHandler : MonoBehaviour
         }
         
         
-        Debug.Log("Amount of this tile! " + amountOfDamage);
         if (amountOfDamage > 0)
         {
             GoList.GetValue("TileWarning").SetActive(true);
@@ -97,7 +96,15 @@ public class HexPreviewHandler : MonoBehaviour
         }
         else
         {
-            GoList.GetValue("TileWarning").SetActive(false);
+            try
+            {
+                GoList.GetValue("TileWarning").SetActive(false);
+            }
+            catch (Exception e)
+            {
+                
+            }
+            
         }
         
         

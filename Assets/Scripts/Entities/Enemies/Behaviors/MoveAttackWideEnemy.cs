@@ -26,42 +26,6 @@ namespace Entities.Enemies
             self.AvailableActions.Add(new AttackAction(1, "basic", self, "sw", 1, defaultDamage));
         }
 
-        public override IEnumerator MakeTurn()
-        {
-            if (self.plannedAction == null || self.plannedAction.Count == 0)
-            {
-                yield break;
-            }
-
-            foreach (AbstractAction action in self.plannedAction)
-            {
-                foreach (AbstractCardEvent cardEvent in action.Activate(null))
-                {
-                    if (cardEvent is AttackCardEvent attackCardEvent)
-                    {
-                        Vector2Int targetPos = HexGridManager.MoveHex(
-                            self.positionRowCol,
-                            attackCardEvent.direction,
-                            attackCardEvent.distance
-                        );
-
-                        transform.localPosition +=
-                            ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position)
-                            .normalized * 0.5f;
-                    }
-
-                    foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(new List<AbstractCardEvent> { cardEvent }))
-                    {
-                        modifiedEvent.Activate(self);
-                    }
-
-                    yield return new WaitForSeconds(0.5f * (1 / GameplayNavSettings.speed));
-                }
-            }
-
-            self.plannedAction.Clear();
-        }
-
         private void PlanTurn()
         {
             self.plannedAction.Clear();
@@ -97,7 +61,7 @@ namespace Entities.Enemies
                 return;
             }
             
-            PlanMovementTowardsPlayer();
+            PlanMovementTowardsTarget();
         }
 
         public override List<AbstractAction> NextTurn()

@@ -5,10 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/ShieldingAttackerEnemy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/ShieldingAttackerEnemy.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/SquareBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ShieldCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ShieldCardEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/DirectionalAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/DirectionalAttackEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/EnemyMovementBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/EnemyMovementBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackWideEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveAttackWideEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/TestNonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/TestNonPlayerEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +47,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b7fb1003c7040c9b41929b39196d63d8b200/20/11065e21/ForceMode2D.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/b5/bd5364c1/Void.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Datas/EnemiesDatabase.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Datas/InfoPanelDatabase.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" root0="FORCE_HIGHLIGHTING" />
@@ -73,6 +89,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardStatuses/CardStatusDatabase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/ShieldingAttackerEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyEntry.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyType.cs" root0="FORCE_HIGHLIGHTING" />
@@ -347,6 +364,7 @@
       <workItem from="1775150572225" duration="345000" />
       <workItem from="1775151435822" duration="17597000" />
       <workItem from="1775323628911" duration="9066000" />
+      <workItem from="1775582057201" duration="5857000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
