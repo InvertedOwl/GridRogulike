@@ -12,8 +12,8 @@ namespace Cards.Actions
 {
     public class SpawnPassiveAction: AbstractAction
     {
-        public PassiveEntry _passive;
-        public SpawnPassiveAction(int baseCost, string color, AbstractEntity entity, PassiveEntry passive) : base(baseCost, color, entity)
+        public string _passive;
+        public SpawnPassiveAction(int baseCost, string color, AbstractEntity entity, string passive) : base(baseCost, color, entity)
         {
             this._passive = passive;
         }
@@ -41,7 +41,7 @@ namespace Cards.Actions
             return new List<RectTransform>();
         }
 
-        public PassiveEntry GetPassive()
+        public string GetPassive()
         {
             return _passive;
         }

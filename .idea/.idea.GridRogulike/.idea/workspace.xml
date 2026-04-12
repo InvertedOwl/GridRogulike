@@ -5,58 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DelayedShieldAction.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DelayedShieldAction.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Datas/SpriteDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Datas/SpriteDatabase.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/TileInfoPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/TileInfoPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/SpawnPassiveAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/SpawnPassiveAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/SpawnPassiveEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/SpawnPassiveEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/16-1_copy_6-1-1-removebg-preview (1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/16-1_copy_6-1-1-removebg-preview (1).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/16-1_copy_6-1-1-removebg-preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/16-1_copy_6-1-1-removebg-preview.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/61nXc5uKFqL-removebg-preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/61nXc5uKFqL-removebg-preview.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Toptie-Propeller-Hat-Adult-Kids-Unisex-Baseball-Cap-Colorful-Outdoor-Hat-Toy-Green-kids_49387181-0df7-4f5e-a245-db15e77d4814.93ed4ebb537e1ff85f5f25c32fb2c3c2-removebg-preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Toptie-Propeller-Hat-Adult-Kids-Unisex-Baseball-Cap-Colorful-Outdoor-Hat-Toy-Green-kids_49387181-0df7-4f5e-a245-db15e77d4814.93ed4ebb537e1ff85f5f25c32fb2c3c2-removebg-preview.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Unique-Industries-Blue-Polka-Dot-Party-Hat_3ea461db-6304-48ed-bbe2-d4b325945f3b_1.93a25270e800b7db07cb56b7027706ca.avif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Unique-Industries-Blue-Polka-Dot-Party-Hat_3ea461db-6304-48ed-bbe2-d4b325945f3b_1.93a25270e800b7db07cb56b7027706ca.avif.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Within.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Within.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Within.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Within.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/brown-cowboy-hat-vector.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/brown-cowboy-hat-vector.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (1).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (10).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (10).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (2).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (2).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (3).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (3).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (4).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (4).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (5).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (5).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (6).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (6).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (7).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (7).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (8).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (8).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (9).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad (9).png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/doodad.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/harry-potter-party-hats-bonjour-fete-5-removebg-preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/harry-potter-party-hats-bonjour-fete-5-removebg-preview.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/s-l1200-removebg-preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/s-l1200-removebg-preview.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -399,7 +364,8 @@
       <workItem from="1775323628911" duration="9066000" />
       <workItem from="1775582057201" duration="6743000" />
       <workItem from="1775749650059" duration="149000" />
-      <workItem from="1775949873880" duration="3369000" />
+      <workItem from="1775949873880" duration="3987000" />
+      <workItem from="1776018418017" duration="4140000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -729,7 +695,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775621026819</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Hex icons + cleaning">
+      <option name="closed" value="true" />
+      <created>1775954011839</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1775954011839</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -756,7 +730,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Nothin out of the ordinary :3" />
     <MESSAGE value="Minor fix" />
     <MESSAGE value="Icons and stuff" />
     <MESSAGE value="Stream + minor adjustments" />
@@ -781,7 +754,8 @@
     <MESSAGE value="Minor build changes" />
     <MESSAGE value="woohoo" />
     <MESSAGE value=" hiashklfj" />
-    <option name="LAST_COMMIT_MESSAGE" value=" hiashklfj" />
+    <MESSAGE value="Hex icons + cleaning" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hex icons + cleaning" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

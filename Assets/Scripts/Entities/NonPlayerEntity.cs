@@ -28,19 +28,7 @@ namespace Entities
             BattleStats.DamageDoneThisTurn += damage;
             base.Damage(damage, status);
         }
-
-
-        public List<AbstractCardEvent> ModifyEvents(List<AbstractCardEvent> events)
-        {
-            List<AbstractCardEvent> modifiedEvents = new List<AbstractCardEvent>(events);
-
-            foreach (AbstractStatus status in statusManager.statusList)
-            {
-                modifiedEvents = status.Modify(modifiedEvents);
-            }
-            
-            return modifiedEvents;
-        }
+        
 
         public override void Die()
         {

@@ -16,16 +16,14 @@ namespace Cards.CardList
                 ["DeveloperAttack"] = () => new(new Card("Developer Attack", new List<AbstractAction>
                 { 
                     new AttackAllAction(0, "basic", null, 500),
-                    new GainStepsCardAction(0,  "basic", null, 500),
-                    new ShieldAction(0, "basic", null, 500),
                 }, Rarity.Developer, CardSet.Developer),
-                new [] { new StartingDeckEntry(StartingDecks.basic, 20) }, false),
+                new [] { new StartingDeckEntry(StartingDecks.basic, 0) }, false),
                 
                 // - Common -
                     // Basic Starting Deck x2
                 ["AttackLow"] = () => new(new Card("Attack", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "", 1, 5),
+                        new AttackAction(1, "basic", null, "", 1, 8),
                     }, Rarity.Common, CardSet.Squar),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
                 
@@ -165,7 +163,7 @@ namespace Cards.CardList
                 ["SpawnPassivePoison"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                 { 
                     new ScrapCurrentCardAction(0, "basic", null, false),
-                    new SpawnPassiveAction(2, "basic", null, PassiveData.GetPassiveEntry("poisonswamp")),
+                    new SpawnPassiveAction(2, "basic", null, "poisonswamp"),
                 }, Rarity.Uncommon, CardSet.Base)),
 
 
@@ -173,7 +171,7 @@ namespace Cards.CardList
                 ["SpawnPassiveForest"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                 { 
                     new ScrapCurrentCardAction(0, "basic", null, false),
-                    new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("forest")),
+                    new SpawnPassiveAction(1, "basic", null, "forest"),
                 }, Rarity.Rare, CardSet.Base)),
                 
                 ["GainMoney"] = () => new(new Card("401k", new List<AbstractAction>
@@ -189,7 +187,7 @@ namespace Cards.CardList
                 ["SpawnPassiveBloodRitual"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                 { 
                     new ScrapCurrentCardAction(0, "basic", null, false),
-                    new SpawnPassiveAction(1, "basic", null, PassiveData.GetPassiveEntry("bloodritual")),
+                    new SpawnPassiveAction(1, "basic", null, "bloodritual"),
                 }, Rarity.Rare, CardSet.Base)),
 
                 ["AttackMedium"] = () => new(new Card("Slice", new List<AbstractAction>

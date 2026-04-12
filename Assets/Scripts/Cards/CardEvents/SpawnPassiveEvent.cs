@@ -2,15 +2,16 @@
 using Grid;
 using Passives;
 using StateManager;
+using Types.Passives;
 using Types.Statuses;
 
 namespace Cards.CardEvents
 {
     public class SpawnPassiveEvent: AbstractCardEvent
     {
-        private PassiveEntry _passive;
+        private string _passive;
 
-        public SpawnPassiveEvent(PassiveEntry passive)
+        public SpawnPassiveEvent(string passive)
         {
             this._passive = passive;
         }
@@ -20,7 +21,7 @@ namespace Cards.CardEvents
         {
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
-                EnvironmentManager.instance.AddPassive(_passive);
+                EnvironmentManager.instance.AddPassive(PassiveData.GetPassiveEntry(_passive));
             }
             
         }

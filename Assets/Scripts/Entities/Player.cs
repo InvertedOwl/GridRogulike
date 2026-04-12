@@ -32,6 +32,7 @@ namespace Entities
             {
                 cardEvent.Activate(this);
             }
+            base.StartTurn();
         }
 
         public override void EndTurn()

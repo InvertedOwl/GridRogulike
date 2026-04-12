@@ -12,6 +12,8 @@ public class TileHover : MonoBehaviour
     public bool activeHover = true;
 
     public bool hoverWhenNotPlaytate = true;
+    
+    public bool ignoreOcclusion = false;
 
     public GameObject sideThing;
 
@@ -34,12 +36,21 @@ public class TileHover : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2D = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
 
-        // 🔥 Raycast straight into screen (2D)
-        RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+        bool isHovering;
 
-        bool isTopMost = hit.collider != null && hit.collider == col;
+        if (ignoreOcclusion)
+        {
+            // Simply check if the mouse position is within our own collider bounds
+            isHovering = col.OverlapPoint(mousePos2D);
+        }
+        else
+        {
+            // Raycast to see if WE are the first thing hit
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+            isHovering = hit.collider != null && hit.collider == col;
+        }
 
-        if (isTopMost && activeHover)
+        if (isHovering && activeHover)
         {
             if (lerpPosition)
             {

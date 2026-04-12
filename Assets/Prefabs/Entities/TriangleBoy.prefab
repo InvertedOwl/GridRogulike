@@ -250,11 +250,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 97.83
+      value: 267.19
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 48.915
+      value: 133.595
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -430,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: _health
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: behavior
@@ -438,7 +438,7 @@ PrefabInstance:
       objectReference: {fileID: 3278511162887559240}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: initialHealth
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: eyesFollowMouse
@@ -537,6 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.ShieldingAttackerEnemy
   self: {fileID: 8912749352281746896}
+  targetSearchMode: 0
   maxMovesPerTurn: 3
   stopMovingWhenWithinDistance: 1
   attackRange: 1

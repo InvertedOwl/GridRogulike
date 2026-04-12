@@ -14,6 +14,7 @@ using Cards.CardStatuses;
 using Grid;
 using Passives;
 using ScriptableObjects;
+using Types.Passives;
 using Types.Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -285,8 +286,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             switch (action)
             {
                 case SpawnPassiveAction spawnPassiveAction:
+                    PassiveEntry passiveEntry = PassiveData.GetPassiveEntry(spawnPassiveAction.GetPassive());
                     text = Instantiate(GoList.GetValue("environPrefab"), MainPanel.transform);
-                    text.GetComponent<EnvironMonobehavior>().SetEnviron(spawnPassiveAction.GetPassive().Name, spawnPassiveAction.GetPassive().Desc, spawnPassiveAction.GetPassive().Color);
+                    text.GetComponent<EnvironMonobehavior>().SetEnviron(passiveEntry.Name, passiveEntry.Desc, passiveEntry.Color);
                     text.transform.localScale = new Vector3(4.5f, 4.5f, 1);
                     posY -= 140;
                     setText = false;

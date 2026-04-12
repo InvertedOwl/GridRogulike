@@ -31,7 +31,7 @@ namespace Types.Tiles
                 "Basic",
                 "No effect.",
                 new Color(32.0f/255.0f, 99.0f/255.0f, 155.0f/255.0f),
-                true,
+                false,
                 Rarity.Common,
                 TileType.Good,
                 (e) => e,
@@ -75,7 +75,7 @@ namespace Types.Tiles
                 "Pocket Change", 
                 "Gain $2.", 
                 new Color(252.0f/255.0f, 168.0f/255.0f, 3.0f/255.0f), 
-                true, 
+                false, 
                 Rarity.Common,
                 TileType.Good,
                 (e) => e,
@@ -107,7 +107,7 @@ namespace Types.Tiles
                 "Empowered", 
                 "1.5x damage", 
                 new Color(235.0f/255.0f, 124.0f/255.0f, 28.0f/255.0f), 
-                true, 
+                false, 
                 Rarity.Common,
                 TileType.Good,
                 (e) =>
@@ -127,7 +127,7 @@ namespace Types.Tiles
                 "Random Passive", // TODO: change name this is boring 
                 "Enable a random passive.", 
                 Color.navajoWhite, 
-                true, 
+                false, 
                 Rarity.Common,
                 TileType.Good,
                 (e) => e,
@@ -137,7 +137,7 @@ namespace Types.Tiles
                     return new List<AbstractCardEvent>()
                     {
                         // TODO: make this random
-                        new SpawnPassiveEvent(PassiveData.GetPassiveEntry("forest"))
+                        new SpawnPassiveEvent("forest")
                     };
                 }),
             
@@ -159,7 +159,7 @@ namespace Types.Tiles
                 "Sabotage", 
                 "Scrap a random card in your hand.", 
                 new Color(235.0f/255.0f, 20.0f/255.0f, 28.0f/255.0f), 
-                true, 
+                false, 
                 Rarity.Common,
                 TileType.Bad,
                 (e) => e,

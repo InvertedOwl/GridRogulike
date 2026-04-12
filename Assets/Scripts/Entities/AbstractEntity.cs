@@ -23,6 +23,8 @@ namespace Entities
         public List<AbstractAction> plannedAction = new List<AbstractAction>();
         public AbstractEntityBehavior behavior;
         public GOList GoList;
+        
+        public List<AbstractAction> nextTurnActions = new List<AbstractAction>();
 
         public float _health;
         public EntityType entityType = EntityType.Enemy;
@@ -159,10 +161,37 @@ namespace Entities
         public virtual void StartTurn()
         {
             _shield = 0;
-            Debug.Log("Start Turn: " + this.name);
             
-            Debug.Log("Shield: " + Shield);
             
+            // Play all queued actions for next turn
+            foreach (AbstractAction action in nextTurnActions)
+            {
+
+                Debug.Log("Queued action for next turn " + action.GetText());
+                foreach (AbstractCardEvent cardEvent in action.Activate(null))
+                {
+
+                    foreach (AbstractCardEvent modifiedEvent in ModifyEvents(
+                                 new List<AbstractCardEvent> { cardEvent }))
+                    {
+                        
+                        modifiedEvent.Activate(this);
+                    }
+                }
+            }
+            nextTurnActions.Clear();
+        }
+        
+        public List<AbstractCardEvent> ModifyEvents(List<AbstractCardEvent> events)
+        {
+            List<AbstractCardEvent> modifiedEvents = new List<AbstractCardEvent>(events);
+
+            foreach (AbstractStatus status in statusManager.statusList)
+            {
+                modifiedEvents = status.Modify(modifiedEvents);
+            }
+            
+            return modifiedEvents;
         }
         public virtual void EndTurn()
         {
