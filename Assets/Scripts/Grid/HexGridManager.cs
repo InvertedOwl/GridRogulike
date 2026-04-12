@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ScriptableObjects;
 using TMPro;
 using Types.Tiles;
 using UnityEngine;
@@ -38,6 +39,8 @@ namespace Grid
         public Dictionary<Vector2Int, GameObject> _hexObjects = new Dictionary<Vector2Int, GameObject>();
         public Transform grid;
         public static HexGridManager Instance;
+        
+        public SpriteDatabase spriteDatabase;
 
         private readonly List<Action<Vector2Int, GameObject>> _hexClickedCallbacks = new();
 
@@ -299,7 +302,7 @@ namespace Grid
 
         public void UpdateHexObject(TileEntry entry, GameObject tile)
         {
-            Color color = entry.color;
+            Color color = SpawnBG.RandomizeColor(entry.color, 0.001f, 0.01f, 0.05f);
             
             Color darker = new Color(color.r * .6f, color.g * .6f, color.b * .6f);
 
@@ -313,6 +316,37 @@ namespace Grid
             goList.GetValue("Description").GetComponent<TextMeshProUGUI>().text = entry.description;
             goList.GetValue("HoverBG1").GetComponent<Image>().color = color;
             goList.GetValue("HoverBG2").GetComponent<Image>().color = new Color(color.r * .44f, color.g * .44f, color.b * .44f);
+            
+            // Icon
+            GameObject iconParent = goList.GetValue("HexIconParent");
+            GameObject iconObj = goList.GetValue("HexIcon");
+            SpriteRenderer iconRenderer = iconObj.GetComponent<SpriteRenderer>();
+
+            if (entry.icon == "none")
+            {
+                iconParent.SetActive(false);
+                return;
+            }
+
+            iconParent.SetActive(true);
+
+            Sprite sprite = spriteDatabase.Get(entry.icon).Value.sprite;
+            iconRenderer.sprite = sprite;
+
+            NormalizeSpriteRendererSize(iconRenderer, 0.3f); // target size in world units
+        }
+
+        private void NormalizeSpriteRendererSize(SpriteRenderer sr, float targetMaxSize)
+        {
+            if (sr.sprite == null) return;
+
+            Vector2 spriteSize = sr.sprite.bounds.size;
+
+            float maxDimension = Mathf.Max(spriteSize.x, spriteSize.y);
+            if (maxDimension <= 0f) return;
+
+            float scale = targetMaxSize / maxDimension;
+            sr.transform.localScale = new Vector3(scale, scale, 1f);
         }
 
         public static Vector2 GetHexCenter(int col, int row)

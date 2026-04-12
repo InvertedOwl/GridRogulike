@@ -23,7 +23,9 @@ namespace Types.Tiles
                 () => new List<AbstractCardEvent>
                 {
                     new GainStepsCardEvent(1)
-                }),
+                },
+                "footsteps"
+                ),
             
             ["basic"] = new ( 
                 "Basic",
@@ -43,7 +45,9 @@ namespace Types.Tiles
                 Rarity.Common, 
                 TileType.Good,
                 (e) => e,
-                () => new List<AbstractCardEvent>()),
+                () => new List<AbstractCardEvent>(),
+                "House"
+                ),
             
             // Unused
             ["wall"] = new (
@@ -65,7 +69,7 @@ namespace Types.Tiles
                 TileType.Good,
                 (e) => e,
                 () => { return new List<AbstractCardEvent> { new DrawCardEvent(1) }; }
-                ), 
+                , "draw"), 
             
             ["money"] = new (
                 "Pocket Change", 
@@ -85,7 +89,8 @@ namespace Types.Tiles
                 Rarity.Uncommon,
                 TileType.Good,
                 (e) => e,
-                () => new List<AbstractCardEvent>{new GainEnergyCardEvent(1)}),
+                () => new List<AbstractCardEvent>{new GainEnergyCardEvent(1)},
+                "energy"),
             
             ["shield"] = new (
                 "Bunker", 
@@ -95,7 +100,8 @@ namespace Types.Tiles
                 Rarity.Common,
                 TileType.Good,
                 (e) => e,
-                () => new List<AbstractCardEvent>{new ShieldCardEvent(3)}),
+                () => new List<AbstractCardEvent>{new ShieldCardEvent(3)},
+                "shield"),
             
             ["double"] = new (
                 "Empowered", 

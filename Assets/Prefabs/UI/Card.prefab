@@ -1154,6 +1154,7 @@ MonoBehaviour:
     key: 
     sprite: {fileID: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
+  onlyDisplay: 0
   CostOverride: -1
   MainPanel: {fileID: 1558321771597725976}
   inactiveImage: {fileID: 4785186283911999707}

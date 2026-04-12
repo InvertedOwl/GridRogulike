@@ -28,6 +28,7 @@ namespace Types.Tiles
             this.tileType = tileType;
             this.landEvent = landEvent;
             this.cardModifier = cardModifier;
+            this.icon = icon;
         }
 
     }

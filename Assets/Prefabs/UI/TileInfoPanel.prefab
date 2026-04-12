@@ -150,11 +150,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5745283336573507031, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 239.996
+      value: 324.8614
       objectReference: {fileID: 0}
     - target: {fileID: 5745283336573507031, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -6.1020985
+      value: 36.330597
       objectReference: {fileID: 0}
     - target: {fileID: 5745283336573507031, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -226,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9040537482645269068, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -23.275574
+      value: -23.275635
       objectReference: {fileID: 0}
     - target: {fileID: 9040537482645269068, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -263,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 9083993176202498827, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
+      objectReference: {fileID: 11400000, guid: 3c3422bde2452674783bd92cb00b89d3, type: 2}
     - target: {fileID: 9083993176202498827, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_fontColor.b
       value: 0.60784316
@@ -279,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 9083993176202498827, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -4673465573792361752, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
+      objectReference: {fileID: 3272374264595080699, guid: 3c3422bde2452674783bd92cb00b89d3, type: 2}
     - target: {fileID: 9083993176202498827, guid: b5c6658f4c2c758418467d1271d1fba7, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4288373536

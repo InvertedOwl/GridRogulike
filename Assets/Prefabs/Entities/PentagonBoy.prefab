@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveAttackEnemy
   self: {fileID: 5286917440407922032}
+  targetSearchMode: 0
   maxMovesPerTurn: 5
   stopMovingWhenWithinDistance: 1
   attackRange: 1
@@ -1384,7 +1385,7 @@ RectTransform:
   m_GameObject: {fileID: 6899305101611133571}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0.63761}
+  m_LocalScale: {x: 1, y: 1, z: 0.63761}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 72168153603838142}
@@ -1621,8 +1622,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 102.5, y: -50}
-  m_SizeDelta: {x: 205, y: 100}
+  m_AnchoredPosition: {x: 152.7, y: -50}
+  m_SizeDelta: {x: 305.4, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6032224164995805346
 CanvasRenderer:
@@ -1652,7 +1653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name=footsteps>555
+  m_text: <sprite name=damage4>5  <sprite name=within>1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
   m_sharedMaterial: {fileID: -4673465573792361752, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}

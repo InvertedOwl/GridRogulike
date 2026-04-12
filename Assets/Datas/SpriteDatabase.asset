@@ -35,3 +35,13 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: b6b802ccf057ca8459eeced7d27a7bc8, type: 3}
   - key: Developer
     sprite: {fileID: 21300000, guid: ce0b17f333198e2428941d25f8ead759, type: 3}
+  - key: Within
+    sprite: {fileID: 21300000, guid: 22c0baf7ad8466a4e82a38a1049a014e, type: 3}
+  - key: House
+    sprite: {fileID: 21300000, guid: 475b3212536f40c4e8b0b1ffc16f242f, type: 3}
+  - key: draw
+    sprite: {fileID: 21300000, guid: 75dcecfb121c243568ddfac70eb67e7c, type: 3}
+  - key: energy
+    sprite: {fileID: 21300000, guid: 4c71dc077a0209a4686bb2c35a5bd19b, type: 3}
+  - key: shield
+    sprite: {fileID: 21300000, guid: a41294bee8f2e4aa4bb1780c6f3f7ea1, type: 3}

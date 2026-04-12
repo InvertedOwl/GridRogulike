@@ -14106,6 +14106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexPrefab: {fileID: 6400999742242697523, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
   grid: {fileID: 1858364139}
+  spriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
   onHexClicked:
     m_PersistentCalls:
       m_Calls: []
@@ -25109,15 +25110,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3408742600092872818, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25701767
+      value: 0.23429988
       objectReference: {fileID: 0}
     - target: {fileID: 3408742600092872818, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25701767
+      value: 0.23429988
       objectReference: {fileID: 0}
     - target: {fileID: 3408742600092872818, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.64254415
+      value: 0.5857497
       objectReference: {fileID: 0}
     - target: {fileID: 3408742600092872818, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25125,7 +25126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3408742600092872818, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.9956
+      value: 5.9937
       objectReference: {fileID: 0}
     - target: {fileID: 3408742600092872818, guid: 79b115b41afb243f4a6f47fc8053cb17, type: 3}
       propertyPath: m_LocalPosition.z
