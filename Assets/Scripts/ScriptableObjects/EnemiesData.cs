@@ -31,8 +31,6 @@ namespace ScriptableObjects
         public EnemyEntry? Get(string key)
         {
             if (_lookup == null) BuildLookup();
-            Debug.Log(_lookup.Keys.Count);
-            Debug.Log(key);
             return _lookup.TryGetValue(key, out var panel) ? panel : null;
         }
         

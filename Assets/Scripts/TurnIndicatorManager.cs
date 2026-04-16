@@ -107,10 +107,6 @@ public class TurnIndicatorManager : MonoBehaviour
             _easePosition.SendToLocation(new Vector3(distanceFromStart, 0));
         }
 
-        
-        
-        
-        Debug.Log(current);
         if (center.transform.childCount == 0)
         {
             Debug.Log("no children");

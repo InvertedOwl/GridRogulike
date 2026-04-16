@@ -39,6 +39,9 @@ public class Deck : MonoBehaviour
     public void Start()
     {
         _randomDeck = RunInfo.NewRandom("deck".GetHashCode());
+        
+        
+        Debug.Log("SEED: " + RunInfo.seed);
     }
 
     public void SetInactive(bool inactive)
