@@ -70,6 +70,10 @@ public class Deck : MonoBehaviour
 
     public void UpdatePlayability()
     {
+        if (GameStateManager.Instance == null)
+            return;
+        if (!GameStateManager.Instance.IsCurrent<PlayingState>())
+            return;
         var playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
         if (playingState != null && !playingState.AllowUserInput)
         {

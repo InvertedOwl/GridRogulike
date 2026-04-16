@@ -17,7 +17,6 @@ namespace Serializer
         public PlayingStateSaveData stateData;
         public PlayerSaveData player;
         public MapSaveData mapData;
-        
         public string currentGameState;
 
         private static JsonSerializerSettings settings = new JsonSerializerSettings
@@ -29,6 +28,7 @@ namespace Serializer
         };
 
         public static string currentJSON;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
@@ -55,26 +55,48 @@ namespace Serializer
                 mapData = MapState.Instance.GetSaveData()
             };
 
-            return JsonConvert.SerializeObject(saveFile, settings);
+            currentJSON = JsonConvert.SerializeObject(saveFile, settings);
+            return currentJSON;
         }
 
         public static Type FromJSON(string json)
         {
-            Type stateType = null;
-            SaveFile saveFile = JsonConvert.DeserializeObject<SaveFile>(json, settings);
-            
-            Player.Instance.RestoreFromSaveData(saveFile.player);
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                Debug.LogWarning("Save file is empty or whitespace.");
+                return null;
+            }
 
-            // Load deck
+            SaveFile saveFile;
+            try
+            {
+                saveFile = JsonConvert.DeserializeObject<SaveFile>(json, settings);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to deserialize save file: {ex.Message}");
+                return null;
+            }
+
+            if (saveFile == null)
+            {
+                Debug.LogWarning("Save file deserialized to null.");
+                return null;
+            }
+
+            if (saveFile.player != null)
+                Player.Instance.RestoreFromSaveData(saveFile.player);
+
             if (saveFile.deck != null)
                 Deck.Instance.Cards = saveFile.deck;
 
-            // Load run info
             if (saveFile.runInfo != null)
                 RunInfo.Instance.RestoreFromSaveData(saveFile.runInfo);
 
-            // Load game state
             GameState.SaveData = saveFile.stateData;
+            MapState.mapSaveData = saveFile.mapData;
+
+            Type stateType = null;
             if (!string.IsNullOrEmpty(saveFile.currentGameState))
             {
                 Debug.Log("Loading state " + saveFile.currentGameState);
@@ -85,8 +107,6 @@ namespace Serializer
                     Debug.LogError($"Could not resolve game state type: {saveFile.currentGameState}");
                 }
             }
-            
-            MapState.mapSaveData = saveFile.mapData;
 
             return stateType;
         }

@@ -8,17 +8,32 @@ namespace Serializer
     public class SaveGameObject : MonoBehaviour
     {
         private Type queuedState;
-        
-        public void Awake ()
+
+        public void Awake()
         {
             string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
-            if (File.Exists(savePath))
-            {
-                queuedState = SaveFile.FromJSON(File.ReadAllText(savePath));
-            }
-            else
+
+            if (!File.Exists(savePath))
             {
                 Debug.Log("Save file doesn't exist");
+                return;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(savePath);
+
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    Debug.LogWarning("Save file exists but is empty. Ignoring it.");
+                    return;
+                }
+
+                queuedState = SaveFile.FromJSON(json);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to read save file: {ex.Message}");
             }
         }
 
@@ -36,11 +51,11 @@ namespace Serializer
                 Debug.Log("No save file to delete.");
             }
         }
-        
+
         public void Start()
         {
             Debug.Log("Queued state : " + queuedState);
-            
+
             if (queuedState != null)
             {
                 GameStateManager.Instance.Change(queuedState);
@@ -48,13 +63,27 @@ namespace Serializer
             }
         }
 
-
         public void Save()
         {
             string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
-            string save = SaveFile.currentJSON;
-            File.WriteAllText(savePath, save);
-            Debug.Log("Saved " + savePath);
+
+            string save = SaveFile.ToJSON(); // safer than using currentJSON directly
+
+            if (string.IsNullOrWhiteSpace(save))
+            {
+                Debug.LogError("Save data was empty. Aborting save.");
+                return;
+            }
+
+            try
+            {
+                File.WriteAllText(savePath, save);
+                Debug.Log("Saved " + savePath);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to write save file: {ex.Message}");
+            }
         }
     }
 }
