@@ -12,20 +12,28 @@ public class TileHover : MonoBehaviour
     public bool activeHover = true;
 
     public bool hoverWhenNotPlaytate = true;
-    
+
     public bool ignoreOcclusion = false;
 
     public GameObject sideThing;
 
-    private Collider2D col;
+    private Collider col;
+    private Camera mainCam;
 
     void Awake()
     {
-        col = GetComponent<Collider2D>();
+        col = GetComponent<Collider>();
+        mainCam = Camera.main;
     }
 
     void FixedUpdate()
     {
+        if (mainCam == null)
+        {
+            mainCam = Camera.main;
+            if (mainCam == null) return;
+        }
+
         // Handle game state restriction
         if (!hoverWhenNotPlaytate && !GameStateManager.Instance.IsCurrent<PlayingState>())
         {
@@ -33,28 +41,28 @@ public class TileHover : MonoBehaviour
             return;
         }
 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mousePos2D = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
-
-        bool isHovering;
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        bool isHovering = false;
 
         if (ignoreOcclusion)
         {
-            // Simply check if the mouse position is within our own collider bounds
-            isHovering = col.OverlapPoint(mousePos2D);
+            // Check whether the ray intersects this collider, regardless of what is in front
+            isHovering = col.Raycast(ray, out _, Mathf.Infinity);
         }
         else
         {
-            // Raycast to see if WE are the first thing hit
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-            isHovering = hit.collider != null && hit.collider == col;
+            // Check whether this object is the first thing hit by the ray
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+            {
+                isHovering = hit.collider == col;
+            }
         }
 
         if (isHovering && activeHover)
         {
             if (lerpPosition)
             {
-                lerpPosition.targetLocation = new Vector3(0, -0.04f, lerpPosition.startPosition.z);
+                lerpPosition.targetLocation = new Vector3(0, -0.07f, lerpPosition.startPosition.z);
             }
 
             if (activateOnHover && ticksHovered > waitTicks)

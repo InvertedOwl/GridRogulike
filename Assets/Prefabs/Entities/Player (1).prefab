@@ -201,9 +201,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909a8f6b453b4364963ccc0c7dbbb10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eyesFollowMouse: {fileID: 0}
   initialHealth: 100
+  behavior: {fileID: 0}
+  GoList: {fileID: 0}
   _health: 0
-  _shield: 0
+  entityType: 0
+  turnIndicatorIcon: {fileID: 0}
   positionRowCol: {x: 0, y: 0}
   hurtSystem: {fileID: 5449609562582914129}
   statusManager: {fileID: 5027600109576973183}

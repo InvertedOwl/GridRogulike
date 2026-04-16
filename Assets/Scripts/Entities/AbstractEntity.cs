@@ -111,7 +111,7 @@ namespace Entities
             Debug.Log("Target new coords " + newCoords);
             
             positionRowCol = newCoords;
-            GetComponent<LerpPosition>().targetLocation = Vector3.zero;
+            GetComponent<LerpPosition>().targetLocation = new Vector3(0, 0.135f, -0.171f);
             GameObject currentHex = HexGridManager.Instance.GetWorldHexObject(positionRowCol);
             transform.SetParent(currentHex.transform.GetChild(3));
             

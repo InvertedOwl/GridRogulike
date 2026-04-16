@@ -5,6 +5,8 @@ public class MoveWithMouse : MonoBehaviour
 {
     private LerpPosition _lerpPosition;
     public Vector2 maxLocalOffset = new Vector2(5f, 3f);
+    public float zOffset = 0;
+    public Vector2 offset = Vector2.zero;
     public float sensitivity = 1f;
     public bool invertX = false;
     public bool invertY = false;
@@ -22,14 +24,14 @@ public class MoveWithMouse : MonoBehaviour
 
         Vector2 localTarget = Vector2.Scale(norm, maxLocalOffset) * sensitivity;
 
-        _lerpPosition.targetLocation = localTarget; 
+        _lerpPosition.targetLocation = new Vector3(localTarget.x + offset.x, localTarget.y + offset.y, zOffset); 
     }
 
     private Vector2 GetMouseNormalizedMinusOneToOne()
     {
         Vector3 v = Camera.main != null 
             ? Camera.main.ScreenToViewportPoint(Input.mousePosition)
-            : new Vector3(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height, 0f);
+            : new Vector3(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height);
 
         return new Vector2((v.x - 0.5f) * 2f, (v.y - 0.5f) * 2f);
     }

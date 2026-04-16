@@ -68,7 +68,7 @@ namespace StateManager
             encounterData = null;
         }
         
-        public LerpPosition cameraLerpPosition;
+        public MoveWithMouse cameraLerpPosition;
 
         public EasePosition TurnIndicator;
 
@@ -131,13 +131,18 @@ namespace StateManager
             
             foreach (var e in entities)
             {
-                e.MoveEntity(e.positionRowCol);
-                e.transform.position = HexGridManager.GetHexCenter(e.positionRowCol.x, e.positionRowCol.y);
+                StartCoroutine(WaitFrameMove(e));
                 
 
                 if (e.entityType != EntityType.Player)
                     e.Health = e.initialHealth;
             }
+        }
+
+        IEnumerator WaitFrameMove(AbstractEntity e)
+        {
+            yield return new WaitForEndOfFrame();
+            e.MoveEntity(e.positionRowCol);
         }
 
         IEnumerator WaitFrame()
@@ -160,26 +165,9 @@ namespace StateManager
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
 
-            Vector3 averagePos = Vector3.zero;
+            Vector3 playerPos = player.transform.position;
 
-            foreach (var entity in entities)
-            {
-                averagePos += entity.transform.position;
-            }
-            averagePos /= entities.Count;
-
-            float maxHeight = 0f;
-            foreach (var entity in entities)
-            {
-                float height = Mathf.Abs(entity.transform.position.y - averagePos.y);
-                if (height > maxHeight)
-                    maxHeight = height;
-            }
-
-            float targetSize = Mathf.Max(minViewSize, maxHeight + viewPadding);
-
-            cameraLerpPosition.targetLocation = new Vector3(averagePos.x, averagePos.y - 1f, -10);
-            cameraSizeLerp.targetHeight = targetSize;
+            cameraLerpPosition.offset = new Vector3(playerPos.x/2, (playerPos.y - 1f)/2, -10);
         }
         
         
@@ -270,7 +258,7 @@ namespace StateManager
             if (empties.Count == 0)
             {
                 pos = default;
-                return false;
+                return false; 
             }
 
             pos = empties[0];
@@ -294,9 +282,13 @@ namespace StateManager
                 Debug.Log("enemy: " + enemy);
                 EnemiesData.EnemyEntry enemyEntry = enemiesData.Get(enemy).Value;
                 GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
-                enemyObject.transform.position = HexGridManager.GetHexCenter(position.x, position.y);
+                // Vector2 pos = HexGridManager.GetHexCenter(position.x, position.y);
+                // Vector3 pos3 = new Vector3(pos.x, pos.y, -0.941f);
+                // enemyObject.transform.position = pos3;
+                enemyObject.transform.eulerAngles = new Vector3(-70, 0, 0);
                 AbstractEntity abstractEntity = enemyObject.GetComponent<AbstractEntity>();
                 abstractEntity.positionRowCol = position;
+                // enemyObject.GetComponent<AbstractEntity>().MoveEntity(position);
                 encounter.Add(abstractEntity);
                 
             }
@@ -358,7 +350,6 @@ namespace StateManager
         {
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             
-            cameraLerpPosition.targetLocation = new Vector3(0, 0, -10);
             cameraSizeLerp.targetHeight = 4;
             playingUI.SetScale(new Vector3(2, 2, 2));
 

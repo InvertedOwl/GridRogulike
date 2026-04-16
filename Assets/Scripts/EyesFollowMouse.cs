@@ -13,12 +13,12 @@ public class EyesFollowMouse : MonoBehaviour
         if (targetMouse)
             setTargetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        targetPosition = Vector3.Lerp(targetPosition, setTargetPosition, Time.deltaTime * speed);
-        
-        Vector3 parentPos = transform.parent.position;
-
-        Vector2 pos = -(parentPos - targetPosition).normalized;
-        transform.localPosition = pos;
-        transform.localPosition = transform.localPosition.normalized / distanceDivisor;
+        // targetPosition = Vector3.Lerp(targetPosition, setTargetPosition, Time.deltaTime * speed);
+        //
+        // Vector3 parentPos = transform.parent.position;
+        //
+        // Vector2 pos = -(parentPos - targetPosition).normalized;
+        // transform.localPosition = pos;
+        // transform.localPosition = transform.localPosition.normalized / distanceDivisor;
     }
 }
