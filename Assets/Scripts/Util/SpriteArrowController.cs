@@ -35,7 +35,8 @@ namespace Util
         {
             Vector2 tailWorldPos = HexGridManager.GetHexCenter(tail.x, tail.y);
             Vector2 headWorldPos = HexGridManager.GetHexCenter(head.x, head.y);
-            Vector2 arrowWorldPos = (tailWorldPos + headWorldPos)/2.0f;
+            Vector2 arrowWorldPos2d = (tailWorldPos + headWorldPos)/2.0f;
+            Vector3 arrowWorldPos = new Vector3(arrowWorldPos2d.x, arrowWorldPos2d.y, 0.9601f);
             float width = headWorldPos.x - tailWorldPos.x;
             float height = headWorldPos.y - tailWorldPos.y;
             float arrowAngle = Mathf.Atan2(height, width);
