@@ -76,6 +76,24 @@ namespace StateManager
                     if (sr != null)
                         sr.sortingOrder = 500;
                 }
+                
+                GameObject hexicon = goList.GetValue("HexIcon");
+                if (hexicon != null)
+                {
+                    SpriteRenderer sr = hexicon.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                        sr.sortingOrder = 502;
+                }
+                
+                GameObject hexiconcircle = goList.GetValue("HexIconCircle");
+                if (hexiconcircle != null)
+                {
+                    SpriteRenderer sr = hexiconcircle.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                        sr.sortingOrder = 501;
+                }
+                
+                
             }
 
             if (!TryGetMouseBoardPosition(out Vector3 mouseWorldPos))
