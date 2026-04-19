@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 132.6
+      value: 267.19
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 66.3
+      value: 133.595
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: initialHealth
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: eyesFollowMouse
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5387418325193270740, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_text
       value: '0/0
@@ -212,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Neutrals.UnmovingNeutral
   eyesFollowMouse: {fileID: 0}
   initialHealth: 5
+  behavior: {fileID: 0}
   GoList: {fileID: 0}
   _health: 5
   entityType: 3
