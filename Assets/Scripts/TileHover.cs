@@ -7,22 +7,24 @@ public class TileHover : MonoBehaviour
     public LerpPosition lerpPosition;
     public GameObject activateOnHover;
     public int waitTicks = 20;
+    public float hoverYOffset = -0.07f;
 
     private int ticksHovered = 0;
     public bool activeHover = true;
 
     public bool hoverWhenNotPlaytate = true;
-
     public bool ignoreOcclusion = false;
 
     public GameObject sideThing;
 
-    private Collider col;
+    private Collider col3D;
+    private Collider2D col2D;
     private Camera mainCam;
 
     void Awake()
     {
-        col = GetComponent<Collider>();
+        col3D = GetComponent<Collider>();
+        col2D = GetComponent<Collider2D>();
         mainCam = Camera.main;
     }
 
@@ -34,35 +36,19 @@ public class TileHover : MonoBehaviour
             if (mainCam == null) return;
         }
 
-        // Handle game state restriction
         if (!hoverWhenNotPlaytate && !GameStateManager.Instance.IsCurrent<PlayingState>())
         {
             ResetHoverState();
             return;
         }
 
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        bool isHovering = false;
-
-        if (ignoreOcclusion)
-        {
-            // Check whether the ray intersects this collider, regardless of what is in front
-            isHovering = col.Raycast(ray, out _, Mathf.Infinity);
-        }
-        else
-        {
-            // Check whether this object is the first thing hit by the ray
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-            {
-                isHovering = hit.collider == col;
-            }
-        }
+        bool isHovering = IsMouseHovering();
 
         if (isHovering && activeHover)
         {
             if (lerpPosition)
             {
-                lerpPosition.targetLocation = new Vector3(0, -0.07f, lerpPosition.startPosition.z);
+                lerpPosition.targetLocation = new Vector3(0, hoverYOffset, lerpPosition.startPosition.z);
             }
 
             if (activateOnHover && ticksHovered > waitTicks)
@@ -81,6 +67,47 @@ public class TileHover : MonoBehaviour
         {
             ResetHoverState();
         }
+    }
+
+    private bool IsMouseHovering()
+    {
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+
+        // 3D collider support
+        if (col3D != null)
+        {
+            if (ignoreOcclusion)
+            {
+                return col3D.Raycast(ray, out _, Mathf.Infinity);
+            }
+            else
+            {
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                {
+                    return hit.collider == col3D;
+                }
+            }
+
+            return false;
+        }
+
+        // 2D collider support
+        if (col2D != null)
+        {
+            Vector2 mouseWorldPoint = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+            if (ignoreOcclusion)
+            {
+                return col2D.OverlapPoint(mouseWorldPoint);
+            }
+            else
+            {
+                RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+                return hit.collider == col2D;
+            }
+        }
+
+        return false;
     }
 
     private void ResetHoverState()
