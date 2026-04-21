@@ -7,7 +7,7 @@
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -735,7 +736,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776451233962</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Fix player mess up">
+      <option name="closed" value="true" />
+      <created>1776705011331</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1776705011331</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -762,7 +771,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Visual changes + Card Statuses + Infos" />
     <MESSAGE value="Small changes?" />
     <MESSAGE value="In progress healthbar changes" />
     <MESSAGE value="Minor changes + health bars" />
@@ -787,7 +795,8 @@
     <MESSAGE value="More bug fixing" />
     <MESSAGE value="fix arrow z heighthttps://trello.com/c/IA1TUNLS" />
     <MESSAGE value="Small bug fixes tile picker" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small bug fixes tile picker" />
+    <MESSAGE value="Fix player mess up" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix player mess up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

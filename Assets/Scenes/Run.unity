@@ -18112,6 +18112,7 @@ MonoBehaviour:
     DifficultyMax: 2
     enemies:
     - TriangleBoy
+    - SquareBoy
     EncounterType: 0
   - DifficultyMin: 0
     DifficultyMax: 2
@@ -18123,7 +18124,6 @@ MonoBehaviour:
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
-    - SquareBoy
     - DiamondBoy
     EncounterType: 0
 --- !u!114 &1461430464 stripped

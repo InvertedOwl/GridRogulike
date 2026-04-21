@@ -61,7 +61,12 @@ namespace Entities
 
         public void RemoveIntent()
         {
-            // return;
+            StartCoroutine(RemoveIntentLate());
+        }
+
+        public IEnumerator RemoveIntentLate()
+        {
+            yield return new WaitForSeconds(0.1f);
             plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.zero);
         }
     }
