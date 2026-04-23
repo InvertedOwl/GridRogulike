@@ -5,6 +5,7 @@ public class ScaleWithSin : MonoBehaviour
 {
     public float low;
     public float high;
+    public float speed = 3f;
 
     private Vector3 initScale;
     
@@ -15,7 +16,6 @@ public class ScaleWithSin : MonoBehaviour
 
     void Update()
     {
-        float speed = 3f;
         float t = (Mathf.Sin(Time.time * speed) + 1f) * 0.5f;
         float currentScaleMult = Mathf.Lerp(low, high, t);
         
