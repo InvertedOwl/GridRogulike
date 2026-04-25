@@ -21,11 +21,11 @@ namespace Map
         public EnemiesData enemiesData;
         
         
-        public static RandomState guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("mnguid");
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
-            guidRandom = RunInfo.NewRandom("mnguid".GetHashCode());
+            guidRandom = RunInfo.NewRandom("mnguid");
         }
         public static string GenerateDeterministicId()
         {
@@ -34,7 +34,7 @@ namespace Map
             return new Guid(bytes).ToString();
         }
         
-        private RandomState _mapNodeRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        private RandomState _mapNodeRandom = RunInfo.NewRandom(GenerateDeterministicId());
 
         public void Start()
         {

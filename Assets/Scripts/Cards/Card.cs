@@ -25,11 +25,11 @@ namespace Cards
         public int Cost =>
             (int)Mathf.Round(Actions.Sum(action => action.Cost) * 0.75f);
 
-        public static RandomState guidRandom = RunInfo.NewRandom("guid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("guid");
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
-            guidRandom = RunInfo.NewRandom("guid".GetHashCode());
+            guidRandom = RunInfo.NewRandom("guid");
         }
         
         public static string GenerateDeterministicId()
@@ -46,7 +46,7 @@ namespace Cards
             CardName = null;
             Rarity = Rarity.Common;
             UniqueId = "";
-            cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
+            cardRandom = RunInfo.NewRandom(UniqueId);
             CardSet = CardSet.Base;
         }
 
@@ -57,7 +57,7 @@ namespace Cards
             Rarity = card.Rarity;
             UniqueId = GenerateDeterministicId();
             isReal = card.isReal;
-            cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
+            cardRandom = RunInfo.NewRandom(UniqueId);
             CardSet = card.CardSet;
         }
 
@@ -68,7 +68,7 @@ namespace Cards
             Rarity = rarity;
             UniqueId = GenerateDeterministicId();
             isReal = true;
-            cardRandom = RunInfo.NewRandom(UniqueId.GetHashCode());
+            cardRandom = RunInfo.NewRandom(UniqueId);
             CardSet = cardSet;
         }
     }

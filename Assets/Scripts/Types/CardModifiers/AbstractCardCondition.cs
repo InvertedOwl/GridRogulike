@@ -7,11 +7,11 @@ namespace Types.CardModifiers
 {
     public abstract class AbstractCardCondition
     {
-        public static RandomState guidRandom = RunInfo.NewRandom("ccguid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("ccguid");
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
-            guidRandom = RunInfo.NewRandom("ccguid".GetHashCode());
+            guidRandom = RunInfo.NewRandom("ccguid");
         }
         public static string GenerateDeterministicId()
         {
@@ -20,7 +20,7 @@ namespace Types.CardModifiers
             return new Guid(bytes).ToString();
         }
         
-        protected RandomState cardConditionRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        protected RandomState cardConditionRandom = RunInfo.NewRandom(GenerateDeterministicId());
         
         public string ConditionText;
         public abstract bool Condition(Card card);

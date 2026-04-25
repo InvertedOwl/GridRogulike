@@ -24,7 +24,7 @@ namespace Types.CardModifiers.Modifiers
             
         };
         
-        public static RandomState cardModifierRandom = RunInfo.NewRandom("cardmod".GetHashCode());
+        public static RandomState cardModifierRandom = RunInfo.NewRandom("cardmod");
 
         
         public static CardModifiersEntry GetRandomModifier(Rarity rarity)

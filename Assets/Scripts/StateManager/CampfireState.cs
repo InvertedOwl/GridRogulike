@@ -14,7 +14,7 @@ namespace StateManager
     {
         public GameObject window;
 
-        public RandomState campfireRandom = RunInfo.NewRandom("campfire".GetHashCode());
+        public RandomState campfireRandom = RunInfo.NewRandom("campfire");
         
         public override void Enter()
         {

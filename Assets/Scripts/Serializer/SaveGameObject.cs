@@ -67,7 +67,11 @@ namespace Serializer
         {
             string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
 
-            string save = SaveFile.ToJSON(); // safer than using currentJSON directly
+            string save = SaveFile.currentJSON;
+            if (string.IsNullOrWhiteSpace(save))
+            {
+                save = SaveFile.ToJSON();
+            }
 
             if (string.IsNullOrWhiteSpace(save))
             {

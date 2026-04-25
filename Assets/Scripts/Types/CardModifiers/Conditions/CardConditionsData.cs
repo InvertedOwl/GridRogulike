@@ -25,7 +25,7 @@ namespace Types.CardModifiers.Conditions
             new (typeof(AttackingCondition))
         };
         
-        public static RandomState cardConditionRandom = RunInfo.NewRandom("cardcond".GetHashCode());
+        public static RandomState cardConditionRandom = RunInfo.NewRandom("cardcond");
         
         public static CardConditionsEntry GetRandomCondition()
         {

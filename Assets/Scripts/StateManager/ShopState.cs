@@ -57,7 +57,7 @@ namespace StateManager
         public void Start()
         {
             Debug.Log("Set shop random");
-            _shopRandom = RunInfo.NewRandom("shop".GetHashCode());
+            _shopRandom = RunInfo.NewRandom("shop");
         }
 
         public override void Enter()
@@ -65,7 +65,7 @@ namespace StateManager
             Debug.Log("Shop random exists: " + (_shopRandom != null));
             if (_shopRandom == null)
             {
-                _shopRandom = RunInfo.NewRandom("shop".GetHashCode());
+                _shopRandom = RunInfo.NewRandom("shop");
             }
             
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));

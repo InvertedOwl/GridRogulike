@@ -20,14 +20,14 @@ namespace StateManager
 
         public void Start()
         {
-            _eventRandom = RunInfo.NewRandom("events".GetHashCode());
+            _eventRandom = RunInfo.NewRandom("events");
         }
 
         public override void Enter()
         {
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));
             if (_eventRandom == null)
-                _eventRandom = RunInfo.NewRandom("events".GetHashCode());
+                _eventRandom = RunInfo.NewRandom("events");
             EventEntry entry = EventData.GetRandomEvent(_eventRandom);
             Name.text = entry.Name;
             Desc.text = entry.Desc;

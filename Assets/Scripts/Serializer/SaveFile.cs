@@ -93,6 +93,7 @@ namespace Serializer
             if (saveFile.runInfo != null)
                 RunInfo.Instance.RestoreFromSaveData(saveFile.runInfo);
 
+            currentJSON = json;
             GameState.SaveData = saveFile.stateData;
             MapState.mapSaveData = saveFile.mapData;
 

@@ -48,7 +48,7 @@ namespace StateManager
             Instance = this;
         }
 
-        public RandomState mapRandom = RunInfo.NewRandom("map".GetHashCode());
+        public RandomState mapRandom = RunInfo.NewRandom("map");
 
         public void Start()
         {

@@ -53,7 +53,7 @@ namespace StateManager
         
         public void Start()
         {
-            random = RunInfo.NewRandom("playing".GetHashCode());
+            random = RunInfo.NewRandom("playing");
         }
         
         public Button EndTurnButton;
@@ -101,7 +101,7 @@ namespace StateManager
             
             if (random == null)
             {
-                random = RunInfo.NewRandom("playing".GetHashCode());
+                random = RunInfo.NewRandom("playing");
             }
             
             MoveEntitiesIn();

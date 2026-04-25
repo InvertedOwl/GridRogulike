@@ -20,6 +20,13 @@ public class RandomState
     {
         return new RandomState(this.seed, this.calls);
     }
+
+    public void CopyFrom(RandomState other)
+    {
+        seed = other.seed;
+        calls = other.calls;
+        RebuildRandom();
+    }
     
     
 
@@ -94,8 +101,10 @@ public class RandomState
         {
             RebuildRandom();
         }
-        
-        calls++;
-        Random.NextBytes(bytes);
+
+        for (int i = 0; i < bytes.Length; i++)
+        {
+            bytes[i] = (byte)Next(0, 256);
+        }
     }
 }

@@ -31,11 +31,11 @@ namespace Cards.Actions
         }
         
         
-        public static RandomState guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
+        public static RandomState guidRandom = RunInfo.NewRandom("aguid");
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
-            guidRandom = RunInfo.NewRandom("aguid".GetHashCode());
+            guidRandom = RunInfo.NewRandom("aguid");
         }
         
         public static string GenerateDeterministicId()
@@ -45,7 +45,7 @@ namespace Cards.Actions
             return new Guid(bytes).ToString();
         }
         
-        protected RandomState _actionRandom = RunInfo.NewRandom(GenerateDeterministicId().GetHashCode());
+        protected RandomState _actionRandom = RunInfo.NewRandom(GenerateDeterministicId());
         
         [JsonIgnore]
         public AbstractEntity entity

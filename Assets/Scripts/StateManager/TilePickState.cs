@@ -16,13 +16,12 @@ namespace StateManager
         private HexGridManager _grid;
         private int _chosenIndex;
 
-        public RandomState tilePickRandom = RunInfo.NewRandom("tilepick".GetHashCode());
+        public RandomState tilePickRandom = RunInfo.NewRandom("tilepick");
 
         public List<GameObject> tiles;
 
-        [Header("3D Placement")]
-        [SerializeField] private float boardZ = 0f;          // Board lies on XY plane at this Z
-        [SerializeField] private float previewDepthOffset = -0.05f; // Slight offset toward camera if needed
+        [SerializeField] private float boardZ = 0f;
+        [SerializeField] private float previewDepthOffset = -0.05f;
 
         public override void Enter()
         {

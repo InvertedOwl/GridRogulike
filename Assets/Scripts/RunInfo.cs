@@ -95,6 +95,24 @@ public class RunInfo : MonoBehaviour
     {
         randoms.Clear();
     }
+
+    public static int StableHash(string value)
+    {
+        unchecked
+        {
+            int hash = 17;
+            foreach (char c in value ?? string.Empty)
+            {
+                hash = hash * 31 + c;
+            }
+            return hash;
+        }
+    }
+
+    public static RandomState NewRandom(string key)
+    {
+        return NewRandom(StableHash(key));
+    }
     
     public static RandomState NewRandom(int nudge)
     {
@@ -103,7 +121,7 @@ public class RunInfo : MonoBehaviour
             return randoms[nudge];
         }
 
-        RandomState random = new RandomState(nudge + seed.GetHashCode(), 0); 
+        RandomState random = new RandomState(unchecked(nudge + StableHash(seed)), 0);
         
         randoms[nudge] = random;
         return random;
@@ -217,11 +235,23 @@ public class RunInfo : MonoBehaviour
         CurrentSteps = data.CurrentSteps;
 
         seed = data.Seed;
-        randoms = data.randoms ?? new Dictionary<int, RandomState>();
+        Dictionary<int, RandomState> restoredRandoms = data.randoms ?? new Dictionary<int, RandomState>();
 
-        foreach (var kv in randoms)
+        foreach (var kv in restoredRandoms)
         {
-            kv.Value.RebuildRandom();
+            if (kv.Value == null)
+            {
+                continue;
+            }
+
+            if (randoms.TryGetValue(kv.Key, out RandomState existingRandom))
+            {
+                existingRandom.CopyFrom(kv.Value);
+            }
+            else
+            {
+                randoms[kv.Key] = kv.Value.Clone();
+            }
         }
     }
 
