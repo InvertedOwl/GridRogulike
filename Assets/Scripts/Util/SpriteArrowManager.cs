@@ -24,9 +24,10 @@ public class SpriteArrowManager : MonoBehaviour
         string uuid = Guid.NewGuid().ToString();
         arrows.Add(uuid, arrow);
 
-        arrow.transform.GetChild(0).GetComponent<SpriteArrowController>().head = head;
-        arrow.transform.GetChild(0).GetComponent<SpriteArrowController>().Tail = tail;
-        arrow.transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+        SpriteArrowController controller = GetArrowController(arrow);
+        controller.head = head;
+        controller.Tail = tail;
+        controller.SetColor(newColor);
 
         foreach (Transform iconT in arrow.transform.GetChild(1))
         {
@@ -42,6 +43,19 @@ public class SpriteArrowManager : MonoBehaviour
         }
         
         return uuid;
+    }
+
+    private SpriteArrowController GetArrowController(GameObject arrow)
+    {
+        SpriteArrowController controller = arrow.GetComponentInChildren<SpriteArrowController>();
+        if (controller != null)
+            return controller;
+
+        LineRenderer lineRenderer = arrow.GetComponentInChildren<LineRenderer>();
+        GameObject target = lineRenderer != null ? lineRenderer.gameObject : arrow.transform.GetChild(0).gameObject;
+        controller = target.AddComponent<SpriteArrowController>();
+        controller.lineRenderer = lineRenderer;
+        return controller;
     }
 
     public void DestroyArrow(string uuid)

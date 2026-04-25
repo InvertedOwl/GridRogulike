@@ -12202,9 +12202,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Util.SpriteArrowController
   heightScale: 2.6223538
-  lerpHeight: {fileID: 1016337282}
-  lerpPosition: {fileID: 1016337280}
-  lerpIcon: {fileID: 123789876}
+  lineRenderer: {fileID: 0}
+  iconContainer: {fileID: 0}
+  endPadding: 0.75
+  zPosition: 0.9601
   head: {x: 0, y: 0}
 --- !u!114 &1016337282
 MonoBehaviour:
