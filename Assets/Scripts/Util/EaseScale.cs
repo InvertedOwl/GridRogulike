@@ -9,6 +9,7 @@ public class EaseScale : MonoBehaviour
     private Vector3 _lastScale;
     private Vector3 _targetScale;
     private Action _onComplete;
+    private bool _hasExplicitTarget;
 
     public Vector3 scale
     {
@@ -22,6 +23,9 @@ public class EaseScale : MonoBehaviour
 
     public void Start()
     {
+        if (_hasExplicitTarget)
+            return;
+
         _lastScale = transform.localScale;
         _targetScale = transform.localScale;
     }
@@ -33,6 +37,7 @@ public class EaseScale : MonoBehaviour
         _lastScale = transform.localScale;
         _targetScale = scale;
         _elapsedTime = 0f;
+        _hasExplicitTarget = true;
 
         _onComplete = onComplete;
 

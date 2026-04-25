@@ -45,11 +45,18 @@ namespace Entities
         {
             // return;
             if (plannedAction.Count == 0)
+            {
+                HideIntentIndicator();
                 return;
+            }
+
             AbstractAction actionChosen = plannedAction[plannedAction.Count - 1];
 
             if (actionChosen is AttackAction)
+            {
+                HideIntentIndicator();
                 return;
+            }
             
             
 
@@ -57,6 +64,14 @@ namespace Entities
             plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.one);
             plannedActionSprite.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionChosen.ToSimpleText();
             LayoutRebuilder.ForceRebuildLayoutImmediate(plannedActionSprite.GetComponent<RectTransform>());
+        }
+
+        private void HideIntentIndicator()
+        {
+            if (plannedActionSprite == null)
+                return;
+
+            plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.zero);
         }
 
         public void RemoveIntent()
@@ -67,7 +82,7 @@ namespace Entities
         public IEnumerator RemoveIntentLate()
         {
             yield return new WaitForSeconds(0.1f);
-            plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.zero);
+            HideIntentIndicator();
         }
     }
 }
