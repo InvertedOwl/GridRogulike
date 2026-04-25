@@ -5,26 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Card.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Card.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RandomState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RandomState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveGameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveGameObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/CampfireState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/CampfireState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/EventState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/EventState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/ShopState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardCondition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardCondition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/AbstractCardModifier.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/CardConditionsData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Conditions/CardConditionsData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/CardModifiersData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/CardModifiersData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/ShopActions/ShopActionData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/ShopActions/ShopActionData.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -378,6 +361,7 @@
       <workItem from="1776971699857" duration="597000" />
       <workItem from="1776984258074" duration="1052000" />
       <workItem from="1777075667703" duration="808000" />
+      <workItem from="1777134573310" duration="879000" />
     </task>
     <task id="LOCAL-00001" summary="Return">
       <option name="closed" value="true" />
@@ -763,7 +747,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776705011331</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Fix bug https://trello.com/c/ewXizuCl">
+      <option name="closed" value="true" />
+      <created>1777134856727</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1777134856727</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -790,7 +782,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Small changes?" />
     <MESSAGE value="In progress healthbar changes" />
     <MESSAGE value="Minor changes + health bars" />
     <MESSAGE value="Fix bug with enemy hitting enemies" />
@@ -815,7 +806,8 @@
     <MESSAGE value="fix arrow z heighthttps://trello.com/c/IA1TUNLS" />
     <MESSAGE value="Small bug fixes tile picker" />
     <MESSAGE value="Fix player mess up" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix player mess up" />
+    <MESSAGE value="Fix bug https://trello.com/c/ewXizuCl" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug https://trello.com/c/ewXizuCl" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -50,12 +50,6 @@ namespace StateManager
 
         public RandomState mapRandom = RunInfo.NewRandom("map");
 
-        public void Start()
-        {
-            mapRandom.calls = 0;
-            mapRandom.RebuildRandom();
-        }
-
         public override void Enter()
         {
             if (!hasSetup)
@@ -71,17 +65,29 @@ namespace StateManager
 
             if (mapSaveData != null)
             {
-                currentNode = mapLayers[mapSaveData.currentLayer][mapSaveData.currentNodeInLayer];
-                tempMapOffset = mapSaveData.tempMapOffset;
-
-                UpdateCurrentNode();
-                MoveMap();
+                if (TryApplySaveData(mapSaveData))
+                {
+                    UpdateCurrentNode();
+                    DrawConnections();
+                    MoveMap();
+                }
+                else
+                {
+                    Debug.LogWarning("Map save data did not match the generated map. Falling back to the start node.");
+                    currentNode = mapLayers[0][0];
+                    UpdateCurrentNode();
+                    DrawConnections();
+                    MoveMap();
+                }
                 mapSaveData = null;
             }
             else
             {
                 MoveMap();
             }
+
+            // MapState builds/restores its persistent map inside Enter, so refresh the checkpoint after that setup.
+            SaveFile.currentJSON = SaveFile.ToJSON();
         }
         
         public void SetMapState()
@@ -136,6 +142,7 @@ namespace StateManager
 
         public void GenerateMap()
         {
+            ResetMapGenerationRandoms();
             mapLayers.Clear();
 
             // Ensure we have at least 2 layers to have a start and an end
@@ -297,10 +304,17 @@ namespace StateManager
 
             Debug.Log("Map generated with " + layers + " layers.");
         }
+
+        private void ResetMapGenerationRandoms()
+        {
+            mapRandom = RunInfo.ResetRandom("map");
+            MapNode.guidRandom = RunInfo.ResetRandom("mnguid");
+        }
         
         private void DrawConnections()
         {
             linesList.ForEach(Destroy);
+            linesList.Clear();
             
             foreach (var layer in mapLayers)
             {
@@ -336,16 +350,47 @@ namespace StateManager
 
         public MapSaveData GetSaveData()
         {
-            if (mapLayers.Count == 0)
+            if (mapLayers.Count == 0 || currentNode == null)
             {
                 return null;
             }
+
+            int layerIndex = GetLayerIndex(currentNode);
+            if (layerIndex < 0)
+            {
+                return null;
+            }
+
+            int nodeIndex = mapLayers[layerIndex].IndexOf(currentNode);
+            if (nodeIndex < 0)
+            {
+                return null;
+            }
+
             return new MapSaveData
             {
-                currentLayer = GetLayerIndex(currentNode),
-                currentNodeInLayer = mapLayers[GetLayerIndex(currentNode)].IndexOf(currentNode),
+                currentLayer = layerIndex,
+                currentNodeInLayer = nodeIndex,
                 tempMapOffset = tempMapOffset,
             };
+        }
+
+        private bool TryApplySaveData(MapSaveData data)
+        {
+            if (data.currentLayer < 0 || data.currentLayer >= mapLayers.Count)
+            {
+                return false;
+            }
+
+            List<MapNode> layer = mapLayers[data.currentLayer];
+            if (data.currentNodeInLayer < 0 || data.currentNodeInLayer >= layer.Count)
+            {
+                return false;
+            }
+
+            currentNode = layer[data.currentNodeInLayer];
+            tempMapOffset = data.tempMapOffset;
+            return true;
         }
 
         public static void LoadFromSaveData(MapSaveData data)

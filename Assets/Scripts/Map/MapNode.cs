@@ -34,7 +34,7 @@ namespace Map
             return new Guid(bytes).ToString();
         }
         
-        private RandomState _mapNodeRandom = RunInfo.NewRandom(GenerateDeterministicId());
+        private RandomState _mapNodeRandom = RunInfo.ResetRandom(GenerateDeterministicId());
 
         public void Start()
         {

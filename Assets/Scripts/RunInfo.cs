@@ -113,6 +113,19 @@ public class RunInfo : MonoBehaviour
     {
         return NewRandom(StableHash(key));
     }
+
+    public static RandomState ResetRandom(string key)
+    {
+        return ResetRandom(StableHash(key));
+    }
+
+    public static RandomState ResetRandom(int nudge)
+    {
+        RandomState random = NewRandom(nudge);
+        random.calls = 0;
+        random.RebuildRandom();
+        return random;
+    }
     
     public static RandomState NewRandom(int nudge)
     {
