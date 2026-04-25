@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -361,15 +360,7 @@
       <workItem from="1776971699857" duration="597000" />
       <workItem from="1776984258074" duration="1052000" />
       <workItem from="1777075667703" duration="808000" />
-      <workItem from="1777134573310" duration="879000" />
-    </task>
-    <task id="LOCAL-00001" summary="Return">
-      <option name="closed" value="true" />
-      <created>1765841454066</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1765841454067</updated>
+      <workItem from="1777134573310" duration="1271000" />
     </task>
     <task id="LOCAL-00002" summary="Added gitignore stuff">
       <option name="closed" value="true" />
@@ -755,7 +746,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777134856727</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Fixed https://trello.com/c/DFHREpYb">
+      <option name="closed" value="true" />
+      <created>1777135591710</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1777135591710</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -782,7 +781,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="In progress healthbar changes" />
     <MESSAGE value="Minor changes + health bars" />
     <MESSAGE value="Fix bug with enemy hitting enemies" />
     <MESSAGE value="WOW! not much" />
@@ -807,7 +805,8 @@
     <MESSAGE value="Small bug fixes tile picker" />
     <MESSAGE value="Fix player mess up" />
     <MESSAGE value="Fix bug https://trello.com/c/ewXizuCl" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bug https://trello.com/c/ewXizuCl" />
+    <MESSAGE value="Fixed https://trello.com/c/DFHREpYb" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed https://trello.com/c/DFHREpYb" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

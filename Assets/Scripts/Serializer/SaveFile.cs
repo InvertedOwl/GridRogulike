@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cards;
 using Entities;
+using Grid;
 using Map;
 using StateManager;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ namespace Serializer
         public PlayingStateSaveData stateData;
         public PlayerSaveData player;
         public MapSaveData mapData;
+        public MapData boardData;
         public string currentGameState;
 
         private static JsonSerializerSettings settings = new JsonSerializerSettings
@@ -52,7 +54,8 @@ namespace Serializer
                 currentGameState = GameStateManager.Instance.GetCurrentStateType()?.FullName,
                 stateData = stateData,
                 player = Player.Instance.CaptureSaveData(),
-                mapData = MapState.Instance.GetSaveData()
+                mapData = MapState.Instance.GetSaveData(),
+                boardData = HexGridManager.Instance?.CaptureSaveData()
             };
 
             currentJSON = JsonConvert.SerializeObject(saveFile, settings);
@@ -96,6 +99,7 @@ namespace Serializer
             currentJSON = json;
             GameState.SaveData = saveFile.stateData;
             MapState.mapSaveData = saveFile.mapData;
+            HexGridManager.LoadFromSaveData(saveFile.boardData);
 
             Type stateType = null;
             if (!string.IsNullOrEmpty(saveFile.currentGameState))

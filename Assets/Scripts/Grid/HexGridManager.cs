@@ -39,6 +39,7 @@ namespace Grid
         public Dictionary<Vector2Int, GameObject> _hexObjects = new Dictionary<Vector2Int, GameObject>();
         public Transform grid;
         public static HexGridManager Instance;
+        private static MapData _saveData;
         
         public SpriteDatabase spriteDatabase;
 
@@ -57,6 +58,17 @@ namespace Grid
         void Awake ()
         {
             Instance = this;
+            if (_saveData != null)
+            {
+                RestoreFromSaveData(_saveData);
+                _saveData = null;
+            }
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStaticsOnLoad()
+        {
+            _saveData = null;
         }
 
         public void Update()
@@ -88,6 +100,43 @@ namespace Grid
         public void Replace(Vector2Int current, string type)
         {
             _boardDictionary[current] = type;
+        }
+
+        public MapData CaptureSaveData()
+        {
+            MapData data = new MapData();
+
+            foreach (var kvp in _boardDictionary.OrderBy(kvp => kvp.Key.x).ThenBy(kvp => kvp.Key.y))
+            {
+                data.entries.Add(new MapEntry
+                {
+                    key = kvp.Key,
+                    value = kvp.Value
+                });
+            }
+
+            return data;
+        }
+
+        public void RestoreFromSaveData(MapData data)
+        {
+            if (data == null)
+            {
+                return;
+            }
+
+            _boardDictionary = data.ToDictionary();
+            UpdateBoard();
+        }
+
+        public static void LoadFromSaveData(MapData data)
+        {
+            _saveData = data;
+            if (Instance != null)
+            {
+                Instance.RestoreFromSaveData(_saveData);
+                _saveData = null;
+            }
         }
 
         public void UpdateBoard()
@@ -126,8 +175,6 @@ namespace Grid
                 newHex.GetComponent<HexPreviewHandler>().currentPos = pos;
 
                 AttachClickForwarder(newHex, pos);
-
-                // NEW: attach hover forwarder too
                 AttachHoverForwarder(newHex, pos);
             }
         }
@@ -141,7 +188,6 @@ namespace Grid
             forwarder.Init(this, gridPos);
         }
 
-        // NEW
         private void AttachHoverForwarder(GameObject hexObj, Vector2Int gridPos)
         {
             var forwarder = hexObj.GetComponent<HexHoverForwarder>();
@@ -162,7 +208,6 @@ namespace Grid
             }
         }
 
-        // NEW
         internal void NotifyHexHoverEnter(Vector2Int pos, GameObject hexObj)
         {
             onHexHoverEnter?.Invoke(pos.x, pos.y);
@@ -204,7 +249,6 @@ namespace Grid
             _hexClickedCallbacks.Clear();
         }
 
-        // NEW: hover callback registration
         public void RegisterHexHoverEnterCallback(Action<Vector2Int, GameObject> callback)
         {
             if (callback == null) return;
