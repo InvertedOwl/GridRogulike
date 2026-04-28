@@ -80,6 +80,8 @@ namespace StateManager
         private readonly List<int> _turnOrder = new();
         private int _currentTurnIndex;
         public AbstractEntity CurrentTurn => entities[_turnOrder[_currentTurnIndex]];
+        private float _autoEndReadyTime = -1f;
+        private const float AutoEndDelaySeconds = 0.5f;
 
         public EaseScale playingUI;
         public EasePosition playingHealth;
@@ -168,6 +170,112 @@ namespace StateManager
             Vector3 playerPos = player.transform.position;
 
             cameraLerpPosition.offset = new Vector3(playerPos.x/2, (playerPos.y - 1f)/2, -10);
+
+            TryAutoEndPlayerTurn();
+        }
+
+        private void TryAutoEndPlayerTurn()
+        {
+            if (!GameplayNavSettings.endturn)
+            {
+                ResetAutoEndTimer();
+                return;
+            }
+
+            if (!AllowUserInput)
+            {
+                ResetAutoEndTimer();
+                return;
+            }
+
+            if (!IsPlayerTurnActive())
+            {
+                ResetAutoEndTimer();
+                return;
+            }
+
+            if (Deck.Instance == null || HexClickPlayerController.instance == null)
+            {
+                ResetAutoEndTimer();
+                return;
+            }
+
+            if (HasResolvingCard() || HasPlayableCard() || HasPendingPlayerAttack() || HasReachableMove())
+            {
+                ResetAutoEndTimer();
+                return;
+            }
+
+            if (_autoEndReadyTime < 0f)
+            {
+                _autoEndReadyTime = Time.time + AutoEndDelaySeconds;
+                return;
+            }
+
+            if (Time.time < _autoEndReadyTime)
+                return;
+
+            ResetAutoEndTimer();
+            PlayerEndTurn();
+        }
+
+        private void ResetAutoEndTimer()
+        {
+            _autoEndReadyTime = -1f;
+        }
+
+        private bool IsPlayerTurnActive()
+        {
+            if (_turnOrder.Count == 0 || _currentTurnIndex < 0 || _currentTurnIndex >= _turnOrder.Count)
+                return false;
+
+            int entityIndex = _turnOrder[_currentTurnIndex];
+            return entityIndex >= 0 &&
+                   entityIndex < entities.Count &&
+                   entities[entityIndex].entityType == EntityType.Player;
+        }
+
+        private bool HasResolvingCard()
+        {
+            return Deck.Instance.Hand.Any(card => card != null && card.played);
+        }
+
+        private bool HasPlayableCard()
+        {
+            foreach (CardMonobehaviour card in Deck.Instance.Hand)
+            {
+                if (card == null || card.played || card.onlyDisplay)
+                    continue;
+
+                int cost = (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost);
+                if (cost <= RunInfo.Instance.CurrentEnergy)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool HasPendingPlayerAttack()
+        {
+            HexClickPlayerController controller = HexClickPlayerController.instance;
+            return controller.ToAttack.Count > 0 || controller.isAttacking;
+        }
+
+        private bool HasReachableMove()
+        {
+            if (RunInfo.Instance.CurrentSteps <= 0)
+                return false;
+
+            List<Vector2Int> blockers = entities
+                .Where(entity => entity != null && entity.entityType != EntityType.Player)
+                .Select(entity => entity.positionRowCol)
+                .ToList();
+
+            Dictionary<Vector2Int, int> distanceMap =
+                HexGridManager.Instance.CalculateDistanceMap(player.positionRowCol, blockers);
+
+            return distanceMap.Values.Any(distance =>
+                distance > 0 && distance <= RunInfo.Instance.CurrentSteps);
         }
         
         

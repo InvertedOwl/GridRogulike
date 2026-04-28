@@ -4,6 +4,7 @@ using Passives;
 using Types.CardModifiers.Conditions;
 using Types.CardModifiers.Modifiers;
 using UnityEngine;
+using Util;
 
 namespace Types.Passives
 {
@@ -14,16 +15,13 @@ namespace Types.Passives
             {
                 ["forest"] = () => new("The Forest", "20% of all cards are played twice",
                     new PercentChanceCardCondition(20), new AgainCardModifier(), new Color(0.0196f, 0.2588f, 0.0275f)),
-                ["bloodritual"] = () => new("The Blood Ritual", "1.5x All damage",
-                    new PercentChanceCardCondition(100), new MoreDamageCardModifier(), new Color(0.2588f, 0.0392f, 0.0196f)),
-                ["poisonswamp"] = () => new("Murky Swamp", "All attacks apply 1 poison",
-                    new PercentChanceCardCondition(100), new PoisonCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
-                ["noattack"] = () => new("Disarmed", "Half of attacks fail",
-                    new PercentChanceCardCondition(50), new DisableAttacksCardModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
-                ["support"] = () => new("Support", "For every attack done, gain 3 shield",
-                    new AttackingCondition(), new GainShieldModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
-                ["block"] = () => new("Block", "For every time shield gained, double that shield",
-                    new ShieldingCondition(), new DoubleShieldModifier(), new Color(0.2627f, 0.3804f, 0.0431f)),
+                ["12"] = () => new("Poke", "Gain 4 <shield> when attacking",
+                    new AttackingCondition(), new GainShieldModifier(4), HexColorUtility.HexToColor("#295eb3")),
+                ["14"] = () => new("-", "Gain 50% <shield> of damage done in an attack",
+                    new AttackingCondition(), new GainShieldModifier(basedOnDamage:true, damageToShieldMultiplier:.5f), HexColorUtility.HexToColor("#295eb3")),
+                ["15"] = () => new("-", "Attacks deal 3 additional damage",
+                    new AttackingCondition(), new MoreDamageCardModifier(), HexColorUtility.HexToColor("#295eb3")),
+
             };
         
         public static PassiveEntry GetPassiveEntry(string name)

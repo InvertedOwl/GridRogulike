@@ -7,15 +7,44 @@ namespace Types.CardModifiers.Modifiers
 {
     public class GainShieldModifier : AbstractCardModifier
     {
-        public GainShieldModifier()
+        private int amount;
+        private bool basedOnDamage;
+        private float damageToShieldMultiplier;
+        
+        public GainShieldModifier(int amount = 3, bool basedOnDamage = false, float damageToShieldMultiplier = 0.5f)
         {
-            this.ModifierText = "Gain 3 Shield";
+            this.amount = amount;
+            this.basedOnDamage = basedOnDamage;
+            if (basedOnDamage)
+            {
+                this.ModifierText = "Gain " + amount + " Shield";
+            }
+            else
+            {
+                this.ModifierText = "Gain " + (damageToShieldMultiplier * 100) + "% of attacks done as <shield>";
+            }
         }
         
-        public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent)
+        public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvents)
         {
-            cardEvent.Add(new ShieldCardEvent(3));
-            return cardEvent;
+            if (basedOnDamage)
+            {
+                int damageDone = 0;
+                foreach (AbstractCardEvent cardEvent in cardEvents)
+                {
+                    if (cardEvent is AttackCardEvent attackCardEvent)
+                    {
+                        damageDone++;
+                    }
+                }
+                
+                cardEvents.Add(new ShieldCardEvent((int) (damageDone * damageToShieldMultiplier)));
+            }
+            else
+            {
+                cardEvents.Add(new ShieldCardEvent(this.amount));
+            }
+            return cardEvents;
         }
     }
 }

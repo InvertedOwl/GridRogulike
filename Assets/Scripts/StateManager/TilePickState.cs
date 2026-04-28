@@ -99,10 +99,11 @@ namespace StateManager
                 return;
 
             Vector2Int gridPos = HexGridManager.GetHexCoordinates(mouseWorldPos);
+            string targetTileType = _grid.HexType(gridPos);
 
             bool canPlace =
-                _grid.HexType(gridPos) != "none" ||
-                (_grid.HexType(gridPos) == "none" &&
+                targetTileType == "basic" ||
+                (targetTileType == "none" &&
                  HexGridManager.AdjacentHexes(gridPos).Any(pos => _grid.HexType(pos) != "none"));
 
             if (canPlace)

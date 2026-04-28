@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Util/HexColorUtility.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Util/HexColorUtility.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/GameplayNavSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/GameplayNavSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Damage4.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DashedMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DashedMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Within.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Within.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/dashed.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/dashed.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,6 +154,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/GOList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/HexColorUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/InfoEntry.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/ScaleWithSin.cs" root0="FORCE_HIGHLIGHTING" />
@@ -357,23 +378,8 @@
       <workItem from="1776971699857" duration="597000" />
       <workItem from="1776984258074" duration="1052000" />
       <workItem from="1777075667703" duration="808000" />
-      <workItem from="1777134573310" duration="5304000" />
-    </task>
-    <task id="LOCAL-00005" summary="Re-enable healthbar text">
-      <option name="closed" value="true" />
-      <created>1770363490600</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1770363490600</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Environ Finish and Started click to move (End goal is to remove directional move)">
-      <option name="closed" value="true" />
-      <created>1770408563128</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1770408563128</updated>
+      <workItem from="1777134573310" duration="14085000" />
+      <workItem from="1777317744826" duration="5230000" />
     </task>
     <task id="LOCAL-00007">
       <option name="closed" value="true" />
@@ -751,7 +757,23 @@
       <option name="project" value="LOCAL" />
       <updated>1777156907462</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Sprites">
+      <option name="closed" value="true" />
+      <created>1777157052690</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1777157052691</updated>
+    </task>
+    <task id="LOCAL-00055" summary="hmm dashed material work">
+      <option name="closed" value="true" />
+      <created>1777157701879</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1777157701879</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -778,8 +800,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Saving and stuff. Still need to make game states save important stuff (specifically the encounter data for playingstate)" />
-    <MESSAGE value="Minor other things" />
     <MESSAGE value="Streamed the changes here." />
     <MESSAGE value="Lots of changes + broken intents" />
     <MESSAGE value="Minor adjustments" />
@@ -803,7 +823,9 @@
     <MESSAGE value="Bug fix https://trello.com/c/YiFCTF0o/114-does-not-save-hexes" />
     <MESSAGE value="Fix bug (Not in trello) of enemies not setting intent correctly. Turns out it was a ease scale issue" />
     <MESSAGE value="Working on dashed stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on dashed stuff" />
+    <MESSAGE value="Sprites" />
+    <MESSAGE value="hmm dashed material work" />
+    <option name="LAST_COMMIT_MESSAGE" value="hmm dashed material work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

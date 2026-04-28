@@ -42,6 +42,7 @@ namespace Util
             if (lineRenderer == null)
                 return;
 
+            color.a = 0.5f;
             lineRenderer.startColor = color;
             lineRenderer.endColor = color;
         }
