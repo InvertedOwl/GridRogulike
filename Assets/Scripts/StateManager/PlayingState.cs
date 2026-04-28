@@ -30,7 +30,7 @@ namespace StateManager
             {
                 bool changed = _allowUserInput != value;
                 _allowUserInput = value;
-                Deck.Instance.SetInactive(!value);
+                Deck.Instance.SetInactive(!value, false);
                 EndTurnButton.interactable = value;
                 RedrawButton.interactable = value;
 
@@ -504,7 +504,7 @@ namespace StateManager
                 HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Clear();
             }
             
-            HexClickPlayerController.instance.ToAttack.Clear();
+            HexClickPlayerController.instance.ClearPendingAttacks();
         }
 
         #region Turn System ---------------

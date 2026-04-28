@@ -14,15 +14,43 @@ namespace Grid {
         public bool isAttacking = false;
 
         public List<AttackCardEvent> ToAttack = new List<AttackCardEvent>();
+        private CardMonobehaviour _pendingCard;
+        private bool _pendingCardHasStarted;
 
-        public void AddToAttack(List<AbstractCardEvent> cardEvents)
+        public void AddToAttack(IEnumerable<AbstractCardEvent> cardEvents)
         {
             foreach (AbstractCardEvent cardEvent in cardEvents)
             {
                 ToAttack.Add((AttackCardEvent) cardEvent);
             }
+        }
 
-            
+        public void BeginCardAttack(List<AttackCardEvent> cardEvents, CardMonobehaviour card)
+        {
+            ClearPendingAttacks();
+
+            ToAttack.AddRange(cardEvents);
+            _pendingCard = card;
+            _pendingCardHasStarted = false;
+            SetupAttack();
+        }
+
+        public void PreviewAttackEvents(IEnumerable<AttackCardEvent> cardEvents)
+        {
+            ClearToAttackEmitters();
+
+            if (GameStateManager.Instance == null || !GameStateManager.Instance.IsCurrent<PlayingState>())
+                return;
+
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+
+            foreach (AttackCardEvent attackCardEvent in cardEvents)
+            {
+                if (!TryGetAttackPosition(attackCardEvent, playingState.player.positionRowCol, out Vector2Int attackPosition))
+                    continue;
+
+                ShowAttackPreview(attackPosition);
+            }
         }
         
         
@@ -49,16 +77,12 @@ namespace Grid {
 
         public void Update()
         {
-            if (ToAttack.Count > 0 && isAttacking == false)
+            if (ToAttack.Count > 0 && !isAttacking)
             {
                 SetupAttack();
             }
-            
-            if (ToAttack.Count > 0)
-            {
-                isAttacking = true;
-            }
-            else
+
+            if (ToAttack.Count == 0)
             {
                 isAttacking = false;
             }
@@ -66,8 +90,13 @@ namespace Grid {
 
         public void SetupAttack()
         {
+            if (ToAttack.Count == 0)
+            {
+                isAttacking = false;
+                return;
+            }
+
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-            playingState.AllowUserInput = false;
             
             Dictionary<Vector2Int, int> noBlockerMapFromPlayer = HexGridManager.Instance.CalculateDistanceMap(playingState.player.positionRowCol, new List<Vector2Int>());
 
@@ -91,27 +120,92 @@ namespace Grid {
 
             if (numEntitiesToHit == 0)
             {
-                ToAttack.RemoveAt(0);
+                if (_pendingCard != null)
+                    ClearPendingAttacks();
+                else
+                    ResolveCurrentAttack();
+
                 isAttacking = false;
-                playingState.AllowUserInput = true;
+                return;
             }
+
+            isAttacking = true;
+        }
+
+        public void ClearPendingAttacks()
+        {
+            if (_pendingCard != null)
+            {
+                if (_pendingCardHasStarted)
+                    _pendingCard.FinishManualAttackResolution();
+                else
+                    _pendingCard.CancelManualAttackTargeting();
+            }
+
+            ClearToAttackEmitters();
+            if (SpriteArrowManager.Instance != null)
+                SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
+            ToAttack.Clear();
+            _pendingCard = null;
+            _pendingCardHasStarted = false;
+            isAttacking = false;
+        }
+
+        private void ResolveCurrentAttack()
+        {
+            if (ToAttack.Count == 0)
+                return;
+
+            ToAttack.RemoveAt(0);
+        }
+
+        private void FinishPendingCardAttack()
+        {
+            if (_pendingCard != null)
+                _pendingCard.FinishManualAttackResolution();
+
+            _pendingCard = null;
+            _pendingCardHasStarted = false;
+            isAttacking = false;
         }
 
         public void ClearToAttackEmitters()
         {
-            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-            
-            
-            foreach (AbstractEntity entity in playingState.GetEntities())
-            {
-                if (!(entity is NonPlayerEntity))
-                    continue;
+            if (GameStateManager.Instance == null || !GameStateManager.Instance.IsCurrent<PlayingState>())
+                return;
 
-                Debug.Log("Clearing attack emitters");
-                EaseColor tileColor = HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol)
-                    .GetComponent<GOList>().GetValue("RedGlow").GetComponent<EaseColor>();
+            foreach (Vector2Int position in HexGridManager.Instance.BoardDictionary.Keys)
+            {
+                EaseColor tileColor = HexGridManager.Instance.GetWorldHexObject(position)
+                    .GetComponent<GOList>()
+                    .GetValue("RedGlow")
+                    .GetComponent<EaseColor>();
                 tileColor.targetColor = new Color(tileColor.targetColor.r, tileColor.targetColor.g, tileColor.targetColor.b, 0.0f);
             }
+        }
+
+        private bool TryGetAttackPosition(AttackCardEvent attackCardEvent, Vector2Int origin, out Vector2Int attackPosition)
+        {
+            if (!attackCardEvent.usePosition && string.IsNullOrEmpty(attackCardEvent.direction) && attackCardEvent.distance > 0)
+            {
+                attackPosition = Vector2Int.zero;
+                return false;
+            }
+
+            attackPosition = attackCardEvent.usePosition
+                ? attackCardEvent.position
+                : HexGridManager.MoveHex(origin, attackCardEvent.direction, attackCardEvent.distance);
+
+            return HexGridManager.Instance.BoardDictionary.ContainsKey(attackPosition);
+        }
+
+        private void ShowAttackPreview(Vector2Int attackPosition)
+        {
+            EaseColor tileColor = HexGridManager.Instance.GetWorldHexObject(attackPosition)
+                .GetComponent<GOList>()
+                .GetValue("RedGlow")
+                .GetComponent<EaseColor>();
+            tileColor.SendToColor(new Color(tileColor.targetColor.r, tileColor.targetColor.g, tileColor.targetColor.b, 0.6f));
         }
 
         public void UpdateMovableParticles(PlayingState playingState)
@@ -193,12 +287,44 @@ namespace Grid {
             
             // If player is attacking, and the target is within the distance in the event
             // and the tile has an entity and that entity is not the player
-            if (isAttacking 
-                    && noBlockerMapFromPlayer[hexPosition] <= ToAttack[0].distance 
-                    && entitiesOnHex.Count > 0 && !entitiesOnHex.Contains(playingState.player))
+            if (isAttacking)
             {
+                bool validAttackTarget =
+                    ToAttack.Count > 0 &&
+                    noBlockerMapFromPlayer.TryGetValue(hexPosition, out int distanceFromPlayer) &&
+                    distanceFromPlayer >= 0 &&
+                    distanceFromPlayer <= ToAttack[0].distance &&
+                    entitiesOnHex.Count > 0 &&
+                    !entitiesOnHex.Contains(playingState.player);
+
+                if (!validAttackTarget)
+                    return;
+
+                if (_pendingCard != null && !_pendingCardHasStarted)
+                {
+                    if (!_pendingCard.TryStartManualAttackPlay(out List<AttackCardEvent> attackCardEvents))
+                    {
+                        ClearPendingAttacks();
+                        return;
+                    }
+
+                    ToAttack.Clear();
+                    ToAttack.AddRange(attackCardEvents);
+                    _pendingCardHasStarted = true;
+
+                    if (ToAttack.Count == 0)
+                    {
+                        ClearToAttackEmitters();
+                        FinishPendingCardAttack();
+                        playingState.CaptureFinish();
+                        return;
+                    }
+                }
+
+                AttackCardEvent attack = ToAttack[0];
+
                 // Attack entity
-                playingState.DamageEntities(hexPosition, ToAttack[0].amount, ToAttack[0].status);
+                playingState.DamageEntities(hexPosition, attack.amount, attack.status);
                 
                 // Little animation for free!
                 playingState.player.transform.localPosition += (entitiesOnHex[0].transform.position 
@@ -206,16 +332,20 @@ namespace Grid {
                 
                 // Reset situation
                 SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
-                ToAttack.RemoveAt(0);
-                playingState.AllowUserInput = true;
+                ResolveCurrentAttack();
                 ClearToAttackEmitters();
 
                 if (ToAttack.Count > 0)
                 {
-                    // To reset arrow if there are more attacks coming
-                    HexHoverOnCallback(hexPosition);
+                    SetupAttack();
                 }
-                isAttacking = false;
+                else
+                {
+                    FinishPendingCardAttack();
+                }
+
+                playingState.CaptureFinish();
+                return;
             }
             
             // If player exists, and has enough steps, and is not already moving

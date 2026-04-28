@@ -82,6 +82,12 @@ namespace Cards.Actions
         }
         
         public abstract List<AbstractCardEvent> Activate(CardMonobehaviour cardMono);
+
+        public virtual List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
+        {
+            return new List<AbstractCardEvent>();
+        }
+
         public bool hovering = false;
 
         public void Hover()

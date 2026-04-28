@@ -158,7 +158,7 @@ MonoBehaviour:
   heightScale: 1
   lineRenderer: {fileID: 7137682367518826761}
   iconContainer: {fileID: 5920533863201284086}
-  endPadding: 0.25
+  endPadding: 0.5
   zPosition: 0.9601
   head: {x: 0, y: 0}
 --- !u!1 &1632207786464854307
@@ -189,7 +189,7 @@ RectTransform:
   m_GameObject: {fileID: 1632207786464854307}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.111937955, y: 0.111937955, z: 0.008521881}
+  m_LocalScale: {x: 0, y: 0.111937955, z: 0.008521881}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4460989998532928306}

@@ -53,6 +53,25 @@ namespace Cards.Actions
             return cardEvents;
         }
 
+        public override List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
+        {
+            List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
+
+            if (!GameStateManager.Instance.IsCurrent<PlayingState>())
+                return cardEvents;
+
+            Dictionary<Vector2Int, int> distanceMap =
+                HexGridManager.Instance.CalculateDistanceMap(entity.positionRowCol, new List<Vector2Int>());
+
+            foreach (KeyValuePair<Vector2Int, int> entry in distanceMap)
+            {
+                if (entry.Value >= 0 && entry.Value <= Radius)
+                    cardEvents.Add(new AttackCardEvent(entry.Key, Amount, manual: false));
+            }
+
+            return cardEvents;
+        }
+
         public override void HoverOn()
         {
         }

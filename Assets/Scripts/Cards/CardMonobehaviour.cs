@@ -44,6 +44,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public TextMeshProUGUI actionText;
     public bool used = false;
     public bool played;
+    private bool _waitingForManualAttackResolution;
     public CardStatusDatabase.CardStatus? CardStatus;
     private Card _card;
     public bool onlyDisplay = false;
@@ -151,11 +152,32 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void SetInactive(bool setinactive)
     {
+        SetInactive(setinactive, true);
+    }
+
+    public void SetInactive(bool setinactive, bool darken)
+    {
         this.inactive = setinactive;
+        float inactiveAlpha = (setinactive && darken) ? 0.7f : 0.0f;
         inactiveImage.GetComponent<EaseColor>().targetColor = new Color(inactiveImage.GetComponent<EaseColor>().targetColor.r, 
             inactiveImage.GetComponent<EaseColor>().targetColor.g, 
-            inactiveImage.GetComponent<EaseColor>().targetColor.b, (setinactive)?0.7f:0.0f);
+            inactiveImage.GetComponent<EaseColor>().targetColor.b, inactiveAlpha);
     }
+
+    public void ResetPlayState()
+    {
+        used = false;
+        played = false;
+        _waitingForManualAttackResolution = false;
+    }
+
+    public void CancelManualAttackTargeting()
+    {
+        _waitingForManualAttackResolution = false;
+        used = false;
+    }
+
+    public bool IsResolvingManualAttack => _waitingForManualAttackResolution;
 
     public string FormatTextForInfo(string info)
     {
@@ -393,98 +415,199 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         if (!_cardSet || inactive)
             return;
-
-
-        
-        int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
         
         bool isLeftClick = Input.GetMouseButtonDown(0);
-
         bool wasUsed = used;
+
+        bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
+        bool isPlayerTurn = false;
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
+            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
+
         if (isLeftClick)
         {
             Deck.Instance.SetHandToUnused();
             used = true;
             CardClickedCallback?.Invoke();
+
+            if (!onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn && HasManualAttackAction())
+            {
+                BeginManualAttackTargeting();
+                HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
+                return;
+            }
+
+            if (!wasUsed && !onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn)
+            {
+                PreviewNonManualAttacks();
+            }
         }
+
         if (!wasUsed || onlyDisplay)
             return;
+
+        if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn)
+        {
+            if (HexClickPlayerController.instance != null)
+                HexClickPlayerController.instance.ClearToAttackEmitters();
+
+            PlayCard(out List<AttackCardEvent> attackCardEvents);
+
+            if (attackCardEvents.Count > 0)
+                HexClickPlayerController.instance.AddToAttack(attackCardEvents);
+
+            played = true;
+        }
+
+
+        HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
+    }
+
+    private bool HasManualAttackAction()
+    {
+        return _card.Actions.Any(action => action is AttackAction);
+    }
+
+    private void PreviewNonManualAttacks()
+    {
+        if (HexClickPlayerController.instance == null)
+            return;
+
+        List<AttackCardEvent> attackCardEvents = new List<AttackCardEvent>();
+
+        foreach (AbstractAction action in _card.Actions)
+        {
+            foreach (AbstractCardEvent cardEvent in action.Preview(cardMono:this))
+            {
+                if (cardEvent is AttackCardEvent attackCardEvent && !attackCardEvent.manual)
+                    attackCardEvents.Add(attackCardEvent);
+            }
+        }
+
+        if (attackCardEvents.Count > 0)
+            HexClickPlayerController.instance.PreviewAttackEvents(attackCardEvents);
+    }
+
+    private void BeginManualAttackTargeting()
+    {
+        List<AttackCardEvent> attackCardEvents = new List<AttackCardEvent>();
+
+        foreach (AbstractAction action in _card.Actions)
+        {
+            if (!(action is AttackAction))
+                continue;
+
+            foreach (AbstractCardEvent cardEvent in action.Activate(cardMono:this))
+            {
+                if (cardEvent is AttackCardEvent attackCardEvent && attackCardEvent.manual)
+                    attackCardEvents.Add(attackCardEvent);
+            }
+        }
+
+        if (attackCardEvents.Count == 0)
+            return;
+
+        _waitingForManualAttackResolution = true;
+        HexClickPlayerController.instance.BeginCardAttack(attackCardEvents, this);
+    }
+
+    public bool TryStartManualAttackPlay(out List<AttackCardEvent> attackCardEvents)
+    {
+        if (!_waitingForManualAttackResolution)
+        {
+            attackCardEvents = new List<AttackCardEvent>();
+            return false;
+        }
+
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
-        
-        if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn)
+
+        if (!hasEnoughEnergy || !isPlayerTurn)
         {
-            played = true;
-            Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
-            
-            List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
-
-            BattleStats.CardsPlayedThisBattle += 1;
-            BattleStats.CardsPlayedThisTurn += 1;
-            
-            // Build queue
-            foreach (AbstractAction action in _card.Actions)
-            {
-                List<AbstractCardEvent> cardEvents = action.Activate(cardMono:this);
-
-                foreach (AbstractCardEvent cardEvent in cardEvents)
-                {
-                    eventQueue.Add(cardEvent);
-                }
-                
-            }
-
-            // Modify by card status
-            if (CardStatus != null && CardStatus.ModifyPlay != null)
-                eventQueue = CardStatus.ModifyPlay(eventQueue, _card);
-            
-            // Modify by environment
-            foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
-            {
-                Debug.Log(entry + " Current entry");
-                if (entry.Condition.Condition(_card))
-                {
-                    eventQueue = entry.CardModifier.Modify(eventQueue);
-                    Debug.Log("ACTIVATED MODIFIER");
-                        
-                }
-            }
-            
-            // Modify by tile
-            Vector2Int playerPos = GameStateManager.Instance.GetCurrent<PlayingState>().player.positionRowCol;
-            TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(playerPos)];
-            eventQueue = tile.cardModifier.Invoke(eventQueue);
-
-            List<AbstractCardEvent> attackCardEvents = new List<AbstractCardEvent>(); 
-            
-            // Extract attack actions for HexClick whatever its called
-            foreach (AbstractCardEvent cardEvent in eventQueue) 
-            {
-                if (cardEvent is AttackCardEvent && ((AttackCardEvent)cardEvent).manual)
-                {
-                    attackCardEvents.Add((AttackCardEvent)cardEvent);
-                }   
-            }
-            
-            // Remove attack actions
-            eventQueue.RemoveAll(item => attackCardEvents.Contains(item));
-            
-            // Add attack actions to the hex click queue
-            HexClickPlayerController.instance.AddToAttack(attackCardEvents);
-            
-            // Activate queue (excluding attacks)
-            foreach (AbstractCardEvent cardEvent in eventQueue)
-            {
-                cardEvent.Activate(player);
-            }
-
-            RunInfo.Instance.CurrentEnergy -= currentCost;
+            attackCardEvents = new List<AttackCardEvent>();
+            CancelManualAttackTargeting();
+            return false;
         }
-        
 
-        HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
+        PlayCard(out attackCardEvents);
+        return true;
+    }
+
+    private void PlayCard(out List<AttackCardEvent> attackCardEvents)
+    {
+        int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
+        Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
+        List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
+
+        BattleStats.CardsPlayedThisBattle += 1;
+        BattleStats.CardsPlayedThisTurn += 1;
+
+        // Build queue
+        foreach (AbstractAction action in _card.Actions)
+        {
+            List<AbstractCardEvent> cardEvents = action.Activate(cardMono:this);
+
+            foreach (AbstractCardEvent cardEvent in cardEvents)
+            {
+                eventQueue.Add(cardEvent);
+            }
+        }
+
+        // Modify by card status
+        if (CardStatus != null && CardStatus.ModifyPlay != null)
+            eventQueue = CardStatus.ModifyPlay(eventQueue, _card);
+
+        // Modify by environment
+        foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
+        {
+            Debug.Log(entry + " Current entry");
+            if (entry.Condition.Condition(_card))
+            {
+                eventQueue = entry.CardModifier.Modify(eventQueue);
+                Debug.Log("ACTIVATED MODIFIER");
+            }
+        }
+
+        // Modify by tile
+        Vector2Int playerPos = GameStateManager.Instance.GetCurrent<PlayingState>().player.positionRowCol;
+        TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(playerPos)];
+        eventQueue = tile.cardModifier.Invoke(eventQueue);
+
+        List<AttackCardEvent> manualAttackEvents = new List<AttackCardEvent>();
+
+        // Extract attack actions for HexClick whatever its called
+        foreach (AbstractCardEvent cardEvent in eventQueue)
+        {
+            if (cardEvent is AttackCardEvent attackCardEvent && attackCardEvent.manual)
+            {
+                manualAttackEvents.Add(attackCardEvent);
+            }
+        }
+
+        // Remove attack actions
+        HashSet<AbstractCardEvent> manualAttackEventSet = new HashSet<AbstractCardEvent>(manualAttackEvents);
+        eventQueue.RemoveAll(item => manualAttackEventSet.Contains(item));
+        attackCardEvents = manualAttackEvents;
+
+        // Activate queue (excluding attacks)
+        foreach (AbstractCardEvent cardEvent in eventQueue)
+        {
+            cardEvent.Activate(player);
+        }
+
+        RunInfo.Instance.CurrentEnergy -= currentCost;
+    }
+
+    public void FinishManualAttackResolution()
+    {
+        if (this == null)
+            return;
+
+        _waitingForManualAttackResolution = false;
+        used = true;
+        played = true;
     }
 
 

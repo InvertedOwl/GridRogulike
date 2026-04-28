@@ -43,6 +43,11 @@ namespace Cards.Actions
             return cardEvents;
         }
 
+        public override List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
+        {
+            return Activate(cardMono);
+        }
+
         
         public override void HoverOn()
         {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cards;
 using Cards.CardList;
+using Grid;
 using StateManager;
 using UnityEngine;
 using Util;
@@ -46,10 +47,15 @@ public class Deck : MonoBehaviour
 
     public void SetInactive(bool inactive)
     {
-        foreach (var card in _draw) card.SetInactive(inactive);
-        foreach (var card in _discard) card.SetInactive(inactive);
-        foreach (var card in _hand) card.SetInactive(inactive);
-        foreach (var card in _scrap) card.SetInactive(inactive);
+        SetInactive(inactive, true);
+    }
+
+    public void SetInactive(bool inactive, bool darken)
+    {
+        foreach (var card in _draw) card.SetInactive(inactive, darken);
+        foreach (var card in _discard) card.SetInactive(inactive, darken);
+        foreach (var card in _hand) card.SetInactive(inactive, darken);
+        foreach (var card in _scrap) card.SetInactive(inactive, darken);
     }
 
     // TODO: Parameterize this
@@ -79,7 +85,7 @@ public class Deck : MonoBehaviour
         {
             foreach (CardMonobehaviour card in Hand)
             {
-                card.SetInactive(true);
+                card.SetInactive(true, ShouldShowInactiveOverlay(card));
                 card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
 
 
@@ -89,7 +95,12 @@ public class Deck : MonoBehaviour
 
         foreach (CardMonobehaviour card in Hand)
         {
-            if ((int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy)
+            if (card.played || card.IsResolvingManualAttack)
+            {
+                card.SetInactive(true, false);
+                card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
+            }
+            else if (IsCardTooExpensive(card))
             {
                 card.SetInactive(true);
                 card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
@@ -102,8 +113,21 @@ public class Deck : MonoBehaviour
         }
     }
 
+    private bool IsCardTooExpensive(CardMonobehaviour card)
+    {
+        return (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy;
+    }
+
+    private bool ShouldShowInactiveOverlay(CardMonobehaviour card)
+    {
+        return !card.played && !card.IsResolvingManualAttack && IsCardTooExpensive(card);
+    }
+
     public void SetHandToUnused()
     {
+        if (HexClickPlayerController.instance != null)
+            HexClickPlayerController.instance.ClearPendingAttacks();
+
         foreach (CardMonobehaviour card in Hand)
         {
             card.used = false;
@@ -131,8 +155,7 @@ public class Deck : MonoBehaviour
     IEnumerator RemovePlayed(CardMonobehaviour cardMonobehaviour)
     {
         yield return new WaitForSeconds(.45f * (1/GameplayNavSettings.speed));
-        cardMonobehaviour.used = false;
-        cardMonobehaviour.played = false;
+        cardMonobehaviour.ResetPlayState();
         _discard.Add(cardMonobehaviour);
         _hand.Remove(cardMonobehaviour);
         PositionHandCards();
@@ -272,6 +295,9 @@ public class Deck : MonoBehaviour
 
     public void DiscardHand()
     {
+        if (HexClickPlayerController.instance != null)
+            HexClickPlayerController.instance.ClearPendingAttacks();
+
         List<CardMonobehaviour> toKeep = new List<CardMonobehaviour>();
 
         foreach (CardMonobehaviour card in _hand)
@@ -347,8 +373,7 @@ public class Deck : MonoBehaviour
             LerpPosition drawnLerp = drawnCard.GetComponent<LerpPosition>();
             drawnCard.transform.position = drawTransform.position;
             drawnLerp.targetLocation = drawTransform.localPosition;
-            drawnCard.used = false;
-            drawnCard.played = false;
+            drawnCard.ResetPlayState();
             drawnCard.transform.SetSiblingIndex(i);
             drawnCard.siblingIndex = i;
         }
