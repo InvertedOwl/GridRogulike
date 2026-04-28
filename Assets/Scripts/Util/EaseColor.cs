@@ -15,12 +15,18 @@ namespace Util
         private Action _onComplete;
 
         private Renderer _renderer;
+        private SpriteRenderer _spriteRenderer;
         private Graphic _graphic;
+        private bool _initialized;
 
         public Color targetColor
         {
             set { SendToColor(value); }
-            get { return _targetColor; }
+            get
+            {
+                Initialize();
+                return _targetColor;
+            }
         }
 
         public static double EaseInOutCubic(double x)
@@ -28,12 +34,31 @@ namespace Util
             return x < 0.5 ? 4 * x * x * x : 1 - Math.Pow(-2 * x + 2, 3) / 2;
         }
 
+        public void Awake()
+        {
+            Initialize();
+        }
+
         public void Start()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            if (_initialized)
+                return;
+
             _renderer = GetComponent<Renderer>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             _graphic = GetComponent<Graphic>();
 
-            if (useMaterialColor && _renderer != null)
+            if (useMaterialColor && _spriteRenderer != null)
+            {
+                _lastColor = _spriteRenderer.color;
+                _targetColor = _spriteRenderer.color;
+            }
+            else if (useMaterialColor && _renderer != null)
             {
                 _lastColor = _renderer.material.color;
                 _targetColor = _renderer.material.color;
@@ -43,10 +68,14 @@ namespace Util
                 _lastColor = _graphic.color;
                 _targetColor = _graphic.color;
             }
+
+            _initialized = true;
         }
 
         public void InstantSend(Color color)
         {
+            Initialize();
+
             _lastColor = color;
             _targetColor = color;
             _elapsedTime = 0;
@@ -57,7 +86,9 @@ namespace Util
 
         public void SendToColor(Color color, Action onComplete = null)
         {
-            _lastColor = _targetColor;
+            Initialize();
+
+            _lastColor = GetCurrentColor();
             _targetColor = color;
             _elapsedTime = 0f;
 
@@ -96,10 +127,24 @@ namespace Util
 
         private void ApplyColor(Color c)
         {
-            if (useMaterialColor && _renderer != null)
+            if (useMaterialColor && _spriteRenderer != null)
+                _spriteRenderer.color = c;
+            else if (useMaterialColor && _renderer != null)
                 _renderer.material.color = c;
             else if (_graphic != null)
                 _graphic.color = c;
+        }
+
+        private Color GetCurrentColor()
+        {
+            if (useMaterialColor && _spriteRenderer != null)
+                return _spriteRenderer.color;
+            if (useMaterialColor && _renderer != null)
+                return _renderer.material.color;
+            if (_graphic != null)
+                return _graphic.color;
+
+            return _targetColor;
         }
     }
 }

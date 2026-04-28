@@ -5,6 +5,7 @@ using Entities;
 using StateManager;
 using TMPro;
 using UnityEngine;
+using Util;
 
 namespace Grid {
     public class HexClickPlayerController : MonoBehaviour
@@ -80,8 +81,11 @@ namespace Grid {
                 if (noBlockerMapFromPlayer[entity.positionRowCol] > ToAttack[0].distance ||
                     noBlockerMapFromPlayer[entity.positionRowCol] == -1)
                     continue;
-                
-                HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol).GetComponent<GOList>().GetValue("ToAttack").SetActive(true);
+                EaseColor tileColor = HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol)
+                    .GetComponent<GOList>().GetValue("RedGlow").GetComponent<EaseColor>();
+                Debug.Log("Settin red glow to 60 percent opacity");
+                Debug.Log(tileColor);
+                tileColor.SendToColor(new Color(tileColor.targetColor.r, tileColor.targetColor.g, tileColor.targetColor.b, 0.6f));
                 numEntitiesToHit += 1;
             }
 
@@ -102,7 +106,11 @@ namespace Grid {
             {
                 if (!(entity is NonPlayerEntity))
                     continue;
-                HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol).GetComponent<GOList>().GetValue("ToAttack").SetActive(false);
+
+                Debug.Log("Clearing attack emitters");
+                EaseColor tileColor = HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol)
+                    .GetComponent<GOList>().GetValue("RedGlow").GetComponent<EaseColor>();
+                tileColor.targetColor = new Color(tileColor.targetColor.r, tileColor.targetColor.g, tileColor.targetColor.b, 0.0f);
             }
         }
 
