@@ -18,7 +18,7 @@ public class RunInfo : MonoBehaviour
     public Button redrawButton;
     public List<TextMeshProUGUI> difficultyText;
     public List<TextMeshProUGUI> stepsText;
-    public static string seed = "900024116";
+    public static string seed = "1";
     public readonly int combineCost = 2;
 
 
