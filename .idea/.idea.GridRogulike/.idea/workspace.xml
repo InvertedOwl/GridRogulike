@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAllAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAllAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackRadiusAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackRadiusAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-    </list>
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -369,15 +359,7 @@
       <workItem from="1776984258074" duration="1052000" />
       <workItem from="1777075667703" duration="808000" />
       <workItem from="1777134573310" duration="14085000" />
-      <workItem from="1777317744826" duration="10452000" />
-    </task>
-    <task id="LOCAL-00009" summary="Non Directional Attack. This hijacks the attack actions when the player is playing them via cards. The AttackCardEven has not changed.">
-      <option name="closed" value="true" />
-      <created>1770746706105</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1770746706105</updated>
+      <workItem from="1777317744826" duration="11657000" />
     </task>
     <task id="LOCAL-00010" summary="Allow for multiple cards in deck. There might be an issue with uuids, but its fine for now. Also, make sure that the player does not get stuck if they cannot attack.">
       <option name="closed" value="true" />
@@ -763,7 +745,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777407139485</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Preview system (WIP)">
+      <option name="closed" value="true" />
+      <created>1777409785536</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1777409785537</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -790,7 +780,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Minor adjustments" />
     <MESSAGE value="Big boy changes" />
     <MESSAGE value="Ui changes mostly (minor entity changes)" />
     <MESSAGE value="minor changes" />
@@ -815,7 +804,8 @@
     <MESSAGE value="hmm dashed material work" />
     <MESSAGE value="Some changes" />
     <MESSAGE value="Minor visual improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor visual improvements" />
+    <MESSAGE value="Preview system (WIP)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Preview system (WIP)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

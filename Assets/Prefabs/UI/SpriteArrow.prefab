@@ -59,7 +59,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c0f82a5eafbbcd45bb1748010a6ffef, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,8 +92,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
+        time: 0.087184906
+        value: 0.51117325
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   heightScale: 1
   lineRenderer: {fileID: 7137682367518826761}
   iconContainer: {fileID: 5920533863201284086}
-  endPadding: 0.5
+  endPadding: 0.35
   zPosition: 0.9601
   head: {x: 0, y: 0}
 --- !u!1 &1632207786464854307
@@ -189,7 +189,7 @@ RectTransform:
   m_GameObject: {fileID: 1632207786464854307}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0.111937955, z: 0.008521881}
+  m_LocalScale: {x: 0.111938, y: 0.111937955, z: 0.008521881}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4460989998532928306}
@@ -258,7 +258,7 @@ SpriteRenderer:
   m_SortingOrder: 51
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 77f0f1edc29e09546b0a940c5ca92a79, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
