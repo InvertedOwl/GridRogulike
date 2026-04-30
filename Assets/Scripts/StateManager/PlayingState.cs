@@ -393,7 +393,6 @@ namespace StateManager
                 // Vector2 pos = HexGridManager.GetHexCenter(position.x, position.y);
                 // Vector3 pos3 = new Vector3(pos.x, pos.y, -0.941f);
                 // enemyObject.transform.position = pos3;
-                enemyObject.transform.eulerAngles = new Vector3(-70, 0, 0);
                 AbstractEntity abstractEntity = enemyObject.GetComponent<AbstractEntity>();
                 abstractEntity.positionRowCol = position;
                 // enemyObject.GetComponent<AbstractEntity>().MoveEntity(position);

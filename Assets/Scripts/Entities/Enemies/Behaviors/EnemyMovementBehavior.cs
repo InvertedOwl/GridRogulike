@@ -9,7 +9,7 @@ namespace Entities.Enemies
 {
     public class MoveTowardsPlayerEnemy : AbstractEntityBehavior
     {
-        protected static readonly string[] HexDirections = { "n", "ne", "nw", "s", "se", "sw" };
+        protected static readonly string[] HexDirections = HexGridManager.HexDirections;
 
         public enum TargetSearchMode
         {

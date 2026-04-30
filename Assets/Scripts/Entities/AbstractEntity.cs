@@ -105,15 +105,23 @@ namespace Entities
         public ParticleSystem hurtSystem;
         public StatusManager statusManager;
         public HealthBarManager healthBarManager;
+        [SerializeField] private Vector3 boardWorldEulerAngles = new Vector3(-70f, 0f, 0f);
+        private Vector3 boardLocalOffset = new Vector3(0.04f, 0.07f, -0.171f);
 
         public void MoveEntity(Vector2Int newCoords)
         {
             Debug.Log("Target new coords " + newCoords);
             
             positionRowCol = newCoords;
-            GetComponent<LerpPosition>().targetLocation = new Vector3(0, 0.135f, -0.171f);
             GameObject currentHex = HexGridManager.Instance.GetWorldHexObject(positionRowCol);
             transform.SetParent(currentHex.transform.GetChild(3));
+
+            Quaternion boardRotation = Quaternion.Euler(boardWorldEulerAngles);
+            transform.rotation = boardRotation;
+
+            LerpPosition lerpPosition = GetComponent<LerpPosition>();
+            lerpPosition.targetLocation = boardLocalOffset;
+            lerpPosition.targetRotation = lerpPosition.isLocal ? transform.localRotation : boardRotation;
             
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cards.CardEvents;
+using Grid;
 
 namespace Types.CardModifiers.Modifiers
 {
@@ -13,7 +14,7 @@ namespace Types.CardModifiers.Modifiers
         
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent)
         {
-            string[] directions = new[] { "n", "s", "ne", "nw", "se", "sw" };
+            string[] directions = HexGridManager.HexDirections;
             cardEvent.Add(new MoveCardEvent(1, directions[new Random().Next(0, directions.Length)]));
             return cardEvent;
         }

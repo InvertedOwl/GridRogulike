@@ -18,8 +18,8 @@ namespace Types.CardModifiers.Conditions
             {
                 if (action is AttackAction)
                 {
-                    if (((AttackAction)action).Direction.ToLower() == "n" ||
-                        ((AttackAction)action).Direction.ToLower() == "s")
+                    string direction = ((AttackAction)action).Direction.ToLower();
+                    if (direction.Contains("n") || direction.Contains("s"))
                     {
                         return true;
                     }

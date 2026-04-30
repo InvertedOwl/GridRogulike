@@ -13,12 +13,12 @@ namespace Entities.Enemies
     {
         public int DefaultDamage = 10;
 
-        private string _direction = "n";
+        private string _direction = "e";
 
         // For assigning to things, need to tell controllers what enemies next turn is
         public override List<AbstractAction> NextTurn()
         {
-            string[] directions = new[] { "n", "ne", "nw", "s", "se", "sw" };
+            string[] directions = HexGridManager.HexDirections;
             _direction = directions[self.EntityRandom.Next(0, directions.Length)];
 
             string maxDirection = "-";

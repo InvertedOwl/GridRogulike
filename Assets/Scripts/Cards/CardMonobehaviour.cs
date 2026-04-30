@@ -347,14 +347,15 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         switch (direction)
         {
-            case "n": arrow.eulerAngles = new Vector3(0, 0, 0); break;
-            case "s": arrow.eulerAngles = new Vector3(0, 0, 180); break;
-            case "ne": arrow.eulerAngles = new Vector3(0, 0, -45); break;
-            case "nw": arrow.eulerAngles = new Vector3(0, 0, 45); break;
-            case "se": arrow.eulerAngles = new Vector3(0, 0, -135); break;
-            case "sw": arrow.eulerAngles = new Vector3(0, 0, 135); break;
+            case "e": arrow.eulerAngles = new Vector3(0, 0, -90); break;
+            case "w": arrow.eulerAngles = new Vector3(0, 0, 90); break;
+            case "ne": arrow.eulerAngles = new Vector3(0, 0, -30); break;
+            case "nw": arrow.eulerAngles = new Vector3(0, 0, 30); break;
+            case "se": arrow.eulerAngles = new Vector3(0, 0, -150); break;
+            case "sw": arrow.eulerAngles = new Vector3(0, 0, 150); break;
         }
     }
+
     public void Update()
     {
         // Modifiers

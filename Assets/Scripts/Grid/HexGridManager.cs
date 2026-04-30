@@ -22,14 +22,16 @@ namespace Grid
 
     public class HexGridManager : MonoBehaviour
     {
+        public static readonly string[] HexDirections = { "e", "ne", "nw", "w", "sw", "se" };
+
         public static readonly Dictionary<string, List<string>> neighborDirections = new Dictionary<string, List<string>>()
         {
-            ["n"] = new List<string> { "ne", "nw" },
-            ["ne"] = new List<string> { "n", "se" },
-            ["nw"] = new List<string> { "n", "sw" },
-            ["s"] = new List<string> { "se", "sw" },
-            ["se"] = new List<string> { "ne", "s" },
-            ["sw"] = new List<string> { "nw", "s" },
+            ["e"] = new List<string> { "ne", "se" },
+            ["ne"] = new List<string> { "e", "nw" },
+            ["nw"] = new List<string> { "ne", "w" },
+            ["w"] = new List<string> { "nw", "sw" },
+            ["sw"] = new List<string> { "w", "se" },
+            ["se"] = new List<string> { "sw", "e" },
         };
         
         private static float _hexWidth = 1f;
@@ -395,31 +397,50 @@ namespace Grid
 
         public static Vector2 GetHexCenter(int col, int row)
         {
-            float size = _hexWidth / 2f;
-            float hexHeight = Mathf.Sqrt(3f) * size;
+            float hexHeight = _hexWidth;
+            float hexWidth = Mathf.Sqrt(3f) * hexHeight / 2f;
 
-            float horizSpacing = 0.75f * _hexWidth;
-            float vertSpacing = hexHeight;
+            float horizSpacing = hexWidth;
+            float vertSpacing = 0.75f * hexHeight;
 
-            float centerX = col * horizSpacing;
-            float centerY = row * vertSpacing + (col % 2 == 0 ? 0 : vertSpacing / 2f);
+            float rowOffset = IsOdd(row) ? horizSpacing / 2f : 0f;
+            float centerX = col * horizSpacing + rowOffset;
+            float centerY = row * vertSpacing;
 
             return new Vector2(centerX, centerY);
         }
 
         public static Vector2Int GetHexCoordinates(Vector2 worldPosition)
         {
-            float size = _hexWidth / 2f;
-            float hexHeight = Mathf.Sqrt(3f) * size;
+            float hexHeight = _hexWidth;
+            float hexWidth = Mathf.Sqrt(3f) * hexHeight / 2f;
 
-            float horizSpacing = 0.75f * _hexWidth;
-            float vertSpacing = hexHeight;
+            float horizSpacing = hexWidth;
+            float vertSpacing = 0.75f * hexHeight;
 
-            int col = Mathf.RoundToInt(worldPosition.x / horizSpacing);
-            float rowOffset = (col % 2 == 0) ? 0 : vertSpacing / 2f;
-            int row = Mathf.RoundToInt((worldPosition.y - rowOffset) / vertSpacing);
+            int roughRow = Mathf.RoundToInt(worldPosition.y / vertSpacing);
+            float rowOffset = IsOdd(roughRow) ? horizSpacing / 2f : 0f;
+            int roughCol = Mathf.RoundToInt((worldPosition.x - rowOffset) / horizSpacing);
 
-            return new Vector2Int(col, row);
+            Vector2Int closest = new Vector2Int(roughCol, roughRow);
+            float closestDistance = float.MaxValue;
+
+            for (int row = roughRow - 1; row <= roughRow + 1; row++)
+            {
+                for (int col = roughCol - 1; col <= roughCol + 1; col++)
+                {
+                    Vector2Int candidate = new Vector2Int(col, row);
+                    float distance = Vector2.SqrMagnitude(worldPosition - GetHexCenter(candidate.x, candidate.y));
+
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closest = candidate;
+                    }
+                }
+            }
+
+            return closest;
         }
 
         public static Vector2 GetClosestHexCenter(Vector2 worldPosition)
@@ -436,15 +457,15 @@ namespace Grid
                 return current;
             }
 
-            bool isEvenCol = current.x % 2 == 0;
+            bool isOddRow = IsOdd(current.y);
             Vector2Int delta = direction switch
             {
-                "s" => new Vector2Int(0, -1),
-                "n" => new Vector2Int(0, 1),
-                "sw" => isEvenCol ? new Vector2Int(-1, -1) : new Vector2Int(-1, 0),
-                "se" => isEvenCol ? new Vector2Int(+1, -1) : new Vector2Int(+1, 0),
-                "ne" => isEvenCol ? new Vector2Int(+1, 0) : new Vector2Int(+1, +1),
-                "nw" => isEvenCol ? new Vector2Int(-1, 0) : new Vector2Int(-1, +1),
+                "e" => new Vector2Int(1, 0),
+                "w" => new Vector2Int(-1, 0),
+                "ne" => isOddRow ? new Vector2Int(1, 1) : new Vector2Int(0, 1),
+                "nw" => isOddRow ? new Vector2Int(0, 1) : new Vector2Int(-1, 1),
+                "se" => isOddRow ? new Vector2Int(1, -1) : new Vector2Int(0, -1),
+                "sw" => isOddRow ? new Vector2Int(0, -1) : new Vector2Int(-1, -1),
 
                 _ => throw new System.ArgumentException($"Unknown direction: {direction}")
             };
@@ -457,13 +478,16 @@ namespace Grid
         public static List<Vector2Int> AdjacentHexes(Vector2Int coords)
         {
             List<Vector2Int> adjacent = new List<Vector2Int>();
-            adjacent.Add(MoveHex(coords, "n", 1));
-            adjacent.Add(MoveHex(coords, "s", 1));
-            adjacent.Add(MoveHex(coords, "ne", 1));
-            adjacent.Add(MoveHex(coords, "se", 1));
-            adjacent.Add(MoveHex(coords, "nw", 1));
-            adjacent.Add(MoveHex(coords, "sw", 1));
+            foreach (string direction in HexDirections)
+            {
+                adjacent.Add(MoveHex(coords, direction, 1));
+            }
             return adjacent;
+        }
+
+        private static bool IsOdd(int value)
+        {
+            return Mathf.Abs(value % 2) == 1;
         }
 
         public string HexType(Vector2Int coords)

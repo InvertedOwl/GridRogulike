@@ -10,7 +10,7 @@ namespace Entities.Enemies
     public abstract class AbstractEntityBehavior : MonoBehaviour
     {
         public NonPlayerEntity self;
-        protected static readonly string[] HexDirections = { "n", "ne", "nw", "s", "se", "sw" };
+        protected static readonly string[] HexDirections = HexGridManager.HexDirections;
 
         public virtual IEnumerator MakeTurn()
         {

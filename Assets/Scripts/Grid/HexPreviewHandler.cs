@@ -134,23 +134,24 @@ public class HexPreviewHandler : MonoBehaviour
 
     private void UpdateAttackEdges(bool thisHexHasDamage)
     {
-        if (!thisHexHasDamage)
+        foreach (string direction in HexGridManager.HexDirections)
         {
-            SetEdge("EdgeNParent", false);
-            SetEdge("EdgeNEParent", false);
-            SetEdge("EdgeNWParent", false);
-            SetEdge("EdgeSParent", false);
-            SetEdge("EdgeSEParent", false);
-            SetEdge("EdgeSWParent", false);
-            return;
+            SetEdge(GetEdgeName(direction), thisHexHasDamage && !NeighborHasDamage(direction));
         }
+    }
 
-        SetEdge("EdgeNParent",  !NeighborHasDamage("n"));
-        SetEdge("EdgeNEParent", !NeighborHasDamage("ne"));
-        SetEdge("EdgeNWParent", !NeighborHasDamage("nw"));
-        SetEdge("EdgeSParent",  !NeighborHasDamage("s"));
-        SetEdge("EdgeSEParent", !NeighborHasDamage("se"));
-        SetEdge("EdgeSWParent", !NeighborHasDamage("sw"));
+    private string GetEdgeName(string direction)
+    {
+        return direction switch
+        {
+            "e" => "EdgeSEParent",
+            "ne" => "EdgeNEParent",
+            "nw" => "EdgeNParent",
+            "w" => "EdgeNWParent",
+            "sw" => "EdgeSWParent",
+            "se" => "EdgeSParent",
+            _ => ""
+        };
     }
 
     private bool NeighborHasDamage(string direction)
@@ -167,6 +168,9 @@ public class HexPreviewHandler : MonoBehaviour
 
     private void SetEdge(string edgeName, bool value)
     {
+        if (string.IsNullOrEmpty(edgeName))
+            return;
+
         try
         {
             GoList.GetValue(edgeName).SetActive(value);

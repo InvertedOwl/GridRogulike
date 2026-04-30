@@ -18,12 +18,10 @@ namespace Entities.Enemies
         {
 
             self.AvailableActions.Clear();
-            self.AvailableActions.Add(new AttackAction(1, "basic", self, "n", 1, defaultDamage));
-            self.AvailableActions.Add(new AttackAction(1, "basic", self, "s", 1, defaultDamage));
-            self.AvailableActions.Add(new AttackAction(1, "basic", self, "ne", 1, defaultDamage));
-            self.AvailableActions.Add(new AttackAction(1, "basic", self, "nw", 1, defaultDamage));
-            self.AvailableActions.Add(new AttackAction(1, "basic", self, "se", 1, defaultDamage));
-            self.AvailableActions.Add(new AttackAction(1, "basic", self, "sw", 1, defaultDamage));
+            foreach (string direction in HexGridManager.HexDirections)
+            {
+                self.AvailableActions.Add(new AttackAction(1, "basic", self, direction, 1, defaultDamage));
+            }
         }
 
         private void PlanTurn()
