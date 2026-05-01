@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 267.19
+      value: 304.96
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 133.595
+      value: 152.48
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -225,6 +225,7 @@ MonoBehaviour:
   hurtSystem: {fileID: 2437270075847589487}
   statusManager: {fileID: 6760085768087172482}
   healthBarManager: {fileID: 6466687800303399955}
+  boardWorldEulerAngles: {x: -70, y: 0, z: 0}
 --- !u!114 &6466687800303399955 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7732926284550110387, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}

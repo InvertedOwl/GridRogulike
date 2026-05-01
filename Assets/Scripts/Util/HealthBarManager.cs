@@ -4,8 +4,8 @@ using UnityEngine;
 public class HealthBarManager : MonoBehaviour
 {
     [Header("World Text")]
-    public TextMeshPro healthText;
-    public TextMeshPro shieldText;
+    public TMP_Text healthText;
+    public TMP_Text shieldText;
 
     [Header("World Bars")]
     public GameObject baseBar;
@@ -23,8 +23,57 @@ public class HealthBarManager : MonoBehaviour
     public float fixedWorldReferenceHealth = 100f;
 
     private bool _cachedBarSizes = false;
+    private bool _cachedText = false;
     private Vector2 _startingHealthSpriteSize;
     private Vector2 _startingShieldSpriteSize;
+
+    private void CacheText()
+    {
+        if (_cachedText) return;
+
+        TMP_Text[] textComponents = GetComponentsInChildren<TMP_Text>(true);
+
+        if (healthText == null)
+            healthText = FindTextComponent(textComponents, "HealthText");
+
+        if (healthText == null && textComponents.Length == 1)
+            healthText = textComponents[0];
+
+        if (shieldText == null)
+            shieldText = FindTextComponent(textComponents, "ShieldText");
+
+        _cachedText = true;
+    }
+
+    private TMP_Text FindTextComponent(TMP_Text[] textComponents, string objectName)
+    {
+        string normalizedObjectName = NormalizeTextObjectName(objectName);
+
+        foreach (TMP_Text textComponent in textComponents)
+        {
+            if (NormalizeTextObjectName(textComponent.gameObject.name) == normalizedObjectName)
+                return textComponent;
+        }
+
+        return null;
+    }
+
+    private string NormalizeTextObjectName(string objectName)
+    {
+        return objectName
+            .Replace(" ", "")
+            .Replace("_", "")
+            .Replace("-", "")
+            .ToLowerInvariant();
+    }
+
+    public void SetValues(float currentHealth, float maxHealth, float currentShield)
+    {
+        health = currentHealth;
+        initialHealth = maxHealth;
+        shield = currentShield;
+        Refresh();
+    }
 
     private void CacheBarSizes()
     {
@@ -57,6 +106,12 @@ public class HealthBarManager : MonoBehaviour
 
     private void Update()
     {
+        Refresh();
+    }
+
+    private void Refresh()
+    {
+        CacheText();
         CacheBarSizes();
 
         float safeMaxHealth = Mathf.Max(1f, initialHealth);
@@ -64,10 +119,10 @@ public class HealthBarManager : MonoBehaviour
         float shieldRatio = Mathf.Clamp01(shield / safeMaxHealth);
 
         if (healthText != null)
-            healthText.text = $"{health}/{initialHealth}";
+            healthText.SetText("{0}/{1}", Mathf.CeilToInt(Mathf.Max(0f, health)), Mathf.CeilToInt(safeMaxHealth));
 
         if (shieldText != null)
-            shieldText.text = shield.ToString();
+            shieldText.SetText("{0}", Mathf.CeilToInt(Mathf.Max(0f, shield)));
 
         SpriteRenderer healthSprite = healthBar != null ? healthBar.GetComponent<SpriteRenderer>() : null;
         SpriteRenderer shieldSprite = shieldBar != null ? shieldBar.GetComponent<SpriteRenderer>() : null;
