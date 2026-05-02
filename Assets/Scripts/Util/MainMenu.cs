@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,16 +38,26 @@ public class MainMenu : MonoBehaviour
     public void UpdateMainMenu()
     {
         string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
-        if (File.Exists(savePath))
-        {
-            SaveExists.SetActive(true);
-            SaveDoesntExist.SetActive(false);
-        }
-        else
-        {
-            SaveExists.SetActive(false);
-            SaveDoesntExist.SetActive(true);
-        }
+        bool saveExists = File.Exists(savePath);
+
+        SetMenuGroupVisible(SaveExists, saveExists);
+        SetMenuGroupVisible(SaveDoesntExist, !saveExists);
+    }
+
+    private void SetMenuGroupVisible(GameObject group, bool isVisible)
+    {
+        if (group == null)
+            return;
+
+        group.SetActive(true);
+
+        CanvasGroup canvasGroup = group.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = group.AddComponent<CanvasGroup>();
+
+        canvasGroup.alpha = isVisible ? 1f : 0f;
+        canvasGroup.interactable = isVisible;
+        canvasGroup.blocksRaycasts = isVisible;
     }
     
     public void StartRun()

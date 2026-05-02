@@ -375,6 +375,41 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         UpdateTypesTitles();
     }
 
+    private void LateUpdate()
+    {
+        // HandleClickAwayFromSelectedCard();
+    }
+
+    private void HandleClickAwayFromSelectedCard()
+    {
+        if (!_cardSet || !used || played || onlyDisplay)
+            return;
+
+        if (!Input.GetMouseButtonDown(0) || IsPointerOverThisUIElement())
+            return;
+
+        if (ClickHitWorldCollider())
+            return;
+
+        if (Deck.Instance != null)
+            Deck.Instance.SetHandToUnused();
+        else
+            used = false;
+    }
+
+    private bool ClickHitWorldCollider()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
+            return false;
+
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, Mathf.Infinity))
+            return true;
+
+        return Physics2D.GetRayIntersection(ray, Mathf.Infinity).collider != null;
+    }
+
     private void HandleHoverEffects()
     {
         InfoPanel.gameObject.SetActive(true);

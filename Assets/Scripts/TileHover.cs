@@ -21,6 +21,16 @@ public class TileHover : MonoBehaviour
     private Collider2D col2D;
     private Camera mainCam;
 
+    private static float _cachedFixedTime = -1f;
+    private static Camera _cachedCamera;
+    private static Vector3 _cachedMousePosition;
+    private static Ray _cachedRay;
+    private static bool _hasCached3DHit;
+    private static Collider _cached3DHit;
+    private static bool _hasCached2DHit;
+    private static Collider2D _cached2DHit;
+    private static Vector2 _cachedMouseWorldPoint;
+
     void Awake()
     {
         col3D = GetComponent<Collider>();
@@ -71,43 +81,55 @@ public class TileHover : MonoBehaviour
 
     private bool IsMouseHovering()
     {
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        UpdateHoverCache(mainCam);
 
         // 3D collider support
         if (col3D != null)
         {
             if (ignoreOcclusion)
             {
-                return col3D.Raycast(ray, out _, Mathf.Infinity);
-            }
-            else
-            {
-                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-                {
-                    return hit.collider == col3D;
-                }
+                return col3D.Raycast(_cachedRay, out _, Mathf.Infinity);
             }
 
-            return false;
+            return _hasCached3DHit && _cached3DHit == col3D;
         }
 
         // 2D collider support
         if (col2D != null)
         {
-            Vector2 mouseWorldPoint = mainCam.ScreenToWorldPoint(Input.mousePosition);
-
             if (ignoreOcclusion)
             {
-                return col2D.OverlapPoint(mouseWorldPoint);
+                return col2D.OverlapPoint(_cachedMouseWorldPoint);
             }
-            else
-            {
-                RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-                return hit.collider == col2D;
-            }
+
+            return _hasCached2DHit && _cached2DHit == col2D;
         }
 
         return false;
+    }
+
+    private static void UpdateHoverCache(Camera camera)
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        if (_cachedFixedTime == Time.fixedTime &&
+            _cachedCamera == camera &&
+            _cachedMousePosition == mousePosition)
+        {
+            return;
+        }
+
+        _cachedFixedTime = Time.fixedTime;
+        _cachedCamera = camera;
+        _cachedMousePosition = mousePosition;
+        _cachedRay = camera.ScreenPointToRay(mousePosition);
+        _cachedMouseWorldPoint = camera.ScreenToWorldPoint(mousePosition);
+
+        _hasCached3DHit = Physics.Raycast(_cachedRay, out RaycastHit hit3D, Mathf.Infinity);
+        _cached3DHit = _hasCached3DHit ? hit3D.collider : null;
+
+        RaycastHit2D hit2D = Physics2D.GetRayIntersection(_cachedRay, Mathf.Infinity);
+        _hasCached2DHit = hit2D.collider != null;
+        _cached2DHit = hit2D.collider;
     }
 
     private void ResetHoverState()

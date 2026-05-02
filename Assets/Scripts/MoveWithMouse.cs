@@ -7,6 +7,7 @@ public class MoveWithMouse : MonoBehaviour
     public Vector2 maxLocalOffset = new Vector2(5f, 3f);
     public float zOffset = 0;
     public Vector2 offset = Vector2.zero;
+    public Vector2 moveOffset = Vector2.zero;
     public float sensitivity = 1f;
     public bool invertX = false;
     public bool invertY = false;
@@ -24,7 +25,11 @@ public class MoveWithMouse : MonoBehaviour
 
         Vector2 localTarget = Vector2.Scale(norm, maxLocalOffset) * sensitivity;
 
-        _lerpPosition.targetLocation = new Vector3(localTarget.x + offset.x, localTarget.y + offset.y, zOffset); 
+        _lerpPosition.targetLocation = new Vector3(
+            localTarget.x + offset.x + moveOffset.x,
+            localTarget.y + offset.y + moveOffset.y,
+            zOffset
+        );
     }
 
     private Vector2 GetMouseNormalizedMinusOneToOne()

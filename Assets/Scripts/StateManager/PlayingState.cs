@@ -86,7 +86,6 @@ namespace StateManager
         public EaseScale playingUI;
         public EasePosition playingHealth;
         
-        [SerializeField] private LerpCameraSize cameraSizeLerp;
         [SerializeField] private float minViewSize = 5f;
         [SerializeField] private float viewPadding = 2f;
         [SerializeField] private float zoomSpeed = 3f;
@@ -457,7 +456,6 @@ namespace StateManager
         {
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             
-            cameraSizeLerp.targetHeight = 4;
             playingUI.SetScale(new Vector3(2, 2, 2));
 
             player.transform.SetParent(this.transform);
@@ -500,7 +498,7 @@ namespace StateManager
             
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
             {
-                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Clear();
+                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().ClearPreviewEvents();
             }
             
             HexClickPlayerController.instance.ClearPendingAttacks();
@@ -515,7 +513,7 @@ namespace StateManager
             // Clear all previews because the actions has been done
             foreach (Vector2Int hex in HexGridManager.Instance.BoardDictionary.Keys)
             {
-                HexGridManager.Instance.GetWorldHexObject(hex).GetComponent<HexPreviewHandler>().eventsOnThisHex.Remove(entity);
+                HexGridManager.Instance.GetWorldHexObject(hex).GetComponent<HexPreviewHandler>().RemoveEventsForEntity(entity);
             }
             
             entity.EndTurn();

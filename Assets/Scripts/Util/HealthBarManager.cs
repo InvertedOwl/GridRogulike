@@ -117,12 +117,26 @@ public class HealthBarManager : MonoBehaviour
         float safeMaxHealth = Mathf.Max(1f, initialHealth);
         float healthRatio = Mathf.Clamp01(health / safeMaxHealth);
         float shieldRatio = Mathf.Clamp01(shield / safeMaxHealth);
+        Color healthColor = LerpLinearRGB(
+            new Color(0.8980f, 0.4863f, 0.4863f),
+            new Color(0.4863f, 0.8980f, 0.5333f),
+            healthRatio
+        );
+        Color shieldColor = new Color(0.4f, 0.7f, 1f);
+        Color healthTextColor = LightenColor(healthColor, 0.5f);
+        Color shieldTextColor = LightenColor(shieldColor, 0.5f);
 
         if (healthText != null)
+        {
             healthText.SetText("{0}/{1}", Mathf.CeilToInt(Mathf.Max(0f, health)), Mathf.CeilToInt(safeMaxHealth));
+            healthText.color = healthTextColor;
+        }
 
         if (shieldText != null)
+        {
             shieldText.SetText("{0}", Mathf.CeilToInt(Mathf.Max(0f, shield)));
+            shieldText.color = shieldTextColor;
+        }
 
         SpriteRenderer healthSprite = healthBar != null ? healthBar.GetComponent<SpriteRenderer>() : null;
         SpriteRenderer shieldSprite = shieldBar != null ? shieldBar.GetComponent<SpriteRenderer>() : null;
@@ -140,11 +154,7 @@ public class HealthBarManager : MonoBehaviour
                 _startingHealthSpriteSize.y
             );
 
-            healthSprite.color = LerpLinearRGB(
-                new Color(0.8980f, 0.4863f, 0.4863f),
-                new Color(0.4863f, 0.8980f, 0.5333f),
-                healthRatio
-            );
+            healthSprite.color = healthColor;
         }
 
         if (shieldSprite != null)
@@ -160,7 +170,7 @@ public class HealthBarManager : MonoBehaviour
                 _startingShieldSpriteSize.y
             );
 
-            shieldSprite.color = new Color(0.4f, 0.7f, 1f);
+            shieldSprite.color = shieldColor;
         }
     }
 
@@ -170,5 +180,12 @@ public class HealthBarManager : MonoBehaviour
         Color lb = b.linear;
         Color lc = Color.LerpUnclamped(la, lb, t);
         return lc.gamma;
+    }
+
+    private static Color LightenColor(Color color, float amount)
+    {
+        Color lighter = Color.Lerp(color, Color.white, amount);
+        lighter.a = color.a;
+        return lighter;
     }
 }

@@ -32,6 +32,14 @@ public class Deck : MonoBehaviour
     public List<CardMonobehaviour> Hand { get { return _hand; } }
     public List<CardMonobehaviour> Scrap { get { return _scrap; } }
 
+    private RectTransform _handRect;
+    private bool _layoutDirty = true;
+    private bool _playabilityDirty = true;
+    private bool _hasLayoutSignature;
+    private bool _hasPlayabilitySignature;
+    private int _lastLayoutSignature;
+    private int _lastPlayabilitySignature;
+
     public void Awake ()
     {
         Instance = this;
@@ -56,6 +64,7 @@ public class Deck : MonoBehaviour
         foreach (var card in _discard) card.SetInactive(inactive, darken);
         foreach (var card in _hand) card.SetInactive(inactive, darken);
         foreach (var card in _scrap) card.SetInactive(inactive, darken);
+        MarkPlayabilityDirty();
     }
 
     // TODO: Parameterize this
@@ -72,14 +81,23 @@ public class Deck : MonoBehaviour
         {
             _draw.Add(CreateCard(startingCard));
         }
+
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
     }
 
     public void UpdatePlayability()
     {
         if (GameStateManager.Instance == null)
+        {
+            RememberPlayabilitySignature();
             return;
+        }
         if (!GameStateManager.Instance.IsCurrent<PlayingState>())
+        {
+            RememberPlayabilitySignature();
             return;
+        }
         var playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
         if (playingState != null && !playingState.AllowUserInput)
         {
@@ -90,6 +108,7 @@ public class Deck : MonoBehaviour
 
 
             }
+            RememberPlayabilitySignature();
             return;
         }
 
@@ -111,6 +130,8 @@ public class Deck : MonoBehaviour
                 card.GetComponent<GOList>().GetValue("Glow").SetActive(true);
             }
         }
+
+        RememberPlayabilitySignature();
     }
 
     private bool IsCardTooExpensive(CardMonobehaviour card)
@@ -132,6 +153,151 @@ public class Deck : MonoBehaviour
         {
             card.used = false;
         }
+
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
+    }
+
+    public void MarkHandLayoutDirty()
+    {
+        _layoutDirty = true;
+    }
+
+    public void MarkPlayabilityDirty()
+    {
+        _playabilityDirty = true;
+    }
+
+    private bool ShouldRefreshHandLayout()
+    {
+        int signature = GetLayoutSignature();
+        if (!_layoutDirty && _hasLayoutSignature && signature == _lastLayoutSignature)
+            return false;
+
+        _lastLayoutSignature = signature;
+        _hasLayoutSignature = true;
+        _layoutDirty = false;
+        return true;
+    }
+
+    private bool ShouldRefreshPlayability()
+    {
+        int signature = GetPlayabilitySignature();
+        if (!_playabilityDirty && _hasPlayabilitySignature && signature == _lastPlayabilitySignature)
+            return false;
+
+        _lastPlayabilitySignature = signature;
+        _hasPlayabilitySignature = true;
+        _playabilityDirty = false;
+        return true;
+    }
+
+    private void RememberLayoutSignature()
+    {
+        _lastLayoutSignature = GetLayoutSignature();
+        _hasLayoutSignature = true;
+        _layoutDirty = false;
+    }
+
+    private void RememberPlayabilitySignature()
+    {
+        _lastPlayabilitySignature = GetPlayabilitySignature();
+        _hasPlayabilitySignature = true;
+        _playabilityDirty = false;
+    }
+
+    private RectTransform GetHandRect()
+    {
+        if (_handRect == null)
+            _handRect = GetComponent<RectTransform>();
+
+        return _handRect;
+    }
+
+    private int GetLayoutSignature()
+    {
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 31 + GetGameStateSignature();
+            hash = hash * 31 + GetRoundedVectorHash(drawTransform != null ? drawTransform.localPosition : Vector3.zero);
+            hash = hash * 31 + GetRoundedVectorHash(discardTransform != null ? discardTransform.localPosition : Vector3.zero);
+            hash = hash * 31 + GetRoundedVectorHash(scrapTransform != null ? scrapTransform.localPosition : Vector3.zero);
+
+            RectTransform handRect = GetHandRect();
+            hash = hash * 31 + (handRect != null ? Mathf.RoundToInt(handRect.rect.width * 100f) : 0);
+            hash = AppendPileSignature(hash, _draw, false);
+            hash = AppendPileSignature(hash, _discard, true);
+            hash = AppendPileSignature(hash, _hand, true);
+            hash = AppendPileSignature(hash, _scrap, false);
+            return hash;
+        }
+    }
+
+    private int GetPlayabilitySignature()
+    {
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 31 + GetGameStateSignature();
+
+            if (RunInfo.Instance != null)
+                hash = hash * 31 + RunInfo.Instance.CurrentEnergy;
+
+            if (GameStateManager.Instance != null && GameStateManager.Instance.IsCurrent<PlayingState>())
+            {
+                PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+                hash = hash * 31 + (playingState != null && playingState.AllowUserInput ? 1 : 0);
+            }
+
+            hash = AppendPileSignature(hash, _hand, true);
+            return hash;
+        }
+    }
+
+    private int GetGameStateSignature()
+    {
+        if (GameStateManager.Instance == null)
+            return 0;
+
+        return GameStateManager.Instance.IsCurrent<PlayingState>() ? 1 : 2;
+    }
+
+    private int AppendPileSignature(int hash, List<CardMonobehaviour> pile, bool includePlayState)
+    {
+        unchecked
+        {
+            hash = hash * 31 + pile.Count;
+            foreach (CardMonobehaviour card in pile)
+            {
+                hash = hash * 31 + (card != null ? card.GetInstanceID() : 0);
+
+                if (card == null || !includePlayState)
+                    continue;
+
+                hash = hash * 31 + (card.used ? 1 : 0);
+                hash = hash * 31 + (card.played ? 1 : 0);
+                hash = hash * 31 + (card.inactive ? 1 : 0);
+                hash = hash * 31 + (card.IsResolvingManualAttack ? 1 : 0);
+                hash = hash * 31 + (card.onlyDisplay ? 1 : 0);
+                hash = hash * 31 + Mathf.RoundToInt(card.CostOverride * 100f);
+                hash = hash * 31 + Mathf.RoundToInt(card.Card.Cost * 100f);
+            }
+
+            return hash;
+        }
+    }
+
+    private int GetRoundedVectorHash(Vector3 vector)
+    {
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 31 + Mathf.RoundToInt(vector.x * 100f);
+            hash = hash * 31 + Mathf.RoundToInt(vector.y * 100f);
+            hash = hash * 31 + Mathf.RoundToInt(vector.z * 100f);
+            return hash;
+        }
     }
 
     private HashSet<CardMonobehaviour> _removingPlayed = new HashSet<CardMonobehaviour>();
@@ -144,6 +310,8 @@ public class Deck : MonoBehaviour
             {
                 _removingPlayed.Add(card);
                 StartCoroutine(RemovePlayed(card));
+                MarkHandLayoutDirty();
+                MarkPlayabilityDirty();
             }
         }
 
@@ -158,6 +326,8 @@ public class Deck : MonoBehaviour
         cardMonobehaviour.ResetPlayState();
         _discard.Add(cardMonobehaviour);
         _hand.Remove(cardMonobehaviour);
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
         PositionHandCards();
     }
 
@@ -204,12 +374,16 @@ public class Deck : MonoBehaviour
 
         _discard.Add(cardToDiscard);
         _hand.Remove(cardToDiscard);
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
         PositionHandCards(0);
     }
 
     public CardMonobehaviour CreateCard(Card card)
     {
         Cards.Add(card);
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
         return CreateCardMono(card);
     }
 
@@ -229,6 +403,8 @@ public class Deck : MonoBehaviour
                 }
             }
         };
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
         return cardObject.GetComponent<CardMonobehaviour>();
     }
 
@@ -244,10 +420,12 @@ public class Deck : MonoBehaviour
         Purge(_scrap, card);
 
         PositionHandCards(0);
+        MarkPlayabilityDirty();
     }
 
     public void Purge(List<CardMonobehaviour> pile, Card card)
     {
+        bool removed = false;
         for (int i = pile.Count - 1; i >= 0; i--)
         {
             var cardMono = pile[i];
@@ -257,7 +435,14 @@ public class Deck : MonoBehaviour
             {
                 pile.RemoveAt(i);
                 Destroy(cardMono.gameObject);
+                removed = true;
             }
+        }
+
+        if (removed)
+        {
+            MarkHandLayoutDirty();
+            MarkPlayabilityDirty();
         }
     }
 
@@ -270,6 +455,8 @@ public class Deck : MonoBehaviour
         {
             _draw.Add(CreateCardMono(card));
         });
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
     }
 
     public void ResetDeck()
@@ -279,6 +466,8 @@ public class Deck : MonoBehaviour
         _draw.AddRange(_discard);
         _hand.Clear();
         _discard.Clear();
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
     }
 
     public void DiscardButton()
@@ -358,6 +547,8 @@ public class Deck : MonoBehaviour
 
             _draw.AddRange(_discard);
             _discard.Clear();
+            MarkHandLayoutDirty();
+            MarkPlayabilityDirty();
             StartCoroutine(WaitToDrawHand(numToDraw - partHand));
             return;
         }
@@ -378,6 +569,8 @@ public class Deck : MonoBehaviour
             drawnCard.siblingIndex = i;
         }
 
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
         PositionHandCards(0);
     }
 
@@ -421,6 +614,9 @@ public class Deck : MonoBehaviour
         {
             cardMono.GetComponent<LerpPosition>().targetLocation = scrapTransform.localPosition;
         }
+
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
     }
 
     public void PositionHandCards(float animationDelayFactor = 0.2f)
@@ -442,14 +638,19 @@ public class Deck : MonoBehaviour
                     card.GetComponent<LerpPosition>().targetLocation = scrapTransform.localPosition;
             }
 
+            MarkHandLayoutDirty();
             return;
         }
         
-        RectTransform handRect = GetComponent<RectTransform>();
+        RectTransform handRect = GetHandRect();
         float width = (_hand.Count <= 3) ? handRect.rect.width * 0.65f : handRect.rect.width;
 
         int cardCount = _hand.Count;
-        if (cardCount == 0) return;
+        if (cardCount == 0)
+        {
+            RememberLayoutSignature();
+            return;
+        }
 
         for (int i = 0; i < cardCount; i++)
         {
@@ -508,6 +709,8 @@ public class Deck : MonoBehaviour
         if (scrapTransform != null)
             foreach (CardMonobehaviour card in _scrap)
                 card.GetComponent<LerpPosition>().targetLocation = scrapTransform.localPosition;
+
+        RememberLayoutSignature();
     }
 
 

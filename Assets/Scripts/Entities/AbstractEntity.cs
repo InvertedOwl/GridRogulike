@@ -303,14 +303,7 @@ namespace Entities
                         GameObject hex = HexGridManager.Instance.GetWorldHexObject(pos);
                         HexPreviewHandler hexHandler = hex.GetComponent<HexPreviewHandler>();
 
-                        if (hexHandler.eventsOnThisHex.ContainsKey(this))
-                        {
-                            hexHandler.eventsOnThisHex[this].Add(abstractCardEvent);
-                        }
-                        else
-                        {
-                            hexHandler.eventsOnThisHex[this] = new List<AbstractCardEvent> { abstractCardEvent };
-                        }
+                        hexHandler.AddPreviewEvent(this, abstractCardEvent);
 
                         // Always show arrow
                         if (abstractCardEvent is AttackCardEvent attack)
@@ -330,7 +323,7 @@ namespace Entities
             Debug.Log("I have died");
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
             {
-                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().eventsOnThisHex.Remove(this);
+                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().RemoveEventsForEntity(this);
             }
 
 

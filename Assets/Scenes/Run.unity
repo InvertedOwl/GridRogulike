@@ -2551,7 +2551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3225903025567002450, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -26.97
+      value: -26.970001
       objectReference: {fileID: 0}
     - target: {fileID: 3797383531747514516, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_IsActive
@@ -3516,7 +3516,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3127148555790775901, guid: b6272822eca7308488e983273d84aabb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b6272822eca7308488e983273d84aabb, type: 3}
 --- !u!114 &350923541 stripped
 MonoBehaviour:
@@ -3641,7 +3644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3225903025567002450, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -26.97
+      value: -26.970001
       objectReference: {fileID: 0}
     - target: {fileID: 3797383531747514516, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_IsActive
@@ -4679,7 +4682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3225903025567002450, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -26.97
+      value: -26.970001
       objectReference: {fileID: 0}
     - target: {fileID: 3797383531747514516, guid: 9e2b3517ac7c44dc4a957249f71febb9, type: 3}
       propertyPath: m_IsActive
@@ -6075,7 +6078,8 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
-  - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
+  - component: {fileID: 519420037}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6198,7 +6202,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -3.2, z: 6.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2133104990}
   m_Father: {fileID: 975860770}
   m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
 --- !u!114 &519420033
@@ -6229,7 +6234,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
---- !u!114 &519420035
+--- !u!114 &519420036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6238,12 +6243,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98a176b271808ea498844e4bc323da63, type: 3}
+  m_Script: {fileID: 11500000, guid: a2e4f1c06a6e01e46b03ea423b1648b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  speed: 2.5
-  targetHeight: 4
-  camera: {fileID: 519420031}
+  targetCamera: {fileID: 519420031}
+  zoomTransform: {fileID: 519420032}
+  zoomSpeed: 0.5
+  zoomEaseSpeed: 10
+  minMoveDistance: -1
+  maxMoveDistance: 2
+  requireMouseOnScreen: 1
+--- !u!114 &519420037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0af7fa3d11cb9f4bac41876d689bddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  moveTransform: {fileID: 519420032}
+  zoomCamera: {fileID: 0}
+  moveSpeed: 5
+  smoothTime: 0.12
+  useMoveBounds: 1
+  compensateForZoom: 1
+  minBounds: {x: -2, y: -2}
+  maxBounds: {x: 2, y: 2}
+  boundsOffset: {x: 0, y: -2.5}
 --- !u!1001 &526194684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11921,7 +11951,7 @@ MonoBehaviour:
   maxLocalOffset: {x: 5, y: 3}
   zOffset: -10
   offset: {x: 0, y: 0}
-  sensitivity: 0.05
+  sensitivity: 0.02
   invertX: 0
   invertY: 0
 --- !u!1 &977861376
@@ -12252,7 +12282,13 @@ MonoBehaviour:
   heightScale: 2.6223538
   lineRenderer: {fileID: 0}
   iconContainer: {fileID: 0}
+  arrowHead: {fileID: 0}
+  arrowHeadRenderer: {fileID: 0}
+  startPadding: 0.75
   endPadding: 0.75
+  arrowHeadOffset: 0
+  arrowHeadAngleOffset: -90
+  iconHeadOffset: 0
   zPosition: 0.9601
   head: {x: 0, y: 0}
 --- !u!114 &1016337282
@@ -16810,7 +16846,7 @@ MonoBehaviour:
   turnIndicatorManager: {fileID: 1474974203}
   playingUI: {fileID: 900554495}
   playingHealth: {fileID: 6097504617308708764}
-  cameraSizeLerp: {fileID: 519420035}
+  cameraSizeLerp: {fileID: 0}
   minViewSize: 3
   viewPadding: 0
   zoomSpeed: 9
@@ -30261,6 +30297,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128980942}
   m_CullTransparentMesh: 1
+--- !u!1 &2133104989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2133104990}
+  m_Layer: 0
+  m_Name: distance target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2133104990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133104989}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0015699863, z: 5.497281}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 519420032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2134255694
 GameObject:
   m_ObjectHideFlags: 0

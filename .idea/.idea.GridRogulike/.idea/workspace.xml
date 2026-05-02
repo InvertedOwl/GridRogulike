@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Figtree/static/SemiBoldFigtree.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/Figtree/static/SemiBoldFigtree.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTileMainMenu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTileMainMenu.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MoveWithMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MoveWithMouse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/HealthBarManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/MainMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF.shader" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -192,7 +210,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.8\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.9\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -360,30 +378,7 @@
       <workItem from="1777075667703" duration="808000" />
       <workItem from="1777134573310" duration="14085000" />
       <workItem from="1777317744826" duration="11657000" />
-    </task>
-    <task id="LOCAL-00010" summary="Allow for multiple cards in deck. There might be an issue with uuids, but its fine for now. Also, make sure that the player does not get stuck if they cannot attack.">
-      <option name="closed" value="true" />
-      <created>1770749793894</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1770749793894</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Bug fixes: &#10;https://trello.com/c/IsuCnAiq/46-view-deck-moves-whole-board&#10;&#10;https://trello.com/c/8JQIYgv5/34-skipping-a-hex-sends-you-to-shop-and-not-the-map">
-      <option name="closed" value="true" />
-      <created>1770750153891</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1770750153891</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Little animation for free">
-      <option name="closed" value="true" />
-      <created>1770751433347</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1770751433347</updated>
+      <workItem from="1777564542699" duration="10898000" />
     </task>
     <task id="LOCAL-00013" summary="Small update to inital board. TODO: Make this based on the starting character">
       <option name="closed" value="true" />
@@ -753,7 +748,31 @@
       <option name="project" value="LOCAL" />
       <updated>1777409785537</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="minor visual changes (rotating game board)">
+      <option name="closed" value="true" />
+      <created>1777564573238</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1777564573239</updated>
+    </task>
+    <task id="LOCAL-00060" summary="VISUAL CHANGES!">
+      <option name="closed" value="true" />
+      <created>1777564944609</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1777564944609</updated>
+    </task>
+    <task id="LOCAL-00061" summary="minor changes with healthbar (text bars)">
+      <option name="closed" value="true" />
+      <created>1777600219765</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1777600219765</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -780,9 +799,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Big boy changes" />
-    <MESSAGE value="Ui changes mostly (minor entity changes)" />
-    <MESSAGE value="minor changes" />
     <MESSAGE value="minor visual changes" />
     <MESSAGE value="Major changes" />
     <MESSAGE value="Minor build changes" />
@@ -805,7 +821,10 @@
     <MESSAGE value="Some changes" />
     <MESSAGE value="Minor visual improvements" />
     <MESSAGE value="Preview system (WIP)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Preview system (WIP)" />
+    <MESSAGE value="minor visual changes (rotating game board)" />
+    <MESSAGE value="VISUAL CHANGES!" />
+    <MESSAGE value="minor changes with healthbar (text bars)" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor changes with healthbar (text bars)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -14,6 +14,14 @@ public class HexPreviewHandler : MonoBehaviour
     public Vector2Int currentPos;
 
     private static readonly Dictionary<Vector2Int, HexPreviewHandler> AllHexHandlers = new Dictionary<Vector2Int, HexPreviewHandler>();
+    private static readonly Dictionary<AbstractEntity, List<AbstractCardEvent>> EmptyPreviewEvents =
+        new Dictionary<AbstractEntity, List<AbstractCardEvent>>();
+    private static int _globalPreviewRevision;
+
+    private bool _forcePreviewRefresh = true;
+    private bool _hasLocalPreviewSignature;
+    private int _lastLocalPreviewSignature;
+    private int _lastRenderedGlobalPreviewRevision = -1;
 
     private bool _disablePreview = false;
     public bool DisablePreview
@@ -22,7 +30,9 @@ public class HexPreviewHandler : MonoBehaviour
         set
         {
             _disablePreview = value;
-            UpdatePreview(new Dictionary<AbstractEntity, List<AbstractCardEvent>>());
+            _forcePreviewRefresh = true;
+            UpdatePreview(EmptyPreviewEvents);
+            _lastRenderedGlobalPreviewRevision = _globalPreviewRevision;
         }
     }
 
@@ -51,7 +61,7 @@ public class HexPreviewHandler : MonoBehaviour
         if (DisablePreview)
             return;
 
-        UpdatePreview(eventsOnThisHex);
+        RefreshPreviewIfNeeded();
     }
 
     private void OnMouseEnter()
@@ -107,6 +117,89 @@ public class HexPreviewHandler : MonoBehaviour
         catch (Exception) { }
 
         UpdateAttackEdges(hasAttack);
+    }
+
+    public void MarkPreviewDirty()
+    {
+        _forcePreviewRefresh = true;
+        _hasLocalPreviewSignature = false;
+        _globalPreviewRevision++;
+    }
+
+    public void ClearPreviewEvents()
+    {
+        if (eventsOnThisHex.Count == 0)
+            return;
+
+        eventsOnThisHex.Clear();
+        MarkPreviewDirty();
+    }
+
+    public void RemoveEventsForEntity(AbstractEntity entity)
+    {
+        if (eventsOnThisHex.Remove(entity))
+            MarkPreviewDirty();
+    }
+
+    public void AddPreviewEvent(AbstractEntity entity, AbstractCardEvent cardEvent)
+    {
+        if (eventsOnThisHex.ContainsKey(entity))
+            eventsOnThisHex[entity].Add(cardEvent);
+        else
+            eventsOnThisHex[entity] = new List<AbstractCardEvent> { cardEvent };
+
+        MarkPreviewDirty();
+    }
+
+    private void RefreshPreviewIfNeeded()
+    {
+        int localPreviewSignature = GetPreviewSignature(eventsOnThisHex);
+
+        if (!_hasLocalPreviewSignature)
+        {
+            _lastLocalPreviewSignature = localPreviewSignature;
+            _hasLocalPreviewSignature = true;
+            _forcePreviewRefresh = true;
+        }
+        else if (_lastLocalPreviewSignature != localPreviewSignature)
+        {
+            _lastLocalPreviewSignature = localPreviewSignature;
+            _globalPreviewRevision++;
+            _forcePreviewRefresh = true;
+        }
+
+        if (!_forcePreviewRefresh && _lastRenderedGlobalPreviewRevision == _globalPreviewRevision)
+            return;
+
+        UpdatePreview(eventsOnThisHex);
+        _lastRenderedGlobalPreviewRevision = _globalPreviewRevision;
+        _forcePreviewRefresh = false;
+    }
+
+    private int GetPreviewSignature(Dictionary<AbstractEntity, List<AbstractCardEvent>> localEvents)
+    {
+        unchecked
+        {
+            int hash = 17;
+            foreach (KeyValuePair<AbstractEntity, List<AbstractCardEvent>> entry in localEvents)
+            {
+                hash = hash * 31 + (entry.Key != null ? entry.Key.GetInstanceID() : 0);
+                hash = hash * 31 + (entry.Value != null ? entry.Value.Count : 0);
+
+                if (entry.Value == null)
+                    continue;
+
+                foreach (AbstractCardEvent cardEvent in entry.Value)
+                {
+                    if (cardEvent is AttackCardEvent attackCardEvent)
+                    {
+                        hash = hash * 31 + attackCardEvent.amount;
+                    }
+                }
+            }
+
+            return hash;
+        }
     }
 
     private int GetDamageAmount(Dictionary<AbstractEntity, List<AbstractCardEvent>> localEvents)
