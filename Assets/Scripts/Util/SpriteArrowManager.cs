@@ -9,6 +9,8 @@ public class SpriteArrowManager : MonoBehaviour
     public static SpriteArrowManager Instance { get; private set; }
     
     public Dictionary<string, GameObject> arrows = new Dictionary<string, GameObject>();
+    private readonly HashSet<string> enemyPreviewArrows = new HashSet<string>();
+    private bool enemyPreviewArrowsVisible = true;
 
     void Awake ()
     {
@@ -18,11 +20,16 @@ public class SpriteArrowManager : MonoBehaviour
     public GameObject arrowPrefab;
 
 
-    public string CreateArrow(Vector2Int tail, Vector2Int head, Color newColor, string icon, int amount = 0)
+    public string CreateArrow(Vector2Int tail, Vector2Int head, Color newColor, string icon, int amount = 0, bool enemyPreview = false)
     {
         GameObject arrow = Instantiate(arrowPrefab);
         string uuid = Guid.NewGuid().ToString();
         arrows.Add(uuid, arrow);
+
+        if (enemyPreview)
+        {
+            enemyPreviewArrows.Add(uuid);
+        }
 
         SpriteArrowController controller = GetArrowController(arrow);
         controller.head = head;
@@ -41,6 +48,9 @@ public class SpriteArrowManager : MonoBehaviour
                 iconT.gameObject.SetActive(false);
             }
         }
+
+        if (enemyPreview)
+            arrow.SetActive(enemyPreviewArrowsVisible);
         
         return uuid;
     }
@@ -68,6 +78,7 @@ public class SpriteArrowManager : MonoBehaviour
                 return;
             }
 
+            enemyPreviewArrows.Remove(uuid);
             Destroy(arrows[uuid]);
             arrows.Remove(uuid);
         }
@@ -76,6 +87,19 @@ public class SpriteArrowManager : MonoBehaviour
             
         }
             
+    }
+
+    public void SetEnemyPreviewArrowsVisible(bool visible)
+    {
+        enemyPreviewArrowsVisible = visible;
+
+        foreach (string uuid in enemyPreviewArrows)
+        {
+            if (arrows.TryGetValue(uuid, out GameObject arrow) && arrow != null)
+            {
+                arrow.SetActive(visible);
+            }
+        }
     }
 
 }

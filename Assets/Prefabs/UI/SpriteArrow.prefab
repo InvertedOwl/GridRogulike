@@ -80,7 +80,7 @@ LineRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 47
   m_MaskInteraction: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -157,15 +157,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Util.SpriteArrowController
   heightScale: 1
   lineRenderer: {fileID: 7137682367518826761}
+  borderLineRenderer: {fileID: 0}
   iconContainer: {fileID: 5920533863201284086}
   arrowHead: {fileID: 179764586078135499}
   arrowHeadRenderer: {fileID: 419847186260322616}
+  arrowHeadBorder: {fileID: 0}
+  arrowHeadBorderRenderer: {fileID: 0}
+  createBorderIfMissing: 1
+  borderColor: {r: 0, g: 0, b: 0, a: 1}
+  lineBorderWidthMultiplier: 2
+  arrowHeadBorderScaleMultiplier: 1.6
   startPadding: 0
   endPadding: 0.32
   arrowHeadOffset: 0
   arrowHeadAngleOffset: -90
   iconHeadOffset: -0.15
-  zPosition: 0.7601
+  zPosition: 0.8601
   head: {x: 0, y: 0}
 --- !u!1 &1183235622032911629
 GameObject:
@@ -193,8 +200,8 @@ Transform:
   m_GameObject: {fileID: 1183235622032911629}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.025, y: 1.064, z: 1}
-  m_LocalScale: {x: 0.22721985, y: 0.22721985, z: 0.22721985}
+  m_LocalPosition: {x: 0.025, y: 1.054, z: 1}
+  m_LocalScale: {x: 0.17299382, y: 0.17299382, z: 0.17299382}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5605971047195433900}

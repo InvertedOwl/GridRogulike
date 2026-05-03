@@ -7,9 +7,16 @@ namespace Util
     {
         public float heightScale = 1; 
         public LineRenderer lineRenderer;
+        public LineRenderer borderLineRenderer;
         public Transform iconContainer;
         public Transform arrowHead;
         public SpriteRenderer arrowHeadRenderer;
+        public Transform arrowHeadBorder;
+        public SpriteRenderer arrowHeadBorderRenderer;
+        public bool createBorderIfMissing = true;
+        public Color borderColor = Color.black;
+        public float lineBorderWidthMultiplier = 1.75f;
+        public float arrowHeadBorderScaleMultiplier = 1.25f;
         public float startPadding = 0.75f;
         public float endPadding = 0.75f;
         public float arrowHeadOffset = 0f;
@@ -73,20 +80,11 @@ namespace Util
             if (lineRenderer == null)
                 return;
 
-            lineRenderer.positionCount = 2;
-            if (lineRenderer.useWorldSpace)
-            {
-                lineRenderer.SetPosition(0, center - offset);
-                lineRenderer.SetPosition(1, center + offset);
-            }
-            else
-            {
-                lineRenderer.transform.position = center;
-                lineRenderer.SetPosition(0, -offset);
-                lineRenderer.SetPosition(1, offset);
-            }
+            SetLinePosition(borderLineRenderer, center, offset);
+            SetLinePosition(lineRenderer, center, offset);
 
             SetArrowHeadPosition(lineEnd, direction);
+            SetBorderColor();
             SetArrowHeadColor();
         }
 
@@ -94,6 +92,9 @@ namespace Util
         {
             if (lineRenderer == null)
                 lineRenderer = GetComponent<LineRenderer>() ?? GetComponentInChildren<LineRenderer>();
+
+            if (borderLineRenderer == null)
+                borderLineRenderer = FindBorderLineRenderer();
 
             if (iconContainer == null)
                 iconContainer = FindIconContainer();
@@ -103,6 +104,37 @@ namespace Util
 
             if (arrowHeadRenderer == null && arrowHead != null)
                 arrowHeadRenderer = arrowHead.GetComponent<SpriteRenderer>();
+
+            if (arrowHeadBorder == null)
+                arrowHeadBorder = FindArrowHeadBorder();
+
+            if (arrowHeadBorderRenderer == null && arrowHeadBorder != null)
+                arrowHeadBorderRenderer = arrowHeadBorder.GetComponent<SpriteRenderer>();
+
+            if (createBorderIfMissing)
+            {
+                EnsureBorderLineRenderer();
+                EnsureArrowHeadBorder();
+            }
+        }
+
+        private void SetLinePosition(LineRenderer targetLineRenderer, Vector3 center, Vector3 offset)
+        {
+            if (targetLineRenderer == null)
+                return;
+
+            targetLineRenderer.positionCount = 2;
+            if (targetLineRenderer.useWorldSpace)
+            {
+                targetLineRenderer.SetPosition(0, center - offset);
+                targetLineRenderer.SetPosition(1, center + offset);
+            }
+            else
+            {
+                targetLineRenderer.transform.position = center;
+                targetLineRenderer.SetPosition(0, -offset);
+                targetLineRenderer.SetPosition(1, offset);
+            }
         }
 
         private void SetArrowHeadPosition(Vector3 lineEnd, Vector2 direction)
@@ -115,6 +147,13 @@ namespace Util
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             arrowHead.rotation = Quaternion.Euler(0f, 0f, angle + arrowHeadAngleOffset);
+
+            if (arrowHeadBorder == null)
+                return;
+
+            arrowHeadBorder.position = arrowHead.position;
+            arrowHeadBorder.rotation = arrowHead.rotation;
+            arrowHeadBorder.localScale = arrowHead.localScale * arrowHeadBorderScaleMultiplier;
         }
 
         private void SetIconPosition(Vector3 lineEnd, Vector2 direction)
@@ -134,6 +173,69 @@ namespace Util
             arrowHeadRenderer.color = lineRenderer.endColor;
         }
 
+        private void SetBorderColor()
+        {
+            if (borderLineRenderer != null)
+            {
+                borderLineRenderer.startColor = borderColor;
+                borderLineRenderer.endColor = borderColor;
+            }
+
+            if (arrowHeadBorderRenderer != null)
+                arrowHeadBorderRenderer.color = borderColor;
+        }
+
+        private LineRenderer FindBorderLineRenderer()
+        {
+            Transform found = transform.Find("LineBorder");
+            if (found == null && transform.parent != null)
+                found = transform.parent.Find("LineBorder");
+
+            return found != null ? found.GetComponent<LineRenderer>() : null;
+        }
+
+        private void EnsureBorderLineRenderer()
+        {
+            if (borderLineRenderer != null || lineRenderer == null)
+                return;
+
+            GameObject borderLine = new GameObject("LineBorder");
+            borderLine.transform.SetParent(lineRenderer.transform.parent, false);
+            borderLine.transform.SetSiblingIndex(lineRenderer.transform.GetSiblingIndex());
+
+            borderLineRenderer = borderLine.AddComponent<LineRenderer>();
+            borderLineRenderer.sharedMaterial = lineRenderer.sharedMaterial;
+            borderLineRenderer.useWorldSpace = lineRenderer.useWorldSpace;
+            borderLineRenderer.widthCurve = lineRenderer.widthCurve;
+            borderLineRenderer.widthMultiplier = lineRenderer.widthMultiplier * lineBorderWidthMultiplier;
+            borderLineRenderer.numCornerVertices = lineRenderer.numCornerVertices;
+            borderLineRenderer.numCapVertices = lineRenderer.numCapVertices;
+            borderLineRenderer.alignment = lineRenderer.alignment;
+            borderLineRenderer.textureMode = lineRenderer.textureMode;
+            borderLineRenderer.textureScale = lineRenderer.textureScale;
+            borderLineRenderer.sortingLayerID = lineRenderer.sortingLayerID;
+            borderLineRenderer.sortingOrder = lineRenderer.sortingOrder - 1;
+            SetBorderColor();
+        }
+
+        private void EnsureArrowHeadBorder()
+        {
+            if (arrowHeadBorderRenderer != null || arrowHeadRenderer == null || arrowHead == null)
+                return;
+
+            GameObject borderHead = new GameObject("ArrowHeadBorder");
+            borderHead.transform.SetParent(arrowHead.parent, false);
+            borderHead.transform.SetSiblingIndex(arrowHead.GetSiblingIndex());
+
+            arrowHeadBorder = borderHead.transform;
+            arrowHeadBorderRenderer = borderHead.AddComponent<SpriteRenderer>();
+            arrowHeadBorderRenderer.sprite = arrowHeadRenderer.sprite;
+            arrowHeadBorderRenderer.sharedMaterial = arrowHeadRenderer.sharedMaterial;
+            arrowHeadBorderRenderer.sortingLayerID = arrowHeadRenderer.sortingLayerID;
+            arrowHeadBorderRenderer.sortingOrder = arrowHeadRenderer.sortingOrder - 1;
+            SetBorderColor();
+        }
+
         private Transform FindIconContainer()
         {
             Transform found = transform.Find("IconList");
@@ -150,6 +252,15 @@ namespace Util
                 return found;
 
             return transform.parent != null ? transform.parent.Find("ArrowHead") : null;
+        }
+
+        private Transform FindArrowHeadBorder()
+        {
+            Transform found = transform.Find("ArrowHeadBorder");
+            if (found != null)
+                return found;
+
+            return transform.parent != null ? transform.parent.Find("ArrowHeadBorder") : null;
         }
     }
 }

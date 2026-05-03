@@ -485,6 +485,35 @@ namespace Grid
             return adjacent;
         }
 
+        public static List<Vector2Int> HexesInRadius(int radius)
+        {
+            List<Vector2Int> hexes = new List<Vector2Int>();
+            radius = Mathf.Max(0, radius);
+
+            for (int row = -radius; row <= radius; row++)
+            {
+                for (int col = -radius; col <= radius; col++)
+                {
+                    if (HexDistanceFromOrigin(col, row) <= radius)
+                    {
+                        hexes.Add(new Vector2Int(col, row));
+                    }
+                }
+            }
+
+            return hexes;
+        }
+
+        private static int HexDistanceFromOrigin(int col, int row)
+        {
+            int rowParity = Mathf.Abs(row % 2);
+            int q = col - ((row - rowParity) / 2);
+            int r = row;
+            int s = -q - r;
+
+            return Mathf.Max(Mathf.Abs(q), Mathf.Abs(r), Mathf.Abs(s));
+        }
+
         private static bool IsOdd(int value)
         {
             return Mathf.Abs(value % 2) == 1;

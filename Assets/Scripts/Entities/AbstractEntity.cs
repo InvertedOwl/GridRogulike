@@ -309,7 +309,7 @@ namespace Entities
                         if (abstractCardEvent is AttackCardEvent attack)
                         {
                             arrowUUIDs.Add(SpriteArrowManager.Instance.CreateArrow(positionRowCol,
-                                pos, Color.red, "AttackIcon", attack.amount));
+                                pos, Color.red, "AttackIcon", attack.amount, enemyPreview: true));
                         }
                     }
                 }

@@ -6,6 +6,7 @@ public class HealthBarManager : MonoBehaviour
     [Header("World Text")]
     public TMP_Text healthText;
     public TMP_Text shieldText;
+    public EaseScale shieldParentScale;
 
     [Header("World Bars")]
     public GameObject baseBar;
@@ -24,6 +25,8 @@ public class HealthBarManager : MonoBehaviour
 
     private bool _cachedBarSizes = false;
     private bool _cachedText = false;
+    private bool _cachedShieldParent = false;
+    private bool? _lastShieldVisible;
     private Vector2 _startingHealthSpriteSize;
     private Vector2 _startingShieldSpriteSize;
 
@@ -43,6 +46,28 @@ public class HealthBarManager : MonoBehaviour
             shieldText = FindTextComponent(textComponents, "ShieldText");
 
         _cachedText = true;
+    }
+
+    private void CacheShieldParent()
+    {
+        if (_cachedShieldParent) return;
+
+        if (shieldParentScale == null)
+        {
+            EaseScale[] easeScales = GetComponentsInChildren<EaseScale>(true);
+            string normalizedShieldName = NormalizeTextObjectName("Shield");
+
+            foreach (EaseScale easeScale in easeScales)
+            {
+                if (NormalizeTextObjectName(easeScale.gameObject.name) == normalizedShieldName)
+                {
+                    shieldParentScale = easeScale;
+                    break;
+                }
+            }
+        }
+
+        _cachedShieldParent = true;
     }
 
     private TMP_Text FindTextComponent(TMP_Text[] textComponents, string objectName)
@@ -112,6 +137,7 @@ public class HealthBarManager : MonoBehaviour
     private void Refresh()
     {
         CacheText();
+        CacheShieldParent();
         CacheBarSizes();
 
         float safeMaxHealth = Mathf.Max(1f, initialHealth);
@@ -124,7 +150,6 @@ public class HealthBarManager : MonoBehaviour
         );
         Color shieldColor = new Color(0.4f, 0.7f, 1f);
         Color healthTextColor = LightenColor(healthColor, 0.5f);
-        Color shieldTextColor = LightenColor(shieldColor, 0.5f);
 
         if (healthText != null)
         {
@@ -135,8 +160,9 @@ public class HealthBarManager : MonoBehaviour
         if (shieldText != null)
         {
             shieldText.SetText("{0}", Mathf.CeilToInt(Mathf.Max(0f, shield)));
-            shieldText.color = shieldTextColor;
         }
+
+        UpdateShieldParentScale(shield > 0f);
 
         SpriteRenderer healthSprite = healthBar != null ? healthBar.GetComponent<SpriteRenderer>() : null;
         SpriteRenderer shieldSprite = shieldBar != null ? shieldBar.GetComponent<SpriteRenderer>() : null;
@@ -172,6 +198,15 @@ public class HealthBarManager : MonoBehaviour
 
             shieldSprite.color = shieldColor;
         }
+    }
+
+    private void UpdateShieldParentScale(bool visible)
+    {
+        if (shieldParentScale == null || _lastShieldVisible == visible)
+            return;
+
+        _lastShieldVisible = visible;
+        shieldParentScale.SetScale(visible ? Vector3.one : new Vector3(0f, 0f, 1f));
     }
 
     public static Color LerpLinearRGB(Color a, Color b, float t)

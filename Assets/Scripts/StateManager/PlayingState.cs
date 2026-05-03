@@ -401,12 +401,25 @@ namespace StateManager
             return encounter;
         }
         
+        [Header("Generated Initial Map")]
+        [SerializeField] private bool generateInitialMap = true;
+        [SerializeField] private int initialMapRadius = 2;
+        [SerializeField] private string homeTileType = "start";
+        [SerializeField] private string generatedTileType = "basic";
+
         public List<MapData> maps = new List<MapData>();
 
         private void SetupInitialTiles()
         {
             var origin = new Vector2Int(0, 0);
-            // _grid.TryAdd(origin, "start");
+
+            if (generateInitialMap)
+            {
+                foreach (Vector2Int position in HexGridManager.HexesInRadius(initialMapRadius))
+                {
+                    _grid.TryAdd(position, position == origin ? homeTileType : generatedTileType);
+                }
+            }
 
             foreach (MapData map in maps)
             {

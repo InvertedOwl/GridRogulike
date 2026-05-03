@@ -29,6 +29,9 @@ namespace Grid {
         {
             ClearPendingAttacks();
 
+            if (SpriteArrowManager.Instance != null)
+                SpriteArrowManager.Instance.SetEnemyPreviewArrowsVisible(false);
+
             ToAttack.AddRange(cardEvents);
             _pendingCard = card;
             _pendingCardHasStarted = false;
@@ -145,6 +148,8 @@ namespace Grid {
             ClearToAttackEmitters();
             if (SpriteArrowManager.Instance != null)
                 SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
+            if (SpriteArrowManager.Instance != null)
+                SpriteArrowManager.Instance.SetEnemyPreviewArrowsVisible(true);
             ToAttack.Clear();
             _pendingCard = null;
             _pendingCardHasStarted = false;
@@ -163,6 +168,9 @@ namespace Grid {
         {
             if (_pendingCard != null)
                 _pendingCard.FinishManualAttackResolution();
+
+            if (SpriteArrowManager.Instance != null)
+                SpriteArrowManager.Instance.SetEnemyPreviewArrowsVisible(true);
 
             _pendingCard = null;
             _pendingCardHasStarted = false;

@@ -204,6 +204,7 @@ MonoBehaviour:
   activeHover: 1
   hoverWhenNotPlaytate: 0
   ignoreOcclusion: 0
+  hideWhenEntityHovered: 1
   sideThing: {fileID: 0}
 --- !u!114 &5286917440407922032
 MonoBehaviour:
@@ -1011,14 +1012,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5281229115281386458}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 0, z: -0.154}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 493533110601556609}
   m_Father: {fileID: 568234234297479083}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.3}
@@ -1045,7 +1046,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 250
   m_TargetDisplay: 0
 --- !u!114 &5453740433063514347
 MonoBehaviour:
@@ -1623,7 +1624,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 152.48, y: -50}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 304.96, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6032224164995805346
 CanvasRenderer:

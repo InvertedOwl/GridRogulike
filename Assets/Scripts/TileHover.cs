@@ -1,3 +1,4 @@
+using Entities;
 using StateManager;
 using UnityEngine;
 using Util;
@@ -14,12 +15,14 @@ public class TileHover : MonoBehaviour
 
     public bool hoverWhenNotPlaytate = true;
     public bool ignoreOcclusion = false;
+    public bool hideWhenEntityHovered = true;
 
     public GameObject sideThing;
 
     private Collider col3D;
     private Collider2D col2D;
     private Camera mainCam;
+    private AbstractEntity owningEntity;
 
     private static float _cachedFixedTime = -1f;
     private static Camera _cachedCamera;
@@ -36,6 +39,7 @@ public class TileHover : MonoBehaviour
         col3D = GetComponent<Collider>();
         col2D = GetComponent<Collider2D>();
         mainCam = Camera.main;
+        owningEntity = GetComponentInParent<AbstractEntity>();
     }
 
     void FixedUpdate()
@@ -53,6 +57,10 @@ public class TileHover : MonoBehaviour
         }
 
         bool isHovering = IsMouseHovering();
+        if (isHovering && ShouldHideForEntityHover())
+        {
+            isHovering = false;
+        }
 
         if (isHovering && activeHover)
         {
@@ -106,6 +114,39 @@ public class TileHover : MonoBehaviour
         }
 
         return false;
+    }
+
+    private bool ShouldHideForEntityHover()
+    {
+        if (!hideWhenEntityHovered || owningEntity != null)
+        {
+            return false;
+        }
+
+        return GetHoveredEntity() != null;
+    }
+
+    private AbstractEntity GetHoveredEntity()
+    {
+        if (_hasCached3DHit && _cached3DHit != null)
+        {
+            AbstractEntity hoveredEntity = _cached3DHit.GetComponentInParent<AbstractEntity>();
+            if (hoveredEntity != null)
+            {
+                return hoveredEntity;
+            }
+        }
+
+        if (_hasCached2DHit && _cached2DHit != null)
+        {
+            AbstractEntity hoveredEntity = _cached2DHit.GetComponentInParent<AbstractEntity>();
+            if (hoveredEntity != null)
+            {
+                return hoveredEntity;
+            }
+        }
+
+        return null;
     }
 
     private static void UpdateHoverCache(Camera camera)

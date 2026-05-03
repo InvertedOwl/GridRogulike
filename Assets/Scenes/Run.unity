@@ -240,9 +240,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexPrefab: {fileID: 4449493802187549647, guid: 232c6550d5ed947d0a2a1a5f570f5c32, type: 3}
   startX: -16
-  startY: -11
+  startY: -14
   widthX: 33
-  widthY: 21
+  widthY: 25
   grasslandColors:
   - {r: 0.11747953, g: 0.23218532, b: 0.41509432, a: 0}
   - {r: 0.080099694, g: 0.19352739, b: 0.3773585, a: 0}
@@ -283,7 +283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.60007, y: -86.26998}
+  m_AnchoredPosition: {x: 327.6, y: -86.269966}
   m_SizeDelta: {x: 630.54, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &32353971
@@ -3475,7 +3475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3277531031008773237, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.17
+      value: -1.295
       objectReference: {fileID: 0}
     - target: {fileID: 3277531031008773237, guid: b6272822eca7308488e983273d84aabb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3518,6 +3518,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3127148555790775901, guid: b6272822eca7308488e983273d84aabb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3434766502879815555, guid: b6272822eca7308488e983273d84aabb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b6272822eca7308488e983273d84aabb, type: 3}
@@ -6250,8 +6253,8 @@ MonoBehaviour:
   zoomTransform: {fileID: 519420032}
   zoomSpeed: 0.5
   zoomEaseSpeed: 10
-  minMoveDistance: -1
-  maxMoveDistance: 2
+  minMoveDistance: -1.2
+  maxMoveDistance: 1.5
   requireMouseOnScreen: 1
 --- !u!114 &519420037
 MonoBehaviour:
@@ -6267,12 +6270,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveTransform: {fileID: 519420032}
   zoomCamera: {fileID: 0}
+  moveWithMouse: {fileID: 0}
   moveSpeed: 5
   smoothTime: 0.12
+  useLocalPosition: 1
   useMoveBounds: 1
   compensateForZoom: 1
   minBounds: {x: -2, y: -2}
-  maxBounds: {x: 2, y: 2}
+  maxBounds: {x: 2, y: 0.5}
   boundsOffset: {x: 0, y: -2.5}
 --- !u!1001 &526194684
 PrefabInstance:
@@ -8467,6 +8472,7 @@ MonoBehaviour:
   maxLocalOffset: {x: 5, y: 5}
   zOffset: 0
   offset: {x: 0, y: 0}
+  moveOffset: {x: 0, y: 0}
   sensitivity: 1.5
   invertX: 0
   invertY: 0
@@ -11951,6 +11957,7 @@ MonoBehaviour:
   maxLocalOffset: {x: 5, y: 3}
   zOffset: -10
   offset: {x: 0, y: 0}
+  moveOffset: {x: 0, y: 0}
   sensitivity: 0.02
   invertX: 0
   invertY: 0
@@ -12281,9 +12288,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Util.SpriteArrowController
   heightScale: 2.6223538
   lineRenderer: {fileID: 0}
+  borderLineRenderer: {fileID: 0}
   iconContainer: {fileID: 0}
   arrowHead: {fileID: 0}
   arrowHeadRenderer: {fileID: 0}
+  arrowHeadBorder: {fileID: 0}
+  arrowHeadBorderRenderer: {fileID: 0}
+  createBorderIfMissing: 1
+  borderColor: {r: 0, g: 0, b: 0, a: 1}
+  lineBorderWidthMultiplier: 1.75
+  arrowHeadBorderScaleMultiplier: 1.25
   startPadding: 0.75
   endPadding: 0.75
   arrowHeadOffset: 0
@@ -14888,7 +14902,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.51593
+  m_Size: 0.5159298
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16846,58 +16860,14 @@ MonoBehaviour:
   turnIndicatorManager: {fileID: 1474974203}
   playingUI: {fileID: 900554495}
   playingHealth: {fileID: 6097504617308708764}
-  cameraSizeLerp: {fileID: 0}
   minViewSize: 3
   viewPadding: 0
   zoomSpeed: 9
-  maps:
-  - entries:
-    - key: {x: 0, y: 0}
-      value: start
-    - key: {x: -1, y: -2}
-      value: basic
-    - key: {x: 0, y: -2}
-      value: basic
-    - key: {x: 1, y: -2}
-      value: basic
-    - key: {x: -2, y: -1}
-      value: basic
-    - key: {x: -1, y: -1}
-      value: basic
-    - key: {x: 0, y: -1}
-      value: basic
-    - key: {x: 1, y: -1}
-      value: basic
-    - key: {x: -2, y: 0}
-      value: basic
-    - key: {x: -1, y: 0}
-      value: basic
-    - key: {x: 1, y: 0}
-      value: basic
-    - key: {x: 2, y: 0}
-      value: basic
-    - key: {x: -2, y: 1}
-      value: basic
-    - key: {x: -1, y: 1}
-      value: basic
-    - key: {x: 0, y: 1}
-      value: basic
-    - key: {x: 2, y: 0}
-      value: basic
-    - key: {x: -2, y: 1}
-      value: basic
-    - key: {x: -1, y: 1}
-      value: basic
-    - key: {x: 0, y: 1}
-      value: basic
-    - key: {x: 1, y: 1}
-      value: basic
-    - key: {x: -1, y: 2}
-      value: basic
-    - key: {x: 0, y: 2}
-      value: basic
-    - key: {x: 1, y: 2}
-      value: basic
+  generateInitialMap: 1
+  initialMapRadius: 3
+  homeTileType: start
+  generatedTileType: basic
+  maps: []
 --- !u!114 &1327594992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28570,7 +28540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2022748690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28812,8 +28782,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1854711374}
   m_HandleRect: {fileID: 1854711373}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.4999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -31067,6 +31037,7 @@ MonoBehaviour:
   activeHover: 1
   hoverWhenNotPlaytate: 1
   ignoreOcclusion: 0
+  hideWhenEntityHovered: 1
   sideThing: {fileID: 0}
 --- !u!61 &6097504617308708762
 BoxCollider2D:
@@ -31128,6 +31099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthBarManager
   healthText: {fileID: 0}
   shieldText: {fileID: 0}
+  shieldParentScale: {fileID: 0}
   baseBar: {fileID: 0}
   healthBar: {fileID: 1084512258}
   shieldBar: {fileID: 1115871082}
