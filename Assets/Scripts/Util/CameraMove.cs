@@ -1,3 +1,4 @@
+using StateManager;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour
@@ -35,6 +36,13 @@ public class CameraMove : MonoBehaviour
 
         if (!_hasTargetPosition)
             SetTargetPosition(GetBasePosition());
+
+        if (!CanControlCamera())
+        {
+            SetTargetPosition(GetBasePosition());
+            _velocity = Vector3.zero;
+            return;
+        }
 
         Vector2 input = GetMoveInput();
         if (input.sqrMagnitude > 1f)
@@ -159,6 +167,13 @@ public class CameraMove : MonoBehaviour
             input.y += 1f;
 
         return input;
+    }
+
+    private bool CanControlCamera()
+    {
+        return GameStateManager.Instance != null &&
+               (GameStateManager.Instance.IsCurrent<PlayingState>() ||
+                GameStateManager.Instance.IsCurrent<TilePickState>());
     }
 
     private void ClampTargetPosition()

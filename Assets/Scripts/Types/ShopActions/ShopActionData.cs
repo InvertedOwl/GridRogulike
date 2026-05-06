@@ -9,6 +9,11 @@ namespace Types.ShopActions
     public static class ShopActionData
     {
         public static RandomState shopActionRandom = RunInfo.NewRandom("shopaction");
+
+        public static void ResetStatics()
+        {
+            shopActionRandom = RunInfo.NewRandom("shopaction");
+        }
         
         public static List<ShopActionEntry> ShopActionEntries = new List<ShopActionEntry>
         {

@@ -40,6 +40,11 @@ public class Deck : MonoBehaviour
     private int _lastLayoutSignature;
     private int _lastPlayabilitySignature;
 
+    public static void ResetStatics()
+    {
+        Instance = null;
+    }
+
     public void Awake ()
     {
         Instance = this;
@@ -98,6 +103,11 @@ public class Deck : MonoBehaviour
             RememberPlayabilitySignature();
             return;
         }
+        if (RunInfo.Instance == null)
+        {
+            RememberPlayabilitySignature();
+            return;
+        }
         var playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
         if (playingState != null && !playingState.AllowUserInput)
         {
@@ -136,7 +146,8 @@ public class Deck : MonoBehaviour
 
     private bool IsCardTooExpensive(CardMonobehaviour card)
     {
-        return (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy;
+        return RunInfo.Instance != null &&
+               (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy;
     }
 
     private bool ShouldShowInactiveOverlay(CardMonobehaviour card)

@@ -33,6 +33,8 @@ public class MainMenu : MonoBehaviour
         {
             Debug.Log("No save file to delete.");
         }
+
+        StaticResetManager.ResetRunStatics();
     }
 
     public void UpdateMainMenu()
@@ -62,6 +64,7 @@ public class MainMenu : MonoBehaviour
     
     public void StartRun()
     {
+        StaticResetManager.ResetRunStatics();
         // TEMP just send to run
         fadeScale.SetScale(new Vector3(1, 1, 1), () =>
         {

@@ -8,6 +8,7 @@ namespace Serializer
     public class SaveGameObject : MonoBehaviour
     {
         private Type queuedState;
+        private bool _skipSaveOnQuit;
 
         public void Awake()
         {
@@ -39,6 +40,7 @@ namespace Serializer
 
         public void DeleteSave()
         {
+            _skipSaveOnQuit = true;
             string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
 
             if (File.Exists(savePath))
@@ -67,10 +69,19 @@ namespace Serializer
         {
             string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
 
-            string save = SaveFile.currentJSON;
-            if (string.IsNullOrWhiteSpace(save))
+            string save;
+            try
             {
-                save = SaveFile.ToJSON();
+                save = SaveFile.currentJSON;
+                if (string.IsNullOrWhiteSpace(save))
+                {
+                    save = SaveFile.ToJSON();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to build save data: {ex.Message}");
+                return;
             }
 
             if (string.IsNullOrWhiteSpace(save))
@@ -88,6 +99,14 @@ namespace Serializer
             {
                 Debug.LogError($"Failed to write save file: {ex.Message}");
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (_skipSaveOnQuit)
+                return;
+
+            Save();
         }
     }
 }

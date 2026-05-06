@@ -29,6 +29,11 @@ namespace Cards
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
+            ResetStatics();
+        }
+
+        public static void ResetStatics()
+        {
             guidRandom = RunInfo.NewRandom("guid");
         }
         

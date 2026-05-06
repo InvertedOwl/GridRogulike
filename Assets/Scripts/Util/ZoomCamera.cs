@@ -1,3 +1,4 @@
+using StateManager;
 using UnityEngine;
 
 public class ZoomCamera : MonoBehaviour
@@ -40,6 +41,9 @@ public class ZoomCamera : MonoBehaviour
     {
         ResolveReferences();
 
+        if (!CanControlCamera())
+            return;
+
         if (requireMouseOnScreen && !IsMouseOnScreen())
         {
             return;
@@ -55,6 +59,13 @@ public class ZoomCamera : MonoBehaviour
     private void LateUpdate()
     {
         ResolveReferences();
+
+        if (!CanControlCamera())
+        {
+            _targetMoveDistance = _currentMoveDistance;
+            return;
+        }
+
         EaseZoom();
     }
 
@@ -143,6 +154,13 @@ public class ZoomCamera : MonoBehaviour
                mousePosition.y >= 0f &&
                mousePosition.x <= Screen.width &&
                mousePosition.y <= Screen.height;
+    }
+
+    private bool CanControlCamera()
+    {
+        return GameStateManager.Instance != null &&
+               (GameStateManager.Instance.IsCurrent<PlayingState>() ||
+                GameStateManager.Instance.IsCurrent<TilePickState>());
     }
 
     private void OnValidate()

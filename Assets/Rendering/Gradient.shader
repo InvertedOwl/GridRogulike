@@ -7,6 +7,12 @@ Shader "UI/Gradient (Masked)"
         _ColorIn  ("In Color",  Color) = (0,0,0,1)
         _Distance ("Distance", Int)   = 1
 
+        // Pulse
+        _PulseEnabled ("Pulse Enabled", Float) = 0
+        _PulseColorIn ("Pulse In Color", Color) = (1,0,0,1)
+        _PulseColorOut ("Pulse Out Color", Color) = (0,0,1,1)
+        _PulseSpeed ("Pulse Speed", Float) = 1
+
         // --- UI Mask / Stencil plumbing (matches Unity UI/Default) ---
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -14,6 +20,7 @@ Shader "UI/Gradient (Masked)"
         _StencilWriteMask ("Stencil Write Mask", Float) = 255
         _StencilReadMask  ("Stencil Read Mask",  Float) = 255
         _ColorMask ("Color Mask", Float) = 15
+
         // For RectMask2D
         _ClipRect ("Clip Rect", Vector) = (0,0,0,0)
         _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
@@ -37,7 +44,6 @@ Shader "UI/Gradient (Masked)"
         Blend SrcAlpha OneMinusSrcAlpha
         ColorMask [_ColorMask]
 
-        // --- Stencil so Mask works ---
         Stencil
         {
             Ref [_Stencil]
@@ -53,7 +59,6 @@ Shader "UI/Gradient (Masked)"
             #pragma vertex   vert
             #pragma fragment frag
 
-            // Support RectMask2D & optional alpha clip
             #pragma multi_compile __ UNITY_UI_CLIP_RECT
             #pragma multi_compile __ UNITY_UI_ALPHACLIP
 
@@ -77,6 +82,11 @@ Shader "UI/Gradient (Masked)"
             fixed4 _ColorOut;
             int    _Distance;
 
+            float  _PulseEnabled;
+            fixed4 _PulseColorIn;
+            fixed4 _PulseColorOut;
+            float  _PulseSpeed;
+
             float4 _ClipRect;
             float  _UseUIAlphaClip;
 
@@ -91,18 +101,21 @@ Shader "UI/Gradient (Masked)"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // RectMask2D clipping
                 #ifdef UNITY_UI_CLIP_RECT
                 if (UnityGet2DClipping(i.worldPos.xy, _ClipRect) < 0)
                     discard;
                 #endif
 
+                float pulse = (sin(_Time.y * _PulseSpeed) + 1.0) * 0.5;
+
+                fixed4 colorIn = lerp(_ColorIn, _PulseColorIn, pulse * _PulseEnabled);
+                fixed4 colorOut = lerp(_ColorOut, _PulseColorOut, pulse * _PulseEnabled);
+
                 float2 center = float2(0.5, 0.5);
                 float dist = distance(i.uv, center);
 
-                fixed4 col = lerp(_ColorIn, _ColorOut, saturate(dist * 2 / max(1, _Distance)));
+                fixed4 col = lerp(colorIn, colorOut, saturate(dist * 2 / max(1, _Distance)));
 
-                // Optional alpha clip (used by some masking setups)
                 #ifdef UNITY_UI_ALPHACLIP
                 if (_UseUIAlphaClip > 0.5 && col.a <= 0)
                     clip(-1);

@@ -11,6 +11,11 @@ namespace Types.CardModifiers
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
+            ResetStatics();
+        }
+
+        public static void ResetStatics()
+        {
             guidRandom = RunInfo.NewRandom("cmguid");
         }
         public static string GenerateDeterministicId()

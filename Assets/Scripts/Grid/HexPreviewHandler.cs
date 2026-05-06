@@ -23,6 +23,13 @@ public class HexPreviewHandler : MonoBehaviour
     private int _lastLocalPreviewSignature;
     private int _lastRenderedGlobalPreviewRevision = -1;
 
+    public static void ResetStatics()
+    {
+        AllHexHandlers.Clear();
+        EmptyPreviewEvents.Clear();
+        _globalPreviewRevision = 0;
+    }
+
     private bool _disablePreview = false;
     public bool DisablePreview
     {

@@ -70,6 +70,12 @@ namespace Grid
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
+            ResetStatics();
+        }
+
+        public static void ResetStatics()
+        {
+            Instance = null;
             _saveData = null;
         }
 

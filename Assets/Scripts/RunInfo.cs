@@ -91,9 +91,24 @@ public class RunInfo : MonoBehaviour
 
     [SerializeField] public static Dictionary<int, RandomState> randoms = new Dictionary<int, RandomState>();
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStaticsOnLoad()
+    {
+        Instance = null;
+        seed = "1";
+        randoms = new Dictionary<int, RandomState>();
+    }
+
     public static void ResetRandoms()
     {
         randoms.Clear();
+    }
+
+    public static void ResetRunDefaults()
+    {
+        Instance = null;
+        seed = "1";
+        ResetRandoms();
     }
 
     public static int StableHash(string value)

@@ -14,6 +14,11 @@ namespace Entities
 
         public static Player Instance;
 
+        public static void ResetStatics()
+        {
+            Instance = null;
+        }
+
         public void Awake ()
         {
             Instance = this;

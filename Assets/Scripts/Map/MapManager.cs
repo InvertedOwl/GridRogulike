@@ -26,6 +26,20 @@ public class MapManager : MonoBehaviour
     private bool isBossFight;
     private int enemyCount;
 
+    public static void ResetStatics()
+    {
+        if (instance != null)
+            instance.ResetValues();
+    }
+
+    private void ResetValues()
+    {
+        rewardMoney = 0;
+        difficultyLevel = 0f;
+        isBossFight = false;
+        enemyCount = 0;
+    }
+
     private void Awake ()
     {
         instance = this;

@@ -43,6 +43,12 @@ namespace StateManager
         
         public static MapState Instance;
 
+        public static void ResetStatics()
+        {
+            mapSaveData = null;
+            Instance = null;
+        }
+
         public void Awake ()
         {
             Instance = this;

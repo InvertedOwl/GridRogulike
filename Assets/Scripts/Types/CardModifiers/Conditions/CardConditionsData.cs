@@ -26,6 +26,11 @@ namespace Types.CardModifiers.Conditions
         };
         
         public static RandomState cardConditionRandom = RunInfo.NewRandom("cardcond");
+
+        public static void ResetStatics()
+        {
+            cardConditionRandom = RunInfo.NewRandom("cardcond");
+        }
         
         public static CardConditionsEntry GetRandomCondition()
         {

@@ -30,7 +30,6 @@ public class PauseScreen : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        RunInfo.ResetRandoms();
         SceneManager.LoadScene("Scenes/MainMenu");
     }
 
