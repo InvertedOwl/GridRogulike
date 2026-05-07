@@ -38,16 +38,16 @@ namespace Cards.CardList
                 
                 ["1"] = () => new(new Card("Smash", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "", 1, 14),
+                        new AttackAction(1, "basic", null, "", 1, 12),
                     }, Rarity.Common, CardSet.Base)),
                 ["2"] = () => new(new Card("Lance", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "", 2, 12),
-                    }, Rarity.Common, CardSet.Base)),
+                        new AttackAction(1, "basic", null, "", 2, 10),
+                    }, Rarity.Uncommon, CardSet.Base)),
                 ["3"] = () => new(new Card("Explosive", new List<AbstractAction>
                     { 
                         new AttackAllAction(1, "basic", null, 4),
-                    }, Rarity.Common, CardSet.Base)),
+                    }, Rarity.Uncommon, CardSet.Base)),
                 ["4"] = () => new(new Card("Swipe", new List<AbstractAction>
                 { 
                     new AttackRadiusAction(1, "basic", null, 1, 6),
@@ -66,7 +66,7 @@ namespace Cards.CardList
                 ["7"] = () => new(new Card("Prepare", new List<AbstractAction>
                 { 
                     new DelayedShieldAction(1, "basic", null, 20)
-                }, Rarity.Common, CardSet.Base)),
+                }, Rarity.Uncommon, CardSet.Base)),
                 // ["8"] = () => new(new Card("Suit Up", new List<AbstractAction>
                 //     { 
                 //         new DelayedShieldAction(1, "basic", null, 20)
@@ -86,6 +86,22 @@ namespace Cards.CardList
                     //     new GainStepsCardAction(1, "basic", null, 1)
                     // }, Rarity.Common, CardSet.Base)),
                 
+                ["12"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                    { 
+                        new SpawnPassiveAction(1, "basic", null, "12"),
+                        new ScrapCurrentCardAction(1, "basic", null, visible:false),
+                    }, Rarity.Common, CardSet.Base)),
+                
+                ["14"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                    { 
+                        new SpawnPassiveAction(1, "basic", null, "14"),
+                        new ScrapCurrentCardAction(1, "basic", null, visible:false),
+                    }, Rarity.Uncommon, CardSet.Base)),
+                ["15"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                    { 
+                        new SpawnPassiveAction(1, "basic", null, "15"),
+                        new ScrapCurrentCardAction(1, "basic", null, visible:false),
+                    }, Rarity.Uncommon, CardSet.Base)),
                 
                 
                 ["27"] = () => new(new Card("Quick Draw", new List<AbstractAction>

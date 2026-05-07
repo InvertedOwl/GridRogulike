@@ -44,7 +44,7 @@ Material:
     - _ColorMask: 15
     - _Distance: 1
     - _EnableExternalAlpha: 0
-    - _PulseEnabled: 1
+    - _PulseEnabled: 0
     - _PulseSpeed: 3
     - _Stencil: 0
     - _StencilComp: 8

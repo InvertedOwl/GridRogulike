@@ -41,6 +41,15 @@ namespace Util
             CacheReferences();
         }
 
+        public Transform IconContainer
+        {
+            get
+            {
+                CacheReferences();
+                return iconContainer;
+            }
+        }
+
         public void Update()
         {
             SetArrowPos(_tail, head);

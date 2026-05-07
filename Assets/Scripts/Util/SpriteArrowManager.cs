@@ -36,18 +36,7 @@ public class SpriteArrowManager : MonoBehaviour
         controller.Tail = tail;
         controller.SetColor(newColor);
 
-        foreach (Transform iconT in arrow.transform.GetChild(1))
-        {
-            if (iconT.gameObject.name == icon)
-            {
-                iconT.gameObject.SetActive(true);
-                iconT.GetComponentInChildren<TextMeshPro>().text = amount + "";
-            }
-            else
-            {
-                iconT.gameObject.SetActive(false);
-            }
-        }
+        SetArrowIcon(controller, icon, amount);
 
         if (enemyPreview)
             arrow.SetActive(enemyPreviewArrowsVisible);
@@ -66,6 +55,29 @@ public class SpriteArrowManager : MonoBehaviour
         controller = target.AddComponent<SpriteArrowController>();
         controller.lineRenderer = lineRenderer;
         return controller;
+    }
+
+    private void SetArrowIcon(SpriteArrowController controller, string icon, int amount)
+    {
+        Transform iconContainer = controller.IconContainer;
+        if (iconContainer == null)
+            return;
+
+        foreach (Transform iconTransform in iconContainer)
+        {
+            bool isTargetIcon = iconTransform.gameObject.name == icon;
+            iconTransform.gameObject.SetActive(isTargetIcon);
+
+            if (isTargetIcon)
+                SetIconText(iconTransform, amount.ToString());
+        }
+    }
+
+    private void SetIconText(Transform iconTransform, string text)
+    {
+        TMP_Text textComponent = iconTransform.GetComponentInChildren<TMP_Text>(true);
+        if (textComponent != null)
+            textComponent.text = text;
     }
 
     public void DestroyArrow(string uuid)
