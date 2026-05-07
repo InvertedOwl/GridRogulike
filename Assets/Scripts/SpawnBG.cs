@@ -18,6 +18,8 @@ public class SpawnBG : MonoBehaviour
     public List<Color> currentColors = new List<Color>();
 
     public static SpawnBG instance;
+    public bool IsColorAnimationRunning => _activeColorAnimations > 0;
+    private int _activeColorAnimations;
 
     // How long EaseScale takes to animate to the target scale (match your EaseScale duration)
     [SerializeField] private float flipAnimDuration = 0.2f;
@@ -86,6 +88,8 @@ public class SpawnBG : MonoBehaviour
 
     IEnumerator ColorAnimationDiagonal()
     {
+        _activeColorAnimations++;
+
         List<Color> colors = new List<Color>();
 
         if (currentColors.Count != 0)
@@ -133,6 +137,9 @@ public class SpawnBG : MonoBehaviour
 
             yield return new WaitForSeconds(pause);
         }
+
+        yield return new WaitForSeconds(Mathf.Max(flipAnimDuration, 0.1f));
+        _activeColorAnimations = Mathf.Max(0, _activeColorAnimations - 1);
     }
 
     IEnumerator SnapScaleBackToOne(Transform t, float wait)

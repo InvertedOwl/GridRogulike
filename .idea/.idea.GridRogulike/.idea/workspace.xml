@@ -5,16 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Rendering/UIGradient.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rendering/UIGradient.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EnvironmentManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SpriteArrowManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -374,15 +364,7 @@
       <workItem from="1777317744826" duration="11657000" />
       <workItem from="1777564542699" duration="10898000" />
       <workItem from="1777771442073" duration="3742000" />
-      <workItem from="1778096727177" duration="6168000" />
-    </task>
-    <task id="LOCAL-00014" summary="Allow scrapping">
-      <option name="closed" value="true" />
-      <created>1770751477238</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1770751477238</updated>
+      <workItem from="1778096727177" duration="6701000" />
     </task>
     <task id="LOCAL-00015" summary="Content + minor bugfixes">
       <option name="closed" value="true" />
@@ -768,7 +750,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778105286846</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Card stuff :)">
+      <option name="closed" value="true" />
+      <created>1778126075150</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1778126075151</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -795,7 +785,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Major changes" />
     <MESSAGE value="Minor build changes" />
     <MESSAGE value="woohoo" />
     <MESSAGE value=" hiashklfj" />
@@ -820,7 +809,8 @@
     <MESSAGE value="VISUAL CHANGES!" />
     <MESSAGE value="minor changes with healthbar (text bars)" />
     <MESSAGE value="Bug fixes and visual fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug fixes and visual fixes" />
+    <MESSAGE value="Card stuff :)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Card stuff :)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

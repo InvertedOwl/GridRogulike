@@ -219,6 +219,9 @@ namespace StateManager
             if (Time.time < _autoEndReadyTime)
                 return;
 
+            if (IsBackgroundAnimationRunning())
+                return;
+
             ResetAutoEndTimer();
             PlayerEndTurn();
         }
@@ -226,6 +229,11 @@ namespace StateManager
         private void ResetAutoEndTimer()
         {
             _autoEndReadyTime = -1f;
+        }
+
+        private bool IsBackgroundAnimationRunning()
+        {
+            return SpawnBG.instance != null && SpawnBG.instance.IsColorAnimationRunning;
         }
 
         private bool IsPlayerTurnActive()
