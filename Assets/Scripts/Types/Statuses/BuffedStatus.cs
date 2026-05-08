@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cards.Actions;
 using Cards.CardEvents;
+using UnityEngine;
 
 namespace Types.Statuses
 {
@@ -14,6 +15,8 @@ namespace Types.Statuses
         
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvents)
         {
+            Debug.Log("Modifying Buffed enemy");
+            
             foreach (AbstractCardEvent cardEvent in cardEvents)
             {
                 if (cardEvent is AttackCardEvent attackCardEvent)

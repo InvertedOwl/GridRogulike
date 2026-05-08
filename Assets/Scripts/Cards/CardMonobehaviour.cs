@@ -15,6 +15,7 @@ using Grid;
 using Passives;
 using ScriptableObjects;
 using Types.Passives;
+using Types.Statuses;
 using Types.Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -569,6 +570,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 eventQueue = entry.CardModifier.Modify(eventQueue);
                 Debug.Log("ACTIVATED MODIFIER");
             }
+        }
+
+        StatusManager statusManager = GameStateManager.Instance.GetCurrent<PlayingState>().player.statusManager;
+        foreach (AbstractStatus status in statusManager.statusList) {
+            eventQueue = status.Modify(eventQueue);
         }
 
         // Modify by tile

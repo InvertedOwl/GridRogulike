@@ -19,7 +19,8 @@ namespace Types.Statuses
         {
             CacheIcon<PoisonStatus>("Poison");
             CacheIcon<FrostStatus>("Frost");
-            CacheIcon<FrostStatus>("Buffed");
+            CacheIcon<BuffedStatus>("Buffed");
+            CacheIcon<DazedStatus>("Dazed");
         }
 
         private void CacheIcon<T>(string name) where T : AbstractStatus

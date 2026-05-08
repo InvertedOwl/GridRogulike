@@ -218,7 +218,26 @@ namespace Entities
             
         }
 
-        public virtual void Damage(int damage, AbstractStatus abstractStatus)
+        public virtual void ApplyStatus(AbstractStatus abstractStatus)
+        {
+            if (abstractStatus == null)
+            {
+                return;
+            }
+            
+            Debug.Log("Type of status applied " + abstractStatus.GetType());
+            
+            AbstractStatus existing = statusManager.statusList.FirstOrDefault(s => s.GetType() == abstractStatus.GetType());
+            if (existing != null)
+                existing.Amount += abstractStatus.Amount;
+            else
+            {
+                abstractStatus.Entity = this;
+                statusManager.statusList.Add(abstractStatus);
+            }
+        }
+        
+        public virtual void Damage(int damage)
         {
             Debug.Log("Damaged for " + damage);
 
@@ -240,18 +259,6 @@ namespace Entities
             else
             {
                 Health -= damage;
-            }
-
-            if (abstractStatus != null)
-            {
-                AbstractStatus existing = statusManager.statusList.FirstOrDefault(s => s.GetType() == abstractStatus.GetType());
-                if (existing != null)
-                    existing.Amount += abstractStatus.Amount;
-                else
-                {
-                    abstractStatus.Entity = this;
-                    statusManager.statusList.Add(abstractStatus);
-                }
             }
 
             Health = Mathf.Clamp(Health, 0, initialHealth);

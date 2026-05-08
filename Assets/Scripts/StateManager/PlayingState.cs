@@ -799,7 +799,11 @@ namespace StateManager
         public void DamageEntities(Vector2Int coords, int dmg, AbstractStatus status)
         {
             foreach (var e in entities)
-                if (e.positionRowCol == coords) e.Damage(dmg, status);
+                if (e.positionRowCol == coords)
+                {
+                    e.Damage(dmg);
+                    e.ApplyStatus(status);
+                }
         }
         #endregion
 

@@ -46,14 +46,14 @@ namespace Cards.CardStatuses
             {
                 s.NotPlayed = card =>
                 {
-                    GameStateManager.Instance.GetCurrent<PlayingState>().player.Damage(5, null);
+                    GameStateManager.Instance.GetCurrent<PlayingState>().player.Damage(5);
                 };
             },
             ["bramble"] = s =>
             {
                 s.ModifyPlay = (List<AbstractCardEvent> events, Card card) =>
                 {
-                    GameStateManager.Instance.GetCurrent<PlayingState>().player.Damage(5, null);
+                    GameStateManager.Instance.GetCurrent<PlayingState>().player.Damage(5);
                     return events;
                 };
             }

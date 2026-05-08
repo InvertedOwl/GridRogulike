@@ -17,7 +17,7 @@ namespace Types.Statuses
 
         public override void OnEndTurn()
         {
-            this.Entity.Damage(Amount, null);
+            this.Entity.Damage(Amount);
             Amount -= 1;
         }
     }

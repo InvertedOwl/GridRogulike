@@ -85,8 +85,8 @@ public class RunInfo : MonoBehaviour
     private int _difficulty = DefaultDifficulty; 
     private int _currentSteps = 0;
     
-    private const int DefaultMaxEnergy = 2;
-    private const int InitialEnergy = 2;
+    private const int DefaultMaxEnergy = 100;
+    private const int InitialEnergy = 100;
     private const int InitialMoney = 15;
     private const int DefaultDifficulty = 0;
 
