@@ -35,34 +35,34 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: 1327723505589920825}
+  m_Material: {fileID: 2587770596166034866}
   spriteSheet: {fileID: 2800000, guid: 66e344db80323cb43a1306519c4732d6, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.25
+    m_Scale: 1.35
     m_Name: Question
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 181
-      m_Height: 261
-      m_HorizontalBearingX: 35.7
-      m_HorizontalBearingY: 212.3
-      m_HorizontalAdvance: 267.2
+      m_Width: 128
+      m_Height: 128
+      m_HorizontalBearingX: -14
+      m_HorizontalBearingY: 100.7
+      m_HorizontalAdvance: 111.82
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 181
-      m_Height: 261
+      m_Width: 128
+      m_Height: 128
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 21300000, guid: 66e344db80323cb43a1306519c4732d6, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
---- !u!21 &1327723505589920825
+--- !u!21 &2587770596166034866
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0

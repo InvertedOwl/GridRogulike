@@ -5,7 +5,6 @@ namespace Cards.CardList
 {
     public class CardActionTextMapper : MonoBehaviour
     {
-        public const string MONEY_ICON = "<money>";
 
         public static readonly IReadOnlyDictionary<string, string> icons =
             new Dictionary<string, string>

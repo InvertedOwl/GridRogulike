@@ -53,3 +53,13 @@ MonoBehaviour:
     color: {r: 0.79494745, g: 0.8584906, b: 0.28751338, a: 1}
     title: Dazed
     description: Gaining steps moves you in a random direction
+  - key: arrow
+    sprite: {fileID: 21300000, guid: 810f9bdba8f3e184f9bb2b282418ed16, type: 3}
+    color: {r: 0.6320754, g: 0.39971814, b: 0.13416697, a: 1}
+    title: Range
+    description: Shows how many tiles away this action can be performed
+  - key: move
+    sprite: {fileID: 21300000, guid: fc3dcfe7939ccba41a453a023d983976, type: 3}
+    color: {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 1}
+    title: Steps
+    description: Used to move to adjacent tiles

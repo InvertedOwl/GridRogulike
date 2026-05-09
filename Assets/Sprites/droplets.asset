@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-4341193499296323784
+--- !u!21 &-3291811939034719685
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -77,27 +77,27 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: -4341193499296323784}
+  m_Material: {fileID: -3291811939034719685}
   spriteSheet: {fileID: 2800000, guid: 7469a693d6492e144b5d921357456534, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.4
+    m_Scale: 1.35
     m_Name: droplets
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 192
-      m_Height: 289
-      m_HorizontalBearingX: 39.92
-      m_HorizontalBearingY: 221.5
-      m_HorizontalAdvance: 270.3
+      m_Width: 128
+      m_Height: 128
+      m_HorizontalBearingX: -8.1
+      m_HorizontalBearingY: 101.71
+      m_HorizontalAdvance: 120.4
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 192
-      m_Height: 289
+      m_Width: 128
+      m_Height: 128
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0

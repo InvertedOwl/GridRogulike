@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-1338191282593533100
+--- !u!21 &-7237324392949135239
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -77,27 +77,27 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: -1338191282593533100}
+  m_Material: {fileID: -7237324392949135239}
   spriteSheet: {fileID: 2800000, guid: 75dcecfb121c243568ddfac70eb67e7c, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.4
+    m_Scale: 1.35
     m_Name: draw
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 265
-      m_Height: 275
-      m_HorizontalBearingX: 27.55
-      m_HorizontalBearingY: 217.3
-      m_HorizontalAdvance: 315.3
+      m_Width: 128
+      m_Height: 128
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 100.95
+      m_HorizontalAdvance: 134.8
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 265
-      m_Height: 275
+      m_Width: 128
+      m_Height: 128
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0

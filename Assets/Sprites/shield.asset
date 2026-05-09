@@ -35,34 +35,34 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: 6809520894999224716}
+  m_Material: {fileID: 5424329617415800259}
   spriteSheet: {fileID: 2800000, guid: a41294bee8f2e4aa4bb1780c6f3f7ea1, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.3
+    m_Scale: 1.35
     m_Name: shield
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 263
-      m_Height: 288
-      m_HorizontalBearingX: 46
-      m_HorizontalBearingY: 232.51
-      m_HorizontalAdvance: 364.8
+      m_Width: 128
+      m_Height: 128
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 101.1
+      m_HorizontalAdvance: 136.7
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 263
-      m_Height: 288
+      m_Width: 128
+      m_Height: 128
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 21300000, guid: a41294bee8f2e4aa4bb1780c6f3f7ea1, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
---- !u!21 &6809520894999224716
+--- !u!21 &5424329617415800259
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
