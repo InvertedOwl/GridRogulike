@@ -94,6 +94,9 @@ namespace StateManager
         [SerializeField] private float minViewSize = 5f;
         [SerializeField] private float viewPadding = 2f;
         [SerializeField] private float zoomSpeed = 3f;
+        [Header("Battle Camera")]
+        [SerializeField] private float cameraWorldToOffsetScale = 0.5f;
+        [SerializeField] private Vector2 cameraFocusWorldOffset = new Vector2(0f, -1f);
         
         public override void Enter()
         {
@@ -143,6 +146,8 @@ namespace StateManager
                 if (e.entityType != EntityType.Player)
                     e.Health = e.initialHealth;
             }
+
+            UpdateCameraTarget();
         }
 
         IEnumerator WaitFrameMove(AbstractEntity e)
@@ -171,11 +176,67 @@ namespace StateManager
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
 
-            Vector3 playerPos = player.transform.position;
-
-            cameraLerpPosition.offset = new Vector3(playerPos.x/2, (playerPos.y - 1f)/2, -10);
+            UpdateCameraTarget();
 
             TryAutoEndPlayerTurn();
+        }
+
+        private void UpdateCameraTarget()
+        {
+            if (cameraLerpPosition == null || player == null)
+                return;
+
+            Vector2 focusPosition = TryGetBattleCameraFocus(out Vector2 battleFocus)
+                ? battleFocus
+                : (Vector2)player.transform.position;
+
+            cameraLerpPosition.offset = (focusPosition + cameraFocusWorldOffset) * cameraWorldToOffsetScale;
+        }
+
+        private bool TryGetBattleCameraFocus(out Vector2 focusPosition)
+        {
+            focusPosition = Vector2.zero;
+
+            Vector2 min = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+            Vector2 max = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+            bool hasFocusTarget = false;
+
+            foreach (AbstractEntity entity in entities)
+            {
+                if (!ShouldIncludeInBattleCameraFocus(entity))
+                    continue;
+
+                Vector2 entityPosition = GetBattleCameraEntityPosition(entity);
+                min = Vector2.Min(min, entityPosition);
+                max = Vector2.Max(max, entityPosition);
+                hasFocusTarget = true;
+            }
+
+            if (!hasFocusTarget)
+                return false;
+
+            focusPosition = (min + max) * 0.5f;
+            return true;
+        }
+
+        private bool ShouldIncludeInBattleCameraFocus(AbstractEntity entity)
+        {
+            if (entity == null)
+                return false;
+
+            return entity.entityType == EntityType.Player || entity.Health > 0f;
+        }
+
+        private Vector2 GetBattleCameraEntityPosition(AbstractEntity entity)
+        {
+            if (HexGridManager.Instance != null &&
+                HexGridManager.Instance._hexObjects.TryGetValue(entity.positionRowCol, out GameObject hexObject) &&
+                hexObject != null)
+            {
+                return (Vector2)hexObject.transform.position;
+            }
+
+            return (Vector2)entity.transform.position;
         }
 
         private void TryAutoEndPlayerTurn()
