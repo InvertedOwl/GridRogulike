@@ -59,6 +59,12 @@ namespace Types.Statuses
              
         }
 
+        public void ClearStatuses()
+        {
+            statusList.Clear();
+            UpdateStatuses(statusList);
+        }
+
 
         public void Update()
         {

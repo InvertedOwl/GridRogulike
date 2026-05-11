@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/HealthBar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -366,22 +371,8 @@
       <workItem from="1778096727177" duration="11987000" />
       <workItem from="1778261235771" duration="1000" />
       <workItem from="1778266651980" duration="9194000" />
-    </task>
-    <task id="LOCAL-00017" summary="Minor adjustments">
-      <option name="closed" value="true" />
-      <created>1771175680723</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1771175680723</updated>
-    </task>
-    <task id="LOCAL-00018" summary="New icons">
-      <option name="closed" value="true" />
-      <created>1771175699928</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1771175699928</updated>
+      <workItem from="1778347779705" duration="3247000" />
+      <workItem from="1778521610011" duration="1000" />
     </task>
     <task id="LOCAL-00019" summary="Nothin out of the ordinary :3">
       <option name="closed" value="true" />
@@ -759,7 +750,23 @@
       <option name="project" value="LOCAL" />
       <updated>1778282579189</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="visual">
+      <option name="closed" value="true" />
+      <created>1778351894690</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1778351894691</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Minor feature">
+      <option name="closed" value="true" />
+      <created>1778434761123</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1778434761123</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -786,8 +793,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value=" hiashklfj" />
-    <MESSAGE value="Hex icons + cleaning" />
     <MESSAGE value="Bug fixes mainly" />
     <MESSAGE value="Minor bug fixing" />
     <MESSAGE value="More bug fixing" />
@@ -811,7 +816,9 @@
     <MESSAGE value="Card stuff :)" />
     <MESSAGE value="Bug fix with the animation" />
     <MESSAGE value="Streamed!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Streamed!" />
+    <MESSAGE value="visual" />
+    <MESSAGE value="Minor feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor feature" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

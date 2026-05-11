@@ -21,8 +21,9 @@ public class SpawnBG : MonoBehaviour
     public bool IsColorAnimationRunning => _activeColorAnimations > 0;
     private int _activeColorAnimations;
 
-    // How long EaseScale takes to animate to the target scale (match your EaseScale duration)
+    // Fallback wait if a tile has no EaseScale to report its own duration.
     [SerializeField] private float flipAnimDuration = 0.2f;
+    [SerializeField] private float radialRingPause = 0.04f;
 
     public void Awake ()
     {
@@ -83,10 +84,10 @@ public class SpawnBG : MonoBehaviour
 
     public void SetColorAnimation()
     {
-        StartCoroutine(ColorAnimationDiagonal());
+        StartCoroutine(ColorAnimationRadial());
     }
 
-    IEnumerator ColorAnimationDiagonal()
+    IEnumerator ColorAnimationRadial()
     {
         _activeColorAnimations++;
 
@@ -101,50 +102,121 @@ public class SpawnBG : MonoBehaviour
             colors.AddRange(grasslandColors);
         }
         
-        int count = transform.childCount;
-        int width = widthX;
-        int height = Mathf.CeilToInt(count / (float)width);
+        List<RadialTileEntry> tiles = GetTilesByRadialRing();
+        int currentRing = -1;
+        float longestFlipDuration = 0f;
 
-        float pause = 0.04f;
-
-        int maxDiag = (width - 1) + (height - 1);
-
-        for (int d = 0; d <= maxDiag; d++)
+        foreach (RadialTileEntry entry in tiles)
         {
-            for (int y = 0; y < height; y++)
+            if (entry.Ring != currentRing)
             {
-                int x = d - y;
-                if (x < 0 || x >= width) continue;
+                if (currentRing >= 0)
+                    yield return new WaitForSeconds(Mathf.Max(0f, radialRingPause));
 
-                int i = y * width + x;
-                if (i >= count) continue;
-
-                Transform child = transform.GetChild(i);
-                BGTile tile = child.GetComponentInChildren<BGTile>();
-
-                // Animate to -1 (flip)
-                EaseScale ease = tile.GetComponent<EaseScale>();
-                if (ease != null)
-                {
-                    ease.SetScale(new Vector3(-1, 1, 1));
-
-                    // Then SNAP back to +1 after the flip completes (no reverse animation)
-                    StartCoroutine(SnapScaleBackToOne(tile.transform, flipAnimDuration));
-                }
-
-                StartCoroutine(SetBGColor(tile, colors[Random.Range(0, colors.Count)]));
+                currentRing = entry.Ring;
             }
 
-            yield return new WaitForSeconds(pause);
+            BGTile tile = entry.Tile;
+            if (tile == null)
+                continue;
+
+            // Animate to -1 (flip)
+            EaseScale ease = tile.GetComponent<EaseScale>();
+            if (ease != null)
+            {
+                Transform tileTransform = tile.transform;
+                longestFlipDuration = Mathf.Max(longestFlipDuration, ease.durationSeconds);
+                ease.SetScale(new Vector3(-1, 1, 1), () => SnapScaleBackToOne(tileTransform));
+            }
+
+            StartCoroutine(SetBGColor(tile, colors[Random.Range(0, colors.Count)]));
         }
 
-        yield return new WaitForSeconds(Mathf.Max(flipAnimDuration, 0.1f));
+        yield return new WaitForSeconds(Mathf.Max(longestFlipDuration, flipAnimDuration, 0.1f));
         _activeColorAnimations = Mathf.Max(0, _activeColorAnimations - 1);
     }
 
-    IEnumerator SnapScaleBackToOne(Transform t, float wait)
+    private List<RadialTileEntry> GetTilesByRadialRing()
     {
-        yield return new WaitForSeconds(wait);
+        List<RadialTileEntry> tiles = new List<RadialTileEntry>();
+        int count = transform.childCount;
+
+        if (count == 0 || widthX <= 0)
+            return tiles;
+
+        Vector2Int center = GetBackgroundCenterCoords();
+
+        for (int i = 0; i < count; i++)
+        {
+            Transform child = transform.GetChild(i);
+            BGTile tile = child.GetComponentInChildren<BGTile>();
+
+            if (tile == null)
+                continue;
+
+            Vector2Int coords = GetCoordsForChildIndex(i);
+            int ring = HexDistance(center, coords);
+
+            tiles.Add(new RadialTileEntry
+            {
+                Tile = tile,
+                Ring = ring,
+                Index = i
+            });
+        }
+
+        tiles.Sort((a, b) =>
+        {
+            int ringCompare = a.Ring.CompareTo(b.Ring);
+            return ringCompare != 0 ? ringCompare : a.Index.CompareTo(b.Index);
+        });
+
+        return tiles;
+    }
+
+    private Vector2Int GetBackgroundCenterCoords()
+    {
+        return new Vector2Int(startX + widthX / 2, startY + widthY / 2);
+    }
+
+    private Vector2Int GetCoordsForChildIndex(int index)
+    {
+        return new Vector2Int(startX + index % widthX, startY + index / widthX);
+    }
+
+    private int HexDistance(Vector2Int a, Vector2Int b)
+    {
+        Vector3Int cubeA = OddRowOffsetToCube(a);
+        Vector3Int cubeB = OddRowOffsetToCube(b);
+
+        return Mathf.Max(
+            Mathf.Abs(cubeA.x - cubeB.x),
+            Mathf.Abs(cubeA.y - cubeB.y),
+            Mathf.Abs(cubeA.z - cubeB.z)
+        );
+    }
+
+    private Vector3Int OddRowOffsetToCube(Vector2Int coords)
+    {
+        int rowParity = Mathf.Abs(coords.y % 2);
+        int q = coords.x - ((coords.y - rowParity) / 2);
+        int r = coords.y;
+        int s = -q - r;
+
+        return new Vector3Int(q, r, s);
+    }
+
+    private struct RadialTileEntry
+    {
+        public BGTile Tile;
+        public int Ring;
+        public int Index;
+    }
+
+    private void SnapScaleBackToOne(Transform t)
+    {
+        if (t == null)
+            return;
 
         // Snap immediately back to normal
         t.localScale = Vector3.one;

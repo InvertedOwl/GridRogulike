@@ -552,6 +552,7 @@ namespace StateManager
             HexGridManager.Instance.UnregisterHexClickCallback(HexClickPlayerController.StaticHexClickCallback);
             
             player.Shield = 0;
+            player.statusManager?.ClearStatuses();
             BattleStats.ResetStatsBattle();
             
             Debug.Log("Exiting Play State");
