@@ -565,7 +565,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
         {
             Debug.Log(entry + " Current entry");
-            if (entry.Condition.Condition(_card))
+            if (entry.Condition.Condition(_card, eventQueue))
             {
                 eventQueue = entry.CardModifier.Modify(eventQueue);
                 Debug.Log("ACTIVATED MODIFIER");

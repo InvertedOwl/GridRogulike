@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cards;
 using Cards.CardEvents;
 using UnityEngine;
@@ -28,6 +29,15 @@ namespace Types.CardModifiers
         protected RandomState cardConditionRandom = RunInfo.NewRandom(GenerateDeterministicId());
         
         public string ConditionText;
-        public abstract bool Condition(Card card);
+
+        public virtual bool Condition(Card card)
+        {
+            return false;
+        }
+
+        public virtual bool Condition(Card card, List<AbstractCardEvent> eventQueue)
+        {
+            return Condition(card);
+        }
     }
 }

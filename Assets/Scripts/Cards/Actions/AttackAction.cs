@@ -63,7 +63,6 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount) };
         }
 
-        
         public string arrowUUID;
         
         public override void HoverOn()

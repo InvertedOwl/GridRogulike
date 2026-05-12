@@ -1,7 +1,6 @@
 ﻿using Cards;
-using Cards.Actions;
-using Entities;
-using StateManager;
+using System.Collections.Generic;
+using Cards.CardEvents;
 
 namespace Types.CardModifiers.Conditions
 {
@@ -9,17 +8,15 @@ namespace Types.CardModifiers.Conditions
     {
         public AttackingCondition()
         {
-            this.ConditionText = "Attacking West: ";
+            this.ConditionText = "Attacking: ";
         }
         
-        public override bool Condition(Card card)
+        public override bool Condition(Card card, List<AbstractCardEvent> eventQueue)
         {
-            foreach (AbstractAction action in card.Actions)
+            foreach (AbstractCardEvent cardEvent in eventQueue)
             {
-                if (action is AttackAction)
-                {
-                        return true;
-                }
+                if (cardEvent is AttackCardEvent)
+                    return true;
             }
             
             return false;

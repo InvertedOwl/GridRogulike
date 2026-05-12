@@ -1,7 +1,6 @@
-﻿using Cards;
-using Cards.Actions;
-using Entities;
-using StateManager;
+using System.Collections.Generic;
+using Cards;
+using Cards.CardEvents;
 
 namespace Types.CardModifiers.Conditions
 {
@@ -12,14 +11,12 @@ namespace Types.CardModifiers.Conditions
             this.ConditionText = "Shielding";
         }
         
-        public override bool Condition(Card card)
+        public override bool Condition(Card card, List<AbstractCardEvent> eventQueue)
         {
-            foreach (AbstractAction action in card.Actions)
+            foreach (AbstractCardEvent cardEvent in eventQueue)
             {
-                if (action is ShieldAction)
-                {
-                        return true;
-                }
+                if (cardEvent is ShieldCardEvent)
+                    return true;
             }
             
             return false;
