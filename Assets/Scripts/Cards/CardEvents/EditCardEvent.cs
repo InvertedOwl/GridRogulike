@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cards.CardList;
 using Entities;
 using StateManager;
@@ -19,6 +20,18 @@ namespace Cards.CardEvents
             this._costOverride = costOverride;
         }
 
+        public override Dictionary<string, PreviewValue> GetPreviewValues()
+        {
+            Dictionary<string, PreviewValue> values = new Dictionary<string, PreviewValue>
+            {
+                [CardPreviewKeys.CardId] = PreviewValue.Text(_newCard.UniqueId ?? "")
+            };
+
+            if (_costOverride > -1f)
+                values[CardPreviewKeys.Cost] = PreviewValue.Float(_costOverride);
+
+            return values;
+        }
         
         public override void Activate(AbstractEntity entity)
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cards.CardEvents;
-using StateManager;
 
 namespace Types.CardModifiers.Modifiers
 {
@@ -14,7 +13,7 @@ namespace Types.CardModifiers.Modifiers
         
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent)
         {
-            GameStateManager.Instance.GetCurrent<PlayingState>().player.Health += 5;
+            cardEvent.Add(new HealSelfCardEvent(5));
             return cardEvent;
         }
     }

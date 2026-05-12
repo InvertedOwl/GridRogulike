@@ -7,6 +7,7 @@ namespace Types.CardModifiers.Conditions
 {
     public class PercentChanceCardCondition: AbstractCardCondition
     {
+        public override bool CanPreview => false;
         
         private int _percentChance;
         public PercentChanceCardCondition(int percentChance)

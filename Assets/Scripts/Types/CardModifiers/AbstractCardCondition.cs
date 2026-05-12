@@ -29,6 +29,7 @@ namespace Types.CardModifiers
         protected RandomState cardConditionRandom = RunInfo.NewRandom(GenerateDeterministicId());
         
         public string ConditionText;
+        public virtual bool CanPreview => true;
 
         public virtual bool Condition(Card card)
         {

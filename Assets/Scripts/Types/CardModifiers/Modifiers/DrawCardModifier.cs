@@ -13,7 +13,7 @@ namespace Types.CardModifiers.Modifiers
         
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent)
         {
-            Deck.Instance.FullDrawHand(1);
+            cardEvent.Add(new DrawCardEvent(1));
             return cardEvent;
         }
     }

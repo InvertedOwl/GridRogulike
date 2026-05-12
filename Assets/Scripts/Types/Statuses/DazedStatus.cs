@@ -44,12 +44,16 @@ namespace Types.Statuses
                 }
             }
 
-            foreach (AbstractCardEvent _ in gainStepsCardEvents)
+            foreach (AbstractCardEvent blockedEvent in gainStepsCardEvents)
             {
-                cardEvents.Add(new MoveCardEvent(1, HexGridManager.HexDirections[random.Next(HexGridManager.HexDirections.Length)]));
+                cardEvents.Add(new MoveCardEvent(1, HexGridManager.HexDirections[random.Next(HexGridManager.HexDirections.Length)])
+                {
+                    PreviewSourceActionIndex = blockedEvent.PreviewSourceActionIndex
+                });
             }
 
-            Amount -= gainStepsCardEvents.Count;
+            if (gainStepsCardEvents.Count > 0)
+                cardEvents.Add(new ModifyStatusAmountCardEvent(this, -gainStepsCardEvents.Count));
             
             cardEvents = cardEvents.Except(gainStepsCardEvents).ToList();
             

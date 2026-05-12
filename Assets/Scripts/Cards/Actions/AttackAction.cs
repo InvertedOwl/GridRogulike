@@ -83,7 +83,14 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "<attack>" + Amount + "     " + "<arrow>" + Distance;
+            return "<attack>" + Amount + "<pos=60%>" + "<arrow>" + Distance;
+        }
+
+        public override string GetText(CardActionPreview preview)
+        {
+            int finalAmount = preview.GetFirstFinalValue(CardPreviewKeys.Damage, Amount);
+            int finalDistance = preview.GetFirstFinalValue(CardPreviewKeys.Distance, Distance);
+            return preview.FormatValue("<attack>", Amount, finalAmount) + "<pos=60%>" + preview.FormatValue("<arrow>", Distance, finalDistance);
         }
 
         public override string ToString()

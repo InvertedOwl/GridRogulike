@@ -5,6 +5,8 @@ namespace Types.CardModifiers.Conditions
 {
     public class OnHeadCardCondition: AbstractCardCondition
     {
+        public override bool CanPreview => false;
+
         public OnHeadCardCondition()
         {
             this.ConditionText = "On Heads: ";

@@ -53,7 +53,7 @@ namespace Cards.CardStatuses
             {
                 s.ModifyPlay = (List<AbstractCardEvent> events, Card card) =>
                 {
-                    GameStateManager.Instance.GetCurrent<PlayingState>().player.Damage(5);
+                    events.Add(new DamageSelfCardEvent(5));
                     return events;
                 };
             }

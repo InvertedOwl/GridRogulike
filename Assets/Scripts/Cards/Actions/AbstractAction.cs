@@ -123,6 +123,12 @@ namespace Cards.Actions
         }
         
         public abstract string GetText();
+
+        public virtual string GetText(CardActionPreview preview)
+        {
+            return GetText();
+        }
+
         public abstract List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab);
         
         public string FixDirection(string direction)

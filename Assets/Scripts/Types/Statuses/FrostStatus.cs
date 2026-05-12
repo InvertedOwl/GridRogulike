@@ -23,8 +23,9 @@ namespace Types.Statuses
                 }
             }
             
-            Amount -= stepOrMove.Count;
-            Amount = Math.Max(0, Amount);
+            if (stepOrMove.Count > 0)
+                newEvents.Add(new ModifyStatusAmountCardEvent(this, -stepOrMove.Count));
+
             newEvents.RemoveAll((item) => stepOrMove.Contains(item));
             return newEvents;
         }
