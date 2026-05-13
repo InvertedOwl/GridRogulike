@@ -11,7 +11,7 @@ namespace Cards.CardEvents
         private Card _newCard;
         private bool _perma;
         private float _costOverride;
-        
+
         public EditCardEvent(CardMonobehaviour cardMono, Card newCard, bool perma, float costOverride = -1f)
         {
             this._cardMono = cardMono;
@@ -32,7 +32,7 @@ namespace Cards.CardEvents
 
             return values;
         }
-        
+
         public override void Activate(AbstractEntity entity)
         {
             if (!_perma && entity.entityType == EntityType.Player)
