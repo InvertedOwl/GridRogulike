@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/CardActionPreview.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/CardActionPreview.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -382,15 +376,7 @@
       <workItem from="1778623987647" duration="2895000" />
       <workItem from="1778714312906" duration="1975000" />
       <workItem from="1778796494365" duration="1525000" />
-      <workItem from="1778890068555" duration="959000" />
-    </task>
-    <task id="LOCAL-00021" summary="Icons and stuff">
-      <option name="closed" value="true" />
-      <created>1771707651616</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1771707651616</updated>
+      <workItem from="1778890068555" duration="1580000" />
     </task>
     <task id="LOCAL-00022" summary="Stream + minor adjustments">
       <option name="closed" value="true" />
@@ -776,7 +762,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778644728904</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Damn this sprite is not good :(">
+      <option name="closed" value="true" />
+      <created>1778901196818</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1778901196819</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -803,7 +797,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="More bug fixing" />
     <MESSAGE value="fix arrow z heighthttps://trello.com/c/IA1TUNLS" />
     <MESSAGE value="Small bug fixes tile picker" />
     <MESSAGE value="Fix player mess up" />
@@ -828,7 +821,8 @@
     <MESSAGE value="Minor feature" />
     <MESSAGE value="Bug fixes + Cleanup + new condition behavior" />
     <MESSAGE value="Fix null bytes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix null bytes" />
+    <MESSAGE value="Damn this sprite is not good :(" />
+    <option name="LAST_COMMIT_MESSAGE" value="Damn this sprite is not good :(" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
