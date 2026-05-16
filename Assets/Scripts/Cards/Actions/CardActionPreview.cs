@@ -98,7 +98,14 @@ namespace Cards.Actions
                 return prefix + baseValue;
 
             string sign = delta > 0 ? "+" : "";
-            return prefix + baseValue + " <color=green>" + sign + delta + "</color>";
+            string color = "<color=green>";
+            
+            if (delta < baseValue)
+            {
+                color = "<color=red>";
+            }
+            
+            return prefix + baseValue + " " + color + sign + delta + "</color>";
         }
 
         private IEnumerable<CardEventPreviewSnapshot> BaseEvents(string key)
