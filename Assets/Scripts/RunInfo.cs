@@ -18,7 +18,7 @@ public class RunInfo : MonoBehaviour
     public Button redrawButton;
     public List<TextMeshProUGUI> difficultyText;
     public List<TextMeshProUGUI> stepsText;
-    public static string seed = "5";
+    public static string seed = "6";
     private static readonly string DefaultSeed = seed;
     public readonly int combineCost = 2;
 
@@ -85,8 +85,8 @@ public class RunInfo : MonoBehaviour
     private int _difficulty = DefaultDifficulty; 
     private int _currentSteps = 0;
     
-    private const int DefaultMaxEnergy = 100;
-    private const int InitialEnergy = 100;
+    private const int DefaultMaxEnergy = 3;
+    private const int InitialEnergy = 3;
     private const int InitialMoney = 15;
     private const int DefaultDifficulty = 0;
 
