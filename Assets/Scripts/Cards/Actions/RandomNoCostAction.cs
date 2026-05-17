@@ -15,8 +15,14 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
+            return Activate(cardMono, previewMode: false);
+        }
+
+        public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono, bool previewMode)
+        {
+            RandomState actionRandom = GetActionRandom(previewMode);
             float cost = 0;
-            CardMonobehaviour card = Deck.Instance.Hand[_actionRandom.Next(0, Deck.Instance.Hand.Count)];
+            CardMonobehaviour card = Deck.Instance.Hand[actionRandom.Next(0, Deck.Instance.Hand.Count)];
             return new List<AbstractCardEvent> { new EditCardEvent(card, card.Card, false, cost) };
         }
 

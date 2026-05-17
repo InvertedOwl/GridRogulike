@@ -180,15 +180,9 @@ namespace Entities
             {
 
                 Debug.Log("Queued action for next turn " + action.GetText());
-                foreach (AbstractCardEvent cardEvent in action.Activate(null))
+                foreach (AbstractCardEvent modifiedEvent in ModifyEvents(action.Activate(null)))
                 {
-
-                    foreach (AbstractCardEvent modifiedEvent in ModifyEvents(
-                                 new List<AbstractCardEvent> { cardEvent }))
-                    {
-                        
-                        modifiedEvent.Activate(this);
-                    }
+                    modifiedEvent.Activate(this);
                 }
             }
             nextTurnActions.Clear();
@@ -196,14 +190,7 @@ namespace Entities
         
         public List<AbstractCardEvent> ModifyEvents(List<AbstractCardEvent> events)
         {
-            List<AbstractCardEvent> modifiedEvents = new List<AbstractCardEvent>(events);
-
-            foreach (AbstractStatus status in statusManager.statusList)
-            {
-                modifiedEvents = status.Modify(modifiedEvents);
-            }
-            
-            return modifiedEvents;
+            return CardEventPipeline.Apply(events, this);
         }
         public virtual void EndTurn()
         {

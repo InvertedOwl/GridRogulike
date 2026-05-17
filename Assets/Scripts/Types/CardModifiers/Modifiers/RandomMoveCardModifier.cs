@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using Cards.CardEvents;
 using Grid;
@@ -11,11 +10,17 @@ namespace Types.CardModifiers.Modifiers
         {
             this.ModifierText = "Move in a random direction.";
         }
-        
+
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent)
         {
+            return Modify(cardEvent, previewMode: false);
+        }
+
+        public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent, bool previewMode)
+        {
             string[] directions = HexGridManager.HexDirections;
-            cardEvent.Add(new MoveCardEvent(1, directions[new Random().Next(0, directions.Length)]));
+            RandomState modifierRandom = GetModifierRandom(previewMode);
+            cardEvent.Add(new MoveCardEvent(1, directions[modifierRandom.Next(0, directions.Length)]));
             return cardEvent;
         }
     }

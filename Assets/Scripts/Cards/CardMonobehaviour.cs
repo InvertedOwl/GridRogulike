@@ -374,7 +374,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             BattleStats.CardsPlayedThisTurn += 1;
 
             List<CardEventPreviewSnapshot> baseEventSnapshots;
-            List<AbstractCardEvent> modifiedEventQueue = BuildBaseEventQueue(out baseEventSnapshots);
+            List<AbstractCardEvent> modifiedEventQueue = BuildBaseEventQueue(out baseEventSnapshots, previewMode: true);
             modifiedEventQueue = ApplyCardModifiers(modifiedEventQueue, previewMode: true);
 
             for (int i = 0; i < _card.Actions.Count; i++)
@@ -613,7 +613,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         List<CardEventPreviewSnapshot> unusedBaseEventSnapshots;
         List<AbstractCardEvent> eventQueue = ApplyCardModifiers(
-            BuildBaseEventQueue(out unusedBaseEventSnapshots),
+            BuildBaseEventQueue(out unusedBaseEventSnapshots, previewMode: false),
             previewMode: false);
 
         List<AttackCardEvent> manualAttackEvents = new List<AttackCardEvent>();
@@ -641,14 +641,16 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         RunInfo.Instance.CurrentEnergy -= currentCost;
     }
 
-    private List<AbstractCardEvent> BuildBaseEventQueue(out List<CardEventPreviewSnapshot> baseEventSnapshots)
+    private List<AbstractCardEvent> BuildBaseEventQueue(
+        out List<CardEventPreviewSnapshot> baseEventSnapshots,
+        bool previewMode)
     {
         baseEventSnapshots = new List<CardEventPreviewSnapshot>();
         List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
 
         for (int actionIndex = 0; actionIndex < _card.Actions.Count; actionIndex++)
         {
-            List<AbstractCardEvent> cardEvents = _card.Actions[actionIndex].Activate(cardMono: this);
+            List<AbstractCardEvent> cardEvents = _card.Actions[actionIndex].Activate(this, previewMode);
 
             foreach (AbstractCardEvent cardEvent in cardEvents)
             {
@@ -663,50 +665,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private List<AbstractCardEvent> ApplyCardModifiers(List<AbstractCardEvent> eventQueue, bool previewMode)
     {
-        // Modify by card status
-        if (CardStatus != null && CardStatus.ModifyPlay != null)
-            eventQueue = CardStatus.ModifyPlay(eventQueue, _card);
-
-        // Modify by environment
-        if (EnvironmentManager.instance != null)
-        {
-            foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
-            {
-                if (previewMode && !entry.Condition.CanPreview)
-                    continue;
-
-                if (!previewMode)
-                    Debug.Log(entry + " Current entry");
-
-                if (entry.Condition.Condition(_card, eventQueue))
-                {
-                    eventQueue = entry.CardModifier.Modify(eventQueue);
-
-                    if (!previewMode)
-                        Debug.Log("ACTIVATED MODIFIER");
-                }
-            }
-        }
-
         PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-        StatusManager statusManager = playingState?.player?.statusManager;
-        if (statusManager != null)
-        {
-            foreach (AbstractStatus status in statusManager.statusList)
-            {
-                eventQueue = status.Modify(eventQueue);
-            }
-        }
-
-        // Modify by tile
-        if (playingState?.player != null && HexGridManager.Instance != null)
-        {
-            Vector2Int playerPos = playingState.player.positionRowCol;
-            TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(playerPos)];
-            eventQueue = tile.cardModifier.Invoke(eventQueue);
-        }
-
-        return eventQueue;
+        return CardEventPipeline.Apply(eventQueue, playingState?.player, _card, CardStatus, previewMode);
     }
 
     public void FinishManualAttackResolution()

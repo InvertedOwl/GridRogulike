@@ -13,6 +13,9 @@ namespace Types.CardModifiers.Conditions
         
         public override bool Condition(Card card)
         {
+            if (!card.isReal)
+                return false;
+
             return card.Actions.Count == 3;
         }
     }

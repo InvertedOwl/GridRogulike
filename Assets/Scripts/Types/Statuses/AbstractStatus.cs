@@ -10,6 +10,11 @@ namespace Types.Statuses
         public AbstractEntity Entity;
         public int Amount;
         public abstract List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent);
+        public virtual List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent, bool previewMode)
+        {
+            return Modify(cardEvent);
+        }
+
         public abstract void OnEndTurn();
     }
 }

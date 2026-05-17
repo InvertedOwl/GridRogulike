@@ -33,10 +33,7 @@ namespace Entities
             GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = true;
             
             TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(positionRowCol)];
-            foreach (AbstractCardEvent cardEvent in tile.landEvent.Invoke())
-            {
-                cardEvent.Activate(this);
-            }
+            CardEventPipeline.Activate(tile.landEvent.Invoke(), this);
             base.StartTurn();
         }
 

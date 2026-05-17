@@ -31,5 +31,15 @@ namespace Types.CardModifiers
         public string ModifierText;
         public Rarity Rarity;
         public abstract List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent);
+
+        public virtual List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent, bool previewMode)
+        {
+            return Modify(cardEvent);
+        }
+
+        protected RandomState GetModifierRandom(bool previewMode)
+        {
+            return previewMode ? cardModifierRandom.Clone() : cardModifierRandom;
+        }
     }
 }

@@ -821,10 +821,9 @@ namespace StateManager
             if (ent.entityType == EntityType.Player)
             {
                 // Activate landing events
-                foreach (AbstractCardEvent cardEvent in TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke())
-                {
-                    cardEvent.Activate(ent);
-                }
+                CardEventPipeline.Activate(
+                    TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke(),
+                    ent);
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
             }
@@ -844,12 +843,9 @@ namespace StateManager
 
             if (ent.entityType == EntityType.Player)
             {
-                foreach (AbstractCardEvent cardEvent in 
-                         TileData.tiles[HexGridManager.Instance.HexType(target)]
-                             .landEvent.Invoke())
-                {
-                    cardEvent.Activate(ent);
-                }
+                CardEventPipeline.Activate(
+                    TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke(),
+                    ent);
 
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;

@@ -100,7 +100,7 @@ namespace Cards.Actions
             string sign = delta > 0 ? "+" : "";
             string color = "<color=green>";
             
-            if (delta < baseValue)
+            if (delta < 0)
             {
                 color = "<color=red>";
             }

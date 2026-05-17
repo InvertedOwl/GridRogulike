@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cards.Actions;
 using Cards.CardEvents;
 using Grid;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Types.Statuses
 {
@@ -20,7 +16,13 @@ namespace Types.Statuses
         
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvents)
         {
+            return Modify(cardEvents, false);
+        }
+
+        public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvents, bool previewMode)
+        {
             List<AbstractCardEvent> gainStepsCardEvents = new List<AbstractCardEvent>();
+            RandomState modifyRandom = GetModifyRandom(previewMode);
 
             int amounttodaze = Amount;
             
@@ -46,7 +48,7 @@ namespace Types.Statuses
 
             foreach (AbstractCardEvent blockedEvent in gainStepsCardEvents)
             {
-                cardEvents.Add(new MoveCardEvent(1, HexGridManager.HexDirections[random.Next(HexGridManager.HexDirections.Length)])
+                cardEvents.Add(new MoveCardEvent(1, HexGridManager.HexDirections[modifyRandom.Next(HexGridManager.HexDirections.Length)])
                 {
                     PreviewSourceActionIndex = blockedEvent.PreviewSourceActionIndex
                 });
@@ -58,6 +60,16 @@ namespace Types.Statuses
             cardEvents = cardEvents.Except(gainStepsCardEvents).ToList();
             
             return cardEvents;
+        }
+
+        private RandomState GetModifyRandom(bool previewMode)
+        {
+            if (random == null)
+            {
+                random = RunInfo.NewRandom("dazed");
+            }
+
+            return previewMode ? random.Clone() : random;
         }
 
         public override void OnEndTurn()

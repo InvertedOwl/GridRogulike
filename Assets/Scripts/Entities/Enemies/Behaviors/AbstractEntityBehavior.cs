@@ -23,15 +23,10 @@ namespace Entities.Enemies
             {
                 OnBeforeAction(action);
 
-                foreach (AbstractCardEvent cardEvent in action.Activate(null))
+                foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate(null)))
                 {
-                    OnBeforeEvent(cardEvent);
-
-                    foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(
-                        new List<AbstractCardEvent> { cardEvent }))
-                    {
-                        modifiedEvent.Activate(self);
-                    }
+                    OnBeforeEvent(modifiedEvent);
+                    modifiedEvent.Activate(self);
 
                     yield return new WaitForSeconds(GetActionDelay(action));
                 }

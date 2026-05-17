@@ -14,7 +14,13 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Discard[_actionRandom.Next(0, Deck.Instance.Discard.Count)].Card.UniqueId) };
+            return Activate(cardMono, previewMode: false);
+        }
+
+        public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono, bool previewMode)
+        {
+            RandomState actionRandom = GetActionRandom(previewMode);
+            return new List<AbstractCardEvent> { new DestroyCardEvent(Deck.Instance.Discard[actionRandom.Next(0, Deck.Instance.Discard.Count)].Card.UniqueId) };
         }
 
         public override string GetText()

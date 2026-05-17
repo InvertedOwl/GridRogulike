@@ -18,7 +18,8 @@ namespace Types.CardModifiers.Conditions
         
         public override bool Condition(Card card)
         {
-            if (card.cardRandom.Next(100) < _percentChance)
+            RandomState random = card.isReal ? card.cardRandom : cardConditionRandom;
+            if (random.Next(100) < _percentChance)
             {
                 return true;
             }

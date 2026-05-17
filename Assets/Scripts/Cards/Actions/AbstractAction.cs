@@ -88,6 +88,16 @@ namespace Cards.Actions
         
         public abstract List<AbstractCardEvent> Activate(CardMonobehaviour cardMono);
 
+        public virtual List<AbstractCardEvent> Activate(CardMonobehaviour cardMono, bool previewMode)
+        {
+            return Activate(cardMono);
+        }
+
+        protected RandomState GetActionRandom(bool previewMode)
+        {
+            return previewMode ? _actionRandom.Clone() : _actionRandom;
+        }
+
         public virtual List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
         {
             return new List<AbstractCardEvent>();
