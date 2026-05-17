@@ -284,7 +284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.60007, y: -86.26998}
+  m_AnchoredPosition: {x: 327.59998, y: -86.269936}
   m_SizeDelta: {x: 630.54, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &32353971
@@ -15140,8 +15140,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1247426030}
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.5159299
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -17105,7 +17105,7 @@ MonoBehaviour:
   cameraWorldToOffsetScale: 0.5
   cameraFocusWorldOffset: {x: 0, y: -1}
   generateInitialMap: 1
-  initialMapRadius: 3
+  initialMapRadius: 2
   homeTileType: start
   generatedTileType: basic
   maps: []
