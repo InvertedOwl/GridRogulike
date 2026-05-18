@@ -4,46 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="Major polish and some bug fixes">
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmLeft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmLeft.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmRight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmRight.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Body.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Body.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Brute.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Brute.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegLeft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegLeft.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegRight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegRight.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.bc7" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.highlights" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.bc7" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.highlights" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.bc7" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.highlights" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BGTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BGTile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/EaseScale.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EaseScale.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/LerpPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/LerpPosition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-    </list>
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -407,14 +368,6 @@
       <workItem from="1778796494365" duration="1525000" />
       <workItem from="1778890068555" duration="1580000" />
       <workItem from="1779035854092" duration="1921000" />
-    </task>
-    <task id="LOCAL-00022" summary="Stream + minor adjustments">
-      <option name="closed" value="true" />
-      <created>1771784371065</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1771784371065</updated>
     </task>
     <task id="LOCAL-00023" summary="Updated sprites.af">
       <option name="closed" value="true" />
@@ -800,7 +753,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778901196819</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Major polish and some bug fixes">
+      <option name="closed" value="true" />
+      <created>1779073195167</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1779073195169</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
