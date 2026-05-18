@@ -51,15 +51,22 @@ namespace Entities.Enemies
                 return;
             }
 
-            Vector2Int targetPos = HexGridManager.MoveHex(
-                self.positionRowCol,
-                attackCardEvent.direction,
-                attackCardEvent.distance
-            );
+            Vector2Int targetPos = attackCardEvent.usePosition
+                ? attackCardEvent.position
+                : HexGridManager.MoveHex(
+                    self.positionRowCol,
+                    attackCardEvent.direction,
+                    attackCardEvent.distance
+                );
 
-            transform.localPosition +=
-                ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position)
-                .normalized * 0.5f;
+            if (!HexGridManager.Instance.BoardDictionary.ContainsKey(targetPos))
+                return;
+
+            Vector3 targetWorldPosition = HexGridManager.Instance.GetWorldHexObject(targetPos).transform.position;
+            Vector3 worldOffset = (targetWorldPosition - transform.position).normalized * 0.5f;
+            transform.localPosition += transform.parent != null
+                ? transform.parent.InverseTransformVector(worldOffset)
+                : worldOffset;
         }
 
         protected virtual void OnAfterAction(AbstractAction action) { }

@@ -1,0 +1,11 @@
+skeleton.png
+size:252,106
+filter:Linear,Linear
+ArmLeft
+bounds:196,70,54,34
+ArmRight
+bounds:196,32,54,34
+Body
+bounds:108,13,84,91
+Face
+bounds:2,2,102,102

@@ -1,14 +1,17 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cards.Actions;
 using Cards.CardEvents;
 using Entities.Enemies;
 using Grid;
+using Spine.Unity;
 using StateManager;
 using TMPro;
 using Types.Statuses;
 using Types.Tiles;
+using UnityEngine.AdaptivePerformance.Provider;
 using UnityEngine.UI;
 using Util;
 
@@ -23,6 +26,7 @@ namespace Entities
         public List<AbstractAction> plannedAction = new List<AbstractAction>();
         public AbstractEntityBehavior behavior;
         public GOList GoList;
+        public SkeletonAnimation skeletonAnimation;
         
         public List<AbstractAction> nextTurnActions = new List<AbstractAction>();
 
@@ -130,6 +134,26 @@ namespace Entities
             
         }
 
+        public void Start()
+        {
+            if (skeletonAnimation != null)
+            {
+
+                StartCoroutine(Blink());
+
+            }
+        }
+        public IEnumerator Blink()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(Random.Range(1.5f, 2.5f));
+
+                skeletonAnimation.AnimationState.SetAnimation(1, "blink", false);
+                skeletonAnimation.AnimationState.AddEmptyAnimation(1, 0.1f, 0f);
+            }
+        }
+
         public void Update()
         {
             if (healthBarManager != null)
@@ -229,6 +253,12 @@ namespace Entities
             Debug.Log("Damaged for " + damage);
 
 
+            if (skeletonAnimation != null)
+            {
+                skeletonAnimation.AnimationState.SetAnimation(0, "hurt", false);
+                skeletonAnimation.AnimationState.AddAnimation(0, "idle", true, 0f);
+
+            }
             
             
             hurtSystem.Play();

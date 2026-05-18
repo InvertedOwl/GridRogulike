@@ -402,7 +402,7 @@ namespace StateManager
             Debug.Log(random);
             player.positionRowCol = new Vector2Int(0, 0);
             
-            var spawnSpots = HexGridManager.Instance.BoardDictionary.Keys
+            var spawnSpots = GetOrderedBoardPositions()
                 .Where(p => !entities.Any(e => e.positionRowCol == p))
                 .OrderBy(_ => random.Next())
                 .ToList();
@@ -432,9 +432,10 @@ namespace StateManager
 
         private bool TryGetRandomEmptyHex(out Vector2Int pos)
         {
-            var allHexes = HexGridManager.Instance.BoardDictionary.Keys;
-
-            var empties = allHexes.Where(p => !entities.Any(e => e.positionRowCol == p)).OrderBy(_ => random.Next()).ToList();
+            var empties = GetOrderedBoardPositions()
+                .Where(p => !entities.Any(e => e.positionRowCol == p))
+                .OrderBy(_ => random.Next())
+                .ToList();
 
             if (empties.Count == 0)
             {
@@ -444,6 +445,14 @@ namespace StateManager
 
             pos = empties[0];
             return true;
+        }
+
+        private List<Vector2Int> GetOrderedBoardPositions()
+        {
+            return HexGridManager.Instance.BoardDictionary.Keys
+                .OrderBy(p => p.x)
+                .ThenBy(p => p.y)
+                .ToList();
         }
 
         private List<AbstractEntity> SpawnEncounter(List<Vector2Int> positions)

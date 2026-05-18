@@ -340,8 +340,7 @@ namespace Grid {
                 playingState.DamageEntities(hexPosition, attack.amount, attack.status);
                 
                 // Little animation for free!
-                playingState.player.transform.localPosition += (entitiesOnHex[0].transform.position 
-                                                                - playingState.player.transform.position).normalized * 0.5f;
+                ApplyAttackNudge(playingState.player.transform, entitiesOnHex[0].transform.position);
                 
                 // Reset situation
                 SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
@@ -391,6 +390,14 @@ namespace Grid {
             }
             
             return distanceMap;
+        }
+
+        private void ApplyAttackNudge(Transform attacker, Vector3 targetWorldPosition)
+        {
+            Vector3 worldOffset = (targetWorldPosition - attacker.position).normalized * 0.5f;
+            attacker.localPosition += attacker.parent != null
+                ? attacker.parent.InverseTransformVector(worldOffset)
+                : worldOffset;
         }
 
         IEnumerator MovePlayer(Dictionary<Vector2Int, int> distanceMap, PlayingState playingState, Vector2Int targetPosition)

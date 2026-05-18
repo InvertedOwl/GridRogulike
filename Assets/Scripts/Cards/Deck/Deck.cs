@@ -315,12 +315,13 @@ public class Deck : MonoBehaviour
 
     public void Update()
     {
-        foreach (CardMonobehaviour card in _hand)
+        for (int i = _hand.Count - 1; i >= 0; i--)
         {
+            CardMonobehaviour card = _hand[i];
             if (card.played && !_removingPlayed.Contains(card))
             {
                 _removingPlayed.Add(card);
-                StartCoroutine(RemovePlayed(card));
+                RemovePlayed(card);
                 MarkHandLayoutDirty();
                 MarkPlayabilityDirty();
             }
@@ -331,12 +332,12 @@ public class Deck : MonoBehaviour
         
     }
 
-    IEnumerator RemovePlayed(CardMonobehaviour cardMonobehaviour)
+    private void RemovePlayed(CardMonobehaviour cardMonobehaviour)
     {
-        yield return new WaitForSeconds(.45f * (1/GameplayNavSettings.speed));
         cardMonobehaviour.ResetPlayState();
         _discard.Add(cardMonobehaviour);
         _hand.Remove(cardMonobehaviour);
+        _removingPlayed.Remove(cardMonobehaviour);
         MarkHandLayoutDirty();
         MarkPlayabilityDirty();
         PositionHandCards();
@@ -708,14 +709,6 @@ public class Deck : MonoBehaviour
 
         foreach (CardMonobehaviour card in _draw)
             card.GetComponent<LerpPosition>().targetLocation = drawTransform.localPosition;
-
-        foreach (CardMonobehaviour card in _hand)
-        {
-            if (card.played)
-            {
-                card.GetComponent<LerpPosition>().targetLocation = new Vector3(0, 180, 0);
-            }
-        }
 
         if (scrapTransform != null)
             foreach (CardMonobehaviour card in _scrap)

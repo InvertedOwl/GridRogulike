@@ -86,22 +86,5 @@ namespace Entities.Enemies
             return false;
         }
 
-        private void HandlePreEventVisual(AbstractCardEvent cardEvent)
-        {
-            if (cardEvent is not AttackCardEvent attackCardEvent)
-            {
-                return;
-            }
-
-            Vector2Int targetPos = HexGridManager.MoveHex(
-                self.positionRowCol,
-                attackCardEvent.direction,
-                attackCardEvent.distance
-            );
-
-            transform.localPosition +=
-                ((Vector3)HexGridManager.GetHexCenter(targetPos.x, targetPos.y) - transform.position)
-                .normalized * 0.5f;
-        }
     }
 }

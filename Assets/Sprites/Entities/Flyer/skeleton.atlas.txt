@@ -1,0 +1,11 @@
+skeleton.png
+size:199,125
+filter:Linear,Linear
+BoosterLeft
+bounds:121,2,58,76
+rotate:90
+BoosterRight
+bounds:121,64,59,76
+rotate:90
+Head
+bounds:2,8,115,115
