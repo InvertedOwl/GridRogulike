@@ -4,10 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="Major polish and some bug fixes">
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmLeft.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmLeft.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmRight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/ArmRight.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Body.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Body.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Brute.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/Brute.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegLeft.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegLeft.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegRight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Brute/LegRight.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.bc7" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.highlights" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_17-37-22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.bc7" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.highlights" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_18-02-32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.bc7" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.highlights" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProfilerCaptures/GridRoguelike_2026-05-17_20-45-05.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SpriteArrow.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BGTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BGTile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnBG.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/EaseScale.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/EaseScale.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/LerpPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/LerpPosition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,13 +181,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/SetGravityFromAnimationSpeed.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/SideCardManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Sprites/BowAndArrow.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Sprites/BuffEnemies.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Sprites/EnemyEyes.png.meta" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Sprites/PlayerFace.png.meta" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Sprites/Question.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Sprites/Snowflake_1.asset.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Recovery/0 (11).unity" root0="FORCE_HIGHLIGHTING" />
@@ -198,7 +226,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.10\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.11-Profiler\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -799,7 +827,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="fix arrow z heighthttps://trello.com/c/IA1TUNLS" />
     <MESSAGE value="Small bug fixes tile picker" />
     <MESSAGE value="Fix player mess up" />
     <MESSAGE value="Fix bug https://trello.com/c/ewXizuCl" />
@@ -824,7 +851,8 @@
     <MESSAGE value="Bug fixes + Cleanup + new condition behavior" />
     <MESSAGE value="Fix null bytes" />
     <MESSAGE value="Damn this sprite is not good :(" />
-    <option name="LAST_COMMIT_MESSAGE" value="Damn this sprite is not good :(" />
+    <MESSAGE value="Major polish and some bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major polish and some bug fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

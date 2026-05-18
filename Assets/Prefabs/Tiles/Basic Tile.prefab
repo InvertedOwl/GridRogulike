@@ -11549,7 +11549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpPosition: {fileID: 2323667082491459199}
   activateOnHover: {fileID: 4417866245236661259}
-  waitTicks: 10
+  waitTicks: 20
   hoverYOffset: -0.07
   activeHover: 1
   hoverWhenNotPlaytate: 1

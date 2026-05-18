@@ -79,6 +79,7 @@ MonoBehaviour:
   activeHover: 1
   hoverWhenNotPlaytate: 1
   ignoreOcclusion: 0
+  hideWhenEntityHovered: 1
   sideThing: {fileID: 0}
 --- !u!114 &5388217033557812795
 MonoBehaviour:

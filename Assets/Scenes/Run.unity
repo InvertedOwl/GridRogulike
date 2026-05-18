@@ -239,10 +239,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexPrefab: {fileID: 4449493802187549647, guid: 232c6550d5ed947d0a2a1a5f570f5c32, type: 3}
-  startX: -16
-  startY: -12
-  widthX: 33
-  widthY: 25
+  startX: -25
+  startY: -10
+  widthX: 50
+  widthY: 45
   grasslandColors:
   - {r: 0.11747953, g: 0.23218532, b: 0.41509432, a: 0}
   - {r: 0.080099694, g: 0.19352739, b: 0.3773585, a: 0}
@@ -250,6 +250,7 @@ MonoBehaviour:
   currentColors: []
   flipAnimDuration: 0.2
   radialRingPause: 0.06
+  radialCenterOffset: {x: 0, y: -12}
 --- !u!1 &32353969
 GameObject:
   m_ObjectHideFlags: 0
@@ -6443,14 +6444,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.258819, y: 0, z: 0, w: 0.9659259}
+  m_LocalRotation: {x: -0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: -3.2, z: 6.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2133104990}
   m_Father: {fileID: 975860770}
-  m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -40, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6495,7 +6496,7 @@ MonoBehaviour:
   zoomTransform: {fileID: 519420032}
   zoomSpeed: 0.5
   zoomEaseSpeed: 10
-  minMoveDistance: -1.2
+  minMoveDistance: 0
   maxMoveDistance: 3
   requireMouseOnScreen: 1
 --- !u!114 &519420037
@@ -29508,7 +29509,7 @@ RectTransform:
   m_GameObject: {fileID: 2069078255}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4039596, y: 0.4039596, z: 0.4039596}
+  m_LocalScale: {x: 0.50038475, y: 0.50038475, z: 0.50038475}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1426850899}
@@ -29518,7 +29519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -354.3, y: -120.3}
+  m_AnchoredPosition: {x: -354.3, y: -126}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2069078257
@@ -30256,7 +30257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128238197028079665
 RectTransform:
   m_ObjectHideFlags: 0

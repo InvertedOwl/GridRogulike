@@ -24,6 +24,7 @@ public class SpawnBG : MonoBehaviour
     // Fallback wait if a tile has no EaseScale to report its own duration.
     [SerializeField] private float flipAnimDuration = 0.2f;
     [SerializeField] private float radialRingPause = 0.04f;
+    [SerializeField] private Vector2Int radialCenterOffset = Vector2Int.zero;
 
     public void Awake ()
     {
@@ -121,7 +122,7 @@ public class SpawnBG : MonoBehaviour
                 continue;
 
             // Animate to -1 (flip)
-            EaseScale ease = tile.GetComponent<EaseScale>();
+            EaseScale ease = tile.EaseScale;
             if (ease != null)
             {
                 Transform tileTransform = tile.transform;
@@ -176,7 +177,7 @@ public class SpawnBG : MonoBehaviour
 
     private Vector2Int GetBackgroundCenterCoords()
     {
-        return new Vector2Int(startX + widthX / 2, startY + widthY / 2);
+        return new Vector2Int(startX + widthX / 2, startY + widthY / 2) + radialCenterOffset;
     }
 
     private Vector2Int GetCoordsForChildIndex(int index)
