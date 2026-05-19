@@ -18121,8 +18121,8 @@ MonoBehaviour:
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
-    - TriangleBoy
     - SquareBoy
+    - TriangleBoy
     EncounterType: 0
   - DifficultyMin: 0
     DifficultyMax: 2

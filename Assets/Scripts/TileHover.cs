@@ -52,23 +52,32 @@ public class TileHover : MonoBehaviour
 
         if (!hoverWhenNotPlaytate && !GameStateManager.Instance.IsCurrent<PlayingState>())
         {
-            ResetHoverState();
+            ResetHoverAnimation();
+            ResetHoverDetails();
             return;
         }
 
-        bool isHovering = IsMouseHovering();
-        if (isHovering && ShouldHideForEntityHover())
+        bool isAnimationHovering = IsMouseHovering(includeChildColliders: true);
+        bool isDirectHovering = IsMouseHovering(includeChildColliders: false);
+        if (isDirectHovering && ShouldHideForEntityHover())
         {
-            isHovering = false;
+            isDirectHovering = false;
         }
 
-        if (isHovering && activeHover)
+        if (isAnimationHovering && activeHover)
         {
             if (lerpPosition)
             {
                 lerpPosition.targetLocation = new Vector3(0, hoverYOffset, lerpPosition.startPosition.z);
             }
+        }
+        else
+        {
+            ResetHoverAnimation();
+        }
 
+        if (isDirectHovering && activeHover)
+        {
             if (activateOnHover && ticksHovered > waitTicks)
             {
                 activateOnHover.SetActive(true);
@@ -83,13 +92,16 @@ public class TileHover : MonoBehaviour
         }
         else
         {
-            ResetHoverState();
+            ResetHoverDetails();
         }
     }
 
-    private bool IsMouseHovering()
+    private bool IsMouseHovering(bool includeChildColliders)
     {
         UpdateHoverCache(mainCam);
+
+        if (includeChildColliders && IsCachedHitChildOfThisTile())
+            return true;
 
         // 3D collider support
         if (col3D != null)
@@ -99,7 +111,12 @@ public class TileHover : MonoBehaviour
                 return col3D.Raycast(_cachedRay, out _, Mathf.Infinity);
             }
 
-            return _hasCached3DHit && _cached3DHit == col3D;
+            if (!_hasCached3DHit || _cached3DHit == null)
+                return false;
+
+            return includeChildColliders
+                ? _cached3DHit.transform == transform || _cached3DHit.transform.IsChildOf(transform)
+                : _cached3DHit == col3D;
         }
 
         // 2D collider support
@@ -110,10 +127,27 @@ public class TileHover : MonoBehaviour
                 return col2D.OverlapPoint(_cachedMouseWorldPoint);
             }
 
-            return _hasCached2DHit && _cached2DHit == col2D;
+            if (!_hasCached2DHit || _cached2DHit == null)
+                return false;
+
+            return includeChildColliders
+                ? _cached2DHit.transform == transform || _cached2DHit.transform.IsChildOf(transform)
+                : _cached2DHit == col2D;
         }
 
         return false;
+    }
+
+    private bool IsCachedHitChildOfThisTile()
+    {
+        if (_hasCached3DHit && _cached3DHit != null &&
+            (_cached3DHit.transform == transform || _cached3DHit.transform.IsChildOf(transform)))
+        {
+            return true;
+        }
+
+        return _hasCached2DHit && _cached2DHit != null &&
+               (_cached2DHit.transform == transform || _cached2DHit.transform.IsChildOf(transform));
     }
 
     private bool ShouldHideForEntityHover()
@@ -173,13 +207,16 @@ public class TileHover : MonoBehaviour
         _cached2DHit = hit2D.collider;
     }
 
-    private void ResetHoverState()
+    private void ResetHoverAnimation()
     {
         if (lerpPosition)
         {
             lerpPosition.targetLocation = new Vector3(0, 0, lerpPosition.startPosition.z);
         }
+    }
 
+    private void ResetHoverDetails()
+    {
         if (activateOnHover)
         {
             activateOnHover.SetActive(false);
