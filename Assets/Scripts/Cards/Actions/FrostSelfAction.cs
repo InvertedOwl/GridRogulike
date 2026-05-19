@@ -31,13 +31,13 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return  "Apply <frost> " + frostAmount + " to self";
+            return  "Apply " + frostAmount + " <frost> to self";
         }
 
         public override string GetText(CardActionPreview preview)
         {
             int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.StatusAmount, frostAmount);
-            return "Apply <frost> " + preview.FormatValue("", frostAmount, finalAmount) + " to self";
+            return "Apply " + preview.FormatValue("<frost>", frostAmount, finalAmount) + " to self";
         }
 
         public override string ToString()

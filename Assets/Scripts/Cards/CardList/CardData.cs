@@ -28,12 +28,11 @@ namespace Cards.CardList
                 ["bstarting2"] = () => new(new Card("Starting Defend", new List<AbstractAction>
                     { 
                         new ShieldAction(1, "basic", null, 8),
-                        new DazedSelfAction(0, "basic", null, 2)
                     }, Rarity.Common, CardSet.Base),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
                 ["bstarting3"] = () => new(new Card("Starting Move", new List<AbstractAction>
                     { 
-                        new GainStepsCardAction(1, "basic", null, 1),
+                        new GainStepsCardAction(2, "basic", null, 1),
                     }, Rarity.Common, CardSet.Base),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
                 

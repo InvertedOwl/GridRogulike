@@ -39,7 +39,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "<attack>" + Amount + "     " + "<poison>" + poisonAmount + "     " + "<arrow>" + Distance;
+            return Amount + " <attack>     " + poisonAmount + " <poison>     " + Distance + " <arrow>";
         }
 
         public override string GetText(CardActionPreview preview)

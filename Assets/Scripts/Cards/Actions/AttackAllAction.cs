@@ -65,7 +65,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Attack All " + "<attack>" +  _amount;
+            return "Attack All " + _amount + " <attack>";
         }
 
         public override string GetText(CardActionPreview preview)

@@ -33,7 +33,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Discard " + _numCards + " Card" + (_numCards == 1?"":"s") +  " in Hand";
+            return "Discard " + _numCards + " Random Card" + (_numCards == 1?"":"s") +  " in Hand";
         }
 
         public override string GetText(CardActionPreview preview)

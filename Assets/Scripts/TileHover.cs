@@ -16,6 +16,7 @@ public class TileHover : MonoBehaviour
     public bool hoverWhenNotPlaytate = true;
     public bool ignoreOcclusion = false;
     public bool hideWhenEntityHovered = true;
+    public string tileType = "";
 
     public GameObject sideThing;
 
@@ -78,7 +79,7 @@ public class TileHover : MonoBehaviour
 
         if (isDirectHovering && activeHover)
         {
-            if (activateOnHover && ticksHovered > waitTicks)
+            if (ShouldShowTileInfo() && activateOnHover && ticksHovered > waitTicks)
             {
                 activateOnHover.SetActive(true);
             }
@@ -158,6 +159,11 @@ public class TileHover : MonoBehaviour
         }
 
         return GetHoveredEntity() != null;
+    }
+
+    private bool ShouldShowTileInfo()
+    {
+        return tileType != "basic";
     }
 
     private AbstractEntity GetHoveredEntity()

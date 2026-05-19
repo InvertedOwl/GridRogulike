@@ -93,9 +93,18 @@ namespace Cards.Actions
 
         public string FormatValue(string prefix, int baseValue, int finalValue)
         {
+            if (prefix == null)
+                prefix = string.Empty;
+
             int delta = finalValue - baseValue;
+            bool prefixIsIcon = prefix.StartsWith("<");
+            string formattedBaseValue = prefixIsIcon || string.IsNullOrEmpty(prefix)
+                ? baseValue.ToString()
+                : prefix + baseValue;
+            string iconSuffix = prefixIsIcon ? " " + prefix : "";
+
             if (delta == 0)
-                return prefix + baseValue;
+                return formattedBaseValue + iconSuffix;
 
             string sign = delta > 0 ? "+" : "";
             string color = "<color=green>";
@@ -105,7 +114,7 @@ namespace Cards.Actions
                 color = "<color=red>";
             }
             
-            return prefix + baseValue + " " + color + sign + delta + "</color>";
+            return formattedBaseValue + " " + color + sign + delta + "</color>" + iconSuffix;
         }
 
         private IEnumerable<CardEventPreviewSnapshot> BaseEvents(string key)

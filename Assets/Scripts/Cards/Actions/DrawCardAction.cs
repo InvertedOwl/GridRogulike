@@ -26,7 +26,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "<draw>" + _amount;
+            return _amount + " <draw>";
         }
 
         public override string GetText(CardActionPreview preview)

@@ -23,7 +23,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "<shield>" + Amount;
+            return "Gain " + Amount + " <shield>";
         }
 
         public override string GetText(CardActionPreview preview)
@@ -34,7 +34,7 @@ namespace Cards.Actions
 
         public override string ToSimpleText()
         {
-            return "<sprite name=shield>" + Amount;
+            return Amount + " <sprite name=shield>";
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,

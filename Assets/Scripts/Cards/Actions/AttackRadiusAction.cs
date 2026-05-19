@@ -88,13 +88,13 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Attack enemies within " + "<arrow>" + Radius + " for " + "<attack>" + Amount;
+            return "Attack enemies within " + Radius + " <arrow> for " + Amount + " <attack>";
         }
 
         public override string GetText(CardActionPreview preview)
         {
             int finalAmount = preview.GetFirstFinalValue(CardPreviewKeys.Damage, Amount);
-            return "Attack enemies within " + "<arrow>" + Radius + " for " + preview.FormatValue("<attack>", Amount, finalAmount);
+            return "Attack enemies within " + Radius + " <arrow> for " + preview.FormatValue("<attack>", Amount, finalAmount);
         }
 
         public override string ToString()

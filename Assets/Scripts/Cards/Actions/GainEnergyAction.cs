@@ -23,7 +23,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "<energy>" + _amount;
+            return "Gain " + _amount + " <energy>";
         }
 
         public override string GetText(CardActionPreview preview)

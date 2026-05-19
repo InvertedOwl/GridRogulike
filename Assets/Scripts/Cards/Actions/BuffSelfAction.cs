@@ -31,13 +31,13 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return  "Apply <buff> " + buffAmount + " to self";
+            return  "Apply " + buffAmount + " <buff> to self";
         }
 
         public override string GetText(CardActionPreview preview)
         {
             int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.StatusAmount, buffAmount);
-            return "Apply <buff> " + preview.FormatValue("", buffAmount, finalAmount) + " to self";
+            return "Apply " + preview.FormatValue("<buff>", buffAmount, finalAmount) + " to self";
         }
 
         public override string ToString()

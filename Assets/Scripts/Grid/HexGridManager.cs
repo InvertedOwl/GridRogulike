@@ -331,7 +331,9 @@ namespace Grid
         public GameObject GetHexPrefab(string id, Transform parent)
         {
             GameObject newTile = Instantiate(hexPrefab, parent);
-            newTile.GetComponent<TileHover>().hoverWhenNotPlaytate = false;
+            TileHover tileHover = newTile.GetComponent<TileHover>();
+            tileHover.hoverWhenNotPlaytate = false;
+            tileHover.tileType = id;
             UpdateHexObject(TileData.tiles[id], newTile);
 
             return newTile;

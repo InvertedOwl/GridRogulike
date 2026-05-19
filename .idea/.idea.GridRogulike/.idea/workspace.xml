@@ -5,16 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/HardStar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Environ.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Environ.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAllAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAllAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackRadiusAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackRadiusAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BuffSelfAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BuffSelfAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/CardActionPreview.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/CardActionPreview.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DazedSelfAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DazedSelfAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DelayedShieldAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DelayedShieldAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardCardsAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardCardsAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DrawCardAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DrawCardAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/FrostSelfAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/FrostSelfAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsCardAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsCardAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/flyerspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/flyerspine.spine" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Sector/sectorspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Sector/sectorspine.spine" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Passives/PassiveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/LerpHeight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/LerpHeight.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Icons/EnergyIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Icons/EnergyIcon.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,6 +183,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.tilemap@2428aeee2f73/Editor/GridPaintingState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@9a9c0155552c/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@b9d1dd437cb9/Runtime/TMP/TextMeshPro.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@b9d1dd437cb9/Runtime/UGUI/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -199,7 +218,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.12-Profiler\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.13-Profiler\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -383,14 +402,7 @@
       <workItem from="1779073807703" duration="51000" />
       <workItem from="1779073903057" duration="31000" />
       <workItem from="1779121918646" duration="3759000" />
-    </task>
-    <task id="LOCAL-00026" summary="Small changes?">
-      <option name="closed" value="true" />
-      <created>1772415179155</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1772415179155</updated>
+      <workItem from="1779211903315" duration="7256000" />
     </task>
     <task id="LOCAL-00027" summary="In progress healthbar changes">
       <option name="closed" value="true" />
@@ -776,7 +788,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779143520889</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="More animation work">
+      <option name="closed" value="true" />
+      <created>1779211998065</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1779211998066</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -803,7 +823,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fixed https://trello.com/c/DFHREpYb" />
     <MESSAGE value="Bug fix https://trello.com/c/YiFCTF0o/114-does-not-save-hexes" />
     <MESSAGE value="Fix bug (Not in trello) of enemies not setting intent correctly. Turns out it was a ease scale issue" />
     <MESSAGE value="Working on dashed stuff" />
@@ -828,7 +847,8 @@
     <MESSAGE value="Minor project update" />
     <MESSAGE value="Minor affinity adjustment" />
     <MESSAGE value="Animation Animation Animation aniamt ani tmar tana" />
-    <option name="LAST_COMMIT_MESSAGE" value="Animation Animation Animation aniamt ani tmar tana" />
+    <MESSAGE value="More animation work" />
+    <option name="LAST_COMMIT_MESSAGE" value="More animation work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

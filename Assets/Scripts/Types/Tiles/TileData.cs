@@ -5,6 +5,7 @@ using Cards;
 using Cards.CardEvents;
 using Types.Passives;
 using UnityEngine;
+using Util;
 
 namespace Types.Tiles
 {
@@ -14,7 +15,7 @@ namespace Types.Tiles
         {
             ["steps"] = new ( 
                 "Agile",
-                "Gain 1 step",
+                "Gain 1 <sprite name=\"footsteps\">",
                 Color.deepSkyBlue,
                 true,
                 Rarity.Common,
@@ -39,7 +40,7 @@ namespace Types.Tiles
             
             ["start"] = new (
                 "Start", 
-                "The starting tile.", 
+                "The starting tile", 
                 new Color(173.0f/255.0f,173.0f/255.0f,173.0f/255.0f), 
                 false, 
                 Rarity.Common, 
@@ -62,7 +63,7 @@ namespace Types.Tiles
             
             ["draw"] = new (
                 "Lucky Draw", 
-                "Draw a card.", 
+                "Draw a card", 
                 new Color(191.0f/255.0f, 51.0f/255.0f, 195.0f/255.0f), 
                 true, 
                 Rarity.Common,
@@ -82,9 +83,9 @@ namespace Types.Tiles
                 () => new List<AbstractCardEvent>{new GainMoneyCardEvent(2)}),
             
             ["energy"] = new (
-                "Battery", 
-                "Gain 1 Energy.", 
-                Color.gold, 
+                "Recharge", 
+                "Gain 1 <sprite name=\"energyicon\"> once this combat", 
+                HexColorUtility.HexToColor("#518251"), 
                 true, 
                 Rarity.Uncommon,
                 TileType.Good,
@@ -94,7 +95,7 @@ namespace Types.Tiles
             
             ["shield"] = new (
                 "Bunker", 
-                "Gain 3 Shield.", 
+                "Gain 3 <sprite name=\"shield\">", 
                 Color.darkBlue, 
                 true, 
                 Rarity.Common,
