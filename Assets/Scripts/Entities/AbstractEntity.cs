@@ -212,9 +212,9 @@ namespace Entities
             nextTurnActions.Clear();
         }
         
-        public List<AbstractCardEvent> ModifyEvents(List<AbstractCardEvent> events)
+        public List<AbstractCardEvent> ModifyEvents(List<AbstractCardEvent> events, bool previewMode = false)
         {
-            return CardEventPipeline.Apply(events, this);
+            return CardEventPipeline.Apply(events, this, previewMode: previewMode);
         }
         public virtual void EndTurn()
         {
@@ -304,10 +304,29 @@ namespace Entities
             }
             arrowUUIDs.Clear();
 
+            List<AbstractStatus> plannedSelfStatuses = new List<AbstractStatus>();
+
             foreach (AbstractAction action in actions)
             {
-                foreach (AbstractCardEvent abstractCardEvent in action.Activate(null))
+                List<AbstractCardEvent> modifiedEvents = ModifyEvents(
+                    action.Activate(null, previewMode: true),
+                    previewMode: true
+                );
+
+                foreach (AbstractStatus plannedSelfStatus in plannedSelfStatuses)
                 {
+                    modifiedEvents = plannedSelfStatus.Modify(modifiedEvents, previewMode: true);
+                }
+
+                foreach (AbstractCardEvent abstractCardEvent in modifiedEvents)
+                {
+                    if (abstractCardEvent is ApplyStatusToEntityCardEvent applyStatusEvent &&
+                        applyStatusEvent.target == this &&
+                        applyStatusEvent.status != null)
+                    {
+                        plannedSelfStatuses.Add(applyStatusEvent.status);
+                    }
+
                     Vector2Int pos = new Vector2Int(-20000, -20000);
 
                     if (abstractCardEvent is AttackCardEvent attackCardEvent)

@@ -15,12 +15,12 @@ namespace Entities.Enemies
         public int defaultDamage = 10;
         public float actionDelay = 0.5f;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             InitializeAttackActions();
         }
 
-        private void InitializeAttackActions()
+        protected void InitializeAttackActions()
         {
             self.AvailableActions.Clear();
 
@@ -41,16 +41,22 @@ namespace Entities.Enemies
             }
 
             self.plannedAction.Clear();
+            PlanAttackOrMovement();
 
-            if (IsTargetNearby(attackRange) && TryPlanAttack())
-            {
-                return self.plannedAction;
-            }
-
-            return base.NextTurn();
+            return self.plannedAction;
         }
 
-        private bool TryPlanAttack()
+        protected virtual void PlanAttackOrMovement()
+        {
+            if (IsTargetNearby(attackRange) && TryPlanAttack())
+            {
+                return;
+            }
+
+            PlanMovementTowardsTarget();
+        }
+
+        protected bool TryPlanAttack()
         {
             foreach (AttackAction attackAction in self.AvailableActions)
             {
@@ -64,7 +70,7 @@ namespace Entities.Enemies
             return false;
         }
 
-        private bool CanAttackPlayer(AttackAction attackAction)
+        protected bool CanAttackPlayer(AttackAction attackAction)
         {
             Vector2Int targetHex = HexGridManager.MoveHex(
                 self.positionRowCol,

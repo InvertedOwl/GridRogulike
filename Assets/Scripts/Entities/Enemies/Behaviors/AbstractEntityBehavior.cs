@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cards.Actions;
 using Cards.CardEvents;
 using Grid;
+using StateManager;
 using UnityEngine;
 
 namespace Entities.Enemies
@@ -70,6 +71,27 @@ namespace Entities.Enemies
         }
 
         protected virtual void OnAfterAction(AbstractAction action) { }
+
+        protected int CountLivingEnemies()
+        {
+            PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
+            int count = 0;
+
+            foreach (AbstractEntity entity in state.GetEntities())
+            {
+                if (entity != null && entity.entityType == EntityType.Enemy && entity.Health > 0)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        protected bool IsOnlyLivingEnemy()
+        {
+            return CountLivingEnemies() <= 1;
+        }
 
         public abstract List<AbstractAction> NextTurn();
     }

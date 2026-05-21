@@ -691,6 +691,10 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 5457511034134313530, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.237
+      objectReference: {fileID: 0}
     - target: {fileID: 5709112935243033909, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: defaultDamage
       value: 6
@@ -801,7 +805,7 @@ MonoBehaviour:
   maxMovesPerTurn: 3
   stopMovingWhenWithinDistance: 1
   attackRange: 1
-  defaultDamage: 10
+  defaultDamage: 5
   actionDelay: 0.5
   shieldAmount: 5
 --- !u!4 &3822521651334489867 stripped
