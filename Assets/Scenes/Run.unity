@@ -18621,6 +18621,7 @@ MonoBehaviour:
     DifficultyMax: 2
     enemies:
     - DiamondBoy
+    - DiamondBoy
     EncounterType: 0
 --- !u!114 &1461430464 stripped
 MonoBehaviour:

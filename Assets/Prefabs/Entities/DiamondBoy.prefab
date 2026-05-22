@@ -784,7 +784,7 @@ MonoBehaviour:
   targetSearchMode: 0
   maxMovesPerTurn: 1
   stopMovingWhenWithinDistance: 1
-  defaultDamage: 10
+  defaultDamage: 8
 --- !u!70 &167770871164903161
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
