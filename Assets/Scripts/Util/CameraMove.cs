@@ -15,6 +15,11 @@ public class CameraMove : MonoBehaviour
     public Vector2 maxBounds = new Vector2(10f, 10f);
     public Vector2 boundsOffset;
 
+    [Header("Auto Camera")]
+    public Vector2 autoCameraPositionOffset;
+    public float autoCameraViewportPadding = 0.08f;
+    public float autoCameraTargetViewportCoverage = 0.65f;
+
     private Vector3 _targetPosition;
     private Vector3 _velocity;
     private bool _hasTargetPosition;
@@ -22,6 +27,7 @@ public class CameraMove : MonoBehaviour
     private void Awake()
     {
         ResolveReferences();
+        EnsureAutoCamera();
 
         if (moveTransform != null)
             SetTargetPosition(GetBasePosition());
@@ -30,6 +36,7 @@ public class CameraMove : MonoBehaviour
     private void Update()
     {
         ResolveReferences();
+        EnsureAutoCamera();
 
         if (moveTransform == null)
             return;
@@ -89,6 +96,21 @@ public class CameraMove : MonoBehaviour
 
         if (zoomCamera == null && moveTransform != null && moveTransform != transform)
             zoomCamera = moveTransform.GetComponentInChildren<ZoomCamera>();
+    }
+
+    private void EnsureAutoCamera()
+    {
+        AutoCamera autoCamera = GetComponent<AutoCamera>();
+
+        if (autoCamera == null)
+            autoCamera = gameObject.AddComponent<AutoCamera>();
+
+        autoCamera.moveTransform = moveTransform;
+        autoCamera.moveWithMouse = moveWithMouse;
+        autoCamera.zoomCamera = zoomCamera;
+        autoCamera.positionOffset = autoCameraPositionOffset;
+        autoCamera.viewportPadding = autoCameraViewportPadding;
+        autoCamera.targetViewportCoverage = autoCameraTargetViewportCoverage;
     }
 
     private void SetTargetPosition(Vector3 position)
@@ -171,7 +193,8 @@ public class CameraMove : MonoBehaviour
 
     private bool CanControlCamera()
     {
-        return GameStateManager.Instance != null &&
+        return !GameplayNavSettings.autocamera &&
+               GameStateManager.Instance != null &&
                (GameStateManager.Instance.IsCurrent<PlayingState>() ||
                 GameStateManager.Instance.IsCurrent<TilePickState>());
     }
@@ -198,5 +221,8 @@ public class CameraMove : MonoBehaviour
 
         if (smoothTime < 0f)
             smoothTime = 0f;
+
+        autoCameraViewportPadding = Mathf.Clamp01(autoCameraViewportPadding);
+        autoCameraTargetViewportCoverage = Mathf.Clamp(autoCameraTargetViewportCoverage, 0.05f, 1f);
     }
 }

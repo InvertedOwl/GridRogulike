@@ -32,6 +32,18 @@ public class ZoomCamera : MonoBehaviour
         }
     }
 
+    public float CurrentMoveDistance => _currentMoveDistance;
+    public float TargetMoveDistance => _targetMoveDistance;
+
+    public Vector3 ZoomDirection
+    {
+        get
+        {
+            ResolveReferences();
+            return GetZoomDirection();
+        }
+    }
+
     private void Awake()
     {
         ResolveReferences();
@@ -60,7 +72,7 @@ public class ZoomCamera : MonoBehaviour
     {
         ResolveReferences();
 
-        if (!CanControlCamera())
+        if (!CanControlCamera() && !CanAutoCamera())
         {
             _targetMoveDistance = _currentMoveDistance;
             return;
@@ -77,6 +89,21 @@ public class ZoomCamera : MonoBehaviour
         }
 
         _targetMoveDistance = Mathf.Clamp(_targetMoveDistance + scroll * zoomSpeed, minMoveDistance, maxMoveDistance);
+    }
+
+    public void SetZoomDistance(float moveDistance)
+    {
+        ResolveReferences();
+        _targetMoveDistance = Mathf.Clamp(moveDistance, minMoveDistance, maxMoveDistance);
+    }
+
+    public void InstantSetZoomDistance(float moveDistance)
+    {
+        ResolveReferences();
+        moveDistance = Mathf.Clamp(moveDistance, minMoveDistance, maxMoveDistance);
+        ApplyZoomDelta(moveDistance - _currentMoveDistance);
+        _currentMoveDistance = moveDistance;
+        _targetMoveDistance = moveDistance;
     }
 
     private void ResolveReferences()
@@ -158,9 +185,17 @@ public class ZoomCamera : MonoBehaviour
 
     private bool CanControlCamera()
     {
-        return GameStateManager.Instance != null &&
+        return !GameplayNavSettings.autocamera &&
+               GameStateManager.Instance != null &&
                (GameStateManager.Instance.IsCurrent<PlayingState>() ||
                 GameStateManager.Instance.IsCurrent<TilePickState>());
+    }
+
+    private bool CanAutoCamera()
+    {
+        return GameplayNavSettings.autocamera &&
+               GameStateManager.Instance != null &&
+               GameStateManager.Instance.IsCurrent<PlayingState>();
     }
 
     private void OnValidate()

@@ -5,18 +5,22 @@ public class GameplayNavSettings : MonoBehaviour
 {
     public Slider Speed;
     public Toggle autoendturn;
+    public Toggle autocameratoggle;
     public static float speed;
     public static bool endturn;
+    public static bool autocamera;
     
     
     public void Start()
     {
         float animSpeed = PlayerPrefs.GetFloat("speed", 1.0f);
         bool automaticallyendturn = PlayerPrefs.GetInt("endturn", 0) == 1 ? true : false;
+        bool automaitcallymovecaemra = PlayerPrefs.GetInt("autocamera", 1) == 1 ? true : false;
 
         Speed.value = animSpeed;
         autoendturn.isOn = automaticallyendturn;
-
+        autocameratoggle.isOn = automaitcallymovecaemra;
+        
 
         UpdateSettings();
     }
@@ -28,6 +32,7 @@ public class GameplayNavSettings : MonoBehaviour
         speed = animSpeed;
         
         endturn = PlayerPrefs.GetInt("endturn", 0) == 1 ? true : false;
+        autocamera = PlayerPrefs.GetInt("autocamera", 1) == 1 ? true : false;
     }
 
     public void ChangeSliderSpeed()
@@ -39,6 +44,12 @@ public class GameplayNavSettings : MonoBehaviour
     public void ChangeAutoEndTurn()
     {
         PlayerPrefs.SetInt("endturn", autoendturn.isOn ? 1 : 0);
+        UpdateSettings();
+    }
+
+    public void ChangeAutoCamera()
+    {
+        PlayerPrefs.SetInt("autocamera", autocameratoggle.isOn ? 1 : 0);
         UpdateSettings();
     }
 }

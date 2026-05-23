@@ -149,8 +149,10 @@ namespace Entities
             {
                 yield return new WaitForSeconds(Random.Range(1.5f, 4.5f));
 
-                skeletonAnimation.AnimationState.SetAnimation(1, "blink", false);
-                skeletonAnimation.AnimationState.AddEmptyAnimation(1, 0.1f, 0f);
+                if (TrySetAnimation(1, "blink", false))
+                {
+                    skeletonAnimation.AnimationState.AddEmptyAnimation(1, 0.1f, 0f);
+                }
             }
         }
 
@@ -255,9 +257,10 @@ namespace Entities
 
             if (skeletonAnimation != null)
             {
-                skeletonAnimation.AnimationState.SetAnimation(0, "hurt", false);
-                skeletonAnimation.AnimationState.AddAnimation(0, "idle", true, 0f);
-
+                if (TrySetAnimation(0, "hurt", false))
+                {
+                    TryAddAnimation(0, "idle", true, 0f);
+                }
             }
             
             
@@ -369,11 +372,16 @@ namespace Entities
         {
             // Rip entity :(
             Debug.Log("I have died");
+
+            if (skeletonAnimation != null)
+            {
+                TrySetAnimation(0, "die", false);
+            }
+
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
             {
                 HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().RemoveEventsForEntity(this);
             }
-
 
             plannedAction = new List<AbstractAction>();
             HandleNextTurnActions(plannedAction);
@@ -382,6 +390,30 @@ namespace Entities
                 eyesFollowMouse.gameObject.SetActive(false);
                 GoList.GetValue("DeadEyes").SetActive(true);
             }
+        }
+
+        protected bool TrySetAnimation(int trackIndex, string animationName, bool loop)
+        {
+            if (!HasSkeletonAnimation(animationName))
+                return false;
+
+            skeletonAnimation.AnimationState.SetAnimation(trackIndex, animationName, loop);
+            return true;
+        }
+
+        protected bool TryAddAnimation(int trackIndex, string animationName, bool loop, float delay)
+        {
+            if (!HasSkeletonAnimation(animationName))
+                return false;
+
+            skeletonAnimation.AnimationState.AddAnimation(trackIndex, animationName, loop, delay);
+            return true;
+        }
+
+        protected bool HasSkeletonAnimation(string animationName)
+        {
+            return skeletonAnimation != null &&
+                   skeletonAnimation.Skeleton?.Data?.FindAnimation(animationName) != null;
         }
     }
 }

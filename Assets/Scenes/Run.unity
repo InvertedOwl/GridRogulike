@@ -6792,10 +6792,11 @@ MonoBehaviour:
   smoothTime: 0.12
   useLocalPosition: 1
   useMoveBounds: 1
-  compensateForZoom: 1
+  compensateForZoom: 0
   minBounds: {x: -2, y: -2}
   maxBounds: {x: 2, y: 0.5}
   boundsOffset: {x: 0, y: -2.5}
+  autoCameraPositionOffset: {x: 0, y: -2}
 --- !u!1 &520015236
 GameObject:
   m_ObjectHideFlags: 0
@@ -17360,17 +17361,11 @@ MonoBehaviour:
   enemiesData: {fileID: 11400000, guid: 45b07377f58a1e447ae961790d89f437, type: 2}
   EndTurnButton: {fileID: 1736174615}
   RedrawButton: {fileID: 1967415328}
-  cameraLerpPosition: {fileID: 975860772}
   TurnIndicator: {fileID: 328626457}
   GoList: {fileID: 1327594992}
   turnIndicatorManager: {fileID: 1474974203}
   playingUI: {fileID: 900554495}
   playingHealth: {fileID: 6097504617308708764}
-  minViewSize: 3
-  viewPadding: 0
-  zoomSpeed: 9
-  cameraWorldToOffsetScale: 0.5
-  cameraFocusWorldOffset: {x: 0, y: -1}
   generateInitialMap: 1
   initialMapRadius: 2
   homeTileType: start
@@ -27158,6 +27153,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5680298107915894849, guid: a03d37a1ff80d3240b9ceaa570d0c732, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347714820240716600, guid: a03d37a1ff80d3240b9ceaa570d0c732, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347714820240716600, guid: a03d37a1ff80d3240b9ceaa570d0c732, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347714820240716600, guid: a03d37a1ff80d3240b9ceaa570d0c732, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347714820240716600, guid: a03d37a1ff80d3240b9ceaa570d0c732, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}

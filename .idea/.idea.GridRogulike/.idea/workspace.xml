@@ -6,6 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/GameplayNavSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/GameplayNavSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton_SkeletonData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton_SkeletonData.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +201,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.13-Profiler\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.14-Profiler\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
