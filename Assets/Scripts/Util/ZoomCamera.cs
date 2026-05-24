@@ -1,4 +1,3 @@
-using StateManager;
 using UnityEngine;
 
 public class ZoomCamera : MonoBehaviour
@@ -32,18 +31,6 @@ public class ZoomCamera : MonoBehaviour
         }
     }
 
-    public float CurrentMoveDistance => _currentMoveDistance;
-    public float TargetMoveDistance => _targetMoveDistance;
-
-    public Vector3 ZoomDirection
-    {
-        get
-        {
-            ResolveReferences();
-            return GetZoomDirection();
-        }
-    }
-
     private void Awake()
     {
         ResolveReferences();
@@ -52,9 +39,6 @@ public class ZoomCamera : MonoBehaviour
     private void Update()
     {
         ResolveReferences();
-
-        if (!CanControlCamera())
-            return;
 
         if (requireMouseOnScreen && !IsMouseOnScreen())
         {
@@ -71,13 +55,6 @@ public class ZoomCamera : MonoBehaviour
     private void LateUpdate()
     {
         ResolveReferences();
-
-        if (!CanControlCamera() && !CanAutoCamera())
-        {
-            _targetMoveDistance = _currentMoveDistance;
-            return;
-        }
-
         EaseZoom();
     }
 
@@ -89,21 +66,6 @@ public class ZoomCamera : MonoBehaviour
         }
 
         _targetMoveDistance = Mathf.Clamp(_targetMoveDistance + scroll * zoomSpeed, minMoveDistance, maxMoveDistance);
-    }
-
-    public void SetZoomDistance(float moveDistance)
-    {
-        ResolveReferences();
-        _targetMoveDistance = Mathf.Clamp(moveDistance, minMoveDistance, maxMoveDistance);
-    }
-
-    public void InstantSetZoomDistance(float moveDistance)
-    {
-        ResolveReferences();
-        moveDistance = Mathf.Clamp(moveDistance, minMoveDistance, maxMoveDistance);
-        ApplyZoomDelta(moveDistance - _currentMoveDistance);
-        _currentMoveDistance = moveDistance;
-        _targetMoveDistance = moveDistance;
     }
 
     private void ResolveReferences()
@@ -181,21 +143,6 @@ public class ZoomCamera : MonoBehaviour
                mousePosition.y >= 0f &&
                mousePosition.x <= Screen.width &&
                mousePosition.y <= Screen.height;
-    }
-
-    private bool CanControlCamera()
-    {
-        return !GameplayNavSettings.autocamera &&
-               GameStateManager.Instance != null &&
-               (GameStateManager.Instance.IsCurrent<PlayingState>() ||
-                GameStateManager.Instance.IsCurrent<TilePickState>());
-    }
-
-    private bool CanAutoCamera()
-    {
-        return GameplayNavSettings.autocamera &&
-               GameStateManager.Instance != null &&
-               GameStateManager.Instance.IsCurrent<PlayingState>();
     }
 
     private void OnValidate()

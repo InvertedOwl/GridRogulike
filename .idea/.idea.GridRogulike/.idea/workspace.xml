@@ -6,17 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/AutoCamera.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/AutoCamera.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/GameplayNavSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/GameplayNavSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton_SkeletonData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/skeleton_SkeletonData.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +34,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Datas/EnemiesDatabase.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Datas/InfoPanelDatabase.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/SpineSettings.asset" root0="FORCE_HIGHLIGHTING" />
@@ -74,6 +68,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/DrawCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/HealCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/MoveCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/PushEntityAwayCardEvent.cs.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ShieldCardEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardActionTextMapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" root0="FORCE_HIGHLIGHTING" />
@@ -388,14 +383,6 @@
       <workItem from="1779211903315" duration="7256000" />
       <workItem from="1779294608544" duration="622000" />
       <workItem from="1779386975472" duration="832000" />
-    </task>
-    <task id="LOCAL-00028" summary="Fix bug with enemy hitting enemies">
-      <option name="closed" value="true" />
-      <created>1772661247609</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1772661247609</updated>
     </task>
     <task id="LOCAL-00029" summary="Saving and stuff. Still need to make game states save important stuff (specifically the encounter data for playingstate)">
       <option name="closed" value="true" />
@@ -781,7 +768,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779296593313</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Bug fixes + Minor Features + WIP auto camera">
+      <option name="closed" value="true" />
+      <created>1779571430926</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1779571430926</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -808,7 +803,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fix bug (Not in trello) of enemies not setting intent correctly. Turns out it was a ease scale issue" />
     <MESSAGE value="Working on dashed stuff" />
     <MESSAGE value="Sprites" />
     <MESSAGE value="hmm dashed material work" />
@@ -833,7 +827,8 @@
     <MESSAGE value="Animation Animation Animation aniamt ani tmar tana" />
     <MESSAGE value="More animation work" />
     <MESSAGE value="some minor changes to sprites" />
-    <option name="LAST_COMMIT_MESSAGE" value="some minor changes to sprites" />
+    <MESSAGE value="Bug fixes + Minor Features + WIP auto camera" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fixes + Minor Features + WIP auto camera" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
