@@ -85,6 +85,7 @@ namespace StateManager
         public AbstractEntity CurrentTurn => entities[_turnOrder[_currentTurnIndex]];
         private float _autoEndReadyTime = -1f;
         private const float AutoEndDelaySeconds = 0.5f;
+        private Coroutine _finishCoroutine;
 
         public EaseScale playingUI;
         public EasePosition playingHealth;
@@ -674,15 +675,54 @@ namespace StateManager
 
         public void CaptureFinish()
         {
+            if (_finishCoroutine != null)
+                return;
+
             string finish = CheckForFinish();
             if (finish == "player")
             {
-                PlayerWon();
+                _finishCoroutine = StartCoroutine(PlayerWonAfterDeaths());
             }
             else if (finish == "enemy")
             {
                 EntityWon();
             }
+        }
+
+        private IEnumerator PlayerWonAfterDeaths()
+        {
+            AllowUserInput = false;
+
+            float waitSeconds = GetLongestPendingDeathAnimation();
+            if (waitSeconds > 0f)
+                yield return new WaitForSeconds(waitSeconds);
+
+            _finishCoroutine = null;
+            PlayerWon();
+        }
+
+        private float GetLongestPendingDeathAnimation()
+        {
+            float longestDuration = 0f;
+
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity == null ||
+                    entity.entityType != EntityType.Enemy ||
+                    entity.Health > 0 ||
+                    entity.skeletonAnimation == null)
+                {
+                    continue;
+                }
+
+                Spine.Animation deathAnimation =
+                    entity.skeletonAnimation.Skeleton?.Data?.FindAnimation("die");
+
+                if (deathAnimation != null)
+                    longestDuration = Mathf.Max(longestDuration, deathAnimation.Duration);
+            }
+
+            return longestDuration;
         }
 
         private void UpdateNextTurnAttacks()
