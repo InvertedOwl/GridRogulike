@@ -126,6 +126,12 @@ namespace StateManager
         {
             currentNode = node;
             UpdateCurrentNode();
+            int layerIndex = GetLayerIndex(node);
+            PlayingState.MapProgressLayer = layerIndex;
+            PlayingState.MapProgressLayerCount = layers;
+            if (RunInfo.Instance != null)
+                RunInfo.Instance.Difficulty = layerIndex;
+
             PlayingState.RewardMoney = node.rewardMoney;
             PlayingState.encounterData = node.encounterData;
 
@@ -149,23 +155,13 @@ namespace StateManager
         public void GenerateMap()
         {
             ResetMapGenerationRandoms();
+            ClearGeneratedMapObjects();
             mapLayers.Clear();
 
             // Ensure we have at least 2 layers to have a start and an end
             layers = Mathf.Max(2, layers);
 
-            int start = 3;
-            int end = layers - 2;
-            int count = numShops;
-
-            double step = (double)(end - start) / (count - 1);
-            var shopIndecies = new List<int>();
-
-            for (int i = 0; i < count; i++)
-            {
-                int value = (int)Math.Round(start + i * step);
-                shopIndecies.Add(value);
-            }
+            HashSet<int> shopLayers = GetShopLayers();
             
             for (int i = 0; i < layers; i++)
             {
@@ -180,15 +176,9 @@ namespace StateManager
                 float totalHeight = (nodeCount - 1) * nodeSpacing;
                 float startY = -totalHeight / 2f;
 
-                int shopIndex = 0;
-
-                for (int shopLayer = 0; shopLayer < shopIndecies.Count; shopLayer++)
-                {
-                    if (i == shopIndecies[shopLayer])
-                    {
-                        shopIndex = mapRandom.Next(0, nodeCount);
-                    }
-                }
+                int shopIndex = shopLayers.Contains(i) ? mapRandom.Next(0, nodeCount) : -1;
+                bool previousLayerHasEvent = LayerHasTarget(i - 1, MapTarget.Event);
+                bool previousLayerHasRest = LayerHasTarget(i - 1, MapTarget.Campfire);
 
                 
                 for (int j = 0; j < nodeCount; j++)
@@ -199,20 +189,16 @@ namespace StateManager
                         0f
                     );
 
-                    GameObject target = GetRandomTargetForLayer(i);
+                    GameObject target = GetRandomTargetForLayer(i, nodeCount);
 
 
                     // If node is the picked node from the given layer and is the correct layer, spawn the shop.
                     if (j == shopIndex)
                     {
-                        for (int shopLayer = 0; shopLayer < shopIndecies.Count; shopLayer++)
-                        {
-                            if (i == shopIndecies[shopLayer])
-                            {
-                                target = goList.GetValue("shop");
-                            }
-                        }
+                        target = goList.GetValue("shop");
                     }
+
+                    target = ApplyMapTargetRules(target, i, nodeCount, previousLayerHasEvent, previousLayerHasRest);
                     
                     GameObject nodeObj = Instantiate(target, goList.GetValue("anchor").transform);
                     nodeObj.transform.localPosition = pos;
@@ -311,6 +297,30 @@ namespace StateManager
             Debug.Log("Map generated with " + layers + " layers.");
         }
 
+        private void ClearGeneratedMapObjects()
+        {
+            foreach (GameObject line in linesList)
+            {
+                if (line != null)
+                    Destroy(line);
+            }
+            linesList.Clear();
+
+            if (goList == null || !goList.HasValue("anchor"))
+                return;
+
+            Transform anchor = goList.GetValue("anchor").transform;
+            for (int i = anchor.childCount - 1; i >= 0; i--)
+            {
+                Transform child = anchor.GetChild(i);
+                if (child.GetComponent<MapNode>() != null ||
+                    child.GetComponent<UILineRenderer>() != null)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+
         private void ResetMapGenerationRandoms()
         {
             mapRandom = RunInfo.ResetRandom("map");
@@ -404,7 +414,34 @@ namespace StateManager
             mapSaveData = data;
         }
         
-        private GameObject GetRandomTargetForLayer(int layerIndex)
+        private HashSet<int> GetShopLayers()
+        {
+            HashSet<int> shopLayers = new HashSet<int>();
+
+            int start = 3;
+            int end = layers - 2;
+            int count = numShops;
+
+            if (count <= 0 || end < start)
+                return shopLayers;
+
+            if (count == 1)
+            {
+                shopLayers.Add(start);
+                return shopLayers;
+            }
+
+            double step = (double)(end - start) / (count - 1);
+            for (int i = 0; i < count; i++)
+            {
+                int value = (int)Math.Round(start + i * step);
+                shopLayers.Add(value);
+            }
+
+            return shopLayers;
+        }
+
+        private GameObject GetRandomTargetForLayer(int layerIndex, int nodeCount)
         {
             if (layerIndex == 0)
             {
@@ -422,10 +459,62 @@ namespace StateManager
                     return goList.GetValue("enemy");
                 
                 if (random >= 0.75f && random < 1f)
-                    return goList.GetValue("hard");
+                    return nodeCount > 1 ? goList.GetValue("hard") : goList.GetValue("enemy");
+
+                return goList.GetValue("enemy");
             }
             
             return goList.GetValue("boss");
+        }
+
+        private GameObject ApplyMapTargetRules(
+            GameObject target,
+            int layerIndex,
+            int nodeCount,
+            bool previousLayerHasEvent,
+            bool previousLayerHasRest)
+        {
+            if (layerIndex == 0 || layerIndex >= layers - 1)
+                return target;
+
+            if (layerIndex == 1)
+                return goList.GetValue("enemy");
+
+            MapTarget targetType = GetTargetType(target);
+
+            if (targetType == MapTarget.Boss)
+                return goList.GetValue("enemy");
+
+            if (nodeCount == 1 && targetType == MapTarget.HardEnemy)
+                return goList.GetValue("enemy");
+
+            if (targetType == MapTarget.Event && previousLayerHasEvent)
+                return goList.GetValue("enemy");
+
+            if (targetType == MapTarget.Campfire && previousLayerHasRest)
+                return goList.GetValue("enemy");
+
+            return target;
+        }
+
+        private bool LayerHasTarget(int layerIndex, MapTarget target)
+        {
+            if (layerIndex < 0 || layerIndex >= mapLayers.Count)
+                return false;
+
+            foreach (MapNode node in mapLayers[layerIndex])
+            {
+                if (node != null && node.target == target)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private MapTarget GetTargetType(GameObject target)
+        {
+            MapNode mapNode = target.GetComponent<MapNode>();
+            return mapNode != null ? mapNode.target : MapTarget.Enemy;
         }
 
         private void SetupMap()

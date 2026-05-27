@@ -4,34 +4,60 @@ public class ScreenShake : MonoBehaviour
 {
     public static ScreenShake Instance;
 
-    private Vector3 initialPosition;
     private float currentShakeMagnitude;
     private float targetShakeMagnitude;
     private float dampingSpeed;
+    private Vector3 currentOffset;
+    private bool hasOffset;
 
     private void Awake ()
     {
         Instance = this;
     }
 
-    private void OnEnable()
-    {
-        initialPosition = transform.localPosition;
-    }
-
     public void Shake(float magnitude, float damping = 1f)
     {
-        currentShakeMagnitude = magnitude;
+        RemoveCurrentOffset();
+
+        if (magnitude >= currentShakeMagnitude)
+            dampingSpeed = damping;
+
+        currentShakeMagnitude = Mathf.Max(currentShakeMagnitude, magnitude);
         targetShakeMagnitude = 0;
-        initialPosition = transform.localPosition;
-        dampingSpeed = damping;
+        enabled = true;
     }
     
     // Another instance of allowed UnityEngine.Random because screen shake should absolutely not be seeded
-    private void Update()
+    private void LateUpdate()
     {
+        RemoveCurrentOffset();
+
         currentShakeMagnitude = Mathf.Lerp(currentShakeMagnitude, targetShakeMagnitude, Time.deltaTime * dampingSpeed);
-        Vector3 randomPoint = initialPosition + Random.insideUnitSphere * currentShakeMagnitude;
-        transform.localPosition = randomPoint;
+
+        if (currentShakeMagnitude <= 0.001f)
+        {
+            currentShakeMagnitude = 0f;
+            enabled = false;
+            return;
+        }
+
+        currentOffset = Random.insideUnitSphere * currentShakeMagnitude;
+        transform.localPosition += currentOffset;
+        hasOffset = true;
+    }
+
+    private void OnDisable()
+    {
+        RemoveCurrentOffset();
+    }
+
+    private void RemoveCurrentOffset()
+    {
+        if (!hasOffset)
+            return;
+
+        transform.localPosition -= currentOffset;
+        currentOffset = Vector3.zero;
+        hasOffset = false;
     }
 }

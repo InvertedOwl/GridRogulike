@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8149859710638922124}
   - component: {fileID: 5286917440407922032}
   - component: {fileID: 5709112935243033909}
+  - component: {fileID: 776052003631651691}
   m_Layer: 0
   m_Name: PentagonBoy
   m_TagString: Untagged
@@ -192,7 +193,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161378063130477174}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fd806a9f37fc464dafbcd294f4d6303, type: 3}
   m_Name: 
@@ -205,6 +206,7 @@ MonoBehaviour:
   hoverWhenNotPlaytate: 0
   ignoreOcclusion: 0
   hideWhenEntityHovered: 1
+  tileType: 
   sideThing: {fileID: 0}
 --- !u!114 &5286917440407922032
 MonoBehaviour:
@@ -222,6 +224,7 @@ MonoBehaviour:
   initialHealth: 20
   behavior: {fileID: 5709112935243033909}
   GoList: {fileID: 3739634389966307953}
+  skeletonAnimation: {fileID: 0}
   _health: 20
   entityType: 0
   turnIndicatorIcon: {fileID: 1341593030411954701}
@@ -251,6 +254,20 @@ MonoBehaviour:
   attackRange: 1
   defaultDamage: 10
   actionDelay: 0.5
+--- !u!114 &776052003631651691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161378063130477174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b8ad8d7dcf8264488664cb40980799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EaseScale
+  durationSeconds: 0.1
+  _elapsedTime: 0
 --- !u!1 &436744844242049286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &840955106872033110
 RectTransform:
   m_ObjectHideFlags: 0

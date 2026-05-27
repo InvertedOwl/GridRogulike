@@ -4,7 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Datas/EnemiesDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Datas/EnemiesDatabase.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/CardEventPipeline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/CardEventPipeline.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveApplyStatusEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveApplyStatusEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScreenShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScreenShake.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/PlayingStateSaveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/PlayingStateSaveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -210,7 +235,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.14-Profiler\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.15-Profiler\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -398,14 +423,8 @@
       <workItem from="1779294608544" duration="622000" />
       <workItem from="1779386975472" duration="832000" />
       <workItem from="1779666226083" duration="84000" />
-    </task>
-    <task id="LOCAL-00030" summary="Minor other things">
-      <option name="closed" value="true" />
-      <created>1774464282336</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1774464282336</updated>
+      <workItem from="1779741845244" duration="644000" />
+      <workItem from="1779763399784" duration="7419000" />
     </task>
     <task id="LOCAL-00031" summary="Streamed the changes here.">
       <option name="closed" value="true" />
@@ -791,7 +810,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779666289824</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Death Animations">
+      <option name="closed" value="true" />
+      <created>1779741874832</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1779741874832</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -818,7 +845,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Sprites" />
     <MESSAGE value="hmm dashed material work" />
     <MESSAGE value="Some changes" />
     <MESSAGE value="Minor visual improvements" />
@@ -843,7 +869,8 @@
     <MESSAGE value="some minor changes to sprites" />
     <MESSAGE value="Bug fixes + Minor Features + WIP auto camera" />
     <MESSAGE value="revert auto camera stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="revert auto camera stuff" />
+    <MESSAGE value="Death Animations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Death Animations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

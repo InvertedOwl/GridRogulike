@@ -32,6 +32,10 @@ namespace Entities
 
         public float _health;
         public EntityType entityType = EntityType.Enemy;
+        private const float PlayerDamageShakeMagnitude = 0.08f;
+        private const float EnemyDamageShakeMagnitude = 0.035f;
+        private const float PlayerDamageShakeDamping = 8f;
+        private const float EnemyDamageShakeDamping = 10f;
 
         public Image turnIndicatorIcon;
         
@@ -282,7 +286,7 @@ namespace Entities
             }
 
             Health = Mathf.Clamp(Health, 0, initialHealth);
-            ScreenShake.Instance.Shake(0.1f, 7);
+            ShakeOnDamage();
 
             if (_health <= 0)
             {
@@ -294,6 +298,20 @@ namespace Entities
             GameObject newDamageNumber = Instantiate(GoList.GetValue("DamageValueParticle"), transform);
             newDamageNumber.GetComponent<TextMeshPro>().text = "" + damage;
             
+        }
+
+        private void ShakeOnDamage()
+        {
+            if (ScreenShake.Instance == null)
+                return;
+
+            if (entityType == EntityType.Player)
+            {
+                ScreenShake.Instance.Shake(PlayerDamageShakeMagnitude, PlayerDamageShakeDamping);
+                return;
+            }
+
+            ScreenShake.Instance.Shake(EnemyDamageShakeMagnitude, EnemyDamageShakeDamping);
         }
 
         

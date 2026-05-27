@@ -64,17 +64,20 @@ namespace Entities.Enemies
 
         private void PlanAloneTurn()
         {
-            PlanApplyStatus(self);
-
             _isPlanningAloneTurn = true;
             try
             {
-                PlanAttackOrMovement();
+                if (IsTargetNearby(attackRange) && TryPlanAttack())
+                {
+                    return;
+                }
             }
             finally
             {
                 _isPlanningAloneTurn = false;
             }
+
+            PlanApplyStatus(self);
         }
 
         private void PlanStatusTurn()
@@ -109,12 +112,6 @@ namespace Entities.Enemies
 
                 currentPosition = HexGridManager.MoveHex(currentPosition, bestMove.Direction, 1);
                 self.plannedAction.Add(bestMove);
-
-                if (IsWithinStatusRange(currentPosition, distanceMap))
-                {
-                    PlanApplyStatus(target);
-                    break;
-                }
             }
         }
 

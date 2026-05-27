@@ -71,7 +71,12 @@ namespace StateManager
         {
             RewardMoney = 0;
             encounterData = null;
+            MapProgressLayer = 0;
+            MapProgressLayerCount = 1;
         }
+
+        public static int MapProgressLayer;
+        public static int MapProgressLayerCount = 1;
         
         public EasePosition TurnIndicator;
 
@@ -86,6 +91,19 @@ namespace StateManager
         private float _autoEndReadyTime = -1f;
         private const float AutoEndDelaySeconds = 0.5f;
         private Coroutine _finishCoroutine;
+        [SerializeField] private float deadEnemyCleanupScaleDuration = 0.2f;
+        [SerializeField] private float disabledTileOpacity = 0.6f;
+        private readonly HashSet<Vector2Int> _tilesUsedThisTurn = new();
+        private readonly HashSet<Vector2Int> _tilesUsedThisCombat = new();
+        private CameraMove _cameraMove;
+
+        [Header("Enemy Scaling")]
+        [Min(0)]
+        [SerializeField] private int enemyScalingStartLayer = 1;
+        [Min(0f)]
+        [SerializeField] private float enemyHealthScalePerMapLayer = 0.15f;
+        [Min(0f)]
+        [SerializeField] private float enemyDamageScalePerMapLayer = 0.1f;
 
         public EaseScale playingUI;
         public EasePosition playingHealth;
@@ -96,7 +114,10 @@ namespace StateManager
             Debug.Log("Save is  " + SaveData);
             if (SaveData != null)
             {
-                encounterData = ((PlayingStateSaveData) SaveData).encounterData;
+                PlayingStateSaveData saveData = (PlayingStateSaveData) SaveData;
+                encounterData = saveData.encounterData;
+                MapProgressLayer = saveData.mapProgressLayer;
+                MapProgressLayerCount = Mathf.Max(1, saveData.mapProgressLayerCount);
                 SaveData = null;
             }
             
@@ -108,6 +129,7 @@ namespace StateManager
             MoveEntitiesIn();
             InitializeDeckAndGrid();
             SetupInitialTiles();
+            ResetCombatTileTriggers();
             SetupEntities();
             RebuildTurnOrder();
             SetupUI();
@@ -167,7 +189,83 @@ namespace StateManager
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
 
+            UpdateAutoCamera();
             TryAutoEndPlayerTurn();
+        }
+
+        private void UpdateAutoCamera()
+        {
+            CameraMove cameraMove = GetCameraMove();
+            if (cameraMove == null)
+                return;
+
+            if (!GameplayNavSettings.autocamera)
+            {
+                cameraMove.ClearAutoCameraTarget();
+                return;
+            }
+
+            if (TryGetCombatCenter(out Vector3 combatCenter))
+            {
+                cameraMove.SetAutoCameraTarget(combatCenter);
+            }
+            else
+            {
+                cameraMove.ClearAutoCameraTarget();
+            }
+        }
+
+        private CameraMove GetCameraMove()
+        {
+            if (_cameraMove != null)
+                return _cameraMove;
+
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                _cameraMove = mainCamera.GetComponent<CameraMove>();
+
+                if (_cameraMove == null)
+                    _cameraMove = mainCamera.GetComponentInParent<CameraMove>();
+
+                if (_cameraMove == null)
+                    _cameraMove = mainCamera.GetComponentInChildren<CameraMove>();
+            }
+
+            if (_cameraMove == null)
+                _cameraMove = FindFirstObjectByType<CameraMove>();
+
+            return _cameraMove;
+        }
+
+        private bool TryGetCombatCenter(out Vector3 center)
+        {
+            center = Vector3.zero;
+            int entityCount = 0;
+
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity == null ||
+                    (entity.entityType != EntityType.Player && entity.entityType != EntityType.Enemy) ||
+                    entity.Health <= 0)
+                {
+                    continue;
+                }
+
+                HexGridManager.Instance._hexObjects.TryGetValue(entity.positionRowCol, out GameObject entityHex);
+                Vector3 entityPosition = entityHex != null
+                    ? entityHex.transform.position
+                    : HexGridManager.GetHexCenter(entity.positionRowCol.x, entity.positionRowCol.y);
+
+                center += entityPosition;
+                entityCount++;
+            }
+
+            if (entityCount == 0)
+                return false;
+
+            center /= entityCount;
+            return true;
         }
 
         private void TryAutoEndPlayerTurn()
@@ -340,6 +438,7 @@ namespace StateManager
             
             
             entities.AddRange(SpawnEncounter(spawnSpots));
+            ApplyEnemyHealthScaling();
 
             // Not enough spawn spots
             if (numNormalEnemy > 0 || numHardEnemy > 0 || numBossEnemy > 0)
@@ -414,6 +513,70 @@ namespace StateManager
             }
             return encounter;
         }
+
+        private int EnemyScalingSteps()
+        {
+            return Mathf.Max(0, MapProgressLayer - enemyScalingStartLayer + 1);
+        }
+
+        private float EnemyHealthMultiplier()
+        {
+            return 1f + EnemyScalingSteps() * enemyHealthScalePerMapLayer;
+        }
+
+        private float EnemyDamageMultiplier()
+        {
+            return 1f + EnemyScalingSteps() * enemyDamageScalePerMapLayer;
+        }
+
+        private void ApplyEnemyHealthScaling()
+        {
+            float multiplier = EnemyHealthMultiplier();
+            if (Mathf.Approximately(multiplier, 1f))
+                return;
+
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity is not NonPlayerEntity)
+                    continue;
+
+                entity.initialHealth = ScaleEnemyFloat(entity.initialHealth, multiplier);
+                entity.Health = entity.initialHealth;
+            }
+        }
+
+        public List<AbstractCardEvent> ApplyEnemyDamageScaling(List<AbstractCardEvent> events)
+        {
+            float multiplier = EnemyDamageMultiplier();
+            if (Mathf.Approximately(multiplier, 1f))
+                return events;
+
+            foreach (AbstractCardEvent cardEvent in events)
+            {
+                if (cardEvent is AttackCardEvent attackCardEvent)
+                {
+                    attackCardEvent.amount = ScaleEnemyInt(attackCardEvent.amount, multiplier);
+                }
+            }
+
+            return events;
+        }
+
+        private float ScaleEnemyFloat(float amount, float multiplier)
+        {
+            if (amount <= 0f)
+                return amount;
+
+            return Mathf.Max(1f, Mathf.Round(amount * multiplier));
+        }
+
+        private int ScaleEnemyInt(int amount, float multiplier)
+        {
+            if (amount <= 0)
+                return amount;
+
+            return Mathf.Max(1, Mathf.RoundToInt(amount * multiplier));
+        }
         
         [Header("Generated Initial Map")]
         [SerializeField] private bool generateInitialMap = true;
@@ -444,6 +607,116 @@ namespace StateManager
             }
             
             _grid.UpdateBoard();
+        }
+
+        private void ResetCombatTileTriggers()
+        {
+            _tilesUsedThisTurn.Clear();
+            _tilesUsedThisCombat.Clear();
+            UpdateAllTileDisableVisuals();
+        }
+
+        public void ResetTurnTileTriggers()
+        {
+            _tilesUsedThisTurn.Clear();
+            UpdateAllTileDisableVisuals();
+        }
+
+        public void TriggerPlayerTile(Vector2Int position, AbstractEntity entity)
+        {
+            if (entity == null || entity.entityType != EntityType.Player)
+                return;
+
+            string tileId = HexGridManager.Instance.HexType(position);
+            if (!TileData.tiles.TryGetValue(tileId, out TileEntry tile))
+                return;
+
+            if (!CanTriggerTile(position, tile))
+                return;
+
+            MarkTileTriggered(position, tile);
+            CardEventPipeline.Activate(tile.landEvent.Invoke(), entity);
+        }
+
+        private bool CanTriggerTile(Vector2Int position, TileEntry tile)
+        {
+            return tile.triggerLimit switch
+            {
+                TileTriggerLimit.OncePerTurn => !_tilesUsedThisTurn.Contains(position),
+                TileTriggerLimit.OncePerCombat => !_tilesUsedThisCombat.Contains(position),
+                _ => true
+            };
+        }
+
+        private void MarkTileTriggered(Vector2Int position, TileEntry tile)
+        {
+            if (tile.triggerLimit == TileTriggerLimit.OncePerTurn)
+                _tilesUsedThisTurn.Add(position);
+            else if (tile.triggerLimit == TileTriggerLimit.OncePerCombat)
+                _tilesUsedThisCombat.Add(position);
+            else
+                return;
+
+            UpdateTileDisableVisual(position);
+        }
+
+        private void UpdateAllTileDisableVisuals()
+        {
+            if (HexGridManager.Instance == null)
+                return;
+
+            foreach (Vector2Int position in HexGridManager.Instance.BoardDictionary.Keys)
+            {
+                UpdateTileDisableVisual(position);
+            }
+        }
+
+        private void UpdateTileDisableVisual(Vector2Int position)
+        {
+            if (HexGridManager.Instance == null ||
+                !HexGridManager.Instance.BoardDictionary.ContainsKey(position) ||
+                !HexGridManager.Instance._hexObjects.TryGetValue(position, out GameObject hexObject) ||
+                hexObject == null)
+            {
+                return;
+            }
+
+            GOList goList = hexObject.GetComponent<GOList>();
+            if (goList == null)
+                goList = hexObject.GetComponentInChildren<GOList>(true);
+
+            if (goList == null || !goList.HasValue("Disable"))
+                return;
+
+            GameObject disableObject = goList.GetValue("Disable");
+            if (disableObject == null)
+                return;
+
+            EaseColor easeColor = disableObject.GetComponent<EaseColor>();
+            if (easeColor == null)
+                easeColor = disableObject.GetComponentInChildren<EaseColor>(true);
+
+            if (easeColor == null)
+                return;
+
+            disableObject.SetActive(true);
+            Color color = easeColor.targetColor;
+            color.a = IsTileDisabled(position) ? disabledTileOpacity : 0f;
+            easeColor.SendToColor(color);
+        }
+
+        private bool IsTileDisabled(Vector2Int position)
+        {
+            string tileId = HexGridManager.Instance.HexType(position);
+            if (!TileData.tiles.TryGetValue(tileId, out TileEntry tile))
+                return false;
+
+            return tile.triggerLimit switch
+            {
+                TileTriggerLimit.OncePerTurn => _tilesUsedThisTurn.Contains(position),
+                TileTriggerLimit.OncePerCombat => _tilesUsedThisCombat.Contains(position),
+                _ => false
+            };
         }
 
         private void SetupUI()
@@ -481,6 +754,7 @@ namespace StateManager
 
         public override void Exit()
         {
+            SendCameraToCombatCenter();
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             
             playingUI.SetScale(new Vector3(2, 2, 2));
@@ -530,6 +804,21 @@ namespace StateManager
             }
             
             HexClickPlayerController.instance.ClearPendingAttacks();
+        }
+
+        private void SendCameraToCombatCenter()
+        {
+            CameraMove cameraMove = GetCameraMove();
+            if (cameraMove == null)
+                return;
+
+            if (TryGetCombatCenter(out Vector3 combatCenter))
+            {
+                cameraMove.SetAutoCameraTarget(combatCenter);
+                return;
+            }
+
+            cameraMove.ClearAutoCameraTarget();
         }
 
         #region Turn System ---------------
@@ -631,7 +920,7 @@ namespace StateManager
                 removedAny = true;
                 entity.Die();
                 entities.RemoveAt(i);
-                Destroy(entity.gameObject);
+                ScaleDownAndDestroy(entity.gameObject);
             }
 
             if (removedAny)
@@ -656,6 +945,26 @@ namespace StateManager
                 // still rebuild UI if you want, but not necessary for turn logic
                 // turnIndicatorManager.Rebuild(_entities);
             }
+        }
+
+        private void ScaleDownAndDestroy(GameObject entityObject)
+        {
+            if (entityObject == null)
+                return;
+
+            EaseScale easeScale = entityObject.GetComponent<EaseScale>();
+            if (easeScale == null)
+            {
+                Destroy(entityObject);
+                return;
+            }
+
+            easeScale.durationSeconds = Mathf.Max(0.01f, deadEnemyCleanupScaleDuration / GameplayNavSettings.speed);
+            easeScale.SetScale(Vector3.zero, () =>
+            {
+                if (entityObject != null)
+                    Destroy(entityObject);
+            });
         }
 
         public void PlayerEndTurn()
@@ -747,6 +1056,15 @@ namespace StateManager
         public void EntityWon()
         {
             Debug.Log("Aww bummer you fuckin dork you lost");
+
+            if (GameStateManager.Instance.GetState<GameOverState>() != null)
+            {
+                GameStateManager.Instance.Change<GameOverState>();
+            }
+            else
+            {
+                Debug.LogWarning("GameOverState is not registered on the GameStateManager.");
+            }
         }
 
         public string CheckForFinish()
@@ -800,9 +1118,7 @@ namespace StateManager
             if (ent.entityType == EntityType.Player)
             {
                 // Activate landing events
-                CardEventPipeline.Activate(
-                    TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke(),
-                    ent);
+                TriggerPlayerTile(target, ent);
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
             }
@@ -822,9 +1138,7 @@ namespace StateManager
 
             if (ent.entityType == EntityType.Player)
             {
-                CardEventPipeline.Activate(
-                    TileData.tiles[HexGridManager.Instance.HexType(target)].landEvent.Invoke(),
-                    ent);
+                TriggerPlayerTile(target, ent);
 
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
@@ -848,7 +1162,9 @@ namespace StateManager
         {
             return new PlayingStateSaveData
             {
-                encounterData = encounterData
+                encounterData = encounterData,
+                mapProgressLayer = MapProgressLayer,
+                mapProgressLayerCount = MapProgressLayerCount
             };
         }
         

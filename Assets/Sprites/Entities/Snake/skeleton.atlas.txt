@@ -1,0 +1,15 @@
+skeleton.png
+size:147,239
+filter:Linear,Linear
+BodyFour
+bounds:2,168,69,70
+rotate:90
+BodyOne
+bounds:76,168,69,69
+BodyThree
+bounds:2,95,69,69
+BodyTwo
+bounds:75,95,69,69
+Head
+bounds:2,2,89,90
+rotate:90

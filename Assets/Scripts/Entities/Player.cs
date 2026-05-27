@@ -1,10 +1,6 @@
 using System;
-using Cards.CardEvents;
-using Grid;
 using Serializer;
 using StateManager;
-using TMPro;
-using Types.Tiles;
 using UnityEngine;
 
 namespace Entities
@@ -30,10 +26,10 @@ namespace Entities
             Shield = 0;
             Deck.Instance.DrawHand();
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
-            GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = true;
-            
-            TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(positionRowCol)];
-            CardEventPipeline.Activate(tile.landEvent.Invoke(), this);
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            playingState.AllowUserInput = true;
+            playingState.ResetTurnTileTriggers();
+            playingState.TriggerPlayerTile(positionRowCol, this);
             base.StartTurn();
         }
 

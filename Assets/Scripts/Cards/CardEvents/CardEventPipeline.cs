@@ -4,6 +4,7 @@ using Cards.CardStatuses;
 using Entities;
 using Grid;
 using Passives;
+using StateManager;
 using Types.Statuses;
 using Types.Tiles;
 
@@ -42,6 +43,16 @@ namespace Cards.CardEvents
             {
                 TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(sourceEntity.positionRowCol)];
                 modifiedEvents = tile.cardModifier.Invoke(modifiedEvents);
+            }
+
+            if (sourceEntity != null &&
+                sourceEntity.entityType == EntityType.Enemy &&
+                GameStateManager.Instance != null &&
+                GameStateManager.Instance.IsCurrent<PlayingState>())
+            {
+                modifiedEvents = GameStateManager.Instance
+                    .GetCurrent<PlayingState>()
+                    .ApplyEnemyDamageScaling(modifiedEvents);
             }
 
             return modifiedEvents;

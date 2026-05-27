@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace Types.Tiles
 {
+    public enum TileTriggerLimit
+    {
+        None,
+        OncePerTurn,
+        OncePerCombat
+    }
+
     public class TileEntry
     {
         public Func<List<AbstractCardEvent>> landEvent;
@@ -17,8 +24,9 @@ namespace Types.Tiles
         public Rarity rarity;
         public TileType tileType;
         public string icon;
+        public TileTriggerLimit triggerLimit;
 
-        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType, Func<List<AbstractCardEvent>, List<AbstractCardEvent>> cardModifier, Func<List<AbstractCardEvent>> landEvent, string icon = "none")
+        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType, Func<List<AbstractCardEvent>, List<AbstractCardEvent>> cardModifier, Func<List<AbstractCardEvent>> landEvent, string icon = "none", TileTriggerLimit triggerLimit = TileTriggerLimit.None)
         {
             this.name = name;
             this.description = description;
@@ -29,6 +37,7 @@ namespace Types.Tiles
             this.landEvent = landEvent;
             this.cardModifier = cardModifier;
             this.icon = icon;
+            this.triggerLimit = triggerLimit;
         }
 
     }

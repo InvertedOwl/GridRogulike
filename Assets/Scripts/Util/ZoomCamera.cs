@@ -1,4 +1,5 @@
 using UnityEngine;
+using StateManager;
 
 public class ZoomCamera : MonoBehaviour
 {
@@ -39,6 +40,11 @@ public class ZoomCamera : MonoBehaviour
     private void Update()
     {
         ResolveReferences();
+
+        if (!IsCameraInputAllowed())
+        {
+            return;
+        }
 
         if (requireMouseOnScreen && !IsMouseOnScreen())
         {
@@ -143,6 +149,12 @@ public class ZoomCamera : MonoBehaviour
                mousePosition.y >= 0f &&
                mousePosition.x <= Screen.width &&
                mousePosition.y <= Screen.height;
+    }
+
+    private bool IsCameraInputAllowed()
+    {
+        return GameStateManager.Instance != null &&
+               GameStateManager.Instance.IsCurrent<PlayingState>();
     }
 
     private void OnValidate()

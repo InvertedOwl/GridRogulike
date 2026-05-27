@@ -33,3 +33,7 @@ MonoBehaviour:
     enemyPrefab: {fileID: 3518368252074035926, guid: 7bc75e90b440afc4aa5c3100d2a841c6, type: 3}
     enemyType: 0
     enemyIconPrefab: {fileID: 0}
+  - enemyName: Snake
+    enemyPrefab: {fileID: 3518368252074035926, guid: 8e10e9b657c1c8a40ae39a7864895016, type: 3}
+    enemyType: 0
+    enemyIconPrefab: {fileID: 0}

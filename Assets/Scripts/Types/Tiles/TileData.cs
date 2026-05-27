@@ -15,7 +15,7 @@ namespace Types.Tiles
         {
             ["steps"] = new ( 
                 "Agile",
-                "Gain 1 <sprite name=\"footsteps\">",
+                "Gain 1 <sprite name=\"footsteps\"> once per turn",
                 Color.deepSkyBlue,
                 true,
                 Rarity.Common,
@@ -25,12 +25,13 @@ namespace Types.Tiles
                 {
                     new GainStepsCardEvent(1)
                 },
-                "footsteps"
+                "footsteps",
+                TileTriggerLimit.OncePerTurn
                 ),
             
             ["basic"] = new ( 
                 "Basic",
-                "No effect.",
+                "No effect",
                 new Color(32.0f/255.0f, 99.0f/255.0f, 155.0f/255.0f),
                 false,
                 Rarity.Common,
@@ -91,7 +92,8 @@ namespace Types.Tiles
                 TileType.Good,
                 (e) => e,
                 () => new List<AbstractCardEvent>{new GainEnergyCardEvent(1)},
-                "energy"),
+                "energy",
+                TileTriggerLimit.OncePerCombat),
             
             ["shield"] = new (
                 "Bunker", 
@@ -101,7 +103,7 @@ namespace Types.Tiles
                 Rarity.Common,
                 TileType.Good,
                 (e) => e,
-                () => new List<AbstractCardEvent>{new ShieldCardEvent(3)},
+                () => new List<AbstractCardEvent>{new ShieldCardEvent(5)},
                 "shield"),
             
             ["double"] = new (

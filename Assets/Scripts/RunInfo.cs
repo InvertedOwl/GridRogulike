@@ -18,8 +18,7 @@ public class RunInfo : MonoBehaviour
     public Button redrawButton;
     public List<TextMeshProUGUI> difficultyText;
     public List<TextMeshProUGUI> stepsText;
-    public static string seed = "6";
-    private static readonly string DefaultSeed = seed;
+    public static string seed = GenerateSeed();
     public readonly int combineCost = 2;
 
 
@@ -96,7 +95,7 @@ public class RunInfo : MonoBehaviour
     private static void ResetStaticsOnLoad()
     {
         Instance = null;
-        seed = DefaultSeed;
+        seed = GenerateSeed();
         randoms = new Dictionary<int, RandomState>();
     }
 
@@ -108,19 +107,24 @@ public class RunInfo : MonoBehaviour
     public static void ResetRunDefaults()
     {
         Instance = null;
-        seed = DefaultSeed;
+        seed = GenerateSeed();
         ResetRandoms();
     }
 
     public static void SetSeed(string newSeed)
     {
-        string normalizedSeed = string.IsNullOrWhiteSpace(newSeed) ? DefaultSeed : newSeed;
+        string normalizedSeed = string.IsNullOrWhiteSpace(newSeed) ? GenerateSeed() : newSeed;
 
         if (seed == normalizedSeed)
             return;
 
         seed = normalizedSeed;
         ResetRandoms();
+    }
+
+    private static string GenerateSeed()
+    {
+        return Guid.NewGuid().ToString();
     }
 
     public static int StableHash(string value)

@@ -56,8 +56,8 @@ namespace Cards.CardList
                 ["5"] = () => new(new Card("Suit Up", new List<AbstractAction>
                 { 
                     new ShieldAction(1, "basic", null, 3),
-                    new ShieldAction(1, "basic", null, 3),
-                    new ShieldAction(1, "basic", null, 3),
+                    new ShieldAction(0, "basic", null, 4),
+                    new ShieldAction(0, "basic", null, 5),
                 }, Rarity.Common, CardSet.Base)),
                 ["6"] = () => new(new Card("Block", new List<AbstractAction>
                     { 
@@ -89,7 +89,7 @@ namespace Cards.CardList
                 ["12"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
                     { 
                         new SpawnPassiveAction(1, "basic", null, "12"),
-                        new ScrapCurrentCardAction(1, "basic", null, visible:false),
+                        new ScrapCurrentCardAction(0, "basic", null, visible:false),
                     }, Rarity.Common, CardSet.Base)),
                 
                 ["14"] = () => new(new Card("Spawn Passive", new List<AbstractAction>

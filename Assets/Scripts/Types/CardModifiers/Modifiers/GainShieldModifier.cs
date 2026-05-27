@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cards.CardEvents;
-using StateManager;
+using UnityEngine;
 
 namespace Types.CardModifiers.Modifiers
 {
@@ -15,13 +15,14 @@ namespace Types.CardModifiers.Modifiers
         {
             this.amount = amount;
             this.basedOnDamage = basedOnDamage;
+            this.damageToShieldMultiplier = damageToShieldMultiplier;
             if (basedOnDamage)
             {
-                this.ModifierText = "Gain " + amount + " Shield";
+                this.ModifierText = "Gain " + (damageToShieldMultiplier * 100) + "% of attack damage as <shield>";
             }
             else
             {
-                this.ModifierText = "Gain " + (damageToShieldMultiplier * 100) + "% of attacks done as <shield>";
+                this.ModifierText = "Gain " + amount + " Shield";
             }
         }
         
@@ -34,11 +35,11 @@ namespace Types.CardModifiers.Modifiers
                 {
                     if (cardEvent is AttackCardEvent attackCardEvent)
                     {
-                        damageDone++;
+                        damageDone += attackCardEvent.amount;
                     }
                 }
                 
-                cardEvents.Add(new ShieldCardEvent((int) (damageDone * damageToShieldMultiplier)));
+                cardEvents.Add(new ShieldCardEvent(Mathf.RoundToInt(damageDone * damageToShieldMultiplier)));
             }
             else
             {
