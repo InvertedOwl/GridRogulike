@@ -5,29 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Datas/EnemiesDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Datas/EnemiesDatabase.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/TriangleBoy.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/CardEventPipeline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/CardEventPipeline.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AreYouSure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AreYouSure.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/DeckView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/DeckView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveApplyStatusEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/MoveApplyStatusEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScreenShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScreenShake.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/PlayingStateSaveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/PlayingStateSaveData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveGameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveGameObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/CardModifiers/Modifiers/GainShieldModifier.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/CameraMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/ZoomCamera.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/TilePickState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/PauseScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/PauseScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SettingsMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SettingsMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/flyerspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/flyerspine.spine" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.atlas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.atlas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.atlas.txt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.atlas.txt.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.json.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Atlas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Atlas.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Atlas.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Atlas.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Material.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Material.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Material.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_Material.mat.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_SkeletonData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_SkeletonData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_SkeletonData.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Flyer/skeleton_SkeletonData.asset.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Player/playerspine.spine" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Sector/sectorspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Sector/sectorspine.spine" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Sector/skeleton.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Sector/skeleton.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Snake/skeleton_Atlas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Snake/skeleton_Atlas.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Snake/skeleton_Material.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Snake/skeleton_Material.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Spy/skeleton.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Spy/skeleton.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Entities/Spy/spyspine.spine" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Entities/Spy/spyspine.spine" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -235,7 +249,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.15-Profiler\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/0.1.16\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />

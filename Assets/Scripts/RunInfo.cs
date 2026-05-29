@@ -278,9 +278,11 @@ public class RunInfo : MonoBehaviour
         Difficulty = data.Difficulty;
         CurrentSteps = data.CurrentSteps;
 
-        SetSeed(data.Seed);
+        seed = string.IsNullOrWhiteSpace(data.Seed) ? GenerateSeed() : data.Seed;
         Dictionary<int, RandomState> restoredRandoms = data.randoms ?? new Dictionary<int, RandomState>();
 
+        List<int> existingKeys = new List<int>(randoms.Keys);
+        HashSet<int> restoredKeys = new HashSet<int>();
         foreach (var kv in restoredRandoms)
         {
             if (kv.Value == null)
@@ -288,6 +290,7 @@ public class RunInfo : MonoBehaviour
                 continue;
             }
 
+            restoredKeys.Add(kv.Key);
             if (randoms.TryGetValue(kv.Key, out RandomState existingRandom))
             {
                 existingRandom.CopyFrom(kv.Value);
@@ -295,6 +298,17 @@ public class RunInfo : MonoBehaviour
             else
             {
                 randoms[kv.Key] = kv.Value.Clone();
+            }
+        }
+
+        foreach (int key in existingKeys)
+        {
+            if (restoredKeys.Contains(key))
+                continue;
+
+            if (randoms.TryGetValue(key, out RandomState existingRandom))
+            {
+                existingRandom.CopyFrom(new RandomState(unchecked(key + StableHash(seed)), 0));
             }
         }
     }

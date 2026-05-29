@@ -27,6 +27,8 @@ namespace Entities
         public AbstractEntityBehavior behavior;
         public GOList GoList;
         public SkeletonAnimation skeletonAnimation;
+        private Coroutine _blinkCoroutine;
+        private bool _isDead;
         
         public List<AbstractAction> nextTurnActions = new List<AbstractAction>();
 
@@ -143,15 +145,18 @@ namespace Entities
             if (skeletonAnimation != null)
             {
 
-                StartCoroutine(Blink());
+                _blinkCoroutine = StartCoroutine(Blink());
 
             }
         }
         public IEnumerator Blink()
         {
-            while (true)
+            while (!_isDead)
             {
                 yield return new WaitForSeconds(Random.Range(1.5f, 4.5f));
+
+                if (_isDead || skeletonAnimation == null)
+                    yield break;
 
                 if (TrySetAnimation(1, "blink", false))
                 {
@@ -256,16 +261,10 @@ namespace Entities
         
         public virtual void Damage(int damage)
         {
+            if (_isDead)
+                return;
+
             Debug.Log("Damaged for " + damage);
-
-
-            if (skeletonAnimation != null)
-            {
-                if (TrySetAnimation(0, "hurt", false))
-                {
-                    TryAddAnimation(0, "idle", true, 0f);
-                }
-            }
             
             
             hurtSystem.Play();
@@ -288,16 +287,29 @@ namespace Entities
             Health = Mathf.Clamp(Health, 0, initialHealth);
             ShakeOnDamage();
 
-            if (_health <= 0)
-            {
-                Die();
-            }
-            
-            
             // Instantiate damage number
             GameObject newDamageNumber = Instantiate(GoList.GetValue("DamageValueParticle"), transform);
             newDamageNumber.GetComponent<TextMeshPro>().text = "" + damage;
+
+            if (_health <= 0)
+            {
+                Die();
+                return;
+            }
+
+            PlayHurtAnimation();
             
+        }
+
+        private void PlayHurtAnimation()
+        {
+            if (skeletonAnimation == null)
+                return;
+
+            if (TrySetAnimation(0, "hurt", false))
+            {
+                TryAddAnimation(0, "idle", true, 0f);
+            }
         }
 
         private void ShakeOnDamage()
@@ -388,12 +400,29 @@ namespace Entities
 
         public virtual void Die()
         {
+            if (_isDead)
+                return;
+
+            _isDead = true;
+
             // Rip entity :(
             Debug.Log("I have died");
 
+            if (_blinkCoroutine != null)
+            {
+                StopCoroutine(_blinkCoroutine);
+                _blinkCoroutine = null;
+            }
+
             if (skeletonAnimation != null)
             {
-                TrySetAnimation(0, "die", false);
+                skeletonAnimation.AnimationState.ClearTrack(1);
+
+                if (HasSkeletonAnimation("die"))
+                {
+                    skeletonAnimation.AnimationState.ClearTrack(0);
+                    TrySetAnimation(0, "die", false);
+                }
             }
 
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)

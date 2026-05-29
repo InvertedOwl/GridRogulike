@@ -754,7 +754,7 @@ namespace StateManager
 
         public override void Exit()
         {
-            SendCameraToCombatCenter();
+            SendCameraToBoardCenter();
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             
             playingUI.SetScale(new Vector3(2, 2, 2));
@@ -806,19 +806,13 @@ namespace StateManager
             HexClickPlayerController.instance.ClearPendingAttacks();
         }
 
-        private void SendCameraToCombatCenter()
+        private void SendCameraToBoardCenter()
         {
             CameraMove cameraMove = GetCameraMove();
             if (cameraMove == null)
                 return;
 
-            if (TryGetCombatCenter(out Vector3 combatCenter))
-            {
-                cameraMove.SetAutoCameraTarget(combatCenter);
-                return;
-            }
-
-            cameraMove.ClearAutoCameraTarget();
+            cameraMove.SetAutoCameraTarget(Vector3.zero);
         }
 
         #region Turn System ---------------
@@ -951,6 +945,12 @@ namespace StateManager
         {
             if (entityObject == null)
                 return;
+
+            LerpPosition lerpPosition = entityObject.GetComponent<LerpPosition>();
+            if (lerpPosition != null)
+            {
+                lerpPosition.targetScale = Vector3.zero;
+            }
 
             EaseScale easeScale = entityObject.GetComponent<EaseScale>();
             if (easeScale == null)

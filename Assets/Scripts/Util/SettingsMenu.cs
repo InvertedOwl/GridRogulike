@@ -39,6 +39,9 @@ public class SettingsMenu : MonoBehaviour
     {
         if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
         {
+            if (AreYouSure.Instance != null && AreYouSure.Instance.IsOpen)
+                return;
+
             if (settingsOpen)
             {
                 CloseSettings();

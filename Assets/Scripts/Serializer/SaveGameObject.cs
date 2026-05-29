@@ -9,6 +9,7 @@ namespace Serializer
     {
         private Type queuedState;
         private bool _skipSaveOnQuit;
+        private string _loadedSaveJson;
 
         public void Awake()
         {
@@ -30,6 +31,7 @@ namespace Serializer
                     return;
                 }
 
+                _loadedSaveJson = json;
                 queuedState = SaveFile.FromJSON(json);
             }
             catch (Exception ex)
@@ -61,6 +63,8 @@ namespace Serializer
             if (queuedState != null)
             {
                 GameStateManager.Instance.Change(queuedState);
+                SaveFile.currentJSON = _loadedSaveJson;
+                _loadedSaveJson = null;
                 queuedState = null;
             }
         }

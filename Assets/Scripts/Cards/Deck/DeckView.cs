@@ -5,6 +5,7 @@ using System.Linq;
 using Cards;
 using Entities;
 using StateManager;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
@@ -12,9 +13,15 @@ using Util;
 public class DeckView : MonoBehaviour
 {
     public static DeckView Instance;
+    private static readonly Vector3 OpenLocation = new Vector3(0, 0, 0);
+    private static readonly Vector3 ClosedLocation = new Vector3(0, 550, 0);
+
     public GameObject cardPrefab;
     public Transform cards;
     public Action<Card> Callback;
+    private bool _isOpen;
+    public TextMeshProUGUI Title;
+
     public void GetCard(Action<Card> callback, Card[] cardBlacklist)
     {
         Callback = callback;
@@ -35,6 +42,12 @@ public class DeckView : MonoBehaviour
 
     public void ViewDeckButton()
     {
+        if (_isOpen)
+        {
+            Exit();
+            return;
+        }
+
         ViewDeck();
     }
 
@@ -45,7 +58,7 @@ public class DeckView : MonoBehaviour
         {
             cardsLoad.Add(card.Card);
         }
-        ViewDeck(cardsToLoad:cardsLoad);
+        ViewDeck(cardsToLoad:cardsLoad, title:"Draw Pile");
     }
     public void ViewDiscardPileButton()
     {
@@ -54,16 +67,25 @@ public class DeckView : MonoBehaviour
         {
             cardsLoad.Add(card.Card);
         }
-        ViewDeck(cardsToLoad:cardsLoad);
+        ViewDeck(cardsToLoad:cardsLoad, title:"Discard Pile");
     }
 
-    public void ViewDeck(Card[] cardBlacklist = null, List<Card> cardsToLoad = null)
+    public void ViewDeck(Card[] cardBlacklist = null, List<Card> cardsToLoad = null, string title = "Deck")
     {
         Enter();
+        ClearCards();
+
         if (cardsToLoad == null)
             SpawnCards(Deck.Instance.Cards, cardBlacklist);
         else
             SpawnCards(cardsToLoad, cardBlacklist);
+
+        SetTitle(title);
+    }
+
+    private void SetTitle(string title)
+    {
+        Title.text = title;
     }
 
     private void SpawnCards(List<Card> cardsToLoad, Card[] cardBlacklist = null)
@@ -105,7 +127,8 @@ public class DeckView : MonoBehaviour
     
     private void Enter()
     {
-        GetComponent<EasePosition>().targetLocation = new Vector3(0, 0, 0);
+        _isOpen = true;
+        GetComponent<EasePosition>().targetLocation = OpenLocation;
     }
 
     private void Exit()
@@ -113,12 +136,21 @@ public class DeckView : MonoBehaviour
         if (Callback != null)
         {
             Callback.Invoke(new Card(false));
+            Callback = null;
         }
         
-        GetComponent<EasePosition>().targetLocation = new Vector3(0, 550, 0);
+        _isOpen = false;
+        GetComponent<EasePosition>().targetLocation = ClosedLocation;
 
-        foreach (Transform card in cards)
+        ClearCards();
+    }
+
+    private void ClearCards()
+    {
+        for (int i = cards.childCount - 1; i >= 0; i--)
         {
+            Transform card = cards.GetChild(i);
+            card.SetParent(null);
             Destroy(card.gameObject);
         }
     }

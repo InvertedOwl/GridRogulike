@@ -42,7 +42,7 @@ namespace Cards.CardList
                     }, Rarity.Common, CardSet.Base)),
                 ["2"] = () => new(new Card("Lance", new List<AbstractAction>
                     { 
-                        new AttackAction(1, "basic", null, "", 2, 10),
+                        new AttackAction(2, "basic", null, "", 2, 10),
                     }, Rarity.Uncommon, CardSet.Base)),
                 ["3"] = () => new(new Card("Explosive", new List<AbstractAction>
                     { 

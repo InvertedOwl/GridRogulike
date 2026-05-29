@@ -14,17 +14,25 @@ public class PauseScreen : MonoBehaviour
     
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !settingsMenu.settingsOpen)
+        if (!Input.GetKeyDown(KeyCode.Escape))
+            return;
+
+        if (AreYouSure.Instance != null && AreYouSure.Instance.IsOpen)
         {
-            if (isPaused)
-            {
-                Unpause();
-            }
-            else
-            {
-                Pause();
-            }
-            
+            AreYouSure.Instance.Cancel();
+            return;
+        }
+
+        if (settingsMenu != null && settingsMenu.settingsOpen)
+            return;
+
+        if (isPaused)
+        {
+            Unpause();
+        }
+        else
+        {
+            Pause();
         }
     }
 

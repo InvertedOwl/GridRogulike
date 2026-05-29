@@ -5,6 +5,7 @@ using Util;
 public class AreYouSure : MonoBehaviour
 {
     public Action<bool> callback;
+    public bool IsOpen { get; private set; }
     
     public static AreYouSure Instance;
 
@@ -15,6 +16,7 @@ public class AreYouSure : MonoBehaviour
     
     public void AskConfirm(Action<bool> confirmCallback)
     {
+        IsOpen = true;
         this.callback = confirmCallback;
         GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
     }
@@ -23,6 +25,7 @@ public class AreYouSure : MonoBehaviour
     {
         callback?.Invoke(true);
         callback = null;
+        IsOpen = false;
         GetComponent<LerpPosition>().targetLocation = new Vector2(0, 700);
     }
 
@@ -30,6 +33,7 @@ public class AreYouSure : MonoBehaviour
     {
         callback?.Invoke(false);
         callback = null;
+        IsOpen = false;
         GetComponent<LerpPosition>().targetLocation = new Vector2(0, 700);
     }
 }

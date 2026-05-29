@@ -26,10 +26,12 @@ namespace StateManager
         public override void Enter()
         {
             _grid = HexGridManager.Instance;
+            tilePickRandom = RunInfo.NewRandom("tilepick");
             window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
 
             List<string> idList = TileData.tiles.Keys
                 .Where(t => TileData.tiles[t].canAppearInShop)
+                .OrderBy(t => t, StringComparer.Ordinal)
                 .ToList();
 
             choices = idList
@@ -41,6 +43,17 @@ namespace StateManager
             {
                 HexGridManager.Instance.UpdateHexObject(TileData.tiles[choices[i]], tiles[i]);
             }
+        }
+
+        public void Skip()
+        {
+            AreYouSure.Instance.AskConfirm((confirm) =>
+            {
+                if (!confirm) return;
+                
+                RunInfo.Instance.AddMoney(2);
+                GameStateManager.Instance.Change<ShopState>();
+            });
         }
 
         public void Choose(int index)
