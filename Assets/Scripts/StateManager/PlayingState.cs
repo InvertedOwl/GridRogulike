@@ -454,8 +454,7 @@ namespace StateManager
             {
                 if (e is NonPlayerEntity nonPlayerEntity)
                 {
-                    nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.behavior.NextTurn());
-                    nonPlayerEntity.SetIntent();
+                    PlanEnemyNextTurn(nonPlayerEntity, true);
                 }
             }
         }
@@ -822,10 +821,7 @@ namespace StateManager
             var entity = CurrentTurn;
 
             // Clear all previews because the actions has been done
-            foreach (Vector2Int hex in HexGridManager.Instance.BoardDictionary.Keys)
-            {
-                HexGridManager.Instance.GetWorldHexObject(hex).GetComponent<HexPreviewHandler>().RemoveEventsForEntity(entity);
-            }
+            entity.ClearNextTurnActionPreviews();
             
             entity.EndTurn();
             Debug.Log("Entity end turn");
@@ -840,8 +836,7 @@ namespace StateManager
 
             if (entity is NonPlayerEntity nonPlayerEntity)
             {
-                nonPlayerEntity.HandleNextTurnActions(nonPlayerEntity.behavior.NextTurn());
-                nonPlayerEntity.SetIntent();
+                PlanEnemyNextTurn(nonPlayerEntity, false);
             }
             
 
@@ -882,15 +877,65 @@ namespace StateManager
             var entity = CurrentTurn;
             turnIndicatorManager.SetCurrentTurn(_turnOrder, entities, _currentTurnIndex);
 
-            if (entity is NonPlayerEntity nonPlayerEntity)
+            if (entity is NonPlayerEntity)
             {
-                nonPlayerEntity.RemoveIntent();
+                ClearEnemyIntentPreviews();
             }
 
             entity.StartTurn();
 
+            if (entity.entityType == EntityType.Player)
+            {
+                ShowEnemyIntentPreviews();
+            }
+
             if (entity is NonPlayerEntity enemy)
                 StartCoroutine(MakeEnemyTurn(enemy));
+        }
+
+        private void PlanEnemyNextTurn(NonPlayerEntity enemy, bool showIntent)
+        {
+            if (enemy == null || enemy.behavior == null || enemy.Health <= 0)
+                return;
+
+            enemy.behavior.NextTurn();
+
+            if (showIntent)
+            {
+                ShowEnemyIntentPreview(enemy);
+            }
+            else
+            {
+                enemy.ClearIntentVisuals();
+            }
+        }
+
+        private void ShowEnemyIntentPreviews()
+        {
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity is NonPlayerEntity enemy && enemy.Health > 0)
+                {
+                    ShowEnemyIntentPreview(enemy);
+                }
+            }
+        }
+
+        private void ShowEnemyIntentPreview(NonPlayerEntity enemy)
+        {
+            enemy.HandleNextTurnActions(enemy.plannedAction);
+            enemy.SetIntent();
+        }
+
+        private void ClearEnemyIntentPreviews()
+        {
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity is NonPlayerEntity enemy)
+                {
+                    enemy.ClearIntentVisuals();
+                }
+            }
         }
 
         

@@ -17,7 +17,7 @@ namespace Cards.CardList
                 { 
                     new AttackAllAction(0, "basic", null, 500),
                 }, Rarity.Developer, CardSet.Developer),
-                new [] { new StartingDeckEntry(StartingDecks.basic, 0) }, false),
+                new [] { new StartingDeckEntry(StartingDecks.basic, 10) }, false),
                 
 
                 ["bstarting1"] = () => new(new Card("Starting Attack", new List<AbstractAction>

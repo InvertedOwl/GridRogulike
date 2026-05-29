@@ -329,13 +329,24 @@ namespace Entities
         
         List<string> arrowUUIDs = new List<string>();
 
-        public virtual void HandleNextTurnActions(List<AbstractAction> actions)
+        public virtual void ClearNextTurnActionPreviews()
         {
             foreach (string arrowUUID in arrowUUIDs)
             {
                 SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
             }
+
             arrowUUIDs.Clear();
+
+            foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
+            {
+                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().RemoveEventsForEntity(this);
+            }
+        }
+
+        public virtual void HandleNextTurnActions(List<AbstractAction> actions)
+        {
+            ClearNextTurnActionPreviews();
 
             List<AbstractStatus> plannedSelfStatuses = new List<AbstractStatus>();
 
@@ -423,11 +434,6 @@ namespace Entities
                     skeletonAnimation.AnimationState.ClearTrack(0);
                     TrySetAnimation(0, "die", false);
                 }
-            }
-
-            foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
-            {
-                HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().RemoveEventsForEntity(this);
             }
 
             plannedAction = new List<AbstractAction>();

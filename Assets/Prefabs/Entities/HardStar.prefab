@@ -512,7 +512,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.DirectionalAttackEnemy
   self: {fileID: 7298716413688849994}
+  targetSearchMode: 0
+  maxMovesPerTurn: 1
+  stopMovingWhenWithinDistance: 2
   DefaultDamage: 10
+  attackRange: 3
 --- !u!114 &7298716413688849994 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}

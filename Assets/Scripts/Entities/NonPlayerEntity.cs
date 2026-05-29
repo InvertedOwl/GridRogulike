@@ -74,6 +74,12 @@ namespace Entities
             plannedActionSprite.GetComponent<EaseScale>().SetScale(Vector3.zero);
         }
 
+        public void ClearIntentVisuals()
+        {
+            ClearNextTurnActionPreviews();
+            HideIntentIndicator();
+        }
+
         public void RemoveIntent()
         {
             StartCoroutine(RemoveIntentLate());
