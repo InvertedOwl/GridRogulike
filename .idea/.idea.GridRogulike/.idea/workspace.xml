@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Settings Screen.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -406,14 +403,6 @@
       <workItem from="1779741845244" duration="644000" />
       <workItem from="1779763399784" duration="7419000" />
     </task>
-    <task id="LOCAL-00031" summary="Streamed the changes here.">
-      <option name="closed" value="true" />
-      <created>1774727635881</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1774727635881</updated>
-    </task>
     <task id="LOCAL-00032" summary="Lots of changes + broken intents">
       <option name="closed" value="true" />
       <created>1774905890510</created>
@@ -798,7 +787,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779741874832</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="Minor Balance and updates: Todo is events">
+      <option name="closed" value="true" />
+      <created>1780086578384</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1780086578385</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -825,7 +822,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="hmm dashed material work" />
     <MESSAGE value="Some changes" />
     <MESSAGE value="Minor visual improvements" />
     <MESSAGE value="Preview system (WIP)" />
@@ -850,7 +846,8 @@
     <MESSAGE value="Bug fixes + Minor Features + WIP auto camera" />
     <MESSAGE value="revert auto camera stuff" />
     <MESSAGE value="Death Animations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Death Animations" />
+    <MESSAGE value="Minor Balance and updates: Todo is events" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor Balance and updates: Todo is events" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
