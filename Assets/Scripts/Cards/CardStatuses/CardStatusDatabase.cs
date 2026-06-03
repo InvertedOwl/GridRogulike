@@ -53,7 +53,7 @@ namespace Cards.CardStatuses
             {
                 s.ModifyPlay = (List<AbstractCardEvent> events, Card card) =>
                 {
-                    events.Add(new DamageSelfCardEvent(5));
+                    events.Add(new DamageSelfCardEvent(2));
                     return events;
                 };
             }

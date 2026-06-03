@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardStatuses/CardStatusDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardStatuses/CardStatusDatabase.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +212,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/0.1.16\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.0.15-Profiler\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -402,14 +402,7 @@
       <workItem from="1779666226083" duration="84000" />
       <workItem from="1779741845244" duration="644000" />
       <workItem from="1779763399784" duration="7419000" />
-    </task>
-    <task id="LOCAL-00032" summary="Lots of changes + broken intents">
-      <option name="closed" value="true" />
-      <created>1774905890510</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1774905890510</updated>
+      <workItem from="1780368071878" duration="1124000" />
     </task>
     <task id="LOCAL-00033" summary="Minor adjustments">
       <option name="closed" value="true" />
@@ -795,7 +788,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780086578385</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Ball Boss">
+      <option name="closed" value="true" />
+      <created>1780368180296</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1780368180296</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -822,7 +823,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Some changes" />
     <MESSAGE value="Minor visual improvements" />
     <MESSAGE value="Preview system (WIP)" />
     <MESSAGE value="minor visual changes (rotating game board)" />
@@ -847,7 +847,8 @@
     <MESSAGE value="revert auto camera stuff" />
     <MESSAGE value="Death Animations" />
     <MESSAGE value="Minor Balance and updates: Todo is events" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor Balance and updates: Todo is events" />
+    <MESSAGE value="Ball Boss" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ball Boss" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
