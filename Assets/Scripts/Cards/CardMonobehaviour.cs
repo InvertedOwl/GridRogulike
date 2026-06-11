@@ -49,6 +49,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public CardStatusDatabase.CardStatus? CardStatus;
     private Card _card;
     public bool onlyDisplay = false;
+    public RandomPitchSound sound;
 
     public Card Card => _card;
     public float CostOverride = -1f;
@@ -442,6 +443,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         UpdateTypesTitles();
     }
 
+    private bool washover;
+
     private void HandleHoverEffects()
     {
         InfoPanel.gameObject.SetActive(true);
@@ -463,6 +466,13 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             action.Hover();
         }
+
+        if (!washover)
+        {
+
+        }
+
+        washover = true;
     }
 
     private void ResetHoverEffects()
@@ -476,6 +486,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             action.NotHover();
         }
+
+        washover = false;
     }
 
     private void HandleCardUsage()
@@ -497,6 +509,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             Deck.Instance.SetHandToUnused();
             used = true;
             CardClickedCallback?.Invoke();
+
+            sound.PlaySound("hover", 0.5f);
 
             if (!onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn && HasManualAttackAction())
             {
@@ -553,7 +567,10 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         if (attackCardEvents.Count > 0)
+        {
             HexClickPlayerController.instance.PreviewAttackEvents(attackCardEvents);
+            HexClickPlayerController.instance.BeginNonManualAttackPreview(attackCardEvents, this);
+        }
     }
 
     private void BeginManualAttackTargeting()
@@ -603,8 +620,28 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         return true;
     }
 
+    public bool TryPlayNonManualAttackPreview()
+    {
+        bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride > -1) ? CostOverride : _card.Cost);
+        bool isPlayerTurn = false;
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
+            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
+
+        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn)
+            return false;
+
+        PlayCard(out List<AttackCardEvent> attackCardEvents);
+
+        if (attackCardEvents.Count > 0 && HexClickPlayerController.instance != null)
+            HexClickPlayerController.instance.AddToAttack(attackCardEvents);
+
+        played = true;
+        return true;
+    }
+
     private void PlayCard(out List<AttackCardEvent> attackCardEvents)
     {
+        sound.PlaySound("play", 0.5f);
         int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
         Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
 

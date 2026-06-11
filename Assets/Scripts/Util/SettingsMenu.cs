@@ -1,4 +1,5 @@
 using System;
+using StateManager;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
@@ -23,6 +24,7 @@ public class SettingsMenu : MonoBehaviour
     
     public void CloseSettings()
     {
+        GameStateManager.Instance?.PlayWindowOutSound();
         SettingsContent.GetComponent<EasePosition>().targetLocation = new Vector3(0, 750, 0);
         screenColor.targetColor = new Color(0f, 0f, 0f, 0.0f);
         settingsOpen = false;
@@ -30,6 +32,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void OpenSettings()
     {
+        GameStateManager.Instance?.PlayWindowInSound();
         SettingsContent.GetComponent<EasePosition>().targetLocation = new Vector3(0, 75, 0);
         screenColor.targetColor = new Color(0f, 0f, 0f, 0.8f);
         settingsOpen = true;

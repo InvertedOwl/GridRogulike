@@ -15,6 +15,7 @@ namespace StateManager
         private GameObject _newTile;
         private HexGridManager _grid;
         private int _chosenIndex;
+        private bool _windowVisible;
 
         public RandomState tilePickRandom = RunInfo.NewRandom("tilepick");
 
@@ -27,6 +28,8 @@ namespace StateManager
         {
             _grid = HexGridManager.Instance;
             tilePickRandom = RunInfo.NewRandom("tilepick");
+            _windowVisible = true;
+            PlayWindowInSound();
             window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
 
             List<string> idList = TileData.tiles.Keys
@@ -62,7 +65,7 @@ namespace StateManager
             {
                 if (!confirm) return;
 
-                window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 730);
+                HideWindow();
 
                 // Don't parent world object to UI in 3D
                 _newTile = Instantiate(_grid.GetHexPrefab(choices[index], window.transform));
@@ -166,6 +169,17 @@ namespace StateManager
 
         public override void Exit()
         {
+            HideWindow();
+        }
+
+        private void HideWindow()
+        {
+            if (_windowVisible)
+            {
+                PlayWindowOutSound();
+                _windowVisible = false;
+            }
+
             window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 730);
         }
     }

@@ -16,6 +16,8 @@ namespace Grid {
         public List<AttackCardEvent> ToAttack = new List<AttackCardEvent>();
         private CardMonobehaviour _pendingCard;
         private bool _pendingCardHasStarted;
+        private CardMonobehaviour _pendingNonManualAttackPreviewCard;
+        private readonly HashSet<Vector2Int> _pendingNonManualAttackPreviewPositions = new HashSet<Vector2Int>();
 
         public void AddToAttack(IEnumerable<AbstractCardEvent> cardEvents)
         {
@@ -53,6 +55,23 @@ namespace Grid {
                     continue;
 
                 ShowAttackPreview(attackPosition);
+            }
+        }
+
+        public void BeginNonManualAttackPreview(IEnumerable<AttackCardEvent> cardEvents, CardMonobehaviour card)
+        {
+            _pendingNonManualAttackPreviewCard = card;
+            _pendingNonManualAttackPreviewPositions.Clear();
+
+            if (GameStateManager.Instance == null || !GameStateManager.Instance.IsCurrent<PlayingState>())
+                return;
+
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+
+            foreach (AttackCardEvent attackCardEvent in cardEvents)
+            {
+                if (TryGetAttackPosition(attackCardEvent, playingState.player.positionRowCol, out Vector2Int attackPosition))
+                    _pendingNonManualAttackPreviewPositions.Add(attackPosition);
             }
         }
         
@@ -142,6 +161,8 @@ namespace Grid {
 
         public void ClearPendingAttacks()
         {
+            ClearPendingNonManualAttackPreview();
+
             if (_pendingCard != null)
             {
                 if (_pendingCardHasStarted)
@@ -159,6 +180,12 @@ namespace Grid {
             _pendingCard = null;
             _pendingCardHasStarted = false;
             isAttacking = false;
+        }
+
+        private void ClearPendingNonManualAttackPreview()
+        {
+            _pendingNonManualAttackPreviewCard = null;
+            _pendingNonManualAttackPreviewPositions.Clear();
         }
 
         private void ResolveCurrentAttack()
@@ -297,6 +324,9 @@ namespace Grid {
             
             List<AbstractEntity> entitiesOnHex = new List<AbstractEntity>();
             playingState.EntitiesOnHex(hexPosition, out entitiesOnHex);
+
+            if (TryPlayPendingNonManualAttackPreview(hexPosition, playingState))
+                return;
             
             // If player is attacking, and the target is within the distance in the event
             // and the tile has an entity and that entity is not the player
@@ -368,6 +398,35 @@ namespace Grid {
             }
             
             playingState.CaptureFinish();
+        }
+
+        private bool TryPlayPendingNonManualAttackPreview(Vector2Int hexPosition, PlayingState playingState)
+        {
+            if (_pendingNonManualAttackPreviewCard == null)
+                return false;
+
+            if (!_pendingNonManualAttackPreviewPositions.Contains(hexPosition))
+                return false;
+
+            CardMonobehaviour card = _pendingNonManualAttackPreviewCard;
+            ClearPendingNonManualAttackPreview();
+
+            if (card == null)
+            {
+                ClearToAttackEmitters();
+                return true;
+            }
+
+            if (!card.TryPlayNonManualAttackPreview())
+            {
+                ClearToAttackEmitters();
+                return true;
+            }
+
+            ClearToAttackEmitters();
+            UpdateMovableParticles(playingState);
+            playingState.CaptureFinish();
+            return true;
         }
 
         public Dictionary<Vector2Int, int> CalculateDistanceMap(Vector2Int hexPosition, PlayingState playingState)

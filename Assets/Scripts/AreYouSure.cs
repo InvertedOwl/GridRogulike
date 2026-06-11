@@ -1,4 +1,5 @@
 using System;
+using StateManager;
 using UnityEngine;
 using Util;
 
@@ -18,6 +19,7 @@ public class AreYouSure : MonoBehaviour
     {
         IsOpen = true;
         this.callback = confirmCallback;
+        PlayWindowInSound();
         GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
     }
     
@@ -26,6 +28,7 @@ public class AreYouSure : MonoBehaviour
         callback?.Invoke(true);
         callback = null;
         IsOpen = false;
+        PlayWindowOutSound();
         GetComponent<LerpPosition>().targetLocation = new Vector2(0, 700);
     }
 
@@ -34,6 +37,19 @@ public class AreYouSure : MonoBehaviour
         callback?.Invoke(false);
         callback = null;
         IsOpen = false;
+        PlayWindowOutSound();
         GetComponent<LerpPosition>().targetLocation = new Vector2(0, 700);
+    }
+
+    private void PlayWindowInSound()
+    {
+        if (GameStateManager.Instance != null)
+            GameStateManager.Instance.PlayWindowInSound();
+    }
+
+    private void PlayWindowOutSound()
+    {
+        if (GameStateManager.Instance != null)
+            GameStateManager.Instance.PlayWindowOutSound();
     }
 }

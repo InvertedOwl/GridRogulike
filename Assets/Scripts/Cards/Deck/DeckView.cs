@@ -128,6 +128,7 @@ public class DeckView : MonoBehaviour
     private void Enter()
     {
         _isOpen = true;
+        GameStateManager.Instance?.PlayWindowInSound();
         GetComponent<EasePosition>().targetLocation = OpenLocation;
     }
 
@@ -140,6 +141,7 @@ public class DeckView : MonoBehaviour
         }
         
         _isOpen = false;
+        GameStateManager.Instance?.PlayWindowOutSound();
         GetComponent<EasePosition>().targetLocation = ClosedLocation;
 
         ClearCards();

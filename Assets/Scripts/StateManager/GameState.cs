@@ -27,5 +27,17 @@ namespace StateManager
         public virtual Type GetSaveDataType() => null;
 
         protected GameStateManager Manager => GameStateManager.Instance;
+
+        protected void PlayWindowInSound()
+        {
+            if (GameStateManager.Instance != null)
+                GameStateManager.Instance.PlayWindowInSound();
+        }
+
+        protected void PlayWindowOutSound()
+        {
+            if (GameStateManager.Instance != null)
+                GameStateManager.Instance.PlayWindowOutSound();
+        }
     }
 }

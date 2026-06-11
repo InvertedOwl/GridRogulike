@@ -64,6 +64,7 @@ namespace StateManager
                 SetupMap();
             }
 
+            PlayWindowInSound();
             window.SendToLocation(new Vector3(0, 20, 0));
 
             DrawConnections();
@@ -135,7 +136,7 @@ namespace StateManager
             PlayingState.RewardMoney = node.rewardMoney;
             PlayingState.encounterData = node.encounterData;
 
-            if (node.target == MapTarget.Enemy || node.target == MapTarget.HardEnemy)
+            if (node.target == MapTarget.Enemy || node.target == MapTarget.HardEnemy || node.target == MapTarget.Boss)
             {
                 GameStateManager.Instance.Change<PlayingState>();
             }
@@ -560,6 +561,7 @@ namespace StateManager
 
         public override void Exit()
         {
+            PlayWindowOutSound();
             window.SendToLocation(new Vector2(0, 750));
         }
     }

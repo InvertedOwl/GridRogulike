@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 808344974026869836}
   - component: {fileID: 8355591662259627027}
   - component: {fileID: 6934087519090248187}
-  - component: {fileID: 7152859142768159993}
   - component: {fileID: 1948790581289561086}
   - component: {fileID: 2312852480708622797}
-  - component: {fileID: 2854589881320375097}
   - component: {fileID: 6143409782595562975}
+  - component: {fileID: 6770883591653734823}
   m_Layer: 0
   m_Name: DamageValueParticle
   m_TagString: Untagged
@@ -186,33 +185,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8355591662259627027}
   m_maskType: 0
---- !u!50 &7152859142768159993
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989911552943838377}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 4
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1948790581289561086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,19 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a5092f6dc99146b21e8d2505f52bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  secondsToWait: 3
---- !u!114 &2854589881320375097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989911552943838377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a467b012594f58d41962024d890d7701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
+  secondsToWait: 2
 --- !u!114 &6143409782595562975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,3 +227,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!50 &6770883591653734823
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989911552943838377}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

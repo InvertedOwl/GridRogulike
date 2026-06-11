@@ -25,6 +25,7 @@ namespace StateManager
 
         public override void Enter()
         {
+            PlayWindowInSound();
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));
             if (_eventRandom == null)
                 _eventRandom = RunInfo.NewRandom("events");
@@ -56,6 +57,7 @@ namespace StateManager
 
         public override void Exit()
         {
+            PlayWindowOutSound();
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 730));
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Util;
 
-public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     // Thank you AI :)
     
@@ -45,6 +45,8 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
     
     [Tooltip("The EasePosition component to animate")]
     [SerializeField] private EasePosition positionGraphic;
+
+    [Header("Sounds")] [SerializeField] private RandomPitchSound sound;
     
     // Coroutine references for cancellation
     private Coroutine _scaleUpCoroutine;
@@ -114,6 +116,14 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
     }
 
+    /// <summary>
+    /// Called when the UI element is clicked
+    /// </summary>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        sound.PlaySound("click", 0.2f);
+    }
+    
     /// <summary>
     /// Called when the mouse pointer enters the UI element
     /// </summary>

@@ -67,7 +67,8 @@ namespace StateManager
             {
                 _shopRandom = RunInfo.NewRandom("shop");
             }
-            
+
+            PlayWindowInSound();
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 0));
 
             CardOptions = CardData.GetShopCards();
@@ -83,6 +84,7 @@ namespace StateManager
         }
         public override void Exit()
         {
+            PlayWindowOutSound();
             window.GetComponent<EasePosition>().SendToLocation(new Vector2(0, 730));
             for (int i = 0; i < cardOptions.Count; i++)
             {
@@ -235,6 +237,7 @@ namespace StateManager
 
         public void BuyCombineCards()
         {
+            PlayWindowInSound();
             CardCombine.GetComponent<EasePosition>().targetLocation = new Vector3(0, 0);
             isCardCombine = true;
         }
@@ -269,6 +272,7 @@ namespace StateManager
         public void CancelCombineCards()
         {
             RunInfo.Instance.Money += RunInfo.Instance.combineCost;
+            PlayWindowOutSound();
             CardCombine.GetComponent<EasePosition>().SendToLocation(new Vector3(0, 750), () =>
             {
                 if (RunInfo.Instance.Money < RunInfo.Instance.combineCost)
@@ -282,6 +286,7 @@ namespace StateManager
 
         public void ConfirmCombineCards()
         {
+            PlayWindowOutSound();
             CardCombine.GetComponent<EasePosition>().SendToLocation(new Vector3(0, 750), () =>
             {
                 CardCombine.GetComponent<CardCombine>().ConfirmCombine();

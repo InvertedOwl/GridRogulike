@@ -14,11 +14,13 @@ namespace StateManager
 
         public override void Enter()
         {
+            PlayWindowInSound();
             MoveWindow(visiblePosition);
         }
 
         public override void Exit()
         {
+            PlayWindowOutSound();
             MoveWindow(hiddenPosition);
         }
 

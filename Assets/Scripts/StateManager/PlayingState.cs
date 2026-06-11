@@ -110,6 +110,7 @@ namespace StateManager
         
         public override void Enter()
         {
+            PlayWindowInSound();
             playingHealth.targetLocation = new Vector3(0, 0, 0);
             Debug.Log("Save is  " + SaveData);
             if (SaveData != null)
@@ -753,6 +754,7 @@ namespace StateManager
 
         public override void Exit()
         {
+            PlayWindowOutSound();
             SendCameraToBoardCenter();
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             

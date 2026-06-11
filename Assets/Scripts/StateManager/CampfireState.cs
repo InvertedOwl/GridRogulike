@@ -18,11 +18,13 @@ namespace StateManager
         
         public override void Enter()
         {
+            PlayWindowInSound();
             window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
         }
 
         public override void Exit()
         {
+            PlayWindowOutSound();
             window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 730);
         }
 

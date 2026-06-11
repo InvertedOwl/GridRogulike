@@ -1,4 +1,5 @@
 using System;
+using StateManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Util;
@@ -43,6 +44,7 @@ public class PauseScreen : MonoBehaviour
 
     public void Pause()
     {
+        GameStateManager.Instance?.PlayWindowInSound();
         screenColor.targetColor = new Color(0f, 0f, 0f, 0.8f);
         pauseContent.SetActive(true);
         isPaused = true;
@@ -50,6 +52,7 @@ public class PauseScreen : MonoBehaviour
 
     public void Unpause()
     {
+        GameStateManager.Instance?.PlayWindowOutSound();
         screenColor.targetColor = new Color(0f, 0f, 0f, 0.0f);
         pauseContent.SetActive(false);
         isPaused = false;

@@ -37,3 +37,7 @@ MonoBehaviour:
     enemyPrefab: {fileID: 3518368252074035926, guid: 8e10e9b657c1c8a40ae39a7864895016, type: 3}
     enemyType: 0
     enemyIconPrefab: {fileID: 0}
+  - enemyName: Ball
+    enemyPrefab: {fileID: 3518368252074035926, guid: de8a763a9ec0c59438437f0b2ef72d32, type: 3}
+    enemyType: 2
+    enemyIconPrefab: {fileID: 0}
