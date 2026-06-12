@@ -19,7 +19,7 @@ public class GameplayNavSettings : MonoBehaviour
 
         Speed.value = animSpeed;
         autoendturn.isOn = automaticallyendturn;
-        autocameratoggle.isOn = automaitcallymovecaemra;
+        // autocameratoggle.isOn = automaitcallymovecaemra;
         
 
         UpdateSettings();

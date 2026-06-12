@@ -76,6 +76,18 @@ namespace Cards
             cardRandom = RunInfo.NewRandom(UniqueId);
             CardSet = cardSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Card objCard)
+            {
+                return objCard.UniqueId == UniqueId;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
 

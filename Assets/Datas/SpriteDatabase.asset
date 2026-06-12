@@ -45,3 +45,23 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 4c71dc077a0209a4686bb2c35a5bd19b, type: 3}
   - key: shield
     sprite: {fileID: 21300000, guid: a41294bee8f2e4aa4bb1780c6f3f7ea1, type: 3}
+  - key: foresight
+    sprite: {fileID: 21300000, guid: e7212514c6bf0dc498e45cd660a2d826, type: 3}
+  - key: refund
+    sprite: {fileID: 21300000, guid: 1859ffbc0410a7c4d8819bcab4b6a33c, type: 3}
+  - key: stride
+    sprite: {fileID: 21300000, guid: 659934ae3a15e4644bf4e399b704d571, type: 3}
+  - key: cornered
+    sprite: {fileID: 21300000, guid: 70054ae45bc640648923b59d2abf0700, type: 3}
+  - key: headstart
+    sprite: {fileID: 21300000, guid: 2110479ba888f6c45b0b4253768fee6e, type: 3}
+  - key: bloodbattery
+    sprite: {fileID: 21300000, guid: ee4fc93b1e7cc104996c0a9d827903d4, type: 3}
+  - key: loanshark
+    sprite: {fileID: 21300000, guid: 796e8dce15ec5044ca25a5cf289091b9, type: 3}
+  - key: houseedge
+    sprite: {fileID: 21300000, guid: 6df99a9b6dce1914db501e54e1f6c66d, type: 3}
+  - key: recklessstrike
+    sprite: {fileID: 21300000, guid: fd95d58b366f9b4418bfe7058e656d90, type: 3}
+  - key: overcharge
+    sprite: {fileID: 21300000, guid: abbdd6943605653459417c7e936f92c8, type: 3}

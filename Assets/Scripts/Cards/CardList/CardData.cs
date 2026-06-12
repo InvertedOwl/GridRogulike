@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cards.Actions;
+using Cards.CardEvents;
 using Types;
 using Types.Passives;
 
@@ -15,11 +16,18 @@ namespace Cards.CardList
                 // Developer
                 ["DeveloperAttack"] = () => new(new Card("Developer Attack", new List<AbstractAction>
                 { 
-                    new AttackAllAction(0, "basic", null, 500),
+                    new AttackAllAction(0, "basic", null, 1000),
+                    new PushAllEnemiesAwayAction(0, "basic", null, 1),
                 }, Rarity.Developer, CardSet.Developer),
-                new [] { new StartingDeckEntry(StartingDecks.basic, 0) }, false),
-                
+                new [] { new StartingDeckEntry(StartingDecks.basic, 5) }, false),
+                ["DeveloperSteps"] = () => new(new Card("Developer Steps", new List<AbstractAction>
+                    { 
+                        new GainStepsCardAction(0, "basic", null, 1000)
+                    }, Rarity.Developer, CardSet.Developer),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 5) }, false),
 
+
+                
                 ["bstarting1"] = () => new(new Card("Starting Attack", new List<AbstractAction>
                     { 
                         new AttackAction(1, "basic", null, "", 1, 8),
@@ -32,7 +40,7 @@ namespace Cards.CardList
                     new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
                 ["bstarting3"] = () => new(new Card("Starting Move", new List<AbstractAction>
                     { 
-                        new GainStepsCardAction(2, "basic", null, 1),
+                        new GainStepsCardAction(1, "basic", null, 1),
                     }, Rarity.Common, CardSet.Base),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
                 

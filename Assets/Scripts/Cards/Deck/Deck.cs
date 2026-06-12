@@ -535,6 +535,32 @@ public class Deck : MonoBehaviour
         Debug.Log("Cards in hand: " + _hand.Count);
     }
 
+    public void DrawCard(Card card)
+    {
+        for (int i = 0; i < _draw.Count; i++)
+        {
+            CardMonobehaviour drawnCard = _draw[i];
+            if (!drawnCard.Card.Equals(card))
+            {
+                continue;
+            }
+            Debug.Log("Drawing single card: " + card.CardName);
+            _draw.RemoveAt(i);
+            _hand.Add(drawnCard);
+
+            LerpPosition drawnLerp = drawnCard.GetComponent<LerpPosition>();
+            drawnCard.transform.position = drawTransform.position;
+            drawnLerp.targetLocation = drawTransform.localPosition;
+            drawnCard.ResetPlayState();
+            drawnCard.transform.SetSiblingIndex(i);
+            drawnCard.siblingIndex = i;
+        }
+
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
+        PositionHandCards(0);
+    }
+    
     public void FullDrawHand(int numToDraw)
     {
         // If amount to draw is more than is in the deck, just draw the amount of cards.

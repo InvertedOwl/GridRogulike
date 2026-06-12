@@ -10,13 +10,20 @@ namespace Types.Tiles
     {
         None,
         OncePerTurn,
-        OncePerCombat
+        OncePerCombat,
+    }
+    
+    public enum TriggerEventTime
+    {
+        Land,
+        StartTurn,
+        EndTurn,
     }
 
     public class TileEntry
     {
-        public Func<List<AbstractCardEvent>> landEvent;
-        public Func<List<AbstractCardEvent>, List<AbstractCardEvent>> cardModifier;
+        public Dictionary<TriggerEventTime, Func<List<AbstractCardEvent>>> triggerEvents;
+        public Func<List<AbstractCardEvent>, Card, List<AbstractCardEvent>> cardModifier;
         public string name;
         public string description;
         public Color color;
@@ -25,8 +32,14 @@ namespace Types.Tiles
         public TileType tileType;
         public string icon;
         public TileTriggerLimit triggerLimit;
+        public Func<List<AbstractCardEvent>, Card, bool> shouldMarkAsTriggered;
 
-        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType, Func<List<AbstractCardEvent>, List<AbstractCardEvent>> cardModifier, Func<List<AbstractCardEvent>> landEvent, string icon = "none", TileTriggerLimit triggerLimit = TileTriggerLimit.None)
+        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType, 
+            Func<List<AbstractCardEvent>, Card, List<AbstractCardEvent>> cardModifier, 
+            Dictionary<TriggerEventTime, Func<List<AbstractCardEvent>>> triggerEvents, 
+            string icon = "none", 
+            TileTriggerLimit triggerLimit = TileTriggerLimit.None,
+            Func<List<AbstractCardEvent>, Card, bool> shouldMarkAsTriggered = null)
         {
             this.name = name;
             this.description = description;
@@ -34,10 +47,11 @@ namespace Types.Tiles
             this.canAppearInShop = canAppearInShop;
             this.rarity = rarity;
             this.tileType = tileType;
-            this.landEvent = landEvent;
+            this.triggerEvents = triggerEvents;
             this.cardModifier = cardModifier;
             this.icon = icon;
             this.triggerLimit = triggerLimit;
+            this.shouldMarkAsTriggered = shouldMarkAsTriggered;
         }
 
     }

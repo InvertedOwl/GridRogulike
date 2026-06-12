@@ -28,6 +28,12 @@ public class DeckView : MonoBehaviour
         ViewDeck(cardBlacklist);
     }
     
+    public void GetCardWhitelist(Action<Card> callback, Card[] cardWhitelist)
+    {
+        Callback = callback;
+        ViewDeck(cardsToLoad:(new List<Card>(cardWhitelist)), title:"Draw");
+    }
+    
     public void GetCard(Action<Card> callback)
     {
         Callback = callback;

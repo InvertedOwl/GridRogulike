@@ -25,6 +25,12 @@ namespace Cards.CardEvents
             this.distance = distance;
             useTargetPosition = true;
         }
+        
+        public PushEntityAwayCardEvent(int distance)
+        {
+            this.target = target;
+            this.distance = distance;
+        }
 
         public override Dictionary<string, PreviewValue> GetPreviewValues()
         {
@@ -43,31 +49,48 @@ namespace Cards.CardEvents
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is not { } playing)
                 return;
 
-            AbstractEntity entityToPush = GetTargetEntity(playing);
-            if (entityToPush == null || entityToPush == entity)
+            List<AbstractEntity> entitiesToPush = GetTargetEntity(playing);
+            if (entitiesToPush == null || entitiesToPush.Count != 0 || entitiesToPush.Contains(entity))
                 return;
 
-            PushAway(entity, entityToPush, playing);
+            PushAway(entity, entitiesToPush, playing);
         }
 
-        private AbstractEntity GetTargetEntity(PlayingState playing)
+        private List<AbstractEntity> GetTargetEntity(PlayingState playing)
         {
             if (!useTargetPosition)
-                return target;
+                return new List<AbstractEntity>{target};
 
-            playing.EntitiesOnHex(targetPosition, out List<AbstractEntity> entitiesOnHex);
-            return entitiesOnHex.Count > 0 ? entitiesOnHex[0] : null;
+            if (useTargetPosition)
+            {
+                playing.EntitiesOnHex(targetPosition, out List<AbstractEntity> entitiesOnHex);
+                return entitiesOnHex.Count > 0 ? entitiesOnHex : null;
+            }
+
+            List<AbstractEntity> entities = new List<AbstractEntity>();
+            foreach (AbstractEntity entity in playing.entities)  
+            {
+                if (entity.entityType == EntityType.Enemy)
+                {
+                    entities.Add(entity);
+                }
+            }
+
+            return entities;
         }
 
-        private void PushAway(AbstractEntity source, AbstractEntity entityToPush, PlayingState playing)
+        private void PushAway(AbstractEntity source, List<AbstractEntity> entitiesToPush, PlayingState playing)
         {
-            for (int step = 0; step < distance; step++)
+            foreach (AbstractEntity entityToPush in entitiesToPush)
             {
-                if (!TryGetNextPushPosition(source.positionRowCol, entityToPush.positionRowCol, playing, out Vector2Int nextPosition))
-                    return;
+                for (int step = 0; step < distance; step++)
+                {
+                    if (!TryGetNextPushPosition(source.positionRowCol, entityToPush.positionRowCol, playing, out Vector2Int nextPosition))
+                        return;
 
-                if (!playing.MoveEntity(entityToPush, nextPosition))
-                    return;
+                    if (!playing.MoveEntity(entityToPush, nextPosition))
+                        return;
+                }
             }
         }
 

@@ -622,7 +622,7 @@ namespace StateManager
             UpdateAllTileDisableVisuals();
         }
 
-        public void TriggerPlayerTile(Vector2Int position, AbstractEntity entity)
+        public void TriggerPlayerTileLand(Vector2Int position, AbstractEntity entity)
         {
             if (entity == null || entity.entityType != EntityType.Player)
                 return;
@@ -634,11 +634,52 @@ namespace StateManager
             if (!CanTriggerTile(position, tile))
                 return;
 
+            if (!tile.triggerEvents.Keys.Contains(TriggerEventTime.Land))
+                return;
+            
             MarkTileTriggered(position, tile);
-            CardEventPipeline.Activate(tile.landEvent.Invoke(), entity);
+            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.Land].Invoke(), entity);
+        }
+        
+        public void TriggerPlayerTileStart(Vector2Int position, AbstractEntity entity)
+        {
+            if (entity == null || entity.entityType != EntityType.Player)
+                return;
+
+            string tileId = HexGridManager.Instance.HexType(position);
+            if (!TileData.tiles.TryGetValue(tileId, out TileEntry tile))
+                return;
+
+            if (!CanTriggerTile(position, tile))
+                return;
+
+            if (!tile.triggerEvents.Keys.Contains(TriggerEventTime.StartTurn))
+                return;
+            
+            MarkTileTriggered(position, tile);
+            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.StartTurn].Invoke(), entity);
+        }
+        
+        public void TriggerPlayerTileEnd(Vector2Int position, AbstractEntity entity)
+        {
+            if (entity == null || entity.entityType != EntityType.Player)
+                return;
+
+            string tileId = HexGridManager.Instance.HexType(position);
+            if (!TileData.tiles.TryGetValue(tileId, out TileEntry tile))
+                return;
+
+            if (!CanTriggerTile(position, tile))
+                return;
+
+            if (!tile.triggerEvents.Keys.Contains(TriggerEventTime.EndTurn))
+                return;
+            
+            MarkTileTriggered(position, tile);
+            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.EndTurn].Invoke(), entity);
         }
 
-        private bool CanTriggerTile(Vector2Int position, TileEntry tile)
+        public bool CanTriggerTile(Vector2Int position, TileEntry tile)
         {
             return tile.triggerLimit switch
             {
@@ -648,7 +689,7 @@ namespace StateManager
             };
         }
 
-        private void MarkTileTriggered(Vector2Int position, TileEntry tile)
+        public void MarkTileTriggered(Vector2Int position, TileEntry tile)
         {
             if (tile.triggerLimit == TileTriggerLimit.OncePerTurn)
                 _tilesUsedThisTurn.Add(position);
@@ -1165,7 +1206,7 @@ namespace StateManager
             if (ent.entityType == EntityType.Player)
             {
                 // Activate landing events
-                TriggerPlayerTile(target, ent);
+                TriggerPlayerTileLand(target, ent);
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
             }
@@ -1185,7 +1226,7 @@ namespace StateManager
 
             if (ent.entityType == EntityType.Player)
             {
-                TriggerPlayerTile(target, ent);
+                TriggerPlayerTileLand(target, ent);
 
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;

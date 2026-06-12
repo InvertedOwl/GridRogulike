@@ -24,13 +24,14 @@ namespace Entities
         public override void StartTurn()
         {
             Shield = 0;
+            base.StartTurn();
             Deck.Instance.DrawHand();
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             playingState.AllowUserInput = true;
+            
             playingState.ResetTurnTileTriggers();
-            playingState.TriggerPlayerTile(positionRowCol, this);
-            base.StartTurn();
+            playingState.TriggerPlayerTileStart(positionRowCol, this);
         }
 
         public override void EndTurn()
@@ -45,6 +46,9 @@ namespace Entities
             if (GameStateManager.Instance.IsCurrent<PlayingState>())
                 GameStateManager.Instance.GetCurrent<PlayingState>().AllowUserInput = false;
             RunInfo.Instance.CurrentSteps = 0;
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            playingState.TriggerPlayerTileEnd(positionRowCol, this);
+
         }
         
         
