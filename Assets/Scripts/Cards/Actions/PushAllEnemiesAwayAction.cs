@@ -26,17 +26,18 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Push all enemies away " + _amount + " tile";
+            return "Push all enemies away " + _amount + " tile" + (_amount == 1 ? "" : "s");
         }
 
         public override string GetText(CardActionPreview preview)
         {
-            int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Draw, _amount);
-            return preview.FormatValue("Push all enemies away ", _amount, finalAmount) + " tile";
+            int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Distance, _amount);
+            return "Push all enemies away " + preview.FormatValue("", _amount, finalAmount) + " tile" + (finalAmount == 1 ? "" : "s");
         }
 
         public override string ToString()
         {
-            return "Draw Card ";
+            return "Push All Enemies Away " + _amount;
         }
-    } }
+    }
+}

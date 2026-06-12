@@ -2,14 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Cards;
 using Cards.Actions;
 using Entities;
 using StateManager;
 using TMPro;
 using Cards.CardEvents;
-using Cards.CardList;
 using Cards.CardStatuses;
 using Grid;
 using Passives;
@@ -112,7 +110,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _cardRandom = card.cardRandom;
 
         GoList.GetValue("rarityText").GetComponent<TextMeshProUGUI>().text = _card.Rarity.ToString();
-        InfoPanel.RemovePanels();
 
         SetCardSetIcon();
 
@@ -183,28 +180,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public string FormatTextForInfo(string info)
     {
-        string newInfo = info;
-
-        InfoPanel.AddPanels(info);
-
-
-        foreach (string key in BattleStats.names.Keys)
-        {
-            if (newInfo.ToLower().Contains(key))
-            {
-                newInfo = Regex.Replace(newInfo, Regex.Escape(key), BattleStats.names[key](), RegexOptions.IgnoreCase);
-            }
-        }
-
-        foreach (String iconsKey in CardActionTextMapper.icons.Keys)
-        {
-            if (newInfo.ToLower().Contains(iconsKey))
-            {
-                newInfo = Regex.Replace(newInfo, iconsKey, CardActionTextMapper.icons[iconsKey], RegexOptions.IgnoreCase);
-            }
-        }
-
-        return newInfo;
+        return InfoPanel != null ? InfoPanel.FormatTextForInfo(info) : info;
     }
 
     private void UpdateBuff()
@@ -315,7 +291,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 case SpawnPassiveAction spawnPassiveAction:
                     PassiveEntry passiveEntry = PassiveData.GetPassiveEntry(spawnPassiveAction.GetPassive());
                     text = Instantiate(GoList.GetValue("environPrefab"), MainPanel.transform);
-                    text.GetComponent<EnvironMonobehavior>().SetEnviron(passiveEntry.Name, passiveEntry.Desc, passiveEntry.Color);
+                    EnvironMonobehavior environ = text.GetComponent<EnvironMonobehavior>();
+                    environ.SetEnviron(passiveEntry.Name, passiveEntry.Desc, passiveEntry.Color);
+                    InfoPanel.AddTextSources(new[] { environ.title, environ.description });
                     text.transform.localScale = new Vector3(4.5f, 4.5f, 1);
                     posY -= 140;
                     setText = false;
@@ -329,8 +307,10 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
             if (setText)
             {
-                text.transform.GetComponentInChildren<TextMeshProUGUI>().text = FormatTextForInfo(action.GetText());
-                TypeTitles[text.transform.GetComponentInChildren<TextMeshProUGUI>()] = action;
+                TextMeshProUGUI actionText = text.transform.GetComponentInChildren<TextMeshProUGUI>();
+                actionText.text = FormatTextForInfo(action.GetText());
+                TypeTitles[actionText] = action;
+                InfoPanel.AddTextSource(actionText);
             }
             types.Add(text);
             text.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);

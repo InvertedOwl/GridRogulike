@@ -16,7 +16,7 @@ namespace Cards.CardList
                 // Developer
                 ["DeveloperAttack"] = () => new(new Card("Developer Attack", new List<AbstractAction>
                 { 
-                    new AttackAllAction(0, "basic", null, 1000),
+                    new AttackAllAction(0, "basic", null, 10),
                     new PushAllEnemiesAwayAction(0, "basic", null, 1),
                 }, Rarity.Developer, CardSet.Developer),
                 new [] { new StartingDeckEntry(StartingDecks.basic, 5) }, false),
@@ -94,18 +94,18 @@ namespace Cards.CardList
                     //     new GainStepsCardAction(1, "basic", null, 1)
                     // }, Rarity.Common, CardSet.Base)),
                 
-                ["12"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                ["12"] = () => new(new Card("Create Rule", new List<AbstractAction>
                     { 
                         new SpawnPassiveAction(1, "basic", null, "12"),
                         new ScrapCurrentCardAction(0, "basic", null, visible:false),
                     }, Rarity.Common, CardSet.Base)),
                 
-                ["14"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                ["14"] = () => new(new Card("Create Rule", new List<AbstractAction>
                     { 
                         new SpawnPassiveAction(1, "basic", null, "14"),
                         new ScrapCurrentCardAction(1, "basic", null, visible:false),
                     }, Rarity.Uncommon, CardSet.Base)),
-                ["15"] = () => new(new Card("Spawn Passive", new List<AbstractAction>
+                ["15"] = () => new(new Card("Create Rule", new List<AbstractAction>
                     { 
                         new SpawnPassiveAction(1, "basic", null, "15"),
                         new ScrapCurrentCardAction(1, "basic", null, visible:false),

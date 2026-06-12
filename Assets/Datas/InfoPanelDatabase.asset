@@ -63,3 +63,18 @@ MonoBehaviour:
     color: {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 1}
     title: Steps
     description: Used to move to adjacent tiles
+  - key: energy
+    sprite: {fileID: 21300000, guid: 4c71dc077a0209a4686bb2c35a5bd19b, type: 3}
+    color: {r: 0.5158021, g: 1, b: 0.504717, a: 1}
+    title: Energy
+    description: Used to play cards
+  - key: damage
+    sprite: {fileID: 21300000, guid: 77f0f1edc29e09546b0a940c5ca92a79, type: 3}
+    color: {r: 1, g: 0.5682622, b: 0.5058824, a: 1}
+    title: Damage
+    description: Lowers health, but lowers shield first
+  - key: footsteps
+    sprite: {fileID: 21300000, guid: fc3dcfe7939ccba41a453a023d983976, type: 3}
+    color: {r: 1, g: 0.913522, b: 0.9009434, a: 1}
+    title: Steps
+    description: Used to move from one tile to another

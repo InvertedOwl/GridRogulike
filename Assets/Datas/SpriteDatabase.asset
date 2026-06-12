@@ -65,3 +65,53 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: fd95d58b366f9b4418bfe7058e656d90, type: 3}
   - key: overcharge
     sprite: {fileID: 21300000, guid: abbdd6943605653459417c7e936f92c8, type: 3}
+  - key: Dazed
+    sprite: {fileID: 21300000, guid: dff6659ebc8c9cc43bdb25deb4300ba6, type: 3}
+  - key: EnergyIcon
+    sprite: {fileID: 21300000, guid: 4c71dc077a0209a4686bb2c35a5bd19b, type: 3}
+  - key: BuffEnemies
+    sprite: {fileID: 21300000, guid: 73bbc2516a08e2540b624a4c940539f4, type: 3}
+  - key: BowAndArrow
+    sprite: {fileID: 21300000, guid: 810f9bdba8f3e184f9bb2b282418ed16, type: 3}
+  - key: Bramble
+    sprite: {fileID: 21300000, guid: 1d9cb7607e7c219449787c1f670b8154, type: 3}
+  - key: Cursors
+    sprite: {fileID: 21300000, guid: 7999ee79dfa38be498aa67745475ca2b, type: 3}
+  - key: DamageBorder
+    sprite: {fileID: 21300000, guid: c19bee2e805ed61448d27c598edeac2d, type: 3}
+  - key: Damage3
+    sprite: {fileID: 21300000, guid: 07e71670b25170d44bc6aa2f2d9d0293, type: 3}
+  - key: IceIcon
+    sprite: {fileID: 21300000, guid: 8892b82b0e3e64b459cf36c17d1ccefc, type: 3}
+  - key: x2
+    sprite: {fileID: 21300000, guid: bfbd8dd69afa847719641199935754ec, type: 3}
+  - key: Fire
+    sprite: {fileID: 21300000, guid: fea4cd5b7ae97fd4684cb5169b64f60d, type: 3}
+  - key: rock
+    sprite: {fileID: 21300000, guid: 6f0b678c36f5d594c9dbc3ff51eba31f, type: 3}
+  - key: Damage2
+    sprite: {fileID: 21300000, guid: 5cf086f69e699a74f98f48c0326215e9, type: 3}
+  - key: droplets
+    sprite: {fileID: 21300000, guid: 7469a693d6492e144b5d921357456534, type: 3}
+  - key: QuestionMark
+    sprite: {fileID: 21300000, guid: f2535f4f2885b6f43af1084e0310947f, type: 3}
+  - key: CircleSet
+    sprite: {fileID: 21300000, guid: 6b84cc8f097f34e4497e1fbe33dc41cb, type: 3}
+  - key: SemiSet
+    sprite: {fileID: 21300000, guid: 04e88d5f7d7cab847a7e6727c95cafe5, type: 3}
+  - key: Heart
+    sprite: {fileID: 21300000, guid: 908ae08ce00226545b3e3db548ccb50c, type: 3}
+  - key: SquarSet
+    sprite: {fileID: 21300000, guid: b6b802ccf057ca8459eeced7d27a7bc8, type: 3}
+  - key: TriangleSet
+    sprite: {fileID: 21300000, guid: 1ac46c079411cb540ab3d0c5f748b2db, type: 3}
+  - key: Snowflake_1
+    sprite: {fileID: 21300000, guid: b2fbebe2d73f4cd40bde3ef22e54f709, type: 3}
+  - key: Cursor
+    sprite: {fileID: 21300000, guid: 3ede731a364fe7e4c849dc471584b2fc, type: 3}
+  - key: Sword
+    sprite: {fileID: 21300000, guid: 3eac4853729de884e812e036249e0013, type: 3}
+  - key: StarSet
+    sprite: {fileID: 21300000, guid: dd1fb963a7710854fbd96c12ff584542, type: 3}
+  - key: Damage
+    sprite: {fileID: 21300000, guid: 638e9d6cbc8b2d247ab74aa1f41d12b3, type: 3}

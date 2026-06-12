@@ -95,6 +95,7 @@ namespace StateManager
         [SerializeField] private float disabledTileOpacity = 0.6f;
         private readonly HashSet<Vector2Int> _tilesUsedThisTurn = new();
         private readonly HashSet<Vector2Int> _tilesUsedThisCombat = new();
+        private readonly HashSet<NonPlayerEntity> _enemiesNeedingIntentRefresh = new();
         private CameraMove _cameraMove;
 
         [Header("Enemy Scaling")]
@@ -191,6 +192,14 @@ namespace StateManager
                 return;
 
             UpdateAutoCamera();
+            RefreshMovedEnemyIntents();
+
+            if (CheckForFinish() != "none")
+            {
+                CaptureFinish();
+                return;
+            }
+
             TryAutoEndPlayerTurn();
         }
 
@@ -242,31 +251,57 @@ namespace StateManager
         private bool TryGetCombatCenter(out Vector3 center)
         {
             center = Vector3.zero;
-            int entityCount = 0;
+            Vector3 playerCenter = Vector3.zero;
+            Vector3 enemyCenter = Vector3.zero;
+            int playerCount = 0;
+            int enemyCount = 0;
 
             foreach (AbstractEntity entity in entities)
             {
-                if (entity == null ||
-                    (entity.entityType != EntityType.Player && entity.entityType != EntityType.Enemy) ||
-                    entity.Health <= 0)
+                if (entity == null || entity.Health <= 0)
                 {
                     continue;
                 }
 
-                HexGridManager.Instance._hexObjects.TryGetValue(entity.positionRowCol, out GameObject entityHex);
-                Vector3 entityPosition = entityHex != null
-                    ? entityHex.transform.position
-                    : HexGridManager.GetHexCenter(entity.positionRowCol.x, entity.positionRowCol.y);
+                Vector3 entityPosition = GetEntityBoardPosition(entity);
 
-                center += entityPosition;
-                entityCount++;
+                if (entity.entityType == EntityType.Player)
+                {
+                    playerCenter += entityPosition;
+                    playerCount++;
+                }
+                else if (entity.entityType == EntityType.Enemy)
+                {
+                    enemyCenter += entityPosition;
+                    enemyCount++;
+                }
             }
 
-            if (entityCount == 0)
+            if (playerCount == 0 && enemyCount == 0)
                 return false;
 
-            center /= entityCount;
+            if (playerCount > 0)
+                playerCenter /= playerCount;
+
+            if (enemyCount > 0)
+                enemyCenter /= enemyCount;
+
+            if (playerCount > 0 && enemyCount > 0)
+            {
+                center = Vector3.Lerp(playerCenter, enemyCenter, 0.5f);
+                return true;
+            }
+
+            center = playerCount > 0 ? playerCenter : enemyCenter;
             return true;
+        }
+
+        private Vector3 GetEntityBoardPosition(AbstractEntity entity)
+        {
+            HexGridManager.Instance._hexObjects.TryGetValue(entity.positionRowCol, out GameObject entityHex);
+            return entityHex != null
+                ? entityHex.transform.position
+                : HexGridManager.GetHexCenter(entity.positionRowCol.x, entity.positionRowCol.y);
         }
 
         private void TryAutoEndPlayerTurn()
@@ -336,6 +371,38 @@ namespace StateManager
             return entityIndex >= 0 &&
                    entityIndex < entities.Count &&
                    entities[entityIndex].entityType == EntityType.Player;
+        }
+
+        private void QueueEnemyIntentRefreshAfterMove(AbstractEntity movedEntity)
+        {
+            if (movedEntity is not NonPlayerEntity enemy)
+                return;
+
+            enemy.ClearIntentVisuals();
+
+            if (enemy.Health > 0 && IsPlayerTurnActive())
+            {
+                _enemiesNeedingIntentRefresh.Add(enemy);
+            }
+        }
+
+        private void RefreshMovedEnemyIntents()
+        {
+            if (_enemiesNeedingIntentRefresh.Count == 0)
+                return;
+
+            if (!IsPlayerTurnActive())
+            {
+                _enemiesNeedingIntentRefresh.Clear();
+                return;
+            }
+
+            foreach (NonPlayerEntity enemy in _enemiesNeedingIntentRefresh)
+            {
+                PlanEnemyNextTurn(enemy, true);
+            }
+
+            _enemiesNeedingIntentRefresh.Clear();
         }
 
         private bool HasResolvingCard()
@@ -1202,6 +1269,7 @@ namespace StateManager
             if (!IsValidHex(target)) return false;
 
             ent.MoveEntity(target);
+            QueueEnemyIntentRefreshAfterMove(ent);
 
             if (ent.entityType == EntityType.Player)
             {
@@ -1223,6 +1291,7 @@ namespace StateManager
             int dist = 1;
             
             ent.MoveEntity(target);
+            QueueEnemyIntentRefreshAfterMove(ent);
 
             if (ent.entityType == EntityType.Player)
             {

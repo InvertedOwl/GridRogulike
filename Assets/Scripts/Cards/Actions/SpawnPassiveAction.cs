@@ -48,12 +48,12 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Spawn Passive";
+            return "Create Rule";
         }
 
         public override string ToString()
         {
-            return "Spawn Passive";
+            return "Create Rule";
         }
     }
 }

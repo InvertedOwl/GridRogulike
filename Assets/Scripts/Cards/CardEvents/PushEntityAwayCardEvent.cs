@@ -28,7 +28,6 @@ namespace Cards.CardEvents
         
         public PushEntityAwayCardEvent(int distance)
         {
-            this.target = target;
             this.distance = distance;
         }
 
@@ -49,26 +48,36 @@ namespace Cards.CardEvents
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is not { } playing)
                 return;
 
-            List<AbstractEntity> entitiesToPush = GetTargetEntity(playing);
-            if (entitiesToPush == null || entitiesToPush.Count != 0 || entitiesToPush.Contains(entity))
+            List<AbstractEntity> entitiesToPush = GetTargetEntities(playing);
+            if (entitiesToPush == null)
+                return;
+
+            entitiesToPush.RemoveAll(targetEntity =>
+                targetEntity == null ||
+                targetEntity == entity ||
+                targetEntity.Health <= 0);
+
+            if (entitiesToPush.Count == 0)
                 return;
 
             PushAway(entity, entitiesToPush, playing);
         }
 
-        private List<AbstractEntity> GetTargetEntity(PlayingState playing)
+        private List<AbstractEntity> GetTargetEntities(PlayingState playing)
         {
-            if (!useTargetPosition)
-                return new List<AbstractEntity>{target};
-
             if (useTargetPosition)
             {
                 playing.EntitiesOnHex(targetPosition, out List<AbstractEntity> entitiesOnHex);
-                return entitiesOnHex.Count > 0 ? entitiesOnHex : null;
+                return entitiesOnHex;
+            }
+
+            if (target != null)
+            {
+                return new List<AbstractEntity> { target };
             }
 
             List<AbstractEntity> entities = new List<AbstractEntity>();
-            foreach (AbstractEntity entity in playing.entities)  
+            foreach (AbstractEntity entity in playing.GetEntities())
             {
                 if (entity.entityType == EntityType.Enemy)
                 {
@@ -86,10 +95,10 @@ namespace Cards.CardEvents
                 for (int step = 0; step < distance; step++)
                 {
                     if (!TryGetNextPushPosition(source.positionRowCol, entityToPush.positionRowCol, playing, out Vector2Int nextPosition))
-                        return;
+                        break;
 
                     if (!playing.MoveEntity(entityToPush, nextPosition))
-                        return;
+                        break;
                 }
             }
         }
@@ -104,10 +113,9 @@ namespace Cards.CardEvents
             int currentDistance = DistanceFrom(sourcePosition, pushedPosition);
             int bestDistance = currentDistance;
             float bestAlignment = float.NegativeInfinity;
-
-            Vector2 sourceWorld = HexGridManager.GetHexCenter(sourcePosition.x, sourcePosition.y);
-            Vector2 pushedWorld = HexGridManager.GetHexCenter(pushedPosition.x, pushedPosition.y);
-            Vector2 awayDirection = (pushedWorld - sourceWorld).normalized;
+            Vector3 awayDirection = GetCubeDelta(sourcePosition, pushedPosition);
+            if (awayDirection == Vector3.zero)
+                return false;
 
             foreach (string direction in HexGridManager.HexDirections)
             {
@@ -117,13 +125,14 @@ namespace Cards.CardEvents
                     continue;
 
                 int candidateDistance = DistanceFrom(sourcePosition, candidate);
-                if (candidateDistance <= bestDistance)
+                if (candidateDistance <= currentDistance)
                     continue;
 
-                Vector2 candidateWorld = HexGridManager.GetHexCenter(candidate.x, candidate.y);
-                float alignment = Vector2.Dot((candidateWorld - pushedWorld).normalized, awayDirection);
+                Vector3 candidateDirection = GetCubeDelta(pushedPosition, candidate);
+                float alignment = Vector3.Dot(candidateDirection.normalized, awayDirection.normalized);
 
-                if (candidateDistance > bestDistance || alignment > bestAlignment)
+                if (alignment > bestAlignment ||
+                    (Mathf.Approximately(alignment, bestAlignment) && candidateDistance > bestDistance))
                 {
                     bestDistance = candidateDistance;
                     bestAlignment = alignment;
@@ -142,6 +151,21 @@ namespace Cards.CardEvents
             return distanceMap.TryGetValue(target, out int mappedDistance)
                 ? mappedDistance
                 : int.MaxValue;
+        }
+
+        private Vector3 GetCubeDelta(Vector2Int from, Vector2Int to)
+        {
+            return OffsetToCube(to) - OffsetToCube(from);
+        }
+
+        private Vector3 OffsetToCube(Vector2Int offset)
+        {
+            int rowParity = Mathf.Abs(offset.y % 2);
+            int q = offset.x - ((offset.y - rowParity) / 2);
+            int r = offset.y;
+            int s = -q - r;
+
+            return new Vector3(q, r, s);
         }
     }
 }

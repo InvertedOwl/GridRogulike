@@ -20,7 +20,7 @@ namespace Types.Tiles
             //Look at the top 3 cards of the draw pile. Pick one to draw.
             ["Foresight"] = new ( 
                 "Foresight",
-                "When landing here, Look at the top 3 cards of the draw pile. Pick one to draw.",
+                "<b><u>On enter:</u></b> Look at the top 3 random cards in your draw pile. Draw one.",
                 HexColorUtility.HexToColor("#8E44AD"),
                 true,
                 Rarity.Common,
@@ -37,7 +37,7 @@ namespace Types.Tiles
             
             ["Refund"] = new ( 
                 "Refund",
-                "First card played here that costs 2 energy or more, gain 1 energy. ",
+                "<b><u>Once per turn:</u></b> When you play a card costing 2+ <sprite name=\"energyicon\"> here, gain 1 <sprite name=\"energyicon\">.",
                 HexColorUtility.HexToColor("#2ECC71"),
                 true,
                 Rarity.Common,
@@ -59,7 +59,7 @@ namespace Types.Tiles
             
             ["Stride"] = new ( 
                 "Stride",
-                "When landing here, draw cards equal to number of tiles moved this turn.",
+                "<b><u>On enter:</u></b> Draw cards equal to tiles moved this turn.",
                 HexColorUtility.HexToColor("#3498DB"),
                 true,
                 Rarity.Common,
@@ -77,7 +77,7 @@ namespace Types.Tiles
             
             ["Cornered"] = new ( 
                 "Cornered",
-                "Gain 5 shield for each adjacent enemy when landing here.",
+                "<b><u>On enter:</u></b> Gain 5 <sprite name=\"shield\"> for each adjacent enemy.",
                 HexColorUtility.HexToColor("#2471A3"),
                 true,
                 Rarity.Common,
@@ -110,7 +110,7 @@ namespace Types.Tiles
             
             ["HeadStart"] = new ( 
                 "Head Start",
-                "If starting turn here, gain 1 step.",
+                "<b><u>On turn start:</u></b> Gain 1 <sprite name=\"footsteps\">.",
                 HexColorUtility.HexToColor("#1ABC9C"),
                 true,
                 Rarity.Common,
@@ -130,7 +130,7 @@ namespace Types.Tiles
             
             ["BloodyBattery"] = new ( 
                 "Bloody Battery",
-                "When landing here, gain 1 energy, take 5 damage.",
+                "<b><u>On enter:</u></b> Gain 1 <sprite name=\"energyicon\"> and take 5 <sprite name=\"damage4\">.",
                 HexColorUtility.HexToColor("#27AE60"),
                 true,
                 Rarity.Common,
@@ -151,7 +151,7 @@ namespace Types.Tiles
             
             ["LoanShark"] = new ( 
                 "Loan Shark",
-                "When landing here, Gain $5. When ending turn here, lose $7.",
+                "<b><u>On enter:</u></b> Gain $5.\n<b><u>On turn end:</u></b> Lose $7.",
                 HexColorUtility.HexToColor("#27AE60"),
                 true,
                 Rarity.Common,
@@ -201,7 +201,7 @@ namespace Types.Tiles
             //     "houseedge"),
             ["RecklessStrike"] = new ( 
                 "Reckless Strike",
-                "Double damage from this tile, but you cannot block from this tile.",
+                "<b><u>While here:</u></b> Deal double <sprite name=\"damage4\">. You cannot gain <sprite name=\"shield\">.",
                 HexColorUtility.HexToColor("#E67E22"),
                 true,
                 Rarity.Common,
@@ -228,7 +228,7 @@ namespace Types.Tiles
                 "recklessstrike"),
             ["Overcharge"] = new ( 
                 "Overcharge",
-                "Gain 4 energy, take damage equal to Energy × 5 at end of turn.",
+                "<b><u>On enter:</u></b> Gain 2 <sprite name=\"energyicon\">.\n<b><u>On turn end:</u></b> Take <sprite name=\"damage4\"> equal to 5x current <sprite name=\"energyicon\">.",
                 HexColorUtility.HexToColor("#229954"),
                 true,
                 Rarity.Common,
@@ -240,7 +240,7 @@ namespace Types.Tiles
                     {
                         return new List<AbstractCardEvent>
                         {
-                            new GainEnergyCardEvent(4),
+                            new GainEnergyCardEvent(2),
                         };
                     },
                     [TriggerEventTime.EndTurn] = () =>
@@ -255,7 +255,7 @@ namespace Types.Tiles
             
             ["basic"] = new ( 
                 "Basic",
-                "No effect",
+                "No effect.",
                 new Color(32.0f/255.0f, 99.0f/255.0f, 155.0f/255.0f),
                 false,
                 Rarity.Common,
@@ -265,7 +265,7 @@ namespace Types.Tiles
             
             ["start"] = new (
                 "Start", 
-                "The starting tile", 
+                "Starting tile.",
                 new Color(173.0f/255.0f,173.0f/255.0f,173.0f/255.0f), 
                 false, 
                 Rarity.Common, 
