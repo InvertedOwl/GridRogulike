@@ -9,6 +9,8 @@ namespace Cards.CardEvents
 {
     public class AttackCardEvent: AbstractCardEvent
     {
+        private const string AttackHitFxKey = "SmallExplosionFire";
+
         public Vector2Int position;
         public int distance;
         public string direction;
@@ -61,17 +63,41 @@ namespace Cards.CardEvents
         {
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
+                Vector2Int targetPosition;
                 if (usePosition)
                 {
-                    playing.DamageEntities(position, amount, status);
+                    targetPosition = position;
                 }
                 else
                 {
-                    playing.DamageEntities(HexGridManager.MoveHex(entity.positionRowCol, direction, distance), amount, status);
+                    targetPosition = HexGridManager.MoveHex(entity.positionRowCol, direction, distance);
                 }
 
+                playing.DamageEntities(targetPosition, amount, status);
+                PlayAttackHitFx(playing, targetPosition);
             }
 
+        }
+
+        public static void PlayAttackHitFx(PlayingState playing, Vector2Int targetPosition)
+        {
+            if (FXManager.Instance == null)
+                return;
+
+            Vector3 spawnPosition = HexGridManager.GetHexCenter(targetPosition.x, targetPosition.y);
+
+            if (playing.EntitiesOnHex(targetPosition, out List<AbstractEntity> entities) && entities.Count > 0)
+            {
+                spawnPosition = entities[0].transform.position;
+            }
+            else if (HexGridManager.Instance != null &&
+                     HexGridManager.Instance._hexObjects.TryGetValue(targetPosition, out GameObject hexObject) &&
+                     hexObject != null)
+            {
+                spawnPosition = hexObject.transform.position;
+            }
+
+            FXManager.Instance.TryPlay(AttackHitFxKey, spawnPosition);
         }
     }
 }

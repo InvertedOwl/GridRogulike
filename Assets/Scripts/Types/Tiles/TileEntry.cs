@@ -20,10 +20,45 @@ namespace Types.Tiles
         EndTurn,
     }
 
+    public class TileCountdownEffect
+    {
+        public int startTurns;
+        public string[] countdownIcons;
+        public string explosionIcon;
+        public string inactiveIcon;
+        public int explosionDamage;
+
+        public TileCountdownEffect(
+            int startTurns,
+            string[] countdownIcons,
+            string explosionIcon = "Damage4",
+            string inactiveIcon = "none",
+            int explosionDamage = 4)
+        {
+            this.startTurns = Mathf.Max(1, startTurns);
+            this.countdownIcons = countdownIcons ?? Array.Empty<string>();
+            this.explosionIcon = explosionIcon;
+            this.inactiveIcon = inactiveIcon;
+            this.explosionDamage = explosionDamage;
+        }
+
+        public string IconForTurnsRemaining(int turnsRemaining)
+        {
+            if (turnsRemaining <= 0)
+                return explosionIcon;
+
+            if (countdownIcons.Length == 0)
+                return "none";
+
+            int index = Mathf.Clamp(startTurns - turnsRemaining, 0, countdownIcons.Length - 1);
+            return countdownIcons[index];
+        }
+    }
+
     public class TileEntry
     {
-        public Dictionary<TriggerEventTime, Func<List<AbstractCardEvent>>> triggerEvents;
-        public Func<List<AbstractCardEvent>, Card, List<AbstractCardEvent>> cardModifier;
+        public Dictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> triggerEvents;
+        public Func<List<AbstractCardEvent>, Card, TileContext, List<AbstractCardEvent>> cardModifier;
         public string name;
         public string description;
         public Color color;
@@ -32,14 +67,16 @@ namespace Types.Tiles
         public TileType tileType;
         public string icon;
         public TileTriggerLimit triggerLimit;
-        public Func<List<AbstractCardEvent>, Card, bool> shouldMarkAsTriggered;
+        public Func<List<AbstractCardEvent>, Card, TileContext, bool> shouldMarkAsTriggered;
+        public TileCountdownEffect countdownEffect;
 
-        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType, 
-            Func<List<AbstractCardEvent>, Card, List<AbstractCardEvent>> cardModifier, 
-            Dictionary<TriggerEventTime, Func<List<AbstractCardEvent>>> triggerEvents, 
+        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType,
+            Func<List<AbstractCardEvent>, Card, TileContext, List<AbstractCardEvent>> cardModifier,
+            Dictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> triggerEvents,
             string icon = "none", 
             TileTriggerLimit triggerLimit = TileTriggerLimit.None,
-            Func<List<AbstractCardEvent>, Card, bool> shouldMarkAsTriggered = null)
+            Func<List<AbstractCardEvent>, Card, TileContext, bool> shouldMarkAsTriggered = null,
+            TileCountdownEffect countdownEffect = null)
         {
             this.name = name;
             this.description = description;
@@ -52,6 +89,7 @@ namespace Types.Tiles
             this.icon = icon;
             this.triggerLimit = triggerLimit;
             this.shouldMarkAsTriggered = shouldMarkAsTriggered;
+            this.countdownEffect = countdownEffect;
         }
 
     }

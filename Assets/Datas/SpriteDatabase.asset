@@ -115,3 +115,19 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: dd1fb963a7710854fbd96c12ff584542, type: 3}
   - key: Damage
     sprite: {fileID: 21300000, guid: 638e9d6cbc8b2d247ab74aa1f41d12b3, type: 3}
+  - key: countdown2
+    sprite: {fileID: 21300000, guid: 656dda6293a1d6949b3acf6f71f50dfe, type: 3}
+  - key: countdown3
+    sprite: {fileID: 21300000, guid: bed65ffe23177ba44b640ab49e1fa198, type: 3}
+  - key: countdown1
+    sprite: {fileID: 21300000, guid: 80e4e1af1f3b8dc4e8e00d19626f3ac4, type: 3}
+  - key: glassedge
+    sprite: {fileID: 21300000, guid: 3ce4360a62030324d91a5cc64e60006b, type: 3}
+  - key: stumble
+    sprite: {fileID: 21300000, guid: 27ef959460fbf9f40a88afd37bdf97a8, type: 3}
+  - key: momentum
+    sprite: {fileID: 21300000, guid: 05936ac021417674dad1a362177f83c0, type: 3}
+  - key: stacked
+    sprite: {fileID: 21300000, guid: 7e49aab1463195f41b26624da9138995, type: 3}
+  - key: ignite
+    sprite: {fileID: 21300000, guid: 65bfc4713b3d6194e9510d83a62b538e, type: 3}

@@ -8,6 +8,7 @@ using Entities.Enemies;
 using Grid;
 using ScriptableObjects;
 using Serializer;
+using Types.CardRestrictions;
 using Types.Statuses;
 using Types.Tiles;
 using Unity.VisualScripting;
@@ -96,7 +97,19 @@ namespace StateManager
         private readonly HashSet<Vector2Int> _tilesUsedThisTurn = new();
         private readonly HashSet<Vector2Int> _tilesUsedThisCombat = new();
         private readonly HashSet<NonPlayerEntity> _enemiesNeedingIntentRefresh = new();
+        private readonly List<ICardPlayRestriction> _temporaryCardPlayRestrictions = new();
+        private int _cardRestrictionVersion;
         private CameraMove _cameraMove;
+        private readonly Dictionary<Vector2Int, TileCountdownRuntimeState> _tileCountdownStates = new();
+        private List<TileCountdownSaveData> _loadedTileCountdownStates;
+        public int PlayerMovesThisTurn { get; private set; }
+
+        private class TileCountdownRuntimeState
+        {
+            public int turnsRemaining;
+            public bool exploded;
+            public bool iconCleared;
+        }
 
         [Header("Enemy Scaling")]
         [Min(0)]
@@ -120,6 +133,7 @@ namespace StateManager
                 encounterData = saveData.encounterData;
                 MapProgressLayer = saveData.mapProgressLayer;
                 MapProgressLayerCount = Mathf.Max(1, saveData.mapProgressLayerCount);
+                _loadedTileCountdownStates = saveData.tileCountdownStates;
                 SaveData = null;
             }
             
@@ -131,6 +145,7 @@ namespace StateManager
             MoveEntitiesIn();
             InitializeDeckAndGrid();
             SetupInitialTiles();
+            RestoreOrInitializeTileCountdownStates();
             ResetCombatTileTriggers();
             SetupEntities();
             RebuildTurnOrder();
@@ -418,7 +433,7 @@ namespace StateManager
                     continue;
 
                 int cost = (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost);
-                if (cost <= RunInfo.Instance.CurrentEnergy)
+                if (cost <= RunInfo.Instance.CurrentEnergy && card.CanPlayByRestrictions(out _))
                     return true;
             }
 
@@ -676,17 +691,226 @@ namespace StateManager
             _grid.UpdateBoard();
         }
 
+        private void RestoreOrInitializeTileCountdownStates()
+        {
+            _tileCountdownStates.Clear();
+
+            if (_loadedTileCountdownStates != null)
+            {
+                foreach (TileCountdownSaveData saveData in _loadedTileCountdownStates)
+                {
+                    if (!TryGetTileCountdownEffect(saveData.position, out _))
+                        continue;
+
+                    _tileCountdownStates[saveData.position] = new TileCountdownRuntimeState
+                    {
+                        turnsRemaining = saveData.turnsRemaining,
+                        exploded = saveData.exploded,
+                        iconCleared = saveData.iconCleared
+                    };
+                }
+
+                _loadedTileCountdownStates = null;
+            }
+
+            SynchronizeTileCountdownStates();
+            ApplyAllTileCountdownIcons();
+        }
+
+        private void SynchronizeTileCountdownStates()
+        {
+            if (HexGridManager.Instance == null)
+                return;
+
+            List<Vector2Int> stalePositions = new List<Vector2Int>();
+            foreach (Vector2Int position in _tileCountdownStates.Keys)
+            {
+                if (!TryGetTileCountdownEffect(position, out _))
+                    stalePositions.Add(position);
+            }
+
+            foreach (Vector2Int stalePosition in stalePositions)
+            {
+                _tileCountdownStates.Remove(stalePosition);
+            }
+
+            foreach (KeyValuePair<Vector2Int, string> boardTile in HexGridManager.Instance.BoardDictionary)
+            {
+                if (!TileData.tiles.TryGetValue(boardTile.Value, out TileEntry tile) || tile.countdownEffect == null)
+                    continue;
+
+                if (!_tileCountdownStates.ContainsKey(boardTile.Key))
+                {
+                    _tileCountdownStates[boardTile.Key] = new TileCountdownRuntimeState
+                    {
+                        turnsRemaining = tile.countdownEffect.startTurns
+                    };
+                }
+            }
+        }
+
+        private void ApplyAllTileCountdownIcons()
+        {
+            foreach (Vector2Int position in _tileCountdownStates.Keys.ToList())
+            {
+                ApplyTileCountdownIcon(position);
+            }
+        }
+
+        private void ApplyTileCountdownIcon(Vector2Int position)
+        {
+            if (!TryGetTileCountdownEffect(position, out TileCountdownEffect countdownEffect) ||
+                !_tileCountdownStates.TryGetValue(position, out TileCountdownRuntimeState state))
+            {
+                return;
+            }
+
+            string icon = state.iconCleared
+                ? countdownEffect.inactiveIcon
+                : state.exploded
+                    ? countdownEffect.explosionIcon
+                    : countdownEffect.IconForTurnsRemaining(state.turnsRemaining);
+
+            HexGridManager.Instance.SetHexIcon(position, icon);
+        }
+
+        private bool TryGetTileCountdownEffect(Vector2Int position, out TileCountdownEffect countdownEffect)
+        {
+            countdownEffect = null;
+
+            if (HexGridManager.Instance == null ||
+                !HexGridManager.Instance.BoardDictionary.TryGetValue(position, out string tileId) ||
+                !TileData.tiles.TryGetValue(tileId, out TileEntry tile))
+            {
+                return false;
+            }
+
+            countdownEffect = tile.countdownEffect;
+            return countdownEffect != null;
+        }
+
+        private void TickTileCountdowns()
+        {
+            SynchronizeTileCountdownStates();
+
+            foreach (Vector2Int position in _tileCountdownStates.Keys.ToList())
+            {
+                if (!TryGetTileCountdownEffect(position, out TileCountdownEffect countdownEffect) ||
+                    !_tileCountdownStates.TryGetValue(position, out TileCountdownRuntimeState state))
+                {
+                    continue;
+                }
+
+                if (state.iconCleared)
+                    continue;
+
+                if (state.exploded)
+                {
+                    state.iconCleared = true;
+                    ApplyTileCountdownIcon(position);
+                    continue;
+                }
+
+                state.turnsRemaining--;
+
+                if (state.turnsRemaining <= 0)
+                {
+                    state.turnsRemaining = 0;
+                    state.exploded = true;
+                    DamageEntities(position, countdownEffect.explosionDamage, null);
+                }
+
+                ApplyTileCountdownIcon(position);
+            }
+        }
+
+        private List<TileCountdownSaveData> CaptureTileCountdownStates()
+        {
+            SynchronizeTileCountdownStates();
+
+            List<TileCountdownSaveData> saveData = new List<TileCountdownSaveData>();
+            foreach (KeyValuePair<Vector2Int, TileCountdownRuntimeState> kvp in _tileCountdownStates)
+            {
+                saveData.Add(new TileCountdownSaveData
+                {
+                    position = kvp.Key,
+                    turnsRemaining = kvp.Value.turnsRemaining,
+                    exploded = kvp.Value.exploded,
+                    iconCleared = kvp.Value.iconCleared
+                });
+            }
+
+            return saveData;
+        }
+
         private void ResetCombatTileTriggers()
         {
             _tilesUsedThisTurn.Clear();
             _tilesUsedThisCombat.Clear();
+            _temporaryCardPlayRestrictions.Clear();
+            PlayerMovesThisTurn = 0;
+            _cardRestrictionVersion++;
             UpdateAllTileDisableVisuals();
         }
 
         public void ResetTurnTileTriggers()
         {
             _tilesUsedThisTurn.Clear();
+            _temporaryCardPlayRestrictions.Clear();
+            PlayerMovesThisTurn = 0;
+            _cardRestrictionVersion++;
             UpdateAllTileDisableVisuals();
+        }
+
+        public void AddTemporaryCardPlayRestriction(ICardPlayRestriction restriction)
+        {
+            if (restriction == null)
+                return;
+
+            _temporaryCardPlayRestrictions.Add(restriction);
+            _cardRestrictionVersion++;
+            Deck.Instance?.MarkPlayabilityDirty();
+        }
+
+        public List<ICardPlayRestriction> GetActiveCardPlayRestrictions()
+        {
+            List<ICardPlayRestriction> restrictions = new List<ICardPlayRestriction>();
+
+            if (player?.statusManager != null)
+            {
+                foreach (AbstractStatus status in player.statusManager.statusList)
+                {
+                    if (status is ICardPlayRestriction restriction)
+                        restrictions.Add(restriction);
+                }
+            }
+
+            restrictions.AddRange(_temporaryCardPlayRestrictions);
+            return restrictions;
+        }
+
+        public int GetCardPlayRestrictionSignature()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 31 + PlayerMovesThisTurn;
+                hash = hash * 31 + _cardRestrictionVersion;
+
+                if (player?.statusManager != null)
+                {
+                    foreach (AbstractStatus status in player.statusManager.statusList)
+                    {
+                        if (status is not ICardPlayRestriction)
+                            continue;
+
+                        hash = hash * 31 + status.GetType().GetHashCode();
+                        hash = hash * 31 + status.Amount;
+                    }
+                }
+
+                return hash;
+            }
         }
 
         public void TriggerPlayerTileLand(Vector2Int position, AbstractEntity entity)
@@ -705,7 +929,8 @@ namespace StateManager
                 return;
             
             MarkTileTriggered(position, tile);
-            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.Land].Invoke(), entity);
+            TileContext context = new TileContext(position, tileId, entity, false);
+            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.Land].Invoke(context), entity);
         }
         
         public void TriggerPlayerTileStart(Vector2Int position, AbstractEntity entity)
@@ -724,7 +949,8 @@ namespace StateManager
                 return;
             
             MarkTileTriggered(position, tile);
-            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.StartTurn].Invoke(), entity);
+            TileContext context = new TileContext(position, tileId, entity, false);
+            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.StartTurn].Invoke(context), entity);
         }
         
         public void TriggerPlayerTileEnd(Vector2Int position, AbstractEntity entity)
@@ -743,7 +969,8 @@ namespace StateManager
                 return;
             
             MarkTileTriggered(position, tile);
-            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.EndTurn].Invoke(), entity);
+            TileContext context = new TileContext(position, tileId, entity, false);
+            CardEventPipeline.Activate(tile.triggerEvents[TriggerEventTime.EndTurn].Invoke(context), entity);
         }
 
         public bool CanTriggerTile(Vector2Int position, TileEntry tile)
@@ -912,7 +1139,8 @@ namespace StateManager
                 HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().ClearPreviewEvents();
             }
             
-            HexClickPlayerController.instance.ClearPendingAttacks();
+            HexClickPlayerController.instance?.ClearMovableParticles();
+            HexClickPlayerController.instance?.ClearPendingAttacks();
         }
 
         private void SendCameraToBoardCenter()
@@ -934,6 +1162,9 @@ namespace StateManager
             entity.ClearNextTurnActionPreviews();
             
             entity.EndTurn();
+            if (entity.entityType == EntityType.Player)
+                TickTileCountdowns();
+
             Debug.Log("Entity end turn");
             if (CheckForFinish() != "none")
             {
@@ -1273,10 +1504,11 @@ namespace StateManager
 
             if (ent.entityType == EntityType.Player)
             {
-                // Activate landing events
+                PlayerMovesThisTurn += Mathf.Max(1, dist);
                 TriggerPlayerTileLand(target, ent);
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
+                Deck.Instance?.MarkPlayabilityDirty();
             }
 
             return true;
@@ -1295,10 +1527,12 @@ namespace StateManager
 
             if (ent.entityType == EntityType.Player)
             {
+                PlayerMovesThisTurn += Mathf.Max(1, dist);
                 TriggerPlayerTileLand(target, ent);
 
                 BattleStats.TilesMovedThisBattle += dist;
                 BattleStats.TilesMovedThisTurn += dist;
+                Deck.Instance?.MarkPlayabilityDirty();
             }
 
             return true;
@@ -1321,7 +1555,8 @@ namespace StateManager
             {
                 encounterData = encounterData,
                 mapProgressLayer = MapProgressLayer,
-                mapProgressLayerCount = MapProgressLayerCount
+                mapProgressLayerCount = MapProgressLayerCount,
+                tileCountdownStates = CaptureTileCountdownStates()
             };
         }
         

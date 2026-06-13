@@ -21,11 +21,18 @@ namespace Types.Statuses
             CacheIcon<FrostStatus>("Frost");
             CacheIcon<BuffedStatus>("Buffed");
             CacheIcon<DazedStatus>("Dazed");
+            CacheIcon<RestlessStatus>("Restless");
         }
 
         private void CacheIcon<T>(string name) where T : AbstractStatus
         {
+            if (goList == null || !goList.HasValue(name))
+                return;
+
             var icon = goList.GetValue(name);
+            if (icon == null)
+                return;
+
             _iconCache[typeof(T)] = icon;
             _textCache[typeof(T)] = icon.GetComponentInChildren<TextMeshPro>();
             icon.SetActive(false);
@@ -48,7 +55,8 @@ namespace Types.Statuses
                         toRemove.Add(status);
                     }
                     icon.SetActive(true);
-                    _textCache[type].text = (Math.Max(status.Amount, 1)).ToString();
+                    if (_textCache.TryGetValue(type, out TextMeshPro text) && text != null)
+                        text.text = (Math.Max(status.Amount, 1)).ToString();
                 }
             }
 

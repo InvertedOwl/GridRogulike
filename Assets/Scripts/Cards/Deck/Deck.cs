@@ -129,7 +129,7 @@ public class Deck : MonoBehaviour
                 card.SetInactive(true, false);
                 card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
             }
-            else if (IsCardTooExpensive(card))
+            else if (IsCardTooExpensive(card) || IsCardBlockedByRestriction(card))
             {
                 card.SetInactive(true);
                 card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
@@ -150,9 +150,15 @@ public class Deck : MonoBehaviour
                (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy;
     }
 
+    private bool IsCardBlockedByRestriction(CardMonobehaviour card)
+    {
+        return card != null && !card.CanPlayByRestrictions(out _);
+    }
+
     private bool ShouldShowInactiveOverlay(CardMonobehaviour card)
     {
-        return !card.played && !card.IsResolvingManualAttack && IsCardTooExpensive(card);
+        return !card.played && !card.IsResolvingManualAttack &&
+               (IsCardTooExpensive(card) || IsCardBlockedByRestriction(card));
     }
 
     public void SetHandToUnused()
@@ -259,6 +265,7 @@ public class Deck : MonoBehaviour
             {
                 PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
                 hash = hash * 31 + (playingState != null && playingState.AllowUserInput ? 1 : 0);
+                hash = hash * 31 + (playingState != null ? playingState.GetCardPlayRestrictionSignature() : 0);
             }
 
             hash = AppendPileSignature(hash, _hand, true);

@@ -41,15 +41,22 @@ namespace Cards.CardEvents
 
             if (sourceEntity is Player && HexGridManager.Instance != null)
             {
-                TileEntry tile = TileData.tiles[HexGridManager.Instance.HexType(sourceEntity.positionRowCol)];
+                string tileId = HexGridManager.Instance.HexType(sourceEntity.positionRowCol);
+                TileEntry tile = TileData.tiles[tileId];
+                TileContext tileContext = new TileContext(
+                    sourceEntity.positionRowCol,
+                    tileId,
+                    sourceEntity,
+                    previewMode);
                 PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
                 if (playingState.CanTriggerTile(sourceEntity.positionRowCol, tile))
                 {
                     if (card != null)
                     {
-                        modifiedEvents = tile.cardModifier.Invoke(modifiedEvents, card.Value);
-                        if (tile.shouldMarkAsTriggered != null &&
-                            tile.shouldMarkAsTriggered.Invoke(modifiedEvents, card.Value))
+                        modifiedEvents = tile.cardModifier.Invoke(modifiedEvents, card.Value, tileContext);
+                        if (!previewMode &&
+                            tile.shouldMarkAsTriggered != null &&
+                            tile.shouldMarkAsTriggered.Invoke(modifiedEvents, card.Value, tileContext))
                         {
                             playingState.MarkTileTriggered(sourceEntity.positionRowCol, tile);     
                         }

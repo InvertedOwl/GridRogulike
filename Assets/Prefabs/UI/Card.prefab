@@ -1101,7 +1101,6 @@ RectTransform:
   - {fileID: 7079414608310266082}
   - {fileID: 1484980939687643904}
   - {fileID: 2417977387991690992}
-  - {fileID: 3689733800788314825}
   - {fileID: 5276557450915847674}
   - {fileID: 7071548414833883154}
   - {fileID: 2584376840032722699}
@@ -1110,6 +1109,7 @@ RectTransform:
   - {fileID: 414279550683343513}
   - {fileID: 4975247029283454560}
   - {fileID: 5117257421852837499}
+  - {fileID: 3689733800788314825}
   m_Father: {fileID: 5821695832061975143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1549,6 +1549,7 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: 28db080922c1bb844a343dcaff7b4a92, type: 3}
   minPitch: 0.8
   maxPitch: 1.2
+  volumescaleind: 1
 --- !u!82 &631227626470654322
 AudioSource:
   m_ObjectHideFlags: 0

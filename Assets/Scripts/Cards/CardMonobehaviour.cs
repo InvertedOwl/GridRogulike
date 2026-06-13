@@ -13,6 +13,7 @@ using Grid;
 using Passives;
 using ScriptableObjects;
 using Types.Passives;
+using Types.CardRestrictions;
 using Types.Statuses;
 using Types.Tiles;
 using UnityEngine;
@@ -483,6 +484,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
+        bool canPlayByRestrictions = CanPlayByRestrictions(out _);
 
         if (isLeftClick)
         {
@@ -492,14 +494,14 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
             sound.PlaySound("hover", 0.5f);
 
-            if (!onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn && HasManualAttackAction())
+            if (!onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions && HasManualAttackAction())
             {
                 BeginManualAttackTargeting();
                 HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
                 return;
             }
 
-            if (!wasUsed && !onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn)
+            if (!wasUsed && !onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions)
             {
                 PreviewNonManualAttacks();
             }
@@ -508,7 +510,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (!wasUsed || onlyDisplay)
             return;
 
-        if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn)
+        if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions)
         {
             if (HexClickPlayerController.instance != null)
                 HexClickPlayerController.instance.ClearToAttackEmitters();
@@ -589,7 +591,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
 
-        if (!hasEnoughEnergy || !isPlayerTurn)
+        if (!hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
         {
             attackCardEvents = new List<AttackCardEvent>();
             CancelManualAttackTargeting();
@@ -607,7 +609,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
 
-        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn)
+        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
             return false;
 
         PlayCard(out List<AttackCardEvent> attackCardEvents);
@@ -656,6 +658,38 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         RunInfo.Instance.CurrentEnergy -= currentCost;
+    }
+
+    public bool CanPlayByRestrictions(out string blockedReason)
+    {
+        return CardPlayRestrictionSystem.CanPlay(this, out blockedReason);
+    }
+
+    public List<AbstractCardEvent> BuildRestrictionPreviewEvents()
+    {
+        int previousCardsPlayedThisBattle = BattleStats.CardsPlayedThisBattle;
+        int previousCardsPlayedThisTurn = BattleStats.CardsPlayedThisTurn;
+
+        try
+        {
+            BattleStats.CardsPlayedThisBattle += 1;
+            BattleStats.CardsPlayedThisTurn += 1;
+
+            List<CardEventPreviewSnapshot> unusedBaseEventSnapshots;
+            return ApplyCardModifiers(
+                BuildBaseEventQueue(out unusedBaseEventSnapshots, previewMode: true),
+                previewMode: true);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning("Could not build card restriction preview events for " + name + ": " + exception.Message);
+            return new List<AbstractCardEvent>();
+        }
+        finally
+        {
+            BattleStats.CardsPlayedThisBattle = previousCardsPlayedThisBattle;
+            BattleStats.CardsPlayedThisTurn = previousCardsPlayedThisTurn;
+        }
     }
 
     private List<AbstractCardEvent> BuildBaseEventQueue(

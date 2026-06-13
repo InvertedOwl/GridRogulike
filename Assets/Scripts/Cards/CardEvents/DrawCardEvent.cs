@@ -6,7 +6,7 @@ namespace Cards.CardEvents
 {
     public class DrawCardEvent : AbstractCardEvent
     {
-        private int _cardsToDraw = 1;
+        public int _cardsToDraw = 1;
 
         public DrawCardEvent(int cardsToDraw = 1)
         {

@@ -371,20 +371,42 @@ namespace Grid
             goList.GetValue("HoverBG1").GetComponent<Image>().color = color;
             goList.GetValue("HoverBG2").GetComponent<Image>().color = new Color(color.r * .44f, color.g * .44f, color.b * .44f);
             
-            // Icon
+            SetHexObjectIcon(tile, entry.icon);
+        }
+
+        public void SetHexIcon(Vector2Int position, string icon)
+        {
+            if (!_hexObjects.TryGetValue(position, out GameObject tile) || tile == null)
+                return;
+
+            SetHexObjectIcon(tile, icon);
+        }
+
+        private void SetHexObjectIcon(GameObject tile, string icon)
+        {
+            GOList goList = tile.GetComponentInChildren<GOList>();
+            if (goList == null || !goList.HasValue("HexIconParent") || !goList.HasValue("HexIcon"))
+                return;
+
             GameObject iconParent = goList.GetValue("HexIconParent");
             GameObject iconObj = goList.GetValue("HexIcon");
-            SpriteRenderer iconRenderer = iconObj.GetComponent<SpriteRenderer>();
+            if (iconParent == null || iconObj == null)
+                return;
 
-            if (entry.icon == "none")
+            SpriteRenderer iconRenderer = iconObj.GetComponent<SpriteRenderer>();
+            if (iconRenderer == null)
+                return;
+
+            if (string.IsNullOrEmpty(icon) || icon == "none" || spriteDatabase == null || !spriteDatabase.HasKey(icon))
             {
                 iconParent.SetActive(false);
+                iconRenderer.sprite = null;
                 return;
             }
 
             iconParent.SetActive(true);
 
-            Sprite sprite = spriteDatabase.Get(entry.icon).Value.sprite;
+            Sprite sprite = spriteDatabase.Get(icon).Value.sprite;
             iconRenderer.sprite = sprite;
 
             NormalizeSpriteRendererSize(iconRenderer, 0.3f); // target size in world units

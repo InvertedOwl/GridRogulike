@@ -274,6 +274,24 @@ namespace Grid {
             }
         }
 
+        public void ClearMovableParticles()
+        {
+            if (HexGridManager.Instance == null)
+                return;
+
+            foreach (Vector2Int position in HexGridManager.Instance.BoardDictionary.Keys)
+            {
+                if (!HexGridManager.Instance._hexObjects.TryGetValue(position, out GameObject hex) || hex == null)
+                    continue;
+
+                GOList list = hex.GetComponent<GOList>();
+                if (list == null || !list.HasValue("Particles"))
+                    continue;
+
+                list.GetValue("Particles").SetActive(false);
+            }
+        }
+
         private string arrowUUID;
         
         public void HexHoverOnCallback(Vector2Int hexPosition)
@@ -368,6 +386,7 @@ namespace Grid {
 
                 // Attack entity
                 playingState.DamageEntities(hexPosition, attack.amount, attack.status);
+                AttackCardEvent.PlayAttackHitFx(playingState, hexPosition);
                 
                 // Little animation for free!
                 ApplyAttackNudge(playingState.player.transform, entitiesOnHex[0].transform.position);
@@ -476,6 +495,7 @@ namespace Grid {
                 }
                 
                 bool moved = false;
+                bool tileMovedPlayer = false;
                 foreach (Vector2Int pos in positions)
                 {
                     if (currentMap.ContainsKey(pos) &&
@@ -486,7 +506,8 @@ namespace Grid {
                             yield return new WaitForSeconds(0.3f * (1/GameplayNavSettings.speed));
                             moved = true;
                             RunInfo.Instance.CurrentSteps -= 1;
-                                        
+
+                            tileMovedPlayer = playingState.player.positionRowCol != pos;
                             break;
                         }
 
@@ -498,6 +519,10 @@ namespace Grid {
                     break;
                 }
 
+                if (tileMovedPlayer)
+                {
+                    break;
+                }
 
                 currentMap = CalculateDistanceMap(targetPosition, playingState);
             }

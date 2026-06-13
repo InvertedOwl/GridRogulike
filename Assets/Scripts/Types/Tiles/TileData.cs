@@ -18,31 +18,49 @@ namespace Types.Tiles
         public static readonly Dictionary<string, TileEntry> tiles = new Dictionary<string, TileEntry>()
         {
             //Look at the top 3 cards of the draw pile. Pick one to draw.
-            ["Foresight"] = new ( 
+            ["Foresight"] = new (
                 "Foresight",
                 "<b><u>On enter:</u></b> Look at the top 3 random cards in your draw pile. Draw one.",
                 HexColorUtility.HexToColor("#8E44AD"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {
-                    [TriggerEventTime.Land] = () => new List<AbstractCardEvent>
+                    [TriggerEventTime.Land] = (context) => new List<AbstractCardEvent>
                     {
                         new SeeCardsThenPickCardEvent(3)
                     }
                 },
                 "foresight"),
-            
-            ["Refund"] = new ( 
+
+            ["Stumble"] = new (
+                "Stumble",
+                "<b><u>On enter:</u></b> Once per turn gain 2 <sprite name=\"footsteps\">, move in a random direction.",
+                HexColorUtility.HexToColor("#16A085"),
+                true,
+                Rarity.Common,
+                TileType.Good,
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
+                {
+                    [TriggerEventTime.Land] = (context) => new List<AbstractCardEvent>
+                    {
+                        new GainStepsCardEvent(2),
+                        new MoveCardEvent(1, HexGridManager.HexDirections[context.GetRandom("randomdir").Next(6)])
+                    }
+                },
+                "stumble", TileTriggerLimit.OncePerTurn),
+
+            ["Refund"] = new (
                 "Refund",
                 "<b><u>Once per turn:</u></b> When you play a card costing 2+ <sprite name=\"energyicon\"> here, gain 1 <sprite name=\"energyicon\">.",
                 HexColorUtility.HexToColor("#2ECC71"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) =>
+                (e, card, context) =>
                 {
                     if (card.Cost >= 2)
                     {
@@ -52,40 +70,40 @@ namespace Types.Tiles
 
                     return e;
                 },
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>> {},
-                "refund", 
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> {},
+                "refund",
                 TileTriggerLimit.OncePerTurn,
-                (e, card) => { return card.Cost >= 3; }),
-            
-            ["Stride"] = new ( 
+                (e, card, context) => { return card.Cost >= 3; }),
+
+            ["Stride"] = new (
                 "Stride",
                 "<b><u>On enter:</u></b> Draw cards equal to tiles moved this turn.",
                 HexColorUtility.HexToColor("#3498DB"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {
-                    [TriggerEventTime.Land] = () => new List<AbstractCardEvent>
+                    [TriggerEventTime.Land] = (context) => new List<AbstractCardEvent>
                     {
-                        new DrawCardEvent(BattleStats.TilesMovedThisTurn)
+                        new DrawCardEvent(BattleStats.TilesMovedThisTurn + 1)
                     }
                 },
-                "stride", 
+                "stride",
                 TileTriggerLimit.OncePerTurn),
-            
-            ["Cornered"] = new ( 
+
+            ["Cornered"] = new (
                 "Cornered",
                 "<b><u>On enter:</u></b> Gain 5 <sprite name=\"shield\"> for each adjacent enemy.",
                 HexColorUtility.HexToColor("#2471A3"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {
-                    [TriggerEventTime.Land] = () =>
+                    [TriggerEventTime.Land] = (context) =>
                     {
                         PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
                         int numberOfAdjacentEnemies = 0;
@@ -98,7 +116,7 @@ namespace Types.Tiles
                                 numberOfAdjacentEnemies += 1;
                             }
                         }
-                        
+
                         return new List<AbstractCardEvent>
                         {
                             new ShieldCardEvent(numberOfAdjacentEnemies * 5)
@@ -106,19 +124,19 @@ namespace Types.Tiles
                     }
                 },
                 "cornered"),
-            
-            
-            ["HeadStart"] = new ( 
+
+
+            ["HeadStart"] = new (
                 "Head Start",
                 "<b><u>On turn start:</u></b> Gain 1 <sprite name=\"footsteps\">.",
                 HexColorUtility.HexToColor("#1ABC9C"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {
-                    [TriggerEventTime.StartTurn] = () =>
+                    [TriggerEventTime.StartTurn] = (context) =>
                     {
                         return new List<AbstractCardEvent>
                         {
@@ -127,18 +145,126 @@ namespace Types.Tiles
                     }
                 },
                 "headstart"),
-            
-            ["BloodyBattery"] = new ( 
+
+            ["Momentum"] = new (
+                "Momentum",
+                "<b><u>Played cards:</u></b> Deal 1 additional damage for each tile moved this combat.",
+                HexColorUtility.HexToColor("#2874A6"),
+                true,
+                Rarity.Common,
+                TileType.Good,
+                (e, card, context) =>
+                {
+                    foreach (AbstractCardEvent cardEvent in e)
+                    {
+                        if (cardEvent is AttackCardEvent attackCardEvent)
+                        {
+                            attackCardEvent.amount += BattleStats.TilesMovedThisBattle;
+                        }
+                    }
+
+                    return e;
+                },
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
+                {},
+                "momentum"),
+
+
+            ["Stacked"] = new (
+                "Stacked",
+                "<b><u>Played cards:</u></b> When drawing more cards, draw 1 extra.",
+                HexColorUtility.HexToColor("#5DADE2"),
+                true,
+                Rarity.Common,
+                TileType.Good,
+                (e, card, context) =>
+                {
+                    foreach (AbstractCardEvent cardEvent in e)
+                    {
+                        if (cardEvent is DrawCardEvent attackCardEvent)
+                        {
+                            attackCardEvent._cardsToDraw += 1;
+                        }
+                    }
+
+                    return e;
+                },
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
+                    {},
+                "stacked"),
+
+            ["RestlessStep"] = new (
+                "Restless Step",
+                "<b><u>On enter:</u></b> Gain 2 <sprite name=\"footsteps\">. You must move before playing cards.",
+                HexColorUtility.HexToColor("#16A085"),
+                true,
+                Rarity.Common,
+                TileType.Good,
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
+                {
+                    [TriggerEventTime.Land] = (context) =>
+                    {
+                        return new List<AbstractCardEvent>
+                        {
+                            new GainStepsCardEvent(2),
+                            new AddMoveBeforeCardRestrictionEvent()
+                        };
+                    }
+                },
+                "headstart"),
+
+            ["Ignite"] = new (
+                "Ignite",
+                "<b><u>On enter:</u></b> Gain 1 <sprite name=\"energyicon\">. A random card in your hand gains Burning,",
+                HexColorUtility.HexToColor("#E74C3C"),
+                true,
+                Rarity.Common,
+                TileType.Good,
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
+                {
+                    [TriggerEventTime.Land] = (context) =>
+                    {
+                        return new List<AbstractCardEvent>
+                        {
+                            new GainEnergyCardEvent(1),
+                            new AddCardStatusToRandomHandCardEvent("burning")
+                        };
+                    }
+                },
+                "ignite"),
+
+            ["Countdown"] = new (
+                "Countdown",
+                "<b><u>At turn end:</u></b> Counts down. At 0, deal 60 <sprite name=\"damage4\"> to anything here.",
+                HexColorUtility.HexToColor("#C0392B"),
+                true,
+                Rarity.Common,
+                TileType.Bad,
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>(),
+                "countdown3",
+                TileTriggerLimit.None,
+                null,
+                new TileCountdownEffect(
+                    3,
+                    new[] { "countdown3", "countdown2", "countdown1" },
+                    "Damage4",
+                    "none",
+                    60)),
+
+            ["BloodyBattery"] = new (
                 "Bloody Battery",
                 "<b><u>On enter:</u></b> Gain 1 <sprite name=\"energyicon\"> and take 5 <sprite name=\"damage4\">.",
                 HexColorUtility.HexToColor("#27AE60"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {
-                    [TriggerEventTime.Land] = () =>
+                    [TriggerEventTime.Land] = (context) =>
                     {
                         return new List<AbstractCardEvent>
                         {
@@ -148,25 +274,70 @@ namespace Types.Tiles
                     }
                 },
                 "bloodbattery"),
-            
-            ["LoanShark"] = new ( 
+
+            ["HouseEdge"] = new (
+                "House Edge",
+                "<b><u>Played Cards:</u></b> 75% chance to play it twice, 25% to not play.",
+                HexColorUtility.HexToColor("#9B59B6"),
+                true,
+                Rarity.Common,
+                TileType.Good,
+                (e, card, context) =>
+                {
+                    int val = context.GetRandom("dice").Next(100);
+                    if (val < 75)
+                    {
+                        e.AddRange(e);
+                        return e;
+                    }
+                    else
+                    {
+                        return new List<AbstractCardEvent>();
+                    }
+                },
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> {},
+                "houseedge"),
+
+            ["GlassEdge"] = new (
+                "Glass Edge",
+                "<b><u>Played Cards:</u></b> Double attack damage from this tile, but increase damage received by 50%.",
+                HexColorUtility.HexToColor("#C0392B"),
+                true,
+                Rarity.Common,
+                TileType.Good,
+                (e, card, context) =>
+                {
+                    foreach (AbstractCardEvent cardEvent in e)
+                    {
+                        if (cardEvent is AttackCardEvent attackCardEvent)
+                        {
+                            attackCardEvent.amount *= 2;
+                        }
+                    }
+
+                    return e;
+                },
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> {},
+                "glassedge"),
+
+            ["LoanShark"] = new (
                 "Loan Shark",
                 "<b><u>On enter:</u></b> Gain $5.\n<b><u>On turn end:</u></b> Lose $7.",
                 HexColorUtility.HexToColor("#27AE60"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {
-                    [TriggerEventTime.Land] = () =>
+                    [TriggerEventTime.Land] = (context) =>
                     {
                         return new List<AbstractCardEvent>
                         {
                             new GainMoneyCardEvent(5),
                         };
                     },
-                    [TriggerEventTime.EndTurn] = () =>
+                    [TriggerEventTime.EndTurn] = (context) =>
                     {
                         return new List<AbstractCardEvent>
                         {
@@ -175,8 +346,8 @@ namespace Types.Tiles
                     }
                 },
                 "loanshark"),
-            
-            // ["HouseEdge"] = new ( 
+
+            // ["HouseEdge"] = new (
             //     "House Edge",
             //     "When playing a card here, 75% chance to play it twice, 25% to not play.",
             //     HexColorUtility.HexToColor("#27AE60"),
@@ -199,14 +370,14 @@ namespace Types.Tiles
             //         }
             //     },
             //     "houseedge"),
-            ["RecklessStrike"] = new ( 
+            ["RecklessStrike"] = new (
                 "Reckless Strike",
                 "<b><u>While here:</u></b> Deal double <sprite name=\"damage4\">. You cannot gain <sprite name=\"shield\">.",
                 HexColorUtility.HexToColor("#E67E22"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) =>
+                (e, card, context) =>
                 {
                     foreach (AbstractCardEvent cardEvent in e)
                     {
@@ -223,27 +394,27 @@ namespace Types.Tiles
 
                     return e;
                 },
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {},
                 "recklessstrike"),
-            ["Overcharge"] = new ( 
+            ["Overcharge"] = new (
                 "Overcharge",
                 "<b><u>On enter:</u></b> Gain 2 <sprite name=\"energyicon\">.\n<b><u>On turn end:</u></b> Take <sprite name=\"damage4\"> equal to 5x current <sprite name=\"energyicon\">.",
                 HexColorUtility.HexToColor("#229954"),
                 true,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {
-                    [TriggerEventTime.Land] = () =>
+                    [TriggerEventTime.Land] = (context) =>
                     {
                         return new List<AbstractCardEvent>
                         {
                             new GainEnergyCardEvent(2),
                         };
                     },
-                    [TriggerEventTime.EndTurn] = () =>
+                    [TriggerEventTime.EndTurn] = (context) =>
                     {
                         return new List<AbstractCardEvent>
                         {
@@ -252,33 +423,33 @@ namespace Types.Tiles
                     }
                 },
                 "overcharge"),
-            
-            ["basic"] = new ( 
+
+            ["basic"] = new (
                 "Basic",
                 "No effect.",
                 new Color(32.0f/255.0f, 99.0f/255.0f, 155.0f/255.0f),
                 false,
                 Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>()),
-            
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>()),
+
             ["start"] = new (
-                "Start", 
+                "Start",
                 "Starting tile.",
-                new Color(173.0f/255.0f,173.0f/255.0f,173.0f/255.0f), 
-                false, 
-                Rarity.Common, 
+                new Color(173.0f/255.0f,173.0f/255.0f,173.0f/255.0f),
+                false,
+                Rarity.Common,
                 TileType.Good,
-                (e, card) => e,
-                new SerializedDictionary<TriggerEventTime, Func<List<AbstractCardEvent>>>(),
+                (e, card, context) => e,
+                new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>(),
                 "House"
                 ),
-            
-            
-            
+
+
+
         };
-        
+
         public static IEnumerable<TileEntry> GetTilesByType(TileType tileType)
         {
             return tiles.Values.Where(tile => tile.tileType == tileType);

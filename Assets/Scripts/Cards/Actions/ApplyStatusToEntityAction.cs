@@ -11,7 +11,8 @@ namespace Cards.Actions
         Buffed,
         Dazed,
         Frost,
-        Poison
+        Poison,
+        Restless
     }
 
     public class ApplyStatusToEntityAction : AbstractAction
@@ -77,6 +78,8 @@ namespace Cards.Actions
                     return new FrostStatus(amount);
                 case StatusApplicationType.Poison:
                     return new PoisonStatus(amount);
+                case StatusApplicationType.Restless:
+                    return new RestlessStatus(amount);
                 case StatusApplicationType.Buffed:
                 default:
                     return new BuffedStatus(amount);
@@ -93,6 +96,8 @@ namespace Cards.Actions
                     return "<sprite name=\"snowflake\">";
                 case StatusApplicationType.Poison:
                     return "<sprite name=\"droplets\">";
+                case StatusApplicationType.Restless:
+                    return "<sprite name=\"footsteps\">";
                 case StatusApplicationType.Buffed:
                 default:
                     return "<sprite name=\"buffenemies\">";
