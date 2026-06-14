@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Cards.CardEvents;
-using Grid;
 
 namespace Types.CardModifiers.Modifiers
 {
@@ -18,9 +17,7 @@ namespace Types.CardModifiers.Modifiers
 
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvent, bool previewMode)
         {
-            string[] directions = HexGridManager.HexDirections;
-            RandomState modifierRandom = GetModifierRandom(previewMode);
-            cardEvent.Add(new MoveCardEvent(1, directions[modifierRandom.Next(0, directions.Length)]));
+            cardEvent.Add(new RandomMoveCardEvent(1, GetModifierRandom(previewMode)));
             return cardEvent;
         }
     }

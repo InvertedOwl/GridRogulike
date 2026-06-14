@@ -45,6 +45,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public bool used = false;
     public bool played;
     private bool _waitingForManualAttackResolution;
+    private readonly Dictionary<AttackCardEvent, List<AbstractCardEvent>> _manualAttackFollowUpEvents = new();
     public CardStatusDatabase.CardStatus? CardStatus;
     private Card _card;
     public bool onlyDisplay = false;
@@ -158,10 +159,21 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void SetInactive(bool setinactive, bool darken)
     {
         this.inactive = setinactive;
-        float inactiveAlpha = (setinactive && darken) ? 0.7f : 0.0f;
-        inactiveImage.GetComponent<EaseColor>().targetColor = new Color(inactiveImage.GetComponent<EaseColor>().targetColor.r,
-            inactiveImage.GetComponent<EaseColor>().targetColor.g,
-            inactiveImage.GetComponent<EaseColor>().targetColor.b, inactiveAlpha);
+        float inactiveAlpha = (setinactive && darken) ? 0.6f : 0.0f;
+
+        if (inactiveImage == null)
+            return;
+
+        EaseColor inactiveEaseColor = inactiveImage.GetComponent<EaseColor>();
+        if (inactiveEaseColor == null)
+            return;
+
+        Color targetColor = inactiveEaseColor.targetColor;
+        if (Mathf.Approximately(targetColor.a, inactiveAlpha))
+            return;
+
+        targetColor.a = inactiveAlpha;
+        inactiveEaseColor.targetColor = targetColor;
     }
 
     public void ResetPlayState()
@@ -169,12 +181,14 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         used = false;
         played = false;
         _waitingForManualAttackResolution = false;
+        _manualAttackFollowUpEvents.Clear();
     }
 
     public void CancelManualAttackTargeting()
     {
         _waitingForManualAttackResolution = false;
         used = false;
+        _manualAttackFollowUpEvents.Clear();
     }
 
     public bool IsResolvingManualAttack => _waitingForManualAttackResolution;
@@ -479,36 +493,61 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         bool isLeftClick = Input.GetMouseButtonDown(0);
         bool wasUsed = used;
-
-        bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
-        bool isPlayerTurn = false;
-        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
-        bool canPlayByRestrictions = CanPlayByRestrictions(out _);
+        PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        bool isPlayingState = playingState != null;
 
         if (isLeftClick)
         {
+            if (onlyDisplay)
+            {
+                if (CardClickedCallback == null)
+                    return;
+
+                CardClickedCallback.Invoke();
+                PlayCardClickSound();
+                return;
+            }
+
+            if (!isPlayingState && CardClickedCallback != null)
+            {
+                CardClickedCallback.Invoke();
+                PlayCardClickSound();
+                return;
+            }
+
+            bool clickHasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
+            bool clickIsPlayerTurn = isPlayingState && playingState.CurrentTurn.entityType == EntityType.Player;
+            bool clickCanPlayByRestrictions = CanPlayByRestrictions(out _);
+
+            if (played || !clickHasEnoughEnergy || !clickIsPlayerTurn || !clickCanPlayByRestrictions)
+                return;
+
             Deck.Instance.SetHandToUnused();
             used = true;
             CardClickedCallback?.Invoke();
 
-            sound.PlaySound("hover", 0.5f);
-
-            if (!onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions && HasManualAttackAction())
+            if (HasManualAttackAction())
             {
-                BeginManualAttackTargeting();
+                if (BeginManualAttackTargeting())
+                    PlayCardClickSound();
+
                 HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
                 return;
             }
 
-            if (!wasUsed && !onlyDisplay && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions)
+            if (!wasUsed)
             {
                 PreviewNonManualAttacks();
+                PlayCardClickSound();
             }
         }
 
         if (!wasUsed || onlyDisplay)
             return;
+
+        bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride > -1) ? CostOverride : _card.Cost);
+        bool isPlayerTurn = isPlayingState && playingState.CurrentTurn.entityType == EntityType.Player;
+        bool canPlayByRestrictions = CanPlayByRestrictions(out _);
 
         if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions)
         {
@@ -525,6 +564,12 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 
         HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
+    }
+
+    private void PlayCardClickSound()
+    {
+        if (sound != null)
+            sound.PlaySound("hover", 0.5f);
     }
 
     private bool HasManualAttackAction()
@@ -555,7 +600,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
     }
 
-    private void BeginManualAttackTargeting()
+    private bool BeginManualAttackTargeting()
     {
         List<AttackCardEvent> attackCardEvents = new List<AttackCardEvent>();
 
@@ -572,10 +617,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         if (attackCardEvents.Count == 0)
-            return;
+            return false;
 
         _waitingForManualAttackResolution = true;
         HexClickPlayerController.instance.BeginCardAttack(attackCardEvents, this);
+        return true;
     }
 
     public bool TryStartManualAttackPlay(out List<AttackCardEvent> attackCardEvents)
@@ -646,9 +692,13 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
         }
 
+        List<AbstractCardEvent> manualAttackDeferredEvents =
+            CollectManualAttackDeferredEvents(eventQueue, manualAttackEvents);
+
         // Remove attack actions
         HashSet<AbstractCardEvent> manualAttackEventSet = new HashSet<AbstractCardEvent>(manualAttackEvents);
-        eventQueue.RemoveAll(item => manualAttackEventSet.Contains(item));
+        HashSet<AbstractCardEvent> manualAttackDeferredEventSet = new HashSet<AbstractCardEvent>(manualAttackDeferredEvents);
+        eventQueue.RemoveAll(item => manualAttackEventSet.Contains(item) || manualAttackDeferredEventSet.Contains(item));
         attackCardEvents = manualAttackEvents;
 
         // Activate queue (excluding attacks)
@@ -658,6 +708,105 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         RunInfo.Instance.CurrentEnergy -= currentCost;
+    }
+
+    private List<AbstractCardEvent> CollectManualAttackDeferredEvents(
+        List<AbstractCardEvent> eventQueue,
+        List<AttackCardEvent> manualAttackEvents)
+    {
+        _manualAttackFollowUpEvents.Clear();
+        List<AbstractCardEvent> deferredEvents = new List<AbstractCardEvent>();
+
+        if (manualAttackEvents.Count == 0)
+            return deferredEvents;
+
+        foreach (AbstractCardEvent cardEvent in eventQueue)
+        {
+            if (manualAttackEvents.Contains(cardEvent))
+                continue;
+
+            AttackCardEvent attackEvent = FindManualAttackAboveEvent(eventQueue, manualAttackEvents, cardEvent);
+            if (attackEvent == null)
+                continue;
+
+            deferredEvents.Add(cardEvent);
+
+            if (!_manualAttackFollowUpEvents.TryGetValue(attackEvent, out List<AbstractCardEvent> attackFollowUps))
+            {
+                attackFollowUps = new List<AbstractCardEvent>();
+                _manualAttackFollowUpEvents[attackEvent] = attackFollowUps;
+            }
+
+            attackFollowUps.Add(cardEvent);
+        }
+
+        return deferredEvents;
+    }
+
+    private bool PushEventShouldUseAttackTarget(PushEntityAwayCardEvent pushEvent)
+    {
+        return pushEvent.target == null &&
+               !pushEvent.useTargetPosition &&
+               pushEvent.PreviewSourceActionIndex >= 0 &&
+               pushEvent.PreviewSourceActionIndex < _card.Actions.Count &&
+               _card.Actions[pushEvent.PreviewSourceActionIndex] is PushEnemyAwayAction;
+    }
+
+    private AttackCardEvent FindManualAttackAboveEvent(
+        List<AbstractCardEvent> eventQueue,
+        List<AttackCardEvent> manualAttackEvents,
+        AbstractCardEvent followUpEvent)
+    {
+        int eventIndex = eventQueue.IndexOf(followUpEvent);
+        if (eventIndex >= 0)
+        {
+            for (int i = eventIndex - 1; i >= 0; i--)
+            {
+                if (eventQueue[i] is AttackCardEvent attackEvent && attackEvent.manual)
+                    return attackEvent;
+            }
+        }
+
+        if (followUpEvent.PreviewSourceActionIndex >= 0)
+        {
+            AttackCardEvent closestSourceAttack = manualAttackEvents
+                .Where(attackEvent =>
+                    attackEvent.PreviewSourceActionIndex >= 0 &&
+                    attackEvent.PreviewSourceActionIndex < followUpEvent.PreviewSourceActionIndex)
+                .OrderByDescending(attackEvent => attackEvent.PreviewSourceActionIndex)
+                .FirstOrDefault();
+
+            if (closestSourceAttack != null)
+                return closestSourceAttack;
+        }
+
+        return null;
+    }
+
+    public void ActivateManualAttackFollowUps(AttackCardEvent attackEvent, AbstractEntity target)
+    {
+        if (attackEvent == null || target == null)
+            return;
+
+        if (!_manualAttackFollowUpEvents.TryGetValue(attackEvent, out List<AbstractCardEvent> followUpEvents))
+            return;
+
+        Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
+        foreach (AbstractCardEvent followUpEvent in followUpEvents)
+        {
+            if (followUpEvent is ApplyStatusToEntityCardEvent applyStatusEvent && applyStatusEvent.target == null)
+            {
+                applyStatusEvent.target = target;
+            }
+            else if (followUpEvent is PushEntityAwayCardEvent pushEvent && PushEventShouldUseAttackTarget(pushEvent))
+            {
+                pushEvent.target = target;
+            }
+
+            followUpEvent.Activate(player);
+        }
+
+        _manualAttackFollowUpEvents.Remove(attackEvent);
     }
 
     public bool CanPlayByRestrictions(out string blockedReason)
@@ -728,6 +877,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _waitingForManualAttackResolution = false;
         used = true;
         played = true;
+        _manualAttackFollowUpEvents.Clear();
     }
 
 

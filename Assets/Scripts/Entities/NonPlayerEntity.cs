@@ -22,11 +22,11 @@ namespace Entities
         public List<AbstractAction> AvailableActions = new List<AbstractAction>();
         
 
-        public override void Damage(int damage)
+        public override void Damage(int damage, bool triggerDamageReceivedStatuses = true)
         {
             BattleStats.DamageDoneThisBattle += damage;
             BattleStats.DamageDoneThisTurn += damage;
-            base.Damage(damage);
+            base.Damage(damage, triggerDamageReceivedStatuses);
         }
         
 

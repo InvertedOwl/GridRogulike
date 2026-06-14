@@ -29,6 +29,9 @@ namespace Entities.Enemies
                     OnBeforeEvent(modifiedEvent);
                     modifiedEvent.Activate(self);
 
+                    if (modifiedEvent is AttackCardEvent)
+                        self.ClearNextTurnActionPreviewForAction(action);
+
                     yield return new WaitForSeconds(GetActionDelay(action));
                 }
 

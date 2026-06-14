@@ -147,6 +147,7 @@ namespace StateManager
             SetupInitialTiles();
             RestoreOrInitializeTileCountdownStates();
             ResetCombatTileTriggers();
+            RunInfo.Instance.CurrentSteps = 0;
             SetupEntities();
             RebuildTurnOrder();
             SetupUI();
@@ -817,11 +818,29 @@ namespace StateManager
                 {
                     state.turnsRemaining = 0;
                     state.exploded = true;
+                    PlayTileCountdownExplosionFx(position);
                     DamageEntities(position, countdownEffect.explosionDamage, null);
                 }
 
                 ApplyTileCountdownIcon(position);
             }
+        }
+
+        private void PlayTileCountdownExplosionFx(Vector2Int position)
+        {
+            if (FXManager.Instance == null)
+                return;
+            
+            Debug.Log("Playing countdown explosive effect");
+            Vector3 spawnPosition = HexGridManager.GetHexCenter(position.x, position.y);
+            if (HexGridManager.Instance != null &&
+                HexGridManager.Instance._hexObjects.TryGetValue(position, out GameObject hexObject) &&
+                hexObject != null)
+            {
+                spawnPosition = hexObject.transform.position;
+            }
+
+            FXManager.Instance.TryPlay("NukeExplosionFire", spawnPosition);
         }
 
         private List<TileCountdownSaveData> CaptureTileCountdownStates()
@@ -1218,11 +1237,6 @@ namespace StateManager
             var entity = CurrentTurn;
             turnIndicatorManager.SetCurrentTurn(_turnOrder, entities, _currentTurnIndex);
 
-            if (entity is NonPlayerEntity)
-            {
-                ClearEnemyIntentPreviews();
-            }
-
             entity.StartTurn();
 
             if (entity.entityType == EntityType.Player)
@@ -1498,6 +1512,7 @@ namespace StateManager
         {
             var target = HexGridManager.MoveHex(ent.positionRowCol, dir, dist);
             if (!IsValidHex(target)) return false;
+            if (ent.StatusesBlockMovement(Mathf.Max(1, dist))) return false;
 
             ent.MoveEntity(target);
             QueueEnemyIntentRefreshAfterMove(ent);
@@ -1521,6 +1536,7 @@ namespace StateManager
 
             // TODO: DEBUG
             int dist = 1;
+            if (ent.StatusesBlockMovement(dist)) return false;
             
             ent.MoveEntity(target);
             QueueEnemyIntentRefreshAfterMove(ent);
@@ -1545,6 +1561,7 @@ namespace StateManager
                 {
                     e.Damage(dmg);
                     e.ApplyStatus(status);
+                    StatusApplicationFx.TryPlay(status, e);
                 }
         }
         #endregion

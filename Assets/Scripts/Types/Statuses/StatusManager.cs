@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -22,6 +23,17 @@ namespace Types.Statuses
             CacheIcon<BuffedStatus>("Buffed");
             CacheIcon<DazedStatus>("Dazed");
             CacheIcon<RestlessStatus>("Restless");
+            CacheIcon<FallStatus>("Fall");
+            CacheIcon<ShockedStatus>("Shocked");
+            CacheIcon<EnergeticStatus>("Energetic");
+            CacheIcon<ExcitedStatus>("Excited");
+            CacheIcon<FrozenStatus>("Frost");
+            CacheIcon<SleepyStatus>("Sleepy");
+            CacheIcon<RangedStatus>("Ranged");
+            CacheIcon<HasteStatus>("Haste");
+            CacheIcon<BlindStatus>("Blind");
+            CacheIcon<VolatileStatus>("Volatile");
+            CacheIcon<DizzyStatus>("Dizzy");
         }
 
         private void CacheIcon<T>(string name) where T : AbstractStatus
@@ -45,15 +57,17 @@ namespace Types.Statuses
 
             List<AbstractStatus> toRemove = new List<AbstractStatus>();
             
-            foreach (var status in statuses)
+            foreach (var status in statuses.ToList())
             {
+                if (status.Amount <= 0)
+                {
+                    toRemove.Add(status);
+                    continue;
+                }
+
                 var type = status.GetType();
                 if (_iconCache.TryGetValue(type, out var icon))
                 {
-                    if (status.Amount <= 0)
-                    {
-                        toRemove.Add(status);
-                    }
                     icon.SetActive(true);
                     if (_textCache.TryGetValue(type, out TextMeshPro text) && text != null)
                         text.text = (Math.Max(status.Amount, 1)).ToString();

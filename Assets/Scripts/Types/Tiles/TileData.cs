@@ -48,7 +48,7 @@ namespace Types.Tiles
                     [TriggerEventTime.Land] = (context) => new List<AbstractCardEvent>
                     {
                         new GainStepsCardEvent(2),
-                        new MoveCardEvent(1, HexGridManager.HexDirections[context.GetRandom("randomdir").Next(6)])
+                        new RandomMoveCardEvent(1, context.GetRandom("randomdir"))
                     }
                 },
                 "stumble", TileTriggerLimit.OncePerTurn),
@@ -128,7 +128,7 @@ namespace Types.Tiles
 
             ["HeadStart"] = new (
                 "Head Start",
-                "<b><u>On turn start:</u></b> Gain 1 <sprite name=\"footsteps\">.",
+                "<b><u>Start turn here:</u></b> Gain 1 <sprite name=\"footsteps\">.",
                 HexColorUtility.HexToColor("#1ABC9C"),
                 true,
                 Rarity.Common,
@@ -195,7 +195,7 @@ namespace Types.Tiles
 
             ["RestlessStep"] = new (
                 "Restless Step",
-                "<b><u>On enter:</u></b> Gain 2 <sprite name=\"footsteps\">. You must move before playing cards.",
+                "<b><u>On enter:</u></b> Gain 1 <sprite name=\"footsteps\">. You must move before playing cards.",
                 HexColorUtility.HexToColor("#16A085"),
                 true,
                 Rarity.Common,
@@ -207,12 +207,12 @@ namespace Types.Tiles
                     {
                         return new List<AbstractCardEvent>
                         {
-                            new GainStepsCardEvent(2),
+                            new GainStepsCardEvent(1),
                             new AddMoveBeforeCardRestrictionEvent()
                         };
                     }
                 },
-                "headstart"),
+                "restlessstep"),
 
             ["Ignite"] = new (
                 "Ignite",
@@ -237,7 +237,7 @@ namespace Types.Tiles
 
             ["Countdown"] = new (
                 "Countdown",
-                "<b><u>At turn end:</u></b> Counts down. At 0, deal 60 <sprite name=\"damage4\"> to anything here.",
+                "<b><u>Counts down.</u></b>  At 0, deal 60 <sprite name=\"damage4\"> to anything here.",
                 HexColorUtility.HexToColor("#C0392B"),
                 true,
                 Rarity.Common,
@@ -277,17 +277,22 @@ namespace Types.Tiles
 
             ["HouseEdge"] = new (
                 "House Edge",
-                "<b><u>Played Cards:</u></b> 75% chance to play it twice, 25% to not play.",
+                "<b><u>Played Cards:</u></b> 25% chance to play it twice, 75% to not play.",
                 HexColorUtility.HexToColor("#9B59B6"),
                 true,
                 Rarity.Common,
                 TileType.Good,
                 (e, card, context) =>
                 {
-                    int val = context.GetRandom("dice").Next(100);
-                    if (val < 75)
+                    if (context.PreviewMode)
                     {
-                        e.AddRange(e);
+                        return e;
+                    }
+
+                    int val = context.GetRandom("dice").Next(100);
+                    if (val < 25)
+                    {
+                        e.AddRange(CopyEventsForRepeat(e));
                         return e;
                     }
                     else
@@ -318,11 +323,23 @@ namespace Types.Tiles
                     return e;
                 },
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> {},
-                "glassedge"),
+                icon: "glassedge",
+                incomingEventModifier: (e, context) =>
+                {
+                    foreach (AbstractCardEvent cardEvent in e)
+                    {
+                        if (cardEvent is AttackCardEvent attackCardEvent)
+                        {
+                            attackCardEvent.amount = Mathf.CeilToInt(attackCardEvent.amount * 1.5f);
+                        }
+                    }
+
+                    return e;
+                }),
 
             ["LoanShark"] = new (
                 "Loan Shark",
-                "<b><u>On enter:</u></b> Gain $5.\n<b><u>On turn end:</u></b> Lose $7.",
+                "<b><u>On enter:</u></b> Gain $5.\n<b><u>End turn here:</u></b> Lose $7.",
                 HexColorUtility.HexToColor("#27AE60"),
                 true,
                 Rarity.Common,
@@ -372,7 +389,7 @@ namespace Types.Tiles
             //     "houseedge"),
             ["RecklessStrike"] = new (
                 "Reckless Strike",
-                "<b><u>While here:</u></b> Deal double <sprite name=\"damage4\">. You cannot gain <sprite name=\"shield\">.",
+                "<b><u>Played cards:</u></b> Deal double <sprite name=\"damage4\">. You cannot gain <sprite name=\"shield\">.",
                 HexColorUtility.HexToColor("#E67E22"),
                 true,
                 Rarity.Common,
@@ -399,7 +416,7 @@ namespace Types.Tiles
                 "recklessstrike"),
             ["Overcharge"] = new (
                 "Overcharge",
-                "<b><u>On enter:</u></b> Gain 2 <sprite name=\"energyicon\">.\n<b><u>On turn end:</u></b> Take <sprite name=\"damage4\"> equal to 5x current <sprite name=\"energyicon\">.",
+                "<b><u>On enter:</u></b> Gain 2 <sprite name=\"energyicon\">.\n<b><u>End turn here:</u></b> Take <sprite name=\"damage4\"> equal to 5x current <sprite name=\"energyicon\">.",
                 HexColorUtility.HexToColor("#229954"),
                 true,
                 Rarity.Common,
@@ -453,6 +470,34 @@ namespace Types.Tiles
         public static IEnumerable<TileEntry> GetTilesByType(TileType tileType)
         {
             return tiles.Values.Where(tile => tile.tileType == tileType);
+        }
+
+        private static List<AbstractCardEvent> CopyEventsForRepeat(List<AbstractCardEvent> events)
+        {
+            return events.Select(CopyEventForRepeat).ToList();
+        }
+
+        private static AbstractCardEvent CopyEventForRepeat(AbstractCardEvent cardEvent)
+        {
+            switch (cardEvent)
+            {
+                case AttackCardEvent attackCardEvent:
+                    return attackCardEvent.Copy();
+                case ApplyStatusToEntityCardEvent applyStatusEvent:
+                    return CopyPreviewSource(
+                        new ApplyStatusToEntityCardEvent(applyStatusEvent.target, applyStatusEvent.status),
+                        applyStatusEvent);
+                case PushEntityAwayCardEvent pushEvent:
+                    return pushEvent.Copy();
+                default:
+                    return cardEvent;
+            }
+        }
+
+        private static T CopyPreviewSource<T>(T copy, AbstractCardEvent original) where T : AbstractCardEvent
+        {
+            copy.PreviewSourceActionIndex = original.PreviewSourceActionIndex;
+            return copy;
         }
 
     }

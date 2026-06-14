@@ -148,6 +148,19 @@ public class HexPreviewHandler : MonoBehaviour
             MarkPreviewDirty();
     }
 
+    public void RemoveEventsForEntityAction(AbstractEntity entity, int actionIndex)
+    {
+        if (!eventsOnThisHex.TryGetValue(entity, out List<AbstractCardEvent> entityEvents))
+            return;
+
+        bool removed = entityEvents.RemoveAll(cardEvent => cardEvent.PreviewSourceActionIndex == actionIndex) > 0;
+        if (entityEvents.Count == 0)
+            eventsOnThisHex.Remove(entity);
+
+        if (removed)
+            MarkPreviewDirty();
+    }
+
     public void AddPreviewEvent(AbstractEntity entity, AbstractCardEvent cardEvent)
     {
         if (eventsOnThisHex.ContainsKey(entity))

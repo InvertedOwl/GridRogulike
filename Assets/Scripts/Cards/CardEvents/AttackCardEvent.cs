@@ -38,6 +38,16 @@ namespace Cards.CardEvents
             this.manual = manual;
         }
 
+        public AttackCardEvent Copy()
+        {
+            AttackCardEvent copy = usePosition
+                ? new AttackCardEvent(position, amount, status, manual)
+                : new AttackCardEvent(distance, direction, amount, status, manual);
+
+            copy.PreviewSourceActionIndex = PreviewSourceActionIndex;
+            return copy;
+        }
+
         public override Dictionary<string, PreviewValue> GetPreviewValues()
         {
             Dictionary<string, PreviewValue> values = new Dictionary<string, PreviewValue>

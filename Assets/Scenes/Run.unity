@@ -285,7 +285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.59998, y: -86.269936}
+  m_AnchoredPosition: {x: 327.60007, y: -86.269936}
   m_SizeDelta: {x: 630.54, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &32353971
@@ -13027,6 +13027,9 @@ MonoBehaviour:
   defaultLifetime: 2
   sortingOrder: 200
   spawnScale: {x: 0.5, y: 0.5, z: 0.5}
+  soundVolume: 0.541
+  randomizeSoundPitch: 1
+  soundPitchRange: {x: 0.6, y: 1.4}
   effects:
   - key: GreenBloodDripping
     prefab: {fileID: 156376, guid: 0d7b7026c8027f74d90cb7460d16f00d, type: 3}
@@ -23806,8 +23809,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1247426030}
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.51593
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -27178,6 +27181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1477399727}
   - component: {fileID: 1477399726}
+  - component: {fileID: 1477399728}
   m_Layer: 0
   m_Name: StaticReset
   m_TagString: Untagged
@@ -27212,6 +27216,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1477399728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477399725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76004597823bf3743b5f9feb7a931f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1479005293
 GameObject:
   m_ObjectHideFlags: 0
@@ -32482,7 +32498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2022748690
 RectTransform:
   m_ObjectHideFlags: 0

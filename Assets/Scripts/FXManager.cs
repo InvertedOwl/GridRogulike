@@ -27,6 +27,9 @@ public class FXManager : MonoBehaviour
     [SerializeField, Min(0f)] private float defaultLifetime = 2f;
     [SerializeField] private int sortingOrder = 200;
     [SerializeField] private Vector3 spawnScale = new Vector3(0.5f, 0.5f, 0.5f);
+    [SerializeField, Range(0f, 1f)] private float soundVolume = 1f;
+    [SerializeField] private bool randomizeSoundPitch = true;
+    [SerializeField] private Vector2 soundPitchRange = new Vector2(0.9f, 1.1f);
     [SerializeField] private List<FXEntry> effects = new List<FXEntry>();
 
     private readonly Dictionary<string, FXEntry> _lookup =
@@ -156,6 +159,7 @@ public class FXManager : MonoBehaviour
         instance.name = string.IsNullOrWhiteSpace(entry.key) ? entry.prefab.name : $"FX_{entry.key}";
         instance.transform.localScale = spawnScale;
         ApplySortingOrder(instance);
+        ApplyAudioSettings(instance);
 
         if (entry.lifetime > 0f)
         {
@@ -170,6 +174,22 @@ public class FXManager : MonoBehaviour
         foreach (Renderer renderer in instance.GetComponentsInChildren<Renderer>(true))
         {
             renderer.sortingOrder = sortingOrder;
+        }
+    }
+
+    private void ApplyAudioSettings(GameObject instance)
+    {
+        float minPitch = Mathf.Min(soundPitchRange.x, soundPitchRange.y);
+        float maxPitch = Mathf.Max(soundPitchRange.x, soundPitchRange.y);
+
+        foreach (AudioSource audioSource in instance.GetComponentsInChildren<AudioSource>(true))
+        {
+            audioSource.volume *= soundVolume;
+
+            if (randomizeSoundPitch)
+            {
+                audioSource.pitch *= UnityEngine.Random.Range(minPitch, maxPitch);
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cards.CardEvents;
-using Grid;
 
 namespace Types.Statuses
 {
@@ -39,16 +38,16 @@ namespace Types.Statuses
                     amounttodaze--;
 
                 }
-                if (cardEvent is MoveCardEvent moveCardEvent)
+                if (cardEvent is MoveCardEvent || cardEvent is RandomMoveCardEvent)
                 {
-                    gainStepsCardEvents.Add(moveCardEvent);
+                    gainStepsCardEvents.Add(cardEvent);
                     amounttodaze--;
                 }
             }
 
             foreach (AbstractCardEvent blockedEvent in gainStepsCardEvents)
             {
-                cardEvents.Add(new MoveCardEvent(1, HexGridManager.HexDirections[modifyRandom.Next(HexGridManager.HexDirections.Length)])
+                cardEvents.Add(new RandomMoveCardEvent(1, modifyRandom)
                 {
                     PreviewSourceActionIndex = blockedEvent.PreviewSourceActionIndex
                 });

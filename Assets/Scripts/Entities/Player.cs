@@ -27,6 +27,7 @@ namespace Entities
             base.StartTurn();
             Deck.Instance.DrawHand();
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
+            TriggerTurnResourcesReadyStatuses();
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             playingState.AllowUserInput = true;
             

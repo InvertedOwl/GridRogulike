@@ -30,6 +30,7 @@ namespace Cards.CardEvents
                 return;
 
             target.ApplyStatus(status);
+            StatusApplicationFx.TryPlay(status, target);
         }
     }
 }

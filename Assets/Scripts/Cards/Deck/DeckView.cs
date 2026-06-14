@@ -110,13 +110,16 @@ public class DeckView : MonoBehaviour
             cardMono.GetComponent<Canvas>().overrideSorting = true;
             cardMono.GetComponent<Canvas>().sortingOrder = 202;
             cardMono.sortingLayer = 202;
-            cardMono.CardClickedCallback = () =>
+            if (Callback != null)
             {
-                if (Callback == null) return;
-                Callback.Invoke(card);
-                Callback = null;
-                Exit();
-            };
+                cardMono.CardClickedCallback = () =>
+                {
+                    if (Callback == null) return;
+                    Callback.Invoke(card);
+                    Callback = null;
+                    Exit();
+                };
+            }
             cardMono.onlyDisplay = true;
             cardObject.transform.localScale = new Vector3(0.1239199f, 0.1239199f, 0.1239199f);
             Destroy(cardObject.GetComponent<LerpPosition>());

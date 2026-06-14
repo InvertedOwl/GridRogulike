@@ -15,6 +15,36 @@ namespace Types.Statuses
             return Modify(cardEvent);
         }
 
+        public virtual int ModifyDrawCount(int drawCount)
+        {
+            return drawCount;
+        }
+
+        public virtual void OnApply(AbstractEntity entity, int amountAdded)
+        {
+        }
+
+        public virtual void OnStartTurn()
+        {
+        }
+
+        public virtual void OnTurnResourcesReady()
+        {
+        }
+
+        public virtual bool BlocksMovement(AbstractEntity entity, int distance)
+        {
+            return false;
+        }
+
+        public virtual void OnDamageReceived(int damage)
+        {
+        }
+
+        public virtual void OnDeath()
+        {
+        }
+
         public abstract void OnEndTurn();
     }
 }

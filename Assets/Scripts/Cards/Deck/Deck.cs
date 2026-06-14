@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cards;
 using Cards.CardList;
+using Entities;
 using Grid;
 using StateManager;
+using Types.Statuses;
 using UnityEngine;
 using Util;
 
@@ -108,40 +111,53 @@ public class Deck : MonoBehaviour
             RememberPlayabilitySignature();
             return;
         }
-        var playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-        if (playingState != null && !playingState.AllowUserInput)
-        {
-            foreach (CardMonobehaviour card in Hand)
-            {
-                card.SetInactive(true, ShouldShowInactiveOverlay(card));
-                card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
-
-
-            }
-            RememberPlayabilitySignature();
+        if (!ShouldRefreshPlayability())
             return;
-        }
 
+        var playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
         foreach (CardMonobehaviour card in Hand)
         {
-            if (card.played || card.IsResolvingManualAttack)
-            {
-                card.SetInactive(true, false);
-                card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
-            }
-            else if (IsCardTooExpensive(card) || IsCardBlockedByRestriction(card))
-            {
-                card.SetInactive(true);
-                card.GetComponent<GOList>().GetValue("Glow").SetActive(false);
-            }
-            else
-            {
-                card.SetInactive(false);
-                card.GetComponent<GOList>().GetValue("Glow").SetActive(true);
-            }
+            bool canPlay = CanPlayCardNow(card, playingState);
+            bool isResolvingManualAttack = IsCardResolvingManualAttack(card, playingState);
+            card.SetInactive(!canPlay && !isResolvingManualAttack);
+            SetGlowActive(card, canPlay || isResolvingManualAttack);
         }
 
         RememberPlayabilitySignature();
+    }
+
+    private bool CanPlayCardNow(CardMonobehaviour card, PlayingState playingState)
+    {
+        return card != null &&
+               playingState != null &&
+               playingState.AllowUserInput &&
+               !card.played &&
+               !card.IsResolvingManualAttack &&
+               !IsCardTooExpensive(card) &&
+               !IsCardBlockedByRestriction(card);
+    }
+
+    private bool IsCardResolvingManualAttack(CardMonobehaviour card, PlayingState playingState)
+    {
+        return card != null &&
+               playingState != null &&
+               playingState.AllowUserInput &&
+               !card.played &&
+               card.IsResolvingManualAttack;
+    }
+
+    private void SetGlowActive(CardMonobehaviour card, bool active)
+    {
+        if (card == null)
+            return;
+
+        GOList goList = card.GetComponent<GOList>();
+        if (goList == null || !goList.HasValue("Glow"))
+            return;
+
+        GameObject glow = goList.GetValue("Glow");
+        if (glow != null)
+            glow.SetActive(active);
     }
 
     private bool IsCardTooExpensive(CardMonobehaviour card)
@@ -153,12 +169,6 @@ public class Deck : MonoBehaviour
     private bool IsCardBlockedByRestriction(CardMonobehaviour card)
     {
         return card != null && !card.CanPlayByRestrictions(out _);
-    }
-
-    private bool ShouldShowInactiveOverlay(CardMonobehaviour card)
-    {
-        return !card.played && !card.IsResolvingManualAttack &&
-               (IsCardTooExpensive(card) || IsCardBlockedByRestriction(card));
     }
 
     public void SetHandToUnused()
@@ -537,9 +547,23 @@ public class Deck : MonoBehaviour
     public void DrawHand()
     {
         _removingPlayed.Clear();
-        FullDrawHand(4);
+        FullDrawHand(GetModifiedHandDrawCount(4));
         PositionHandCards(0);
         Debug.Log("Cards in hand: " + _hand.Count);
+    }
+
+    private int GetModifiedHandDrawCount(int baseDrawCount)
+    {
+        int drawCount = baseDrawCount;
+        if (Player.Instance?.statusManager == null)
+            return drawCount;
+
+        foreach (AbstractStatus status in Player.Instance.statusManager.statusList.ToList())
+        {
+            drawCount = status.ModifyDrawCount(drawCount);
+        }
+
+        return Mathf.Max(0, drawCount);
     }
 
     public void DrawCard(Card card)

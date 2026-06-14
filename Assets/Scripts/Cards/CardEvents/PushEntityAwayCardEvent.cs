@@ -31,6 +31,26 @@ namespace Cards.CardEvents
             this.distance = distance;
         }
 
+        public PushEntityAwayCardEvent Copy()
+        {
+            PushEntityAwayCardEvent copy;
+            if (useTargetPosition)
+            {
+                copy = new PushEntityAwayCardEvent(targetPosition, distance);
+            }
+            else if (target != null)
+            {
+                copy = new PushEntityAwayCardEvent(target, distance);
+            }
+            else
+            {
+                copy = new PushEntityAwayCardEvent(distance);
+            }
+
+            copy.PreviewSourceActionIndex = PreviewSourceActionIndex;
+            return copy;
+        }
+
         public override Dictionary<string, PreviewValue> GetPreviewValues()
         {
             return new Dictionary<string, PreviewValue>

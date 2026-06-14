@@ -21,7 +21,16 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return new List<AbstractCardEvent> { new ApplyStatusSelfCardEvent(new DazedStatus(dazedAmount, _actionRandom)) };
+            return Activate(cardMono, previewMode: false);
+        }
+
+        public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono, bool previewMode)
+        {
+            return new List<AbstractCardEvent>
+            {
+                new ApplyStatusSelfCardEvent(
+                    new DazedStatus(dazedAmount, GetStableActionRandom(cardMono, previewMode, "dazed")))
+            };
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)

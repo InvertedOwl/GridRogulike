@@ -19,6 +19,10 @@ namespace Types.CardModifiers.Modifiers
                 {
                     ((MoveCardEvent)cEvent).distance *= 2;
                 }
+                else if (cEvent is RandomMoveCardEvent randomMoveCardEvent)
+                {
+                    randomMoveCardEvent.distance *= 2;
+                }
             }
             
             return cardEvent;

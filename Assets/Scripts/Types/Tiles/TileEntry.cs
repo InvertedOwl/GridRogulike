@@ -59,6 +59,7 @@ namespace Types.Tiles
     {
         public Dictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> triggerEvents;
         public Func<List<AbstractCardEvent>, Card, TileContext, List<AbstractCardEvent>> cardModifier;
+        public Func<List<AbstractCardEvent>, TileContext, List<AbstractCardEvent>> incomingEventModifier;
         public string name;
         public string description;
         public Color color;
@@ -76,7 +77,8 @@ namespace Types.Tiles
             string icon = "none", 
             TileTriggerLimit triggerLimit = TileTriggerLimit.None,
             Func<List<AbstractCardEvent>, Card, TileContext, bool> shouldMarkAsTriggered = null,
-            TileCountdownEffect countdownEffect = null)
+            TileCountdownEffect countdownEffect = null,
+            Func<List<AbstractCardEvent>, TileContext, List<AbstractCardEvent>> incomingEventModifier = null)
         {
             this.name = name;
             this.description = description;
@@ -86,6 +88,7 @@ namespace Types.Tiles
             this.tileType = tileType;
             this.triggerEvents = triggerEvents;
             this.cardModifier = cardModifier;
+            this.incomingEventModifier = incomingEventModifier ?? ((events, context) => events);
             this.icon = icon;
             this.triggerLimit = triggerLimit;
             this.shouldMarkAsTriggered = shouldMarkAsTriggered;

@@ -38,6 +38,8 @@ namespace Entities
         private const float EnemyDamageShakeMagnitude = 0.035f;
         private const float PlayerDamageShakeDamping = 8f;
         private const float EnemyDamageShakeDamping = 10f;
+        private const string MoveFxKey = "ToonPunchLight";
+        private const float MoveFxBackwardOffset = 0.75f;
 
         public Image turnIndicatorIcon;
         
@@ -126,7 +128,10 @@ namespace Entities
         public void MoveEntity(Vector2Int newCoords)
         {
             Debug.Log("Target new coords " + newCoords);
-            
+
+            Vector2Int previousCoords = positionRowCol;
+            PlayMoveFx(previousCoords, newCoords);
+
             positionRowCol = newCoords;
             GameObject currentHex = HexGridManager.Instance.GetWorldHexObject(positionRowCol);
             transform.SetParent(currentHex.transform.GetChild(3));
@@ -138,6 +143,45 @@ namespace Entities
             lerpPosition.targetLocation = boardLocalOffset;
             lerpPosition.targetRotation = lerpPosition.isLocal ? transform.localRotation : boardRotation;
             
+        }
+
+        private void PlayMoveFx(Vector2Int sourceCoords, Vector2Int targetCoords)
+        {
+            if (sourceCoords == targetCoords || FXManager.Instance == null)
+                return;
+
+            if (!TryGetHexWorldPosition(sourceCoords, out Vector3 sourcePosition) ||
+                !TryGetHexWorldPosition(targetCoords, out Vector3 targetPosition))
+            {
+                return;
+            }
+
+            Vector3 moveDirection = targetPosition - sourcePosition;
+            if (moveDirection.sqrMagnitude <= Mathf.Epsilon)
+                return;
+
+            Vector3 spawnPosition = Vector3.Lerp(sourcePosition, targetPosition, 0.5f) -
+                                    (moveDirection.normalized * MoveFxBackwardOffset);
+            if (FXManager.Instance.TryPlay(MoveFxKey, spawnPosition, out GameObject moveFx) &&
+                moveFx != null)
+            {
+                moveFx.transform.rotation = Quaternion.LookRotation(moveDirection.normalized, Vector3.up);
+            }
+        }
+
+        private bool TryGetHexWorldPosition(Vector2Int coords, out Vector3 position)
+        {
+            position = Vector3.zero;
+
+            if (HexGridManager.Instance == null ||
+                !HexGridManager.Instance._hexObjects.TryGetValue(coords, out GameObject hexObject) ||
+                hexObject == null)
+            {
+                return false;
+            }
+
+            position = hexObject.transform.position;
+            return true;
         }
 
         public void Start()
@@ -208,6 +252,7 @@ namespace Entities
         public virtual void StartTurn()
         {
             _shield = 0;
+            TriggerStartTurnStatuses();
             
             
             // Play all queued actions for next turn
@@ -232,7 +277,7 @@ namespace Entities
             Debug.Log("End Turn: " + this.name);
             if (statusManager)
             {
-                foreach (AbstractStatus abstractStatus in statusManager.statusList)
+                foreach (AbstractStatus abstractStatus in statusManager.statusList.ToList())
                 {
                     abstractStatus.OnEndTurn();
                 }
@@ -248,18 +293,39 @@ namespace Entities
             }
             
             Debug.Log("Type of status applied " + abstractStatus.GetType());
+
+            if (statusManager == null)
+            {
+                return;
+            }
+
+            if (abstractStatus is DizzyStatus)
+            {
+                FXManager.Instance.TryPlay("StunExplosion", transform.position);
+            }
+            if (abstractStatus is PoisonStatus)
+            {
+                FXManager.Instance.TryPlay("PosionExplosion", transform.position);
+            }
             
+            int amountAdded = abstractStatus.Amount;
             AbstractStatus existing = statusManager.statusList.FirstOrDefault(s => s.GetType() == abstractStatus.GetType());
             if (existing != null)
+            {
                 existing.Amount += abstractStatus.Amount;
+                existing.OnApply(this, amountAdded);
+            }
             else
             {
                 abstractStatus.Entity = this;
                 statusManager.statusList.Add(abstractStatus);
+                abstractStatus.OnApply(this, amountAdded);
             }
+
+            Deck.Instance?.MarkPlayabilityDirty();
         }
         
-        public virtual void Damage(int damage)
+        public virtual void Damage(int damage, bool triggerDamageReceivedStatuses = true)
         {
             if (_isDead)
                 return;
@@ -268,6 +334,8 @@ namespace Entities
             
             
             hurtSystem.Play();
+
+            float healthBeforeDamage = Health;
             
             if (Shield > 0)
             {
@@ -285,6 +353,12 @@ namespace Entities
             }
 
             Health = Mathf.Clamp(Health, 0, initialHealth);
+            int healthDamageReceived = Mathf.Max(0, Mathf.RoundToInt(healthBeforeDamage - Health));
+            if (triggerDamageReceivedStatuses && healthDamageReceived > 0)
+            {
+                TriggerDamageReceivedStatuses(healthDamageReceived);
+            }
+
             ShakeOnDamage();
 
             // Instantiate damage number
@@ -299,6 +373,67 @@ namespace Entities
 
             PlayHurtAnimation();
             
+        }
+
+        public bool StatusesBlockMovement(int distance)
+        {
+            if (statusManager == null)
+                return false;
+
+            foreach (AbstractStatus status in statusManager.statusList.ToList())
+            {
+                if (status.BlocksMovement(this, distance))
+                {
+                    Deck.Instance?.MarkPlayabilityDirty();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected void TriggerTurnResourcesReadyStatuses()
+        {
+            if (statusManager == null)
+                return;
+
+            foreach (AbstractStatus status in statusManager.statusList.ToList())
+            {
+                status.OnTurnResourcesReady();
+            }
+        }
+
+        private void TriggerStartTurnStatuses()
+        {
+            if (statusManager == null)
+                return;
+
+            foreach (AbstractStatus status in statusManager.statusList.ToList())
+            {
+                status.OnStartTurn();
+            }
+        }
+
+        private void TriggerDamageReceivedStatuses(int damage)
+        {
+            if (statusManager == null)
+                return;
+
+            foreach (AbstractStatus status in statusManager.statusList.ToList())
+            {
+                status.OnDamageReceived(damage);
+            }
+        }
+
+        private void TriggerDeathStatuses()
+        {
+            if (statusManager == null)
+                return;
+
+            foreach (AbstractStatus status in statusManager.statusList.ToList())
+            {
+                status.OnDeath();
+            }
         }
 
         private void PlayHurtAnimation()
@@ -328,6 +463,7 @@ namespace Entities
 
         
         List<string> arrowUUIDs = new List<string>();
+        private readonly Dictionary<int, List<string>> _arrowUUIDsByActionIndex = new Dictionary<int, List<string>>();
 
         public virtual void ClearNextTurnActionPreviews()
         {
@@ -337,10 +473,44 @@ namespace Entities
             }
 
             arrowUUIDs.Clear();
+            _arrowUUIDsByActionIndex.Clear();
 
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
             {
                 HexGridManager.Instance.GetWorldHexObject(pos).GetComponent<HexPreviewHandler>().RemoveEventsForEntity(this);
+            }
+        }
+
+        public virtual void ClearNextTurnActionPreviewForAction(AbstractAction action)
+        {
+            if (action == null || plannedAction == null)
+                return;
+
+            int actionIndex = plannedAction.IndexOf(action);
+            if (actionIndex < 0)
+                return;
+
+            ClearNextTurnActionPreviewForActionIndex(actionIndex);
+        }
+
+        private void ClearNextTurnActionPreviewForActionIndex(int actionIndex)
+        {
+            if (_arrowUUIDsByActionIndex.TryGetValue(actionIndex, out List<string> actionArrowUUIDs))
+            {
+                foreach (string arrowUUID in actionArrowUUIDs)
+                {
+                    SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
+                    arrowUUIDs.Remove(arrowUUID);
+                }
+
+                _arrowUUIDsByActionIndex.Remove(actionIndex);
+            }
+
+            foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
+            {
+                HexGridManager.Instance.GetWorldHexObject(pos)
+                    .GetComponent<HexPreviewHandler>()
+                    .RemoveEventsForEntityAction(this, actionIndex);
             }
         }
 
@@ -350,8 +520,9 @@ namespace Entities
 
             List<AbstractStatus> plannedSelfStatuses = new List<AbstractStatus>();
 
-            foreach (AbstractAction action in actions)
+            for (int actionIndex = 0; actionIndex < actions.Count; actionIndex++)
             {
+                AbstractAction action = actions[actionIndex];
                 List<AbstractCardEvent> modifiedEvents = ModifyEvents(
                     action.Activate(null, previewMode: true),
                     previewMode: true
@@ -364,6 +535,9 @@ namespace Entities
 
                 foreach (AbstractCardEvent abstractCardEvent in modifiedEvents)
                 {
+                    if (abstractCardEvent.PreviewSourceActionIndex < 0)
+                        abstractCardEvent.PreviewSourceActionIndex = actionIndex;
+
                     if (abstractCardEvent is ApplyStatusToEntityCardEvent applyStatusEvent &&
                         applyStatusEvent.target == this &&
                         applyStatusEvent.status != null)
@@ -400,8 +574,17 @@ namespace Entities
                         // Always show arrow
                         if (abstractCardEvent is AttackCardEvent attack)
                         {
-                            arrowUUIDs.Add(SpriteArrowManager.Instance.CreateArrow(positionRowCol,
-                                pos, Color.red, "AttackIcon", attack.amount, enemyPreview: true));
+                            string arrowUUID = SpriteArrowManager.Instance.CreateArrow(positionRowCol,
+                                pos, Color.red, "AttackIcon", attack.amount, enemyPreview: true);
+
+                            arrowUUIDs.Add(arrowUUID);
+                            if (!_arrowUUIDsByActionIndex.TryGetValue(actionIndex, out List<string> actionArrowUUIDs))
+                            {
+                                actionArrowUUIDs = new List<string>();
+                                _arrowUUIDsByActionIndex[actionIndex] = actionArrowUUIDs;
+                            }
+
+                            actionArrowUUIDs.Add(arrowUUID);
                         }
                     }
                 }
@@ -415,6 +598,7 @@ namespace Entities
                 return;
 
             _isDead = true;
+            TriggerDeathStatuses();
 
             // Rip entity :(
             Debug.Log("I have died");

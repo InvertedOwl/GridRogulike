@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Cards.Actions;
 using Cards.CardEvents;
+using Entities;
+using UnityEngine;
 
 namespace Types.Statuses
 {
@@ -18,7 +18,7 @@ namespace Types.Statuses
             List<AbstractCardEvent> stepOrMove = new List<AbstractCardEvent>();
             foreach (AbstractCardEvent cardEvent in cardEvents)
             {
-                if (cardEvent is GainStepsCardEvent || cardEvent is MoveCardEvent){
+                if (cardEvent is GainStepsCardEvent || cardEvent is MoveCardEvent || cardEvent is RandomMoveCardEvent){
                     stepOrMove.Add(cardEvent);
                 }
             }
@@ -28,6 +28,15 @@ namespace Types.Statuses
 
             newEvents.RemoveAll((item) => stepOrMove.Contains(item));
             return newEvents;
+        }
+
+        public override bool BlocksMovement(AbstractEntity entity, int distance)
+        {
+            if (Amount <= 0)
+                return false;
+
+            Amount -= Mathf.Max(1, distance);
+            return true;
         }
 
         public override void OnEndTurn()

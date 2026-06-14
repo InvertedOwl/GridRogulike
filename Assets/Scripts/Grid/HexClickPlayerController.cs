@@ -18,6 +18,7 @@ namespace Grid {
         private bool _pendingCardHasStarted;
         private CardMonobehaviour _pendingNonManualAttackPreviewCard;
         private readonly HashSet<Vector2Int> _pendingNonManualAttackPreviewPositions = new HashSet<Vector2Int>();
+        private readonly HashSet<int> _syncedMovableParticleObjects = new HashSet<int>();
 
         public void AddToAttack(IEnumerable<AbstractCardEvent> cardEvents)
         {
@@ -263,13 +264,13 @@ namespace Grid {
                 {
                     GOList list = HexGridManager.Instance.GetWorldHexObject(key)
                         .GetComponent<GOList>();
-                    list.GetValue("Particles").SetActive(true);
+                    SetMovableParticlesActive(list, true);
                 }
                 else
                 {
                     GOList list = HexGridManager.Instance.GetWorldHexObject(key)
                         .GetComponent<GOList>();
-                    list.GetValue("Particles").SetActive(false);
+                    SetMovableParticlesActive(list, false);
                 }
             }
         }
@@ -288,7 +289,48 @@ namespace Grid {
                 if (list == null || !list.HasValue("Particles"))
                     continue;
 
-                list.GetValue("Particles").SetActive(false);
+                SetMovableParticlesActive(list, false);
+            }
+        }
+
+        private void SetMovableParticlesActive(GOList list, bool active)
+        {
+            if (list == null || !list.HasValue("Particles"))
+                return;
+
+            GameObject particles = list.GetValue("Particles");
+            if (particles == null)
+                return;
+
+            int particlesId = particles.GetInstanceID();
+            if (!active)
+            {
+                _syncedMovableParticleObjects.Remove(particlesId);
+                particles.SetActive(false);
+                return;
+            }
+
+            particles.SetActive(true);
+
+            if (_syncedMovableParticleObjects.Add(particlesId))
+            {
+                SyncParticlesToGlobalTime(particles);
+            }
+        }
+
+        private void SyncParticlesToGlobalTime(GameObject particles)
+        {
+            foreach (ParticleSystem particleSystem in particles.GetComponentsInChildren<ParticleSystem>(true))
+            {
+                ParticleSystem.MainModule main = particleSystem.main;
+                float duration = Mathf.Max(main.duration, 0.01f);
+                float time = Mathf.Repeat(Time.time, duration);
+
+                particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                particleSystem.useAutoRandomSeed = false;
+                particleSystem.randomSeed = 1;
+                particleSystem.Simulate(time, true, true, true);
+                particleSystem.Play(true);
             }
         }
 
@@ -316,9 +358,23 @@ namespace Grid {
                 }
             }
 
-            if (distanceMap[hexPosition] == 1 && isHoveringEntity)
+            if (distanceMap.TryGetValue(hexPosition, out int distanceFromPlayer) &&
+                distanceFromPlayer >= 0 &&
+                distanceFromPlayer <= ToAttack[0].distance &&
+                isHoveringEntity)
             {
-                arrowUUID = SpriteArrowManager.Instance.CreateArrow(playingState.player.positionRowCol, hexPosition, Color.red, "AttackIcon", ToAttack[0].amount);
+                AttackCardEvent previewAttack = GetIncomingModifiedAttack(
+                    ToAttack[0],
+                    playingState,
+                    hexPosition,
+                    true);
+
+                arrowUUID = SpriteArrowManager.Instance.CreateArrow(
+                    playingState.player.positionRowCol,
+                    hexPosition,
+                    Color.red,
+                    "AttackIcon",
+                    previewAttack.amount);
             }
         }
         public void HexHoverOffCallback(Vector2Int hexPosition)
@@ -382,19 +438,20 @@ namespace Grid {
                     }
                 }
 
-                AttackCardEvent attack = ToAttack[0];
-
-                // Attack entity
-                playingState.DamageEntities(hexPosition, attack.amount, attack.status);
-                AttackCardEvent.PlayAttackHitFx(playingState, hexPosition);
-                
-                // Little animation for free!
-                ApplyAttackNudge(playingState.player.transform, entitiesOnHex[0].transform.position);
+                AttackCardEvent queuedAttack = ToAttack[0];
+                AbstractEntity targetEntity = entitiesOnHex[0];
+                ResolveManualAttackAgainstTarget(queuedAttack, targetEntity, playingState);
                 
                 // Reset situation
                 SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
                 ResolveCurrentAttack();
                 ClearToAttackEmitters();
+
+                while (TryResolveNextInheritedManualAttack(queuedAttack, targetEntity, playingState))
+                {
+                    queuedAttack = ToAttack[0];
+                    ResolveCurrentAttack();
+                }
 
                 if (ToAttack.Count > 0)
                 {
@@ -417,6 +474,74 @@ namespace Grid {
             }
             
             playingState.CaptureFinish();
+        }
+
+        private bool TryResolveNextInheritedManualAttack(
+            AttackCardEvent previousAttack,
+            AbstractEntity target,
+            PlayingState playingState)
+        {
+            if (ToAttack.Count == 0 || !ShouldInheritManualAttackTarget(previousAttack, ToAttack[0]))
+                return false;
+
+            ResolveManualAttackAgainstTarget(ToAttack[0], target, playingState);
+            return true;
+        }
+
+        private bool ShouldInheritManualAttackTarget(AttackCardEvent previousAttack, AttackCardEvent nextAttack)
+        {
+            if (previousAttack == null || nextAttack == null)
+                return false;
+
+            if (ReferenceEquals(previousAttack, nextAttack))
+                return true;
+
+            return previousAttack.PreviewSourceActionIndex >= 0 &&
+                   previousAttack.PreviewSourceActionIndex == nextAttack.PreviewSourceActionIndex;
+        }
+
+        private void ResolveManualAttackAgainstTarget(
+            AttackCardEvent queuedAttack,
+            AbstractEntity target,
+            PlayingState playingState)
+        {
+            if (queuedAttack == null || target == null || target.Health <= 0)
+                return;
+
+            Vector2Int targetPosition = target.positionRowCol;
+            AttackCardEvent attack = GetIncomingModifiedAttack(
+                queuedAttack,
+                playingState,
+                targetPosition,
+                false);
+
+            playingState.DamageEntities(targetPosition, attack.amount, attack.status);
+            _pendingCard?.ActivateManualAttackFollowUps(queuedAttack, target);
+            AttackCardEvent.PlayAttackHitFx(playingState, targetPosition);
+
+            ApplyAttackNudge(playingState.player.transform, target.transform.position);
+        }
+
+        private AttackCardEvent GetIncomingModifiedAttack(
+            AttackCardEvent attack,
+            PlayingState playingState,
+            Vector2Int targetPosition,
+            bool previewMode)
+        {
+            AttackCardEvent attackToModify = previewMode ? attack.Copy() : attack;
+            List<AbstractCardEvent> modifiedEvents = CardEventPipeline.ApplyIncomingTileModifiersForTarget(
+                new List<AbstractCardEvent> { attackToModify },
+                playingState.player,
+                targetPosition,
+                previewMode);
+
+            foreach (AbstractCardEvent cardEvent in modifiedEvents)
+            {
+                if (cardEvent is AttackCardEvent modifiedAttack)
+                    return modifiedAttack;
+            }
+
+            return attackToModify;
         }
 
         private bool TryPlayPendingNonManualAttackPreview(Vector2Int hexPosition, PlayingState playingState)

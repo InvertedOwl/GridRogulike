@@ -17,6 +17,6 @@ public class InitVelocity : MonoBehaviour
         
         float yoverx = Mathf.Tan((float) random.NextDouble() * (radianEndAngle - radianStartAngle) + startAngle);
         
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Sign(yoverx), Mathf.Abs(yoverx)).normalized * forceStrength, ForceMode2D.Impulse);
+        GetComponent<Rigidbody>().AddForce(new Vector2(Mathf.Sign(yoverx), Mathf.Abs(yoverx)).normalized * forceStrength, ForceMode.Impulse);
     }
 }

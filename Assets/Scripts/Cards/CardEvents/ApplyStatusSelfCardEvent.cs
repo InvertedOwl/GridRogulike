@@ -31,6 +31,7 @@ namespace Cards.CardEvents
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
                 entity.ApplyStatus(status);
+                StatusApplicationFx.TryPlay(status, entity);
             }
 
         }

@@ -98,6 +98,22 @@ namespace Cards.Actions
             return previewMode ? _actionRandom.Clone() : _actionRandom;
         }
 
+        protected RandomState GetStableActionRandom(CardMonobehaviour cardMono, bool previewMode, string stream = "default")
+        {
+            if (cardMono == null ||
+                string.IsNullOrEmpty(cardMono.Card.UniqueId) ||
+                cardMono.Card.Actions == null)
+            {
+                return GetActionRandom(previewMode);
+            }
+
+            int actionIndex = cardMono.Card.Actions.IndexOf(this);
+            string safeStream = string.IsNullOrEmpty(stream) ? "default" : stream;
+            string key = $"card:{cardMono.Card.UniqueId}:action:{actionIndex}:{GetType().FullName}:{safeStream}";
+            RandomState random = RunInfo.NewRandom(key);
+            return previewMode ? random.Clone() : random;
+        }
+
         public virtual List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
         {
             return new List<AbstractCardEvent>();

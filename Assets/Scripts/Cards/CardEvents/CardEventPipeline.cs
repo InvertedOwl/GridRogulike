@@ -7,6 +7,7 @@ using Passives;
 using StateManager;
 using Types.Statuses;
 using Types.Tiles;
+using UnityEngine;
 
 namespace Cards.CardEvents
 {
@@ -75,6 +76,8 @@ namespace Cards.CardEvents
                     .ApplyEnemyDamageScaling(modifiedEvents);
             }
 
+            modifiedEvents = ApplyIncomingTileModifiers(modifiedEvents, sourceEntity, previewMode);
+
             return modifiedEvents;
         }
 
@@ -114,6 +117,90 @@ namespace Cards.CardEvents
             }
 
             return eventQueue;
+        }
+
+        private static List<AbstractCardEvent> ApplyIncomingTileModifiers(
+            List<AbstractCardEvent> eventQueue,
+            AbstractEntity sourceEntity,
+            bool previewMode)
+        {
+            List<AbstractCardEvent> modifiedEvents = new List<AbstractCardEvent>();
+
+            foreach (AbstractCardEvent cardEvent in eventQueue)
+            {
+                if (TryGetIncomingTarget(cardEvent, sourceEntity, out Vector2Int targetPosition))
+                {
+                    modifiedEvents.AddRange(ApplyIncomingTileModifiersForTarget(
+                        new List<AbstractCardEvent> { cardEvent },
+                        sourceEntity,
+                        targetPosition,
+                        previewMode));
+                }
+                else
+                {
+                    modifiedEvents.Add(cardEvent);
+                }
+            }
+
+            return modifiedEvents;
+        }
+
+        public static List<AbstractCardEvent> ApplyIncomingTileModifiersForTarget(
+            List<AbstractCardEvent> eventQueue,
+            AbstractEntity sourceEntity,
+            Vector2Int targetPosition,
+            bool previewMode = false)
+        {
+            if (eventQueue == null ||
+                HexGridManager.Instance == null ||
+                GameStateManager.Instance == null ||
+                !GameStateManager.Instance.IsCurrent<PlayingState>())
+            {
+                return eventQueue;
+            }
+
+            string tileId = HexGridManager.Instance.HexType(targetPosition);
+            if (!TileData.tiles.TryGetValue(tileId, out TileEntry tile) || tile.incomingEventModifier == null)
+                return eventQueue;
+
+            AbstractEntity targetEntity = null;
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            if (playingState.EntitiesOnHex(targetPosition, out List<AbstractEntity> entities) && entities.Count > 0)
+            {
+                targetEntity = entities[0];
+            }
+
+            TileContext tileContext = new TileContext(targetPosition, tileId, targetEntity, previewMode);
+            return tile.incomingEventModifier.Invoke(eventQueue, tileContext) ?? eventQueue;
+        }
+
+        private static bool TryGetIncomingTarget(
+            AbstractCardEvent cardEvent,
+            AbstractEntity sourceEntity,
+            out Vector2Int targetPosition)
+        {
+            targetPosition = default;
+
+            if (cardEvent is not AttackCardEvent attackCardEvent)
+                return false;
+
+            if (attackCardEvent.usePosition)
+            {
+                targetPosition = attackCardEvent.position;
+                return true;
+            }
+
+            if (sourceEntity is Player && attackCardEvent.manual)
+                return false;
+
+            if (sourceEntity == null || string.IsNullOrEmpty(attackCardEvent.direction))
+                return false;
+
+            targetPosition = HexGridManager.MoveHex(
+                sourceEntity.positionRowCol,
+                attackCardEvent.direction,
+                attackCardEvent.distance);
+            return true;
         }
     }
 }

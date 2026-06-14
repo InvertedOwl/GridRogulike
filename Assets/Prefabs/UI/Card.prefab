@@ -1102,14 +1102,14 @@ RectTransform:
   - {fileID: 1484980939687643904}
   - {fileID: 2417977387991690992}
   - {fileID: 5276557450915847674}
-  - {fileID: 7071548414833883154}
-  - {fileID: 2584376840032722699}
   - {fileID: 4746600800393914766}
   - {fileID: 8284721968329351961}
   - {fileID: 414279550683343513}
   - {fileID: 4975247029283454560}
   - {fileID: 5117257421852837499}
   - {fileID: 3689733800788314825}
+  - {fileID: 7071548414833883154}
+  - {fileID: 2584376840032722699}
   m_Father: {fileID: 5821695832061975143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.026210396, g: 0.10076586, b: 0.1792453, a: 0}
+  m_Color: {r: 0, g: 0.055152383, b: 0.11320752, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5456a2032702054885b976126b0fcf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Util.EaseColor
-  durationSeconds: 0.15
+  durationSeconds: 0.25
   useMaterialColor: 1
   _elapsedTime: 0
 --- !u!1 &5042343826778555705
@@ -2783,7 +2783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.3764706}
+  m_Color: {r: 0, g: 0.026911594, b: 0.14150941, a: 0.7176471}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
