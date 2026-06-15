@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -30,10 +31,14 @@ public class FXManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float soundVolume = 1f;
     [SerializeField] private bool randomizeSoundPitch = true;
     [SerializeField] private Vector2 soundPitchRange = new Vector2(0.9f, 1.1f);
+    [SerializeField] private AudioMixerGroup sfxOutputGroup;
+    [SerializeField] private string sfxOutputGroupName = "SFX";
     [SerializeField] private List<FXEntry> effects = new List<FXEntry>();
 
     private readonly Dictionary<string, FXEntry> _lookup =
         new Dictionary<string, FXEntry>(StringComparer.OrdinalIgnoreCase);
+    private AudioMixerGroup _resolvedSfxOutputGroup;
+    private bool _hasTriedResolveSfxOutputGroup;
 
     public IReadOnlyList<FXEntry> Effects => effects;
 
@@ -50,6 +55,8 @@ public class FXManager : MonoBehaviour
 
     private void OnValidate()
     {
+        _resolvedSfxOutputGroup = null;
+        _hasTriedResolveSfxOutputGroup = false;
         RebuildLookup();
     }
 
@@ -181,9 +188,15 @@ public class FXManager : MonoBehaviour
     {
         float minPitch = Mathf.Min(soundPitchRange.x, soundPitchRange.y);
         float maxPitch = Mathf.Max(soundPitchRange.x, soundPitchRange.y);
+        AudioMixerGroup outputGroup = GetSfxOutputGroup();
 
         foreach (AudioSource audioSource in instance.GetComponentsInChildren<AudioSource>(true))
         {
+            if (outputGroup != null)
+            {
+                audioSource.outputAudioMixerGroup = outputGroup;
+            }
+
             audioSource.volume *= soundVolume;
 
             if (randomizeSoundPitch)
@@ -191,6 +204,32 @@ public class FXManager : MonoBehaviour
                 audioSource.pitch *= UnityEngine.Random.Range(minPitch, maxPitch);
             }
         }
+    }
+
+    private AudioMixerGroup GetSfxOutputGroup()
+    {
+        if (sfxOutputGroup != null)
+            return sfxOutputGroup;
+
+        if (_hasTriedResolveSfxOutputGroup)
+            return _resolvedSfxOutputGroup;
+
+        _hasTriedResolveSfxOutputGroup = true;
+
+        if (string.IsNullOrWhiteSpace(sfxOutputGroupName))
+            return null;
+
+        foreach (AudioMixerGroup group in Resources.FindObjectsOfTypeAll<AudioMixerGroup>())
+        {
+            if (group != null &&
+                string.Equals(group.name, sfxOutputGroupName, StringComparison.OrdinalIgnoreCase))
+            {
+                _resolvedSfxOutputGroup = group;
+                return _resolvedSfxOutputGroup;
+            }
+        }
+
+        return null;
     }
 
     private void RebuildLookup()

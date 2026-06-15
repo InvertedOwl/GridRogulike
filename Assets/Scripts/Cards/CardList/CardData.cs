@@ -29,6 +29,11 @@ namespace Cards.CardList
                         new PushAllEnemiesAwayAction(0, "basic", null, 1000),
                     }, Rarity.Developer, CardSet.Developer),
                     new [] { new StartingDeckEntry(StartingDecks.developer, 2) }, false),
+                ["DeveloperShield"] = () => new(new Card("Developer Shield", new List<AbstractAction>
+                    {
+                        new ShieldAction(0, "basic", null, 1000),
+                    }, Rarity.Developer, CardSet.Developer),
+                    new [] { new StartingDeckEntry(StartingDecks.developer, 2) }, false),
 
 
 
@@ -48,7 +53,7 @@ namespace Cards.CardList
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Sweep"] = () => new(new Card("Sweep", new List<AbstractAction>
                     {
-                        new AttackAllAction(3, "basic", null, 7),
+                        new AttackAllAction(4, "basic", null, 7),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Close Sweep"] = () => new(new Card("Close Sweep", new List<AbstractAction>
                     {
@@ -88,7 +93,7 @@ namespace Cards.CardList
                 // Rare Attack
                 ["Cleaver"] = () => new(new Card("Cleaver", new List<AbstractAction>
                     {
-                        new AttackAllAction(1, "basic", null, 8),
+                        new AttackAllAction(2, "basic", null, 8),
                     }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Wave"] = () => new(new Card("Wave", new List<AbstractAction>
                     {
@@ -97,7 +102,7 @@ namespace Cards.CardList
                     }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Sniper"] = () => new(new Card("Sniper", new List<AbstractAction>
                     {
-                        new AttackAction(2, "basic", null, "", 3, 18),
+                        new AttackAction(2, "basic", null, "", 2, 18),
                     }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
 
 
@@ -123,15 +128,15 @@ namespace Cards.CardList
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Drunken Guard"] = () => new(new Card("Drunken Guard", new List<AbstractAction>
                     {
-                        new ShieldAction(1, "basic", null, 18),
-                        new MoveRandomAction(0, "basic", null),
+                        new ShieldAction(1, "basic", null, 14),
+                        new MoveRandomAction(1, "basic", null),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
 
                 // Uncommon Shield
                 ["Shield Burst"] = () => new(new Card("Shield Burst", new List<AbstractAction>
                     {
                         new ShieldAction(1, "basic", null, 8),
-                        new AttackAllAction(2, "basic", null, 8),
+                        new AttackAllAction(2, "basic", null, 4),
                     }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Repel"] = () => new(new Card("Repel", new List<AbstractAction>
                     {

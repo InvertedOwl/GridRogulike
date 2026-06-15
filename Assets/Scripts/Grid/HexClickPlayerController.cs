@@ -5,6 +5,7 @@ using Entities;
 using StateManager;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Util;
 
 namespace Grid {
@@ -19,6 +20,7 @@ namespace Grid {
         private CardMonobehaviour _pendingNonManualAttackPreviewCard;
         private readonly HashSet<Vector2Int> _pendingNonManualAttackPreviewPositions = new HashSet<Vector2Int>();
         private readonly HashSet<int> _syncedMovableParticleObjects = new HashSet<int>();
+        private int _lastHexClickFrame = -1;
 
         public void AddToAttack(IEnumerable<AbstractCardEvent> cardEvents)
         {
@@ -114,6 +116,11 @@ namespace Grid {
             {
                 isAttacking = false;
             }
+        }
+
+        private void LateUpdate()
+        {
+            HandleSelectedCardMissClick();
         }
 
         public void SetupAttack()
@@ -384,6 +391,7 @@ namespace Grid {
 
         public void HexClickCallback(Vector2Int hexPosition)
         {
+            _lastHexClickFrame = Time.frameCount;
             Debug.Log("CLICKED " + hexPosition);
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             
@@ -474,6 +482,40 @@ namespace Grid {
             }
             
             playingState.CaptureFinish();
+        }
+
+        private void HandleSelectedCardMissClick()
+        {
+            if (!Input.GetMouseButtonDown(0))
+                return;
+
+            if (_lastHexClickFrame == Time.frameCount)
+                return;
+
+            if (GameStateManager.Instance == null || !GameStateManager.Instance.IsCurrent<PlayingState>())
+                return;
+
+            if (!HasSelectedHandCard())
+                return;
+
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            Deck.Instance.SetHandToUnused();
+        }
+
+        private bool HasSelectedHandCard()
+        {
+            if (Deck.Instance == null)
+                return false;
+
+            foreach (CardMonobehaviour card in Deck.Instance.Hand)
+            {
+                if (card != null && card.used && !card.played)
+                    return true;
+            }
+
+            return false;
         }
 
         private bool TryResolveNextInheritedManualAttack(

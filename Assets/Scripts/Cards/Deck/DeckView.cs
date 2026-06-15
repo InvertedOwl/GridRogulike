@@ -20,6 +20,7 @@ public class DeckView : MonoBehaviour
     public Transform cards;
     public Action<Card> Callback;
     private bool _isOpen;
+    public bool IsOpen => _isOpen;
     public TextMeshProUGUI Title;
 
     public void GetCard(Action<Card> callback, Card[] cardBlacklist)

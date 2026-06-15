@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using StateManager;
 
 public class ZoomCamera : MonoBehaviour
@@ -13,6 +15,7 @@ public class ZoomCamera : MonoBehaviour
 
     private float _currentMoveDistance;
     private float _targetMoveDistance;
+    private readonly List<RaycastResult> _uiRaycastResults = new();
 
     public Transform ZoomTransform
     {
@@ -52,10 +55,17 @@ public class ZoomCamera : MonoBehaviour
         }
 
         float scroll = GetScroll();
-        if (!Mathf.Approximately(scroll, 0f))
+        if (Mathf.Approximately(scroll, 0f))
         {
-            SetZoomTarget(scroll);
+            return;
         }
+
+        if (ShouldIgnoreScroll())
+        {
+            return;
+        }
+
+        SetZoomTarget(scroll);
     }
 
     private void LateUpdate()
@@ -155,6 +165,38 @@ public class ZoomCamera : MonoBehaviour
     {
         return GameStateManager.Instance != null &&
                GameStateManager.Instance.IsCurrent<PlayingState>();
+    }
+
+    private bool ShouldIgnoreScroll()
+    {
+        if (DeckView.Instance != null && DeckView.Instance.IsOpen)
+        {
+            return true;
+        }
+
+        return IsPointerOverBlockingUi();
+    }
+
+    private bool IsPointerOverBlockingUi()
+    {
+        if (EventSystem.current == null)
+            return false;
+
+        _uiRaycastResults.Clear();
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        EventSystem.current.RaycastAll(pointerData, _uiRaycastResults);
+
+        foreach (RaycastResult result in _uiRaycastResults)
+        {
+            if (result.gameObject != null && result.gameObject.GetComponentInParent<Canvas>() != null)
+                return true;
+        }
+
+        return false;
     }
 
     private void OnValidate()

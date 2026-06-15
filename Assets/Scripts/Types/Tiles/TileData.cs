@@ -90,8 +90,7 @@ namespace Types.Tiles
                         new DrawCardEvent(BattleStats.TilesMovedThisTurn + 1)
                     }
                 },
-                "stride",
-                TileTriggerLimit.OncePerTurn),
+                "stride"),
 
             ["Cornered"] = new (
                 "Cornered",

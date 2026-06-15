@@ -400,6 +400,7 @@ public class Deck : MonoBehaviour
             return;
         }
 
+        cardToDiscard.ResetPlayState();
         cardToDiscard.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
 
         _discard.Add(cardToDiscard);
@@ -517,21 +518,28 @@ public class Deck : MonoBehaviour
         if (HexClickPlayerController.instance != null)
             HexClickPlayerController.instance.ClearPendingAttacks();
 
+        _removingPlayed.Clear();
         List<CardMonobehaviour> toKeep = new List<CardMonobehaviour>();
 
         foreach (CardMonobehaviour card in _hand)
         {
-            if (card.CardStatus?.OnDiscard != null && !card.CardStatus.OnDiscard(card.Card))
+            bool keepCard = card.CardStatus?.OnDiscard != null && !card.CardStatus.OnDiscard(card.Card);
+            card.ResetPlayState();
+
+            if (keepCard)
             {
                 toKeep.Add(card);
                 continue;
             }
+
             card.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
             _discard.Add(card);
         }
 
         _hand.Clear();
         _hand.AddRange(toKeep);
+        MarkHandLayoutDirty();
+        MarkPlayabilityDirty();
         PositionHandCards(0);
     }
 
@@ -760,8 +768,6 @@ public class Deck : MonoBehaviour
 
         foreach (CardMonobehaviour card in _discard)
         {
-            if (card.used)
-                continue;
             card.GetComponent<LerpPosition>().targetLocation = discardTransform.localPosition;
         }
 

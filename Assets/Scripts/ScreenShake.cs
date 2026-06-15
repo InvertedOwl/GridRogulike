@@ -17,6 +17,12 @@ public class ScreenShake : MonoBehaviour
 
     public void Shake(float magnitude, float damping = 1f)
     {
+        if (AccessibilityNavSettings.IsScreenShakeDisabled())
+        {
+            StopShake();
+            return;
+        }
+
         RemoveCurrentOffset();
 
         if (magnitude >= currentShakeMagnitude)
@@ -25,6 +31,14 @@ public class ScreenShake : MonoBehaviour
         currentShakeMagnitude = Mathf.Max(currentShakeMagnitude, magnitude);
         targetShakeMagnitude = 0;
         enabled = true;
+    }
+
+    public void StopShake()
+    {
+        RemoveCurrentOffset();
+        currentShakeMagnitude = 0f;
+        targetShakeMagnitude = 0f;
+        enabled = false;
     }
     
     // Another instance of allowed UnityEngine.Random because screen shake should absolutely not be seeded
