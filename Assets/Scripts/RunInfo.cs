@@ -178,7 +178,7 @@ public class RunInfo : MonoBehaviour
     {
         Instance = this;
         CurrentEnergy = InitialEnergy;
-        Money = InitialMoney;
+        Money = DebugStats.Enabled ? DebugStats.StartingMoney : InitialMoney;
     }
 
     // Increase money by specified amount

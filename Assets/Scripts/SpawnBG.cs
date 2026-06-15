@@ -25,6 +25,7 @@ public class SpawnBG : MonoBehaviour
     [SerializeField] private float flipAnimDuration = 0.2f;
     [SerializeField] private float radialRingPause = 0.04f;
     [SerializeField] private Vector2Int radialCenterOffset = Vector2Int.zero;
+    [SerializeField] private float tileOrthogonalSeparation = 0.001f;
 
     public void Awake ()
     {
@@ -54,7 +55,10 @@ public class SpawnBG : MonoBehaviour
             for (int x = startX; x < startX + widthX; x++)
             {
                 GameObject hex = Instantiate(hexPrefab, transform);
-                hex.transform.localPosition = HexGridManager.GetHexCenter(x, y);
+                hex.transform.localPosition = HexGridManager.GetHexCenterWithOrthogonalOffset(
+                    x,
+                    y,
+                    tileOrthogonalSeparation);
 
                 hex.GetComponent<BGTile>().SetColor(
                     RandomizeColor(grasslandColors[Random.Range(0, grasslandColors.Count)])

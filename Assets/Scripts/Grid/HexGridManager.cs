@@ -35,6 +35,7 @@ namespace Grid
         };
         
         private static float _hexWidth = 1f;
+        private const int OrthogonalLayerCount = 5;
 
         public GameObject hexPrefab;
         private Dictionary<Vector2Int, string> _boardDictionary = new Dictionary<Vector2Int, string>();
@@ -56,6 +57,8 @@ namespace Grid
         [Header("Hex Hover Events (Inspector)")]
         public HexHoveredEvent onHexHoverEnter;
         public HexHoveredEvent onHexHoverExit;
+
+        [SerializeField] private float tileOrthogonalSeparation = 0.001f;
 
         void Awake ()
         {
@@ -174,7 +177,10 @@ namespace Grid
             {
                 var pos = kvp.Key;
                 GameObject newHex = GetHexPrefab(HexType(pos), grid);
-                newHex.transform.localPosition = GetHexCenter(pos.x, pos.y);
+                newHex.transform.localPosition = GetHexCenterWithOrthogonalOffset(
+                    pos.x,
+                    pos.y,
+                    tileOrthogonalSeparation);
                 _hexObjects[pos] = newHex;
 
                 SpriteRenderer displayRenderer = newHex.transform.GetChild(3).GetComponent<SpriteRenderer>();
@@ -438,6 +444,27 @@ namespace Grid
             float centerY = row * vertSpacing;
 
             return new Vector2(centerX, centerY);
+        }
+
+        public static Vector3 GetHexCenterWithOrthogonalOffset(int col, int row, float orthogonalSeparation)
+        {
+            Vector2 center = GetHexCenter(col, row);
+            return new Vector3(center.x, center.y, GetHexOrthogonalOffset(col, row, orthogonalSeparation));
+        }
+
+        private static float GetHexOrthogonalOffset(int col, int row, float orthogonalSeparation)
+        {
+            if (orthogonalSeparation <= 0f)
+                return 0f;
+
+            int layer = PositiveModulo(col + (row * 2), OrthogonalLayerCount);
+            float centeredLayer = layer - ((OrthogonalLayerCount - 1) * 0.5f);
+            return centeredLayer * orthogonalSeparation;
+        }
+
+        private static int PositiveModulo(int value, int modulus)
+        {
+            return ((value % modulus) + modulus) % modulus;
         }
 
         public static Vector2Int GetHexCoordinates(Vector2 worldPosition)

@@ -17,14 +17,18 @@ namespace Cards.CardList
                 ["DeveloperAttack"] = () => new(new Card("Developer Attack", new List<AbstractAction>
                 {
                     new AttackAllAction(0, "basic", null, 1000),
-                    new PushAllEnemiesAwayAction(0, "basic", null, 1),
                 }, Rarity.Developer, CardSet.Developer),
-                new [] { new StartingDeckEntry(StartingDecks.basic, 0) }, false),
+                new [] { new StartingDeckEntry(StartingDecks.developer, 2) }, false),
                 ["DeveloperSteps"] = () => new(new Card("Developer Steps", new List<AbstractAction>
                     {
                         new GainStepsCardAction(0, "basic", null, 1000)
                     }, Rarity.Developer, CardSet.Developer),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 0) }, false),
+                    new [] { new StartingDeckEntry(StartingDecks.developer, 2) }, false),
+                ["DeveloperPush"] = () => new(new Card("Developer Push", new List<AbstractAction>
+                    {
+                        new PushAllEnemiesAwayAction(0, "basic", null, 1000),
+                    }, Rarity.Developer, CardSet.Developer),
+                    new [] { new StartingDeckEntry(StartingDecks.developer, 2) }, false),
 
 
 

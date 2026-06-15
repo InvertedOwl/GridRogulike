@@ -2,6 +2,7 @@ using System;
 using Serializer;
 using StateManager;
 using UnityEngine;
+using Util;
 
 namespace Entities
 {
@@ -18,6 +19,11 @@ namespace Entities
         public void Awake ()
         {
             Instance = this;
+            if (DebugStats.Enabled)
+            {
+                initialHealth = DebugStats.StartingPlayerHealth;
+                _health = DebugStats.StartingPlayerHealth;
+            }
         }
         
 

@@ -5,6 +5,10 @@ namespace Util
 {
     public class DebugStats : MonoBehaviour
     {
+        public const bool Enabled = true;
+
+        public const int StartingMoney = 1000;
+        public const float StartingPlayerHealth = 1000f;
 
         public TextMeshProUGUI text;
         public void Update()

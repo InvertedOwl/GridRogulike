@@ -176,6 +176,7 @@ MonoBehaviour:
   flipAnimDuration: 0.2
   radialRingPause: 0.04
   radialCenterOffset: {x: 0, y: 0}
+  tileOrthogonalSeparation: 0.001
 --- !u!114 &66874720
 MonoBehaviour:
   m_ObjectHideFlags: 0
