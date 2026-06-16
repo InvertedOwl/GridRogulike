@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cards;
@@ -15,6 +16,7 @@ namespace StateManager
         public GameObject window;
 
         public RandomState campfireRandom = RunInfo.NewRandom("campfire");
+        public Transform effectLocation;
         
         public override void Enter()
         {
@@ -35,8 +37,15 @@ namespace StateManager
                 if (!confirmed)
                     return;
                 Player.Instance.Health += amount;
-                GameStateManager.Instance.Change<MapState>();
+                PlayHealthPickup();
+                StartCoroutine(Leave());
             });
+        }
+
+        public IEnumerator Leave()
+        {
+            yield return new WaitForSeconds(1);
+            GameStateManager.Instance.Change<MapState>();
         }
         
         public void MaxHealth(int amount)
@@ -46,21 +55,31 @@ namespace StateManager
                 if (!confirmed)
                     return;
                 Player.Instance.initialHealth += amount;
-                GameStateManager.Instance.Change<MapState>();
+                PlayHealthPickup();
+                StartCoroutine(Leave());
             });
+        }
+
+        public void PlayHealthPickup()
+        {
+            GameObject effect = FXManager.Instance.Play("PowerboxPickupHealth", effectLocation.position, effectLocation.rotation);
+            effect.transform.localScale = new Vector3(20, 20, 20);
         }
 
         public void RemoveCard()
         {
             DeckView.Instance.GetCard((Card card) =>
             {
+                if (!card.isReal)
+                    return;
                 
                 AreYouSure.Instance.AskConfirm((confirmed) =>
                 {
                     if (!confirmed)
                         return;
+
                     Deck.Instance.DestroyCard(card.UniqueId);
-                    GameStateManager.Instance.Change<MapState>();
+                    StartCoroutine(Leave());
                 });
             });
         }

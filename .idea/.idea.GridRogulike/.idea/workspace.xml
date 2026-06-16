@@ -5,47 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyFirstCardAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyFirstCardAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainShieldForMoneyAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainShieldForMoneyAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RangedSelfAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RangedSelfAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RemoveAllShieldAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RemoveAllShieldAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldCarryoverStatusSelfAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldCarryoverStatusSelfAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldDetonationAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldDetonationAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfNoMoveAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfNoMoveAction.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ApplyStatusToEntityAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ApplyStatusToEntityAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromSteps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromSteps.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DoubleShieldAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DoubleShieldAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AbstractCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AbstractCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AttackCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AttackCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/CardEventPipeline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/CardEventPipeline.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainStepsCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/GainStepsCardEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/StartingDecks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/StartingDecks.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/AbstractStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/AbstractStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/HasteStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/HasteStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/RangedStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/RangedStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/StatusManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Statuses/StatusManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/CampfireState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/CampfireState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -452,14 +414,7 @@
       <workItem from="1781282484521" duration="10279000" />
       <workItem from="1781370196637" duration="7666000" />
       <workItem from="1781389592962" duration="34255000" />
-    </task>
-    <task id="LOCAL-00036" summary="minor changes">
-      <option name="closed" value="true" />
-      <created>1775257200095</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1775257200095</updated>
+      <workItem from="1781628105008" duration="4612000" />
     </task>
     <task id="LOCAL-00037" summary="minor visual changes">
       <option name="closed" value="true" />
@@ -845,7 +800,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781492319550</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="Card Actions for 50 + cards">
+      <option name="closed" value="true" />
+      <created>1781628155704</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1781628155704</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -872,7 +835,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="VISUAL CHANGES!" />
     <MESSAGE value="minor changes with healthbar (text bars)" />
     <MESSAGE value="Bug fixes and visual fixes" />
     <MESSAGE value="Card stuff :)" />
@@ -897,7 +859,8 @@
     <MESSAGE value="minor balance" />
     <MESSAGE value="h" />
     <MESSAGE value="Sounds + developer mode + bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sounds + developer mode + bug fixes" />
+    <MESSAGE value="Card Actions for 50 + cards" />
+    <option name="LAST_COMMIT_MESSAGE" value="Card Actions for 50 + cards" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
