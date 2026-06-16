@@ -71,6 +71,14 @@ namespace Cards.CardEvents
 
         public override void Activate(AbstractEntity entity)
         {
+            ActivateWithResult(entity, new CardEventContext());
+        }
+
+        public override CardEventResult ActivateWithResult(AbstractEntity entity, CardEventContext context)
+        {
+            if (entity == null)
+                return new CardEventResult(this);
+
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
                 Vector2Int targetPosition;
@@ -83,10 +91,13 @@ namespace Cards.CardEvents
                     targetPosition = HexGridManager.MoveHex(entity.positionRowCol, direction, distance);
                 }
 
-                playing.DamageEntities(targetPosition, amount, status);
+                CardEventResult result = playing.DamageEntities(targetPosition, amount, status, this);
                 PlayAttackHitFx(playing, targetPosition);
+                RangedStatus.ConsumeAfterAttack(entity);
+                return result;
             }
 
+            return new CardEventResult(this);
         }
 
         public static void PlayAttackHitFx(PlayingState playing, Vector2Int targetPosition)

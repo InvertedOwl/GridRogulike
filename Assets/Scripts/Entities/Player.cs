@@ -29,7 +29,6 @@ namespace Entities
 
         public override void StartTurn()
         {
-            Shield = 0;
             base.StartTurn();
             Deck.Instance.DrawHand();
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;

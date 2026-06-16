@@ -29,7 +29,7 @@ namespace Cards.Actions
         public override string GetText(CardActionPreview preview)
         {
             int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Shield, Amount);
-            return preview.FormatValue("<shield>", Amount, finalAmount);
+            return "Gain " + preview.FormatValue("<shield>", Amount, finalAmount);
         }
 
         public override string ToSimpleText()

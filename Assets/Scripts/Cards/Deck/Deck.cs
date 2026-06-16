@@ -85,7 +85,7 @@ public class Deck : MonoBehaviour
             return;
         }
         
-        StartingDecks startingDeck = DebugStats.Enabled ? StartingDecks.developer : StartingDecks.basic;
+        StartingDecks startingDeck = DebugStats.Enabled ? StartingDecks.allCards : StartingDecks.basic;
         foreach (Card startingCard in CardData.GetStarter(startingDeck))
         {
             _draw.Add(CreateCard(startingCard));

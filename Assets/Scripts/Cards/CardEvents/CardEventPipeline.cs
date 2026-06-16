@@ -87,10 +87,28 @@ namespace Cards.CardEvents
             Card? card = null,
             CardStatusDatabase.CardStatus cardStatus = null)
         {
-            foreach (AbstractCardEvent cardEvent in Apply(eventQueue, sourceEntity, card, cardStatus))
+            ActivateResolved(
+                Apply(eventQueue, sourceEntity, card, cardStatus),
+                sourceEntity);
+        }
+
+        public static CardEventContext ActivateResolved(
+            List<AbstractCardEvent> eventQueue,
+            AbstractEntity sourceEntity,
+            CardEventContext context = null)
+        {
+            context ??= new CardEventContext();
+
+            if (eventQueue == null)
+                return context;
+
+            foreach (AbstractCardEvent cardEvent in eventQueue)
             {
-                cardEvent.Activate(sourceEntity);
+                CardEventResult result = cardEvent.ActivateWithResult(sourceEntity, context);
+                context.Record(result);
             }
+
+            return context;
         }
 
         private static List<AbstractCardEvent> ApplyEnvironmentModifiers(

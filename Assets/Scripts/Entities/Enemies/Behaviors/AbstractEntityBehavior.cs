@@ -24,10 +24,12 @@ namespace Entities.Enemies
             {
                 OnBeforeAction(action);
 
+                CardEventContext context = new CardEventContext();
                 foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate(null)))
                 {
                     OnBeforeEvent(modifiedEvent);
-                    modifiedEvent.Activate(self);
+                    CardEventResult result = modifiedEvent.ActivateWithResult(self, context);
+                    context.Record(result);
 
                     if (modifiedEvent is AttackCardEvent)
                         self.ClearNextTurnActionPreviewForAction(action);

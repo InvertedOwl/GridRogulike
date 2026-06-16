@@ -602,19 +602,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private bool BeginManualAttackTargeting()
     {
-        List<AttackCardEvent> attackCardEvents = new List<AttackCardEvent>();
-
-        foreach (AbstractAction action in _card.Actions)
-        {
-            if (!(action is AttackAction))
-                continue;
-
-            foreach (AbstractCardEvent cardEvent in action.Activate(cardMono:this))
-            {
-                if (cardEvent is AttackCardEvent attackCardEvent && attackCardEvent.manual)
-                    attackCardEvents.Add(attackCardEvent);
-            }
-        }
+        List<AttackCardEvent> attackCardEvents = BuildRestrictionPreviewEvents()
+            .OfType<AttackCardEvent>()
+            .Where(attackCardEvent => attackCardEvent.manual)
+            .Select(attackCardEvent => attackCardEvent.Copy())
+            .ToList();
 
         if (attackCardEvents.Count == 0)
             return false;
@@ -701,11 +693,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         eventQueue.RemoveAll(item => manualAttackEventSet.Contains(item) || manualAttackDeferredEventSet.Contains(item));
         attackCardEvents = manualAttackEvents;
 
-        // Activate queue (excluding attacks)
-        foreach (AbstractCardEvent cardEvent in eventQueue)
-        {
-            cardEvent.Activate(player);
-        }
+        // Activate queue (excluding manual attacks)
+        CardEventPipeline.ActivateResolved(eventQueue, player);
 
         RunInfo.Instance.CurrentEnergy -= currentCost;
     }
@@ -783,7 +772,10 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         return null;
     }
 
-    public void ActivateManualAttackFollowUps(AttackCardEvent attackEvent, AbstractEntity target)
+    public void ActivateManualAttackFollowUps(
+        AttackCardEvent attackEvent,
+        AbstractEntity target,
+        CardEventResult previousResult = null)
     {
         if (attackEvent == null || target == null)
             return;
@@ -791,7 +783,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (!_manualAttackFollowUpEvents.TryGetValue(attackEvent, out List<AbstractCardEvent> followUpEvents))
             return;
 
-        Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
         foreach (AbstractCardEvent followUpEvent in followUpEvents)
         {
             if (followUpEvent is ApplyStatusToEntityCardEvent applyStatusEvent && applyStatusEvent.target == null)
@@ -802,9 +793,14 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             {
                 pushEvent.target = target;
             }
-
-            followUpEvent.Activate(player);
         }
+
+        Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
+        CardEventContext context = new CardEventContext();
+        if (previousResult != null)
+            context.Record(previousResult);
+
+        CardEventPipeline.ActivateResolved(followUpEvents, player, context);
 
         _manualAttackFollowUpEvents.Remove(attackEvent);
     }

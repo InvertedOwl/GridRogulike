@@ -98,7 +98,10 @@ namespace StateManager
         private readonly HashSet<Vector2Int> _tilesUsedThisCombat = new();
         private readonly HashSet<NonPlayerEntity> _enemiesNeedingIntentRefresh = new();
         private readonly List<ICardPlayRestriction> _temporaryCardPlayRestrictions = new();
+        private readonly List<ICardPlayRestriction> _combatCardPlayRestrictions = new();
         private int _cardRestrictionVersion;
+        private bool _playerMovementBlockedThisTurn;
+        private bool _playerMovementBlockedThisCombat;
         private CameraMove _cameraMove;
         private readonly Dictionary<Vector2Int, TileCountdownRuntimeState> _tileCountdownStates = new();
         private List<TileCountdownSaveData> _loadedTileCountdownStates;
@@ -449,6 +452,9 @@ namespace StateManager
 
         private bool HasReachableMove()
         {
+            if (IsPlayerMovementBlocked)
+                return false;
+
             if (RunInfo.Instance.CurrentSteps <= 0)
                 return false;
 
@@ -867,6 +873,9 @@ namespace StateManager
             _tilesUsedThisTurn.Clear();
             _tilesUsedThisCombat.Clear();
             _temporaryCardPlayRestrictions.Clear();
+            _combatCardPlayRestrictions.Clear();
+            _playerMovementBlockedThisTurn = false;
+            _playerMovementBlockedThisCombat = false;
             PlayerMovesThisTurn = 0;
             _cardRestrictionVersion++;
             UpdateAllTileDisableVisuals();
@@ -876,17 +885,63 @@ namespace StateManager
         {
             _tilesUsedThisTurn.Clear();
             _temporaryCardPlayRestrictions.Clear();
+            _playerMovementBlockedThisTurn = false;
             PlayerMovesThisTurn = 0;
             _cardRestrictionVersion++;
             UpdateAllTileDisableVisuals();
         }
 
+        public bool IsPlayerMovementBlockedThisTurn => _playerMovementBlockedThisTurn;
+        public bool IsPlayerMovementBlockedThisCombat => _playerMovementBlockedThisCombat;
+        public bool IsPlayerMovementBlocked => _playerMovementBlockedThisTurn || _playerMovementBlockedThisCombat;
+
+        public void BlockPlayerMovementForTurn()
+        {
+            _playerMovementBlockedThisTurn = true;
+            AddTemporaryCardPlayRestriction(
+                new GeneratedEventCardPlayRestriction(
+                    RestrictedCardEventKind.Movement,
+                    "Cannot move this turn."));
+            RefreshPlayerMovementBlocked();
+        }
+
+        public void BlockPlayerMovementForCombat()
+        {
+            _playerMovementBlockedThisCombat = true;
+            AddCombatCardPlayRestriction(
+                new GeneratedEventCardPlayRestriction(
+                    RestrictedCardEventKind.Movement,
+                    "Cannot move this combat."));
+            RefreshPlayerMovementBlocked();
+        }
+
+        private void RefreshPlayerMovementBlocked()
+        {
+            if (RunInfo.Instance != null)
+                RunInfo.Instance.CurrentSteps = 0;
+
+            HexClickPlayerController.instance?.UpdateMovableParticles(this);
+            Deck.Instance?.MarkPlayabilityDirty();
+        }
+
         public void AddTemporaryCardPlayRestriction(ICardPlayRestriction restriction)
+        {
+            AddCardPlayRestriction(restriction, _temporaryCardPlayRestrictions);
+        }
+
+        public void AddCombatCardPlayRestriction(ICardPlayRestriction restriction)
+        {
+            AddCardPlayRestriction(restriction, _combatCardPlayRestrictions);
+        }
+
+        private void AddCardPlayRestriction(
+            ICardPlayRestriction restriction,
+            List<ICardPlayRestriction> restrictionList)
         {
             if (restriction == null)
                 return;
 
-            _temporaryCardPlayRestrictions.Add(restriction);
+            restrictionList.Add(restriction);
             _cardRestrictionVersion++;
             Deck.Instance?.MarkPlayabilityDirty();
         }
@@ -905,6 +960,7 @@ namespace StateManager
             }
 
             restrictions.AddRange(_temporaryCardPlayRestrictions);
+            restrictions.AddRange(_combatCardPlayRestrictions);
             return restrictions;
         }
 
@@ -1182,7 +1238,10 @@ namespace StateManager
             
             entity.EndTurn();
             if (entity.entityType == EntityType.Player)
+            {
                 TickTileCountdowns();
+                _playerMovementBlockedThisTurn = false;
+            }
 
             Debug.Log("Entity end turn");
             if (CheckForFinish() != "none")
@@ -1510,9 +1569,12 @@ namespace StateManager
 
         public bool MoveEntity(AbstractEntity ent, string dir, int dist)
         {
+            if (ent == null)
+                return false;
+
             var target = HexGridManager.MoveHex(ent.positionRowCol, dir, dist);
             if (!IsValidHex(target)) return false;
-            if (ent.StatusesBlockMovement(Mathf.Max(1, dist))) return false;
+            if (IsMovementBlocked(ent, Mathf.Max(1, dist))) return false;
 
             ent.MoveEntity(target);
             QueueEnemyIntentRefreshAfterMove(ent);
@@ -1528,15 +1590,29 @@ namespace StateManager
 
             return true;
         }
+
+        private bool IsMovementBlocked(AbstractEntity ent, int distance)
+        {
+            if (ent == null)
+                return true;
+
+            if (ent.entityType == EntityType.Player && IsPlayerMovementBlocked)
+                return true;
+
+            return ent.StatusesBlockMovement(Mathf.Max(1, distance));
+        }
         
         public bool MoveEntity(AbstractEntity ent, Vector2Int target)
         {
+            if (ent == null)
+                return false;
+
             if (!IsValidHex(target)) 
                 return false;
 
             // TODO: DEBUG
             int dist = 1;
-            if (ent.StatusesBlockMovement(dist)) return false;
+            if (IsMovementBlocked(ent, dist)) return false;
             
             ent.MoveEntity(target);
             QueueEnemyIntentRefreshAfterMove(ent);
@@ -1554,15 +1630,37 @@ namespace StateManager
             return true;
         }
 
-        public void DamageEntities(Vector2Int coords, int dmg, AbstractStatus status)
+        public CardEventResult DamageEntities(
+            Vector2Int coords,
+            int dmg,
+            AbstractStatus status,
+            AbstractCardEvent sourceEvent = null)
         {
+            CardEventResult result = new CardEventResult(sourceEvent);
+
             foreach (var e in entities)
+            {
                 if (e.positionRowCol == coords)
                 {
+                    float healthBeforeDamage = e.Health;
                     e.Damage(dmg);
+
+                    if (healthBeforeDamage > 0)
+                    {
+                        result.DamagedEntities.Add(e);
+                    }
+
+                    if (healthBeforeDamage > 0 && e.Health <= 0)
+                    {
+                        result.DefeatedEntities.Add(e);
+                    }
+
                     e.ApplyStatus(status);
                     StatusApplicationFx.TryPlay(status, e);
                 }
+            }
+
+            return result;
         }
         #endregion
 

@@ -251,7 +251,7 @@ namespace Entities
         
         public virtual void StartTurn()
         {
-            _shield = 0;
+            HandleStartTurnShield();
             TriggerStartTurnStatuses();
             
             
@@ -260,12 +260,37 @@ namespace Entities
             {
 
                 Debug.Log("Queued action for next turn " + action.GetText());
+                CardEventContext context = new CardEventContext();
                 foreach (AbstractCardEvent modifiedEvent in ModifyEvents(action.Activate(null)))
                 {
-                    modifiedEvent.Activate(this);
+                    CardEventResult result = modifiedEvent.ActivateWithResult(this, context);
+                    context.Record(result);
                 }
             }
             nextTurnActions.Clear();
+        }
+
+        private void HandleStartTurnShield()
+        {
+            if (!TryPreserveShieldOnStartTurn())
+                _shield = 0;
+        }
+
+        private bool TryPreserveShieldOnStartTurn()
+        {
+            if (statusManager == null)
+                return false;
+
+            foreach (AbstractStatus status in statusManager.statusList.ToList())
+            {
+                if (status.Amount <= 0 || !status.PreservesShieldOnStartTurn(this))
+                    continue;
+
+                status.OnShieldPreservedStartTurn();
+                return true;
+            }
+
+            return false;
         }
         
         public List<AbstractCardEvent> ModifyEvents(List<AbstractCardEvent> events, bool previewMode = false)

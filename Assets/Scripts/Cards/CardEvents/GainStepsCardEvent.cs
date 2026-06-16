@@ -26,6 +26,9 @@ namespace Cards.CardEvents
         {
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing && entity.entityType == EntityType.Player)
             {
+                if (playing.IsPlayerMovementBlocked)
+                    return;
+
                 RunInfo.Instance.CurrentSteps += _stepsToAdd;
             }
 

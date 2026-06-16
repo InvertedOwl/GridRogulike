@@ -29,7 +29,7 @@ namespace Cards.Actions
         public override string GetText(CardActionPreview preview)
         {
             int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Energy, _amount);
-            return preview.FormatValue("<energy>", _amount, finalAmount);
+            return "Gain " + preview.FormatValue("<energy>", _amount, finalAmount);
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,

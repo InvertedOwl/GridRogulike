@@ -34,6 +34,13 @@ namespace Types.Statuses
             if (RunInfo.Instance == null || amount <= 0)
                 return;
 
+            if (GameStateManager.Instance != null &&
+                GameStateManager.Instance.IsCurrent<PlayingState>() &&
+                GameStateManager.Instance.GetCurrent<PlayingState>().IsPlayerMovementBlocked)
+            {
+                return;
+            }
+
             RunInfo.Instance.CurrentSteps += amount;
             Amount -= amount;
         }

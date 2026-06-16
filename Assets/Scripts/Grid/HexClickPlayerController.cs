@@ -4,6 +4,7 @@ using Cards.CardEvents;
 using Entities;
 using StateManager;
 using TMPro;
+using Types.Statuses;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Util;
@@ -267,7 +268,10 @@ namespace Grid {
             
             foreach (var key in currentMap.Keys)
             {
-                if (currentMap[key] <= RunInfo.Instance.CurrentSteps && currentMap[key] > 0 && playingState.CurrentTurn.entityType == EntityType.Player)
+                if (!playingState.IsPlayerMovementBlocked &&
+                    currentMap[key] <= RunInfo.Instance.CurrentSteps &&
+                    currentMap[key] > 0 &&
+                    playingState.CurrentTurn.entityType == EntityType.Player)
                 {
                     GOList list = HexGridManager.Instance.GetWorldHexObject(key)
                         .GetComponent<GOList>();
@@ -475,7 +479,8 @@ namespace Grid {
             }
             
             // If player exists, and has enough steps, and is not already moving
-            if (distanceMap.ContainsKey(playingState.player.positionRowCol) &&
+            if (!playingState.IsPlayerMovementBlocked &&
+                distanceMap.ContainsKey(playingState.player.positionRowCol) &&
                 distanceMap[playingState.player.positionRowCol] <= RunInfo.Instance.CurrentSteps && !isMoving)
             {
                 StartCoroutine(MovePlayer(distanceMap, playingState, hexPosition));
@@ -557,9 +562,10 @@ namespace Grid {
                 targetPosition,
                 false);
 
-            playingState.DamageEntities(targetPosition, attack.amount, attack.status);
-            _pendingCard?.ActivateManualAttackFollowUps(queuedAttack, target);
+            CardEventResult result = playingState.DamageEntities(targetPosition, attack.amount, attack.status, queuedAttack);
+            _pendingCard?.ActivateManualAttackFollowUps(queuedAttack, target, result);
             AttackCardEvent.PlayAttackHitFx(playingState, targetPosition);
+            RangedStatus.ConsumeAfterAttack(playingState.player);
 
             ApplyAttackNudge(playingState.player.transform, target.transform.position);
         }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cards.CardEvents;
+using Entities;
 
 namespace Types.Statuses
 {
@@ -27,6 +28,25 @@ namespace Types.Statuses
 
         public override void OnEndTurn()
         {
+        }
+
+        public static void ConsumeAfterAttack(AbstractEntity entity)
+        {
+            if (entity == null ||
+                entity.entityType != EntityType.Player ||
+                entity.statusManager == null)
+            {
+                return;
+            }
+
+            foreach (AbstractStatus status in entity.statusManager.statusList)
+            {
+                if (status is RangedStatus rangedStatus && rangedStatus.Amount > 0)
+                {
+                    rangedStatus.Amount = 0;
+                    return;
+                }
+            }
         }
     }
 }

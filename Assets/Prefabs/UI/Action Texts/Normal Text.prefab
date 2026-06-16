@@ -370,8 +370,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.8658, y: -0}
-  m_SizeDelta: {x: 568.9655, y: 78.4512}
+  m_AnchoredPosition: {x: 4.4257, y: -0}
+  m_SizeDelta: {x: 606.3558, y: 78.4512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9054600946200345906
 CanvasRenderer:
@@ -401,7 +401,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gain <sprite name=energyicon> 1
+  m_text: Deal <sprite name="Damage4"> equal to number of tiles moved <sprite name="Damage4">
+    this turn (15)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
   m_sharedMaterial: {fileID: -4673465573792361752, guid: d6f1254b6a403934a8caacccda9a93e5, type: 2}
@@ -428,20 +429,20 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.35
+  m_fontSize: 43.1
   m_fontSizeBase: 92.3
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 40.8
+  m_fontSizeMin: 43.1
   m_fontSizeMax: 97.8
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
-  m_characterSpacing: -9.6
+  m_characterSpacing: -8.55
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -42.22
+  m_lineSpacing: -5.6
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

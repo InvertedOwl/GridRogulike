@@ -24,7 +24,8 @@ namespace Cards.Actions
         Blind,
         Volatile,
         Dizzy,
-        Daze
+        Daze,
+        ShieldCarryover
     }
 
     public class ApplyStatusToEntityAction : AbstractAction
@@ -122,6 +123,8 @@ namespace Cards.Actions
                     return new VolatileStatus(amount);
                 case StatusApplicationType.Dizzy:
                     return new DizzyStatus(amount, statusRandom);
+                case StatusApplicationType.ShieldCarryover:
+                    return new ShieldCarryoverStatus(amount);
                 case StatusApplicationType.Buffed:
                 default:
                     return new BuffedStatus(amount);
@@ -162,6 +165,8 @@ namespace Cards.Actions
                     return "<sprite name=\"damage4\">";
                 case StatusApplicationType.Dizzy:
                     return "<sprite name=\"dazed\">";
+                case StatusApplicationType.ShieldCarryover:
+                    return "<sprite name=\"shield\">";
                 case StatusApplicationType.Buffed:
                 default:
                     return "<sprite name=\"buffenemies\">";

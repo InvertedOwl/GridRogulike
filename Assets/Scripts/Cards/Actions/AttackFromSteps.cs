@@ -11,7 +11,7 @@ using Util;
 
 namespace Cards.Actions
 {
-    public class AttackFromSteps: AbstractAction
+    public class AttackFromSteps: AttackAction
     {
         
         public override string Icon
@@ -23,16 +23,10 @@ namespace Cards.Actions
         }
         
         protected string _direction;
-        public string Direction { get { return _direction; } set { _direction = value; } }
-        public int _distance;
-        public int Distance { get { return _distance; } set { _distance = value; } }
-        public int _amount;
         public int Amount { get { return _amount; } set { _amount = value; } }
         protected HexGridManager _grid;
-        public AttackFromSteps(int baseCost, string color, AbstractEntity entity, string direction, int distance) : base(baseCost, color, entity)
+        public AttackFromSteps(int baseCost, string color, AbstractEntity entity, string direction, int distance) : base(baseCost, color, entity, direction, distance, 0)
         {
-            this._direction = direction;
-            this._distance = distance;
             this._amount = 0;
             _grid = HexGridManager.Instance;
 
@@ -89,7 +83,9 @@ namespace Cards.Actions
 
         public override string GetText(CardActionPreview preview)
         {
-            return "Deal damage equal to number of tiles moved this turn (" + (BattleStats.TilesMovedThisTurn * 5) + ")";
+            int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Damage, BattleStats.TilesMovedThisTurn * 5);
+            
+            return "Deal <sprite name=\"Damage4\"> equal to number of tiles moved this turn (" + preview.FormatValue("", BattleStats.TilesMovedThisTurn * 5, finalAmount) + ")";
         }
 
         public override string ToString()

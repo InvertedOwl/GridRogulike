@@ -32,6 +32,15 @@ namespace Types.Statuses
         {
         }
 
+        public virtual bool PreservesShieldOnStartTurn(AbstractEntity entity)
+        {
+            return false;
+        }
+
+        public virtual void OnShieldPreservedStartTurn()
+        {
+        }
+
         public virtual bool BlocksMovement(AbstractEntity entity, int distance)
         {
             return false;

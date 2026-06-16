@@ -81,13 +81,19 @@ namespace Cards.CardList
                         new AttackAction(1, "basic", null, "", 1, 7),
                         new PushEnemyAwayAction(1,  "basic", null, 1),
                     }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Opening Act"] = () => new(new Card("Opening Act", new List<AbstractAction>
+                    {
+                        new AttackAction(0, "basic", null, "", 1, 4),
+                        new FirstCardEnergyCardAction(0, "basic", null, 1)
+                    }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Energetic Strike"] = () => new(new Card("Energetic Strike", new List<AbstractAction>
                     {
                         new AttackFromSteps(1, "basic", null, "", 1),
                     }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Reaching Guard"] = () => new(new Card("Reaching Guard", new List<AbstractAction>
                     {
-                        new AttackFromSteps(1, "basic", null, "", 1),
+                        new ShieldAction(1, "basic", null, 5),
+                        new RangedSelfAction(1, "", null, 1)
                     }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
 
                 // Rare Attack
@@ -103,6 +109,11 @@ namespace Cards.CardList
                 ["Sniper"] = () => new(new Card("Sniper", new List<AbstractAction>
                     {
                         new AttackAction(2, "basic", null, "", 2, 18),
+                    }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Execution"] = () => new(new Card("Execution", new List<AbstractAction>
+                    {
+                        new AttackAction(2, "basic", null, "", 1, 24),
+                        new GainEnergyIfPreviousEventDefeatedEnemyAction(2, "basic", null, 2)
                     }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
 
 
@@ -131,6 +142,11 @@ namespace Cards.CardList
                         new ShieldAction(1, "basic", null, 14),
                         new MoveRandomAction(1, "basic", null),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Great Root"] = () => new(new Card("Great Root", new List<AbstractAction>
+                    {
+                        new ShieldAction(1, "basic", null, 20),
+                        new RootSelfAction(0, "basic", null),
+                    }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
 
                 // Uncommon Shield
                 ["Shield Burst"] = () => new(new Card("Shield Burst", new List<AbstractAction>
@@ -143,11 +159,41 @@ namespace Cards.CardList
                         new ShieldAction(1, "basic", null, 8),
                         new PushNearbyEnemiesAwayAction(1, "basic", null, 1)
                     }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
-
+                ["Spiked Shield"] = () => new(new Card("Spiked Shield", new List<AbstractAction>
+                    {
+                        new ShieldAction(1, "basic", null, 14),
+                        new AttackRadiusAction(1,  "basic", null, 1, 3)
+                    }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Turtle"] = () => new(new Card("Turtle", new List<AbstractAction>
+                    {
+                        new ShieldIfNoMoveAction(1, "basic", null, 24),
+                    }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
+                
+                
                 // Rare Shield
                 ["Double Double"] = () => new(new Card("Double Double", new List<AbstractAction>
                     {
                         new DoubleShieldAction(1, "basic", null),
+                    }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Capitalism"] = () => new(new Card("Capitalism", new List<AbstractAction>
+                    {
+                        new GainShieldForMoneyAction(1, "basic", null),
+                    }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Iron Fortress"] = () => new(new Card("Iron Fortress", new List<AbstractAction>
+                    {
+                        new ShieldAction(1, "basic", null, 120),
+                        new ShieldCarryoverStatusSelfAction(0,  "basic", null, 10),
+                        new RootSelfForCombatAction(0, "basic", null)
+                    }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Shield Detonation"] = () => new(new Card("Shield Detonation", new List<AbstractAction>
+                    {
+                        new ShieldDetonationAction(2, "basic", null),
+                        new RemoveAllShieldAction(1, "basic", null),
+                    }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
+                ["Bullish"] = () => new(new Card("Bullish", new List<AbstractAction>
+                    {
+                        new TripleShieldAction(1, "basic", null),
+                        new LoseQuarterMoneyAction(0, "basic", null),
                     }, Rarity.Rare, CardSet.Base), new StartingDeckEntry[0], true),
 
 
@@ -171,6 +217,12 @@ namespace Cards.CardList
                         new DiscardHandAction(0, "basic", null),
                     }, Rarity.Common, CardSet.Base),
                     new StartingDeckEntry[0], true),
+                ["Retreat"] = () => new(new Card("Retreat", new List<AbstractAction>
+                    {
+                        new GainStepsCardAction(1, "basic", null, 2),
+                        new BlockAttackingForTurnAction(1, "basic", null),
+                    }, Rarity.Common, CardSet.Base),
+                    new StartingDeckEntry[0], true),
 
                 // Uncommon Steps
                 ["Quick Step"] = () => new(new Card("Quick Step", new List<AbstractAction>
@@ -185,8 +237,34 @@ namespace Cards.CardList
 
                     }, Rarity.Uncommon, CardSet.Base),
                     new StartingDeckEntry[0], true),
+                ["Crowded"] = () => new(new Card("Crowded", new List<AbstractAction>
+                    {
+                        new GainStepsForNearbyEnemiesAction(1, "basic", null),
 
-
+                    }, Rarity.Uncommon, CardSet.Base),
+                    new StartingDeckEntry[0], true),
+                ["Homesick"] = () => new(new Card("Homesick", new List<AbstractAction>
+                    {
+                        new TeleportToStartingTileAction(1, "basic", null),
+                    }, Rarity.Uncommon, CardSet.Base),
+                    new StartingDeckEntry[0], true),
+                
+                // Rare Steps
+                ["Book It"] = () => new(new Card("Book It", new List<AbstractAction>
+                    {
+                        new GainStepsCardAction(1, "basic", null, 4),
+                        new BlockShieldingForTurnAction(1, "basic", null),
+                    }, Rarity.Rare, CardSet.Base),
+                    new StartingDeckEntry[0], true),
+                ["Combo"] = () => new(new Card("Combo", new List<AbstractAction>
+                    {
+                        new GainStepsForCardsPlayedThisTurnAction(2, "basic", null),
+                    }, Rarity.Rare, CardSet.Base),
+                    new StartingDeckEntry[0], true),
+                
+                
+                
+                
 
                 // Card draw
                 ["Messy Draw"] = () => new(new Card("Messy Draw", new List<AbstractAction>
@@ -239,27 +317,41 @@ namespace Cards.CardList
 
         public static IEnumerable<string> AllIds => defs.Keys;
 
-        public static IEnumerable<string> GetIdsFor(StartingDecks deck) =>
-            defs
+        public static IEnumerable<string> GetIdsFor(StartingDecks deck)
+        {
+            if (deck == StartingDecks.allCards)
+                return defs.Keys;
+
+            return defs
                 .Where(kv =>
                     kv.Value().StartingDecks?.Any(sd => sd.startingDeck == deck) == true
                 )
                 .Select(kv => kv.Key);
+        }
 
 
-    public static List<Card> GetStarter(StartingDecks deck) =>
-        defs.Values
-            .Select(def => def())
-            .Where(entry => entry.StartingDecks?.Any(sd => sd.startingDeck == deck) == true)
-            .SelectMany(entry =>
-                entry.StartingDecks!
-                    .Where(sd => sd.startingDeck == deck)
-                    .SelectMany(sd =>
-                        Enumerable.Range(0, sd.numberOfCards)
-                            .Select(_ => new Card(entry.LocalCard))
-                    )
-            )
-            .ToList();
+        public static List<Card> GetStarter(StartingDecks deck)
+        {
+            if (deck == StartingDecks.allCards)
+            {
+                return defs.Values
+                    .Select(def => new Card(def().LocalCard))
+                    .ToList();
+            }
+
+            return defs.Values
+                .Select(def => def())
+                .Where(entry => entry.StartingDecks?.Any(sd => sd.startingDeck == deck) == true)
+                .SelectMany(entry =>
+                    entry.StartingDecks!
+                        .Where(sd => sd.startingDeck == deck)
+                        .SelectMany(sd =>
+                            Enumerable.Range(0, sd.numberOfCards)
+                                .Select(_ => new Card(entry.LocalCard))
+                        )
+                )
+                .ToList();
+        }
 
         public static List<Card> GetCardsByRarity(Rarity rarity) =>
             defs.Values

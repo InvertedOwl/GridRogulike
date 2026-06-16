@@ -137,6 +137,51 @@ namespace Cards.CardEvents
             return new Dictionary<string, PreviewValue>();
         }
 
+        public virtual CardEventResult ActivateWithResult(AbstractEntity entity, CardEventContext context)
+        {
+            Activate(entity);
+            return new CardEventResult(this);
+        }
+
         public abstract void Activate(AbstractEntity entity);
+    }
+
+    public class CardEventContext
+    {
+        private readonly List<CardEventResult> _results = new List<CardEventResult>();
+
+        public IReadOnlyList<CardEventResult> Results => _results;
+        public CardEventResult PreviousResult => _results.Count > 0 ? _results[_results.Count - 1] : null;
+
+        public void Record(CardEventResult result)
+        {
+            _results.Add(result ?? new CardEventResult(null));
+        }
+    }
+
+    public class CardEventResult
+    {
+        public AbstractCardEvent SourceEvent { get; }
+        public List<AbstractEntity> DamagedEntities { get; } = new List<AbstractEntity>();
+        public List<AbstractEntity> DefeatedEntities { get; } = new List<AbstractEntity>();
+
+        public bool DefeatedEnemy
+        {
+            get
+            {
+                foreach (AbstractEntity entity in DefeatedEntities)
+                {
+                    if (entity != null && entity.entityType == EntityType.Enemy)
+                        return true;
+                }
+
+                return false;
+            }
+        }
+
+        public CardEventResult(AbstractCardEvent sourceEvent)
+        {
+            SourceEvent = sourceEvent;
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace Cards.Actions
         {
             int amount = CurrentShieldAmount();
             int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Shield, amount);
-            return "Gain " + preview.FormatValue("<shield>", amount, finalAmount) + " (Double Current <shield>)";
+            return "Double Current <shield>";
         }
 
         private int CurrentShieldAmount()

@@ -34,6 +34,7 @@ namespace Types.Statuses
             CacheIcon<BlindStatus>("Blind");
             CacheIcon<VolatileStatus>("Volatile");
             CacheIcon<DizzyStatus>("Dizzy");
+            CacheIcon<ShieldCarryoverStatus>("ShieldCarryover");
         }
 
         private void CacheIcon<T>(string name) where T : AbstractStatus
