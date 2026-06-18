@@ -33,7 +33,8 @@ namespace Types.Tiles
                         new SeeCardsThenPickCardEvent(3)
                     }
                 },
-                "foresight"),
+                icon: "foresight",
+                pairedTilesEntry: new PairedTilesEntry(TileSetEnum.Purple, 2, null, null, null, "Draw a card.")),
 
             ["Stumble"] = new (
                 "Stumble",
@@ -51,7 +52,7 @@ namespace Types.Tiles
                         new RandomMoveCardEvent(1, context.GetRandom("randomdir"))
                     }
                 },
-                "stumble", TileTriggerLimit.OncePerTurn),
+                icon: "stumble", triggerLimit: TileTriggerLimit.OncePerTurn),
 
             ["Refund"] = new (
                 "Refund",
@@ -71,9 +72,9 @@ namespace Types.Tiles
                     return e;
                 },
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> {},
-                "refund",
-                TileTriggerLimit.OncePerTurn,
-                (e, card, context) => { return card.Cost >= 3; }),
+                icon: "refund",
+                triggerLimit: TileTriggerLimit.OncePerTurn,
+                shouldMarkAsTriggered: (e, card, context) => { return card.Cost >= 3; }),
 
             ["Stride"] = new (
                 "Stride",
@@ -90,7 +91,7 @@ namespace Types.Tiles
                         new DrawCardEvent(BattleStats.TilesMovedThisTurn + 1)
                     }
                 },
-                "stride"),
+                icon: "stride"),
 
             ["Cornered"] = new (
                 "Cornered",
@@ -122,7 +123,7 @@ namespace Types.Tiles
                         };
                     }
                 },
-                "cornered"),
+                icon: "cornered"),
 
 
             ["HeadStart"] = new (
@@ -143,7 +144,7 @@ namespace Types.Tiles
                         };
                     }
                 },
-                "headstart"),
+                icon: "headstart"),
 
             ["Momentum"] = new (
                 "Momentum",
@@ -166,7 +167,7 @@ namespace Types.Tiles
                 },
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {},
-                "momentum"),
+                icon: "momentum"),
 
 
             ["Stacked"] = new (
@@ -190,7 +191,7 @@ namespace Types.Tiles
                 },
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                     {},
-                "stacked"),
+                icon: "stacked"),
 
             ["RestlessStep"] = new (
                 "Restless Step",
@@ -211,7 +212,7 @@ namespace Types.Tiles
                         };
                     }
                 },
-                "restlessstep"),
+                icon: "restlessstep"),
 
             ["Ignite"] = new (
                 "Ignite",
@@ -232,7 +233,7 @@ namespace Types.Tiles
                         };
                     }
                 },
-                "ignite"),
+                icon: "ignite"),
 
             ["Countdown"] = new (
                 "Countdown",
@@ -243,10 +244,10 @@ namespace Types.Tiles
                 TileType.Bad,
                 (e, card, context) => e,
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>(),
-                "countdown3",
-                TileTriggerLimit.None,
-                null,
-                new TileCountdownEffect(
+                icon: "countdown3",
+                triggerLimit: TileTriggerLimit.None,
+                shouldMarkAsTriggered: null,
+                countdownEffect: new TileCountdownEffect(
                     3,
                     new[] { "countdown3", "countdown2", "countdown1" },
                     "Damage4",
@@ -272,7 +273,7 @@ namespace Types.Tiles
                         };
                     }
                 },
-                "bloodbattery"),
+                icon: "bloodbattery"),
 
             ["HouseEdge"] = new (
                 "House Edge",
@@ -300,7 +301,7 @@ namespace Types.Tiles
                     }
                 },
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> {},
-                "houseedge"),
+                icon: "houseedge"),
 
             ["GlassEdge"] = new (
                 "Glass Edge",
@@ -361,7 +362,7 @@ namespace Types.Tiles
                         };
                     }
                 },
-                "loanshark"),
+                icon: "loanshark"),
 
             // ["HouseEdge"] = new (
             //     "House Edge",
@@ -412,7 +413,7 @@ namespace Types.Tiles
                 },
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>
                 {},
-                "recklessstrike"),
+                icon: "recklessstrike"),
             ["Overcharge"] = new (
                 "Overcharge",
                 "<b><u>On enter:</u></b> Gain 2 <sprite name=\"energyicon\">.\n<b><u>End turn here:</u></b> Take <sprite name=\"damage4\"> equal to 5x current <sprite name=\"energyicon\">.",
@@ -438,12 +439,12 @@ namespace Types.Tiles
                         };
                     }
                 },
-                "overcharge"),
+                icon: "overcharge"),
 
             ["basic"] = new (
                 "Basic",
                 "No effect.",
-                new Color(32.0f/255.0f, 99.0f/255.0f, 155.0f/255.0f),
+                HexColorUtility.HexToColor("#375166"),
                 false,
                 Rarity.Common,
                 TileType.Good,
@@ -459,7 +460,7 @@ namespace Types.Tiles
                 TileType.Good,
                 (e, card, context) => e,
                 new SerializedDictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>>(),
-                "House"
+                icon: "House"
                 ),
 
 

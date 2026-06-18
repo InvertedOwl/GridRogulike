@@ -40,24 +40,24 @@ namespace Cards.CardList
                 // Common attacks
                 ["Quick Strike"] = () => new(new Card("Quick Strike", new List<AbstractAction>
                     {
-                        new AttackAction(1, "basic", null, "", 1, 8),
+                        new AttackAction(1, "basic", null, "", 1, 6),
                     }, Rarity.Common, CardSet.Base),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 4) }, false),
                 ["Heavy Strike"] = () => new(new Card("Heavy Strike", new List<AbstractAction>
                     {
-                        new AttackAction(1, "basic", null, "", 1, 14),
+                        new AttackAction(1, "basic", null, "", 1, 9),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Lance"] = () => new(new Card("Lance", new List<AbstractAction>
                     {
-                        new AttackAction(2, "basic", null, "", 2, 8),
+                        new AttackAction(2, "basic", null, "", 2, 6),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Sweep"] = () => new(new Card("Sweep", new List<AbstractAction>
                     {
-                        new AttackAllAction(4, "basic", null, 7),
+                        new AttackAllAction(4, "basic", null, 6),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Close Sweep"] = () => new(new Card("Close Sweep", new List<AbstractAction>
                     {
-                        new AttackRadiusAction(1, "basic", null, 1, 6),
+                        new AttackRadiusAction(1, "basic", null, 1, 8),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Tap"] = () => new(new Card("Tap", new List<AbstractAction>
                     {
@@ -69,7 +69,7 @@ namespace Cards.CardList
                 ["Slash"] = () => new(new Card("Slash", new List<AbstractAction>
                     {
                         new AttackAction(1, "basic", null, "", 1, 8),
-                        new AttackRadiusAction(0, "basic", null, 1, 4)
+                        new AttackRadiusAction(1, "basic", null, 1, 4)
                     }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Wild Swing"] = () => new(new Card("Wild Swing", new List<AbstractAction>
                     {
@@ -124,7 +124,7 @@ namespace Cards.CardList
                     {
                         new ShieldAction(1, "basic", null, 10),
                     }, Rarity.Common, CardSet.Base),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
+                    new [] { new StartingDeckEntry(StartingDecks.basic, 4) }, false),
                 ["Reinforce"] = () => new(new Card("Reinforce", new List<AbstractAction>
                     {
                         new ShieldAction(1, "basic", null, 15),
@@ -151,7 +151,7 @@ namespace Cards.CardList
                 // Uncommon Shield
                 ["Shield Burst"] = () => new(new Card("Shield Burst", new List<AbstractAction>
                     {
-                        new ShieldAction(1, "basic", null, 8),
+                        new ShieldAction(2, "basic", null, 8),
                         new AttackAllAction(2, "basic", null, 4),
                     }, Rarity.Uncommon, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Repel"] = () => new(new Card("Repel", new List<AbstractAction>
@@ -203,33 +203,32 @@ namespace Cards.CardList
                 ["Step"] = () => new(new Card("Step", new List<AbstractAction>
                     {
                         new GainStepsCardAction(2, "basic", null, 1),
-                    }, Rarity.Common, CardSet.Base),
-                    new [] { new StartingDeckEntry(StartingDecks.basic, 2) }, false),
+                    }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], false),
                 ["Careful Step"] = () => new(new Card("Careful Step", new List<AbstractAction>
                     {
                         new GainStepsCardAction(1, "basic", null, 1),
                         new DrawCardAction(1, "basic", null, 1),
                     }, Rarity.Common, CardSet.Base),
-                    new StartingDeckEntry[0], true),
+                    new StartingDeckEntry[0], false),
                 ["Sprint"] = () => new(new Card("Sprint", new List<AbstractAction>
                     {
                         new GainStepsCardAction(1, "basic", null, 2),
                         new DiscardHandAction(0, "basic", null),
                     }, Rarity.Common, CardSet.Base),
-                    new StartingDeckEntry[0], true),
+                    new StartingDeckEntry[0], false),
                 ["Retreat"] = () => new(new Card("Retreat", new List<AbstractAction>
                     {
                         new GainStepsCardAction(1, "basic", null, 2),
                         new BlockAttackingForTurnAction(1, "basic", null),
                     }, Rarity.Common, CardSet.Base),
-                    new StartingDeckEntry[0], true),
+                    new StartingDeckEntry[0], false),
 
                 // Uncommon Steps
                 ["Quick Step"] = () => new(new Card("Quick Step", new List<AbstractAction>
                     {
                         new GainStepsCardAction(1, "basic", null, 1),
                     }, Rarity.Uncommon, CardSet.Base),
-                    new StartingDeckEntry[0], true),
+                    new StartingDeckEntry[0], false),
                 ["Overextend"] = () => new(new Card("Overextend", new List<AbstractAction>
                     {
                         new GainStepsCardAction(1, "basic", null, 4),
@@ -255,7 +254,7 @@ namespace Cards.CardList
                         new GainStepsCardAction(1, "basic", null, 4),
                         new BlockShieldingForTurnAction(1, "basic", null),
                     }, Rarity.Rare, CardSet.Base),
-                    new StartingDeckEntry[0], true),
+                    new StartingDeckEntry[0], false),
                 ["Combo"] = () => new(new Card("Combo", new List<AbstractAction>
                     {
                         new GainStepsForCardsPlayedThisTurnAction(2, "basic", null),

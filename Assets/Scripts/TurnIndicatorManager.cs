@@ -74,7 +74,7 @@ public class TurnIndicatorManager : MonoBehaviour
         }
         catch (Exception _)
         {
-            Debug.LogError("Entity " + entity.name + " does not have a turn indicator icon.");
+            // Debug.LogError("Entity " + entity.name + " does not have a turn indicator icon.");
         }
 
     }

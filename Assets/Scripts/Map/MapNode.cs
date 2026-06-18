@@ -43,20 +43,23 @@ namespace Map
 
         public void Start()
         {
-            GameState mapState = GameStateManager.Instance.GetCurrent<MapState>();
+            MapState mapState = GameStateManager.Instance.GetCurrent<MapState>();
+            if (mapState == null)
+                return;
+
             if (target == MapTarget.Enemy)
             {
-                encounterData = mapState.GetComponent<EnemyData>().GetRandomEncounter(0, EnemyType.Normal, _mapNodeRandom);
+                encounterData = mapState.GetRandomEncounter(EnemyType.Normal, _mapNodeRandom);
             }
             
             if (target == MapTarget.HardEnemy)
             {
-                encounterData = mapState.GetComponent<EnemyData>().GetRandomEncounter(0, EnemyType.Hard, _mapNodeRandom);
+                encounterData = mapState.GetRandomEncounter(EnemyType.Hard, _mapNodeRandom);
             }
             
             if (target == MapTarget.Boss)
             {
-                encounterData = mapState.GetComponent<EnemyData>().GetRandomEncounter(0, EnemyType.Boss, _mapNodeRandom);
+                encounterData = mapState.GetRandomEncounter(EnemyType.Boss, _mapNodeRandom);
             }
 
             int numNormalEnemy = 0;

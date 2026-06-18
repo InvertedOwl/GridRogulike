@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cards.Actions;
 using Cards.CardEvents;
 using Entities;
 using Entities.Enemies;
 using Grid;
+using Passives;
 using ScriptableObjects;
 using Serializer;
 using Types.CardRestrictions;
+using Types.Passives;
 using Types.Statuses;
 using Types.Tiles;
 using Unity.VisualScripting;
@@ -97,6 +100,7 @@ namespace StateManager
         private readonly HashSet<Vector2Int> _tilesUsedThisTurn = new();
         private readonly HashSet<Vector2Int> _tilesUsedThisCombat = new();
         private readonly HashSet<NonPlayerEntity> _enemiesNeedingIntentRefresh = new();
+        private readonly Dictionary<AbstractEntity, Vector2Int> _enemyPlanningPositions = new();
         private readonly List<ICardPlayRestriction> _temporaryCardPlayRestrictions = new();
         private readonly List<ICardPlayRestriction> _combatCardPlayRestrictions = new();
         private int _cardRestrictionVersion;
@@ -150,7 +154,9 @@ namespace StateManager
             SetupInitialTiles();
             RestoreOrInitializeTileCountdownStates();
             ResetCombatTileTriggers();
+            SpawnEncounterEnvironmentPassives();
             RunInfo.Instance.CurrentSteps = 0;
+            _enemyPlanningPositions.Clear();
             SetupEntities();
             RebuildTurnOrder();
             SetupUI();
@@ -300,18 +306,16 @@ namespace StateManager
                 return false;
 
             if (playerCount > 0)
+            {
                 playerCenter /= playerCount;
+                center = playerCenter;
+                return true;
+            }
 
             if (enemyCount > 0)
                 enemyCenter /= enemyCount;
 
-            if (playerCount > 0 && enemyCount > 0)
-            {
-                center = Vector3.Lerp(playerCenter, enemyCenter, 0.5f);
-                return true;
-            }
-
-            center = playerCount > 0 ? playerCenter : enemyCenter;
+            center = enemyCenter;
             return true;
         }
 
@@ -416,9 +420,13 @@ namespace StateManager
                 return;
             }
 
-            foreach (NonPlayerEntity enemy in _enemiesNeedingIntentRefresh)
+            _enemyPlanningPositions.Clear();
+            foreach (AbstractEntity entity in entities)
             {
-                PlanEnemyNextTurn(enemy, true);
+                if (entity is NonPlayerEntity enemy && enemy.Health > 0)
+                {
+                    PlanEnemyNextTurn(enemy, true);
+                }
             }
 
             _enemiesNeedingIntentRefresh.Clear();
@@ -529,6 +537,7 @@ namespace StateManager
             
             entities.AddRange(SpawnEncounter(spawnSpots));
             ApplyEnemyHealthScaling();
+            SpawnActivePassiveEntities();
 
             // Not enough spawn spots
             if (numNormalEnemy > 0 || numHardEnemy > 0 || numBossEnemy > 0)
@@ -540,6 +549,7 @@ namespace StateManager
             Debug.Log("Player is in " + entities
                 .Contains(player));
             
+            _enemyPlanningPositions.Clear();
             foreach (AbstractEntity e in entities)
             {
                 if (e is NonPlayerEntity nonPlayerEntity)
@@ -549,11 +559,12 @@ namespace StateManager
             }
         }
 
-        private bool TryGetRandomEmptyHex(out Vector2Int pos)
+        private bool TryGetRandomEmptyHex(RandomState randomState, out Vector2Int pos)
         {
+            RandomState positionRandom = randomState ?? random ?? RunInfo.NewRandom("playing");
             var empties = GetOrderedBoardPositions()
                 .Where(p => !entities.Any(e => e.positionRowCol == p))
-                .OrderBy(_ => random.Next())
+                .OrderBy(_ => positionRandom.Next())
                 .ToList();
 
             if (empties.Count == 0)
@@ -590,17 +601,34 @@ namespace StateManager
                 Vector2Int position = positions[i];
                 Debug.Log("enemy: " + enemy);
                 EnemiesData.EnemyEntry enemyEntry = enemiesData.Get(enemy).Value;
-                GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
-                // Vector2 pos = HexGridManager.GetHexCenter(position.x, position.y);
-                // Vector3 pos3 = new Vector3(pos.x, pos.y, -0.941f);
-                // enemyObject.transform.position = pos3;
-                AbstractEntity abstractEntity = enemyObject.GetComponent<AbstractEntity>();
-                abstractEntity.positionRowCol = position;
-                // enemyObject.GetComponent<AbstractEntity>().MoveEntity(position);
-                encounter.Add(abstractEntity);
+                AbstractEntity abstractEntity = SpawnEntity(enemyEntry, position, false);
+                if (abstractEntity != null)
+                    encounter.Add(abstractEntity);
                 
             }
             return encounter;
+        }
+
+        private AbstractEntity SpawnEntity(
+            EnemiesData.EnemyEntry enemyEntry,
+            Vector2Int position,
+            bool placeOnBoardImmediately)
+        {
+            GameObject enemyObject = Instantiate(enemyEntry.enemyPrefab, GoList.GetValue("board_container").transform);
+            AbstractEntity abstractEntity = enemyObject.GetComponent<AbstractEntity>();
+            if (abstractEntity == null)
+            {
+                Debug.LogError($"Spawned entity prefab '{enemyEntry.enemyName}' does not have an AbstractEntity.");
+                Destroy(enemyObject);
+                return null;
+            }
+
+            abstractEntity.positionRowCol = position;
+            abstractEntity.Health = abstractEntity.initialHealth;
+            if (placeOnBoardImmediately)
+                abstractEntity.MoveEntity(position);
+
+            return abstractEntity;
         }
 
         private int EnemyScalingSteps()
@@ -626,12 +654,22 @@ namespace StateManager
 
             foreach (AbstractEntity entity in entities)
             {
-                if (entity is not NonPlayerEntity)
-                    continue;
-
-                entity.initialHealth = ScaleEnemyFloat(entity.initialHealth, multiplier);
-                entity.Health = entity.initialHealth;
+                ApplyEnemyHealthScaling(entity, multiplier);
             }
+        }
+
+        private void ApplyEnemyHealthScaling(AbstractEntity entity)
+        {
+            ApplyEnemyHealthScaling(entity, EnemyHealthMultiplier());
+        }
+
+        private void ApplyEnemyHealthScaling(AbstractEntity entity, float multiplier)
+        {
+            if (entity is not NonPlayerEntity || Mathf.Approximately(multiplier, 1f))
+                return;
+
+            entity.initialHealth = ScaleEnemyFloat(entity.initialHealth, multiplier);
+            entity.Health = entity.initialHealth;
         }
 
         public List<AbstractCardEvent> ApplyEnemyDamageScaling(List<AbstractCardEvent> events)
@@ -1139,6 +1177,134 @@ namespace StateManager
             Deck.Instance.DiscardHand();
         }
 
+        private void SpawnEncounterEnvironmentPassives()
+        {
+            if (encounterData?.environmentPassives == null || EnvironmentManager.instance == null)
+                return;
+
+            foreach (string passiveName in encounterData.environmentPassives)
+            {
+                if (string.IsNullOrWhiteSpace(passiveName))
+                    continue;
+
+                if (!PassiveData.TryGetPassiveEntry(passiveName, out var passiveEntry))
+                {
+                    Debug.LogError($"Encounter references unknown environment passive: {passiveName}");
+                    continue;
+                }
+
+                AddEnvironmentPassive(passiveEntry, false);
+            }
+        }
+
+        public void AddEnvironmentPassive(PassiveEntry entry)
+        {
+            AddEnvironmentPassive(entry, true);
+        }
+
+        private void AddEnvironmentPassive(PassiveEntry entry, bool spawnEntities)
+        {
+            if (entry == null || EnvironmentManager.instance == null)
+                return;
+
+            EnvironmentManager.instance.AddPassive(entry);
+
+            if (!spawnEntities)
+                return;
+
+            if (SpawnPassiveEntities(entry))
+                RefreshTurnOrderAfterEntitySpawn();
+        }
+
+        private void SpawnActivePassiveEntities()
+        {
+            if (EnvironmentManager.instance == null)
+                return;
+
+            foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
+            {
+                SpawnPassiveEntities(entry);
+            }
+        }
+
+        private bool SpawnPassiveEntities(PassiveEntry entry)
+        {
+            if (entry?.EntitySpawns == null || entry.EntitySpawns.Count == 0)
+                return false;
+
+            bool spawnedAny = false;
+            RandomState spawnRandom = RunInfo.NewRandom($"passive_entity_spawn:{entry.Name}");
+
+            foreach (PassiveEntitySpawn entitySpawn in entry.EntitySpawns)
+            {
+                if (entitySpawn == null || entitySpawn.Count <= 0)
+                    continue;
+
+                for (int i = 0; i < entitySpawn.Count; i++)
+                {
+                    if (TrySpawnPassiveEntity(entitySpawn.EntityName, spawnRandom, out AbstractEntity spawnedEntity))
+                    {
+                        ApplyEnemyHealthScaling(spawnedEntity);
+                        spawnedAny = true;
+                    }
+                }
+            }
+
+            return spawnedAny;
+        }
+
+        private bool TrySpawnPassiveEntity(string entityName, RandomState spawnRandom, out AbstractEntity spawnedEntity)
+        {
+            spawnedEntity = null;
+
+            if (string.IsNullOrWhiteSpace(entityName))
+                return false;
+
+            if (enemiesData == null)
+            {
+                Debug.LogError($"Cannot spawn passive entity '{entityName}' because enemiesData is not set.");
+                return false;
+            }
+
+            EnemiesData.EnemyEntry? enemyEntry = enemiesData.Get(entityName);
+            if (!enemyEntry.HasValue)
+            {
+                Debug.LogError($"Passive references unknown entity '{entityName}'.");
+                return false;
+            }
+
+            if (!TryGetRandomEmptyHex(spawnRandom, out Vector2Int position))
+            {
+                Debug.LogWarning($"No empty hex available to spawn passive entity '{entityName}'.");
+                return false;
+            }
+
+            spawnedEntity = SpawnEntity(enemyEntry.Value, position, true);
+            if (spawnedEntity != null)
+                entities.Add(spawnedEntity);
+
+            return spawnedEntity != null;
+        }
+
+        private void RefreshTurnOrderAfterEntitySpawn()
+        {
+            RebuildTurnOrder();
+            _currentTurnIndex = Mathf.Clamp(_currentTurnIndex, -1, _turnOrder.Count - 1);
+            turnIndicatorManager.Rebuild(entities, _turnOrder);
+
+            if (_currentTurnIndex >= 0)
+                turnIndicatorManager.SetCurrentTurn(_turnOrder, entities, _currentTurnIndex);
+
+            _enemyPlanningPositions.Clear();
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity is NonPlayerEntity enemy && enemy.Health > 0)
+                {
+                    PlanEnemyNextTurn(enemy, IsPlayerTurnActive());
+                }
+            }
+        }
+
         private void EnableTileHovers()
         {
             foreach (Transform tile in HexGridManager.Instance.grid.transform)
@@ -1149,17 +1315,40 @@ namespace StateManager
 
         public void MoveEntitiesOut()
         {
+            PruneDestroyedEntities();
+
             foreach (AbstractEntity entity in entities)
             {
-                entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, -750);
+                if (entity == null)
+                    continue;
+
+                LerpPosition lerpPosition = entity.GetComponent<LerpPosition>();
+                if (lerpPosition == null)
+                    continue;
+
+                lerpPosition.targetLocation += new Vector3(0, -750);
             }
         }
         public void MoveEntitiesIn()
         {
+            PruneDestroyedEntities();
+
             foreach (AbstractEntity entity in entities)
             {
-                entity.GetComponent<LerpPosition>().targetLocation += new Vector3(0, 750);
+                if (entity == null)
+                    continue;
+
+                LerpPosition lerpPosition = entity.GetComponent<LerpPosition>();
+                if (lerpPosition == null)
+                    continue;
+
+                lerpPosition.targetLocation += new Vector3(0, 750);
             }
+        }
+
+        private void PruneDestroyedEntities()
+        {
+            entities.RemoveAll(entity => entity == null);
         }
 
         public override void Exit()
@@ -1182,23 +1371,26 @@ namespace StateManager
             
             Debug.Log("Exiting Play State");
             Deck.Instance.DiscardHand();
-            List<NonPlayerEntity> toRemove = new List<NonPlayerEntity>();
+            PruneDestroyedEntities();
+            List<AbstractEntity> toRemove = new List<AbstractEntity>();
             // TurnIndicator.SendToLocation(new Vector3(0, 200, 0));
 
             foreach (AbstractEntity entity in entities)
             {
-                if (entity is NonPlayerEntity)
+                if (entity != null && entity != player)
                 {
-                    Debug.Log("Entity is an enemy!! WOOOOO");
-                    toRemove.Add((NonPlayerEntity)entity);
+                    toRemove.Add(entity);
                 }
             }
 
-            foreach (NonPlayerEntity enemy in toRemove)
+            foreach (AbstractEntity entity in toRemove)
             {
-                entities.Remove(enemy);
-                Destroy(enemy.gameObject);
+                entities.Remove(entity);
+                if (entity != null)
+                    Destroy(entity.gameObject);
             }
+
+            PruneDestroyedEntities();
 
             // gameUI.GetComponent<LerpPosition>().targetLocation = new Vector2(0, -750);
             RunInfo.Instance.CurrentEnergy = RunInfo.Instance.MaxEnergy;
@@ -1309,10 +1501,18 @@ namespace StateManager
 
         private void PlanEnemyNextTurn(NonPlayerEntity enemy, bool showIntent)
         {
-            if (enemy == null || enemy.behavior == null || enemy.Health <= 0)
+            if (enemy == null)
                 return;
 
-            enemy.behavior.NextTurn();
+            if (enemy.behavior == null || enemy.Health <= 0)
+            {
+                _enemyPlanningPositions.Remove(enemy);
+                return;
+            }
+
+            PruneEnemyPlanningPositions();
+            enemy.behavior.NextTurn(_enemyPlanningPositions);
+            _enemyPlanningPositions[enemy] = GetPlannedFinalPosition(enemy);
 
             if (showIntent)
             {
@@ -1322,6 +1522,44 @@ namespace StateManager
             {
                 enemy.ClearIntentVisuals();
             }
+        }
+
+        private void PruneEnemyPlanningPositions()
+        {
+            List<AbstractEntity> toRemove = new List<AbstractEntity>();
+            foreach (AbstractEntity entity in _enemyPlanningPositions.Keys)
+            {
+                if (entity == null || entity.Health <= 0 || !entities.Contains(entity))
+                    toRemove.Add(entity);
+            }
+
+            foreach (AbstractEntity entity in toRemove)
+            {
+                _enemyPlanningPositions.Remove(entity);
+            }
+        }
+
+        private Vector2Int GetPlannedFinalPosition(NonPlayerEntity enemy)
+        {
+            if (enemy == null)
+                return Vector2Int.zero;
+
+            Vector2Int finalPosition = enemy.positionRowCol;
+            if (enemy.plannedAction == null)
+                return finalPosition;
+
+            foreach (AbstractAction action in enemy.plannedAction)
+            {
+                if (action is MoveAction moveAction)
+                {
+                    finalPosition = HexGridManager.MoveHex(
+                        finalPosition,
+                        moveAction.Direction,
+                        moveAction.Distance);
+                }
+            }
+
+            return finalPosition;
         }
 
         private void ShowEnemyIntentPreviews()
@@ -1368,6 +1606,13 @@ namespace StateManager
             for (int i = entities.Count - 1; i >= 0; i--)
             {
                 var entity = entities[i];
+                if (entity == null)
+                {
+                    removedAny = true;
+                    entities.RemoveAt(i);
+                    continue;
+                }
+
                 if (entity.Health > 0) continue;
 
                 removedAny = true;
@@ -1559,6 +1804,13 @@ namespace StateManager
         public List<AbstractEntity> GetEntities()
         {
             return entities;
+        }
+
+        public bool IsPlayerAttackTarget(AbstractEntity entity)
+        {
+            return entity != null &&
+                   entity.Health > 0 &&
+                   (entity.entityType == EntityType.Enemy || entity.entityType == EntityType.Neutral);
         }
 
         public bool IsValidHex(Vector2Int coords)

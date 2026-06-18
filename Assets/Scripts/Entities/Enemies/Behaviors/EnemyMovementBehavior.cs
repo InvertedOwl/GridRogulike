@@ -25,6 +25,8 @@ namespace Entities.Enemies
         public int maxMovesPerTurn = 3;
         public int stopMovingWhenWithinDistance = 1;
 
+        protected virtual int PreferredTargetDistance => Mathf.Max(0, stopMovingWhenWithinDistance);
+
         public override List<AbstractAction> NextTurn()
         {
             if (self.plannedAction == null)
@@ -42,7 +44,11 @@ namespace Entities.Enemies
         {
             PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
             AbstractEntity target = GetClosestTarget(state);
+            PlanMovementTowardsTarget(state, target);
+        }
 
+        protected virtual void PlanMovementTowardsTarget(PlayingState state, AbstractEntity target)
+        {
             if (target == null)
             {
                 return;
@@ -55,6 +61,11 @@ namespace Entities.Enemies
 
             for (int step = 0; step < maxMovesPerTurn; step++)
             {
+                if (IsAtPreferredTargetDistance(currentPosition, distanceMap))
+                {
+                    break;
+                }
+
                 MoveAction bestMove = GetBestMove(currentPosition, distanceMap);
 
                 if (bestMove == null)
@@ -64,12 +75,6 @@ namespace Entities.Enemies
 
                 currentPosition = HexGridManager.MoveHex(currentPosition, bestMove.Direction, 1);
                 self.plannedAction.Add(bestMove);
-
-                if (distanceMap.ContainsKey(currentPosition) &&
-                    distanceMap[currentPosition] <= stopMovingWhenWithinDistance)
-                {
-                    break;
-                }
             }
         }
 
@@ -78,12 +83,20 @@ namespace Entities.Enemies
             Dictionary<Vector2Int, int> distanceMap
         )
         {
+            PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
             MoveAction bestMove = null;
+            int bestScore = int.MaxValue;
             int bestDistance = int.MaxValue;
+            int currentScore = GetPreferredDistanceScore(currentPosition, distanceMap);
 
             foreach (string direction in HexDirections)
             {
                 Vector2Int candidateHex = HexGridManager.MoveHex(currentPosition, direction, 1);
+
+                if (!IsMoveDestinationOpen(state, candidateHex))
+                {
+                    continue;
+                }
 
                 if (!distanceMap.ContainsKey(candidateHex))
                 {
@@ -97,14 +110,85 @@ namespace Entities.Enemies
                     continue;
                 }
 
-                if (candidateDistance < bestDistance)
+                int candidateScore = GetPreferredDistanceScore(candidateDistance);
+                if (candidateScore >= currentScore)
                 {
+                    continue;
+                }
+
+                if (candidateScore < bestScore ||
+                    (candidateScore == bestScore && candidateDistance < bestDistance))
+                {
+                    bestScore = candidateScore;
                     bestDistance = candidateDistance;
                     bestMove = new MoveAction(1, "basic", self, direction, 1);
                 }
             }
 
             return bestMove;
+        }
+
+        protected bool IsCloserThanPreferredTargetDistance(
+            Vector2Int currentPosition,
+            Dictionary<Vector2Int, int> distanceMap
+        )
+        {
+            return distanceMap.TryGetValue(currentPosition, out int distance) &&
+                   distance >= 0 &&
+                   distance < PreferredTargetDistance;
+        }
+
+        protected bool IsAtPreferredTargetDistance(
+            Vector2Int currentPosition,
+            Dictionary<Vector2Int, int> distanceMap
+        )
+        {
+            return distanceMap.TryGetValue(currentPosition, out int distance) &&
+                   distance == PreferredTargetDistance;
+        }
+
+        private int GetPreferredDistanceScore(Vector2Int position, Dictionary<Vector2Int, int> distanceMap)
+        {
+            if (!distanceMap.TryGetValue(position, out int distance) || distance < 0)
+            {
+                return int.MaxValue;
+            }
+
+            return GetPreferredDistanceScore(distance);
+        }
+
+        private int GetPreferredDistanceScore(int distance)
+        {
+            return Mathf.Abs(distance - PreferredTargetDistance);
+        }
+
+        private bool IsMoveDestinationOpen(PlayingState state, Vector2Int position)
+        {
+            if (HexGridManager.Instance == null ||
+                !HexGridManager.Instance.BoardDictionary.ContainsKey(position))
+            {
+                return false;
+            }
+
+            if (state == null)
+            {
+                return true;
+            }
+
+            foreach (AbstractEntity entity in state.GetEntities())
+            {
+                if (entity == null || entity == self || entity.Health <= 0)
+                {
+                    continue;
+                }
+
+                if (entity.positionRowCol == position)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         protected virtual AbstractEntity GetClosestTarget(PlayingState state)

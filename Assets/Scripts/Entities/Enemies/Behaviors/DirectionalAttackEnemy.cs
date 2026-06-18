@@ -34,12 +34,6 @@ namespace Entities.Enemies
                 return self.plannedAction;
             }
 
-            if (TryGetAttackDirection(self.positionRowCol, target.positionRowCol, out _direction))
-            {
-                PlanLineAttack(_direction);
-                return self.plannedAction;
-            }
-
             Dictionary<Vector2Int, int> targetDistanceMap =
                 HexGridManager.Instance.CalculateDistanceMap(target.positionRowCol, new List<Vector2Int>());
 
@@ -51,29 +45,75 @@ namespace Entities.Enemies
                 return self.plannedAction;
             }
 
-            PlanMovementTowardsLineup(playingState, target, targetDistanceMap, distanceToTarget);
+            Dictionary<Vector2Int, int> movementDistanceMap =
+                self.CalculateDistanceMap(target.positionRowCol, playingState, target);
+
+            if (IsCloserThanPreferredTargetDistance(self.positionRowCol, movementDistanceMap))
+            {
+                PlanMovementTowardsTarget(playingState, target);
+
+                if (self.plannedAction.Count > 0)
+                {
+                    return self.plannedAction;
+                }
+            }
+
+            if (TryGetAttackDirection(self.positionRowCol, target.positionRowCol, playingState, out _direction))
+            {
+                PlanLineAttack(_direction, playingState);
+                return self.plannedAction;
+            }
+
+            PlanMovementTowardsLineup(playingState, target, targetDistanceMap, PreferredTargetDistance);
             return self.plannedAction;
         }
 
-        private void PlanLineAttack(string direction)
+        private void PlanLineAttack(string direction, PlayingState state)
         {
-            for (int i = 0; i < attackRange; i++)
+            for (int distance = 1; distance <= attackRange; distance++)
             {
-                self.plannedAction.Add(new AttackAction(0, "basic", self, direction, i + 1, DefaultDamage));
+                Vector2Int attackTile = HexGridManager.MoveHex(self.positionRowCol, direction, distance);
+                if (!CanLineContinueThrough(attackTile))
+                    break;
+
+                self.plannedAction.Add(new AttackAction(0, "basic", self, direction, distance, DefaultDamage));
+
+                if (IsLineInterruptedByEntity(state, attackTile))
+                    break;
             }
         }
 
-        private bool TryGetAttackDirection(Vector2Int attackPosition, Vector2Int targetPosition, out string direction)
+        private bool TryGetAttackDirection(
+            Vector2Int attackPosition,
+            Vector2Int targetPosition,
+            PlayingState state,
+            out string direction)
+        {
+            return TryGetDirectAttackDirection(attackPosition, targetPosition, state, out direction);
+        }
+
+        private bool TryGetDirectAttackDirection(
+            Vector2Int attackPosition,
+            Vector2Int targetPosition,
+            PlayingState state,
+            out string direction)
         {
             foreach (string possibleDirection in HexGridManager.HexDirections)
             {
                 for (int distance = 1; distance <= attackRange; distance++)
                 {
-                    if (HexGridManager.MoveHex(attackPosition, possibleDirection, distance) == targetPosition)
+                    Vector2Int attackTile = HexGridManager.MoveHex(attackPosition, possibleDirection, distance);
+                    if (!CanLineContinueThrough(attackTile))
+                        break;
+
+                    if (attackTile == targetPosition)
                     {
                         direction = possibleDirection;
                         return true;
                     }
+
+                    if (IsLineInterruptedByEntity(state, attackTile))
+                        break;
                 }
             }
 
@@ -90,9 +130,7 @@ namespace Entities.Enemies
 
             for (int step = 0; step < maxMovesPerTurn; step++)
             {
-                if (movementDistanceMap.TryGetValue(currentPosition, out int distance) &&
-                    distance >= 0 &&
-                    distance <= attackRange)
+                if (IsAtPreferredTargetDistance(currentPosition, movementDistanceMap))
                 {
                     break;
                 }
@@ -123,7 +161,7 @@ namespace Entities.Enemies
 
             for (int step = 0; step < maxMovesPerTurn; step++)
             {
-                if (TryGetAttackDirection(currentPosition, target.positionRowCol, out _))
+                if (TryGetAttackDirection(currentPosition, target.positionRowCol, state, out _))
                 {
                     break;
                 }
@@ -205,7 +243,7 @@ namespace Entities.Enemies
                     continue;
                 }
 
-                if (!TryGetAttackDirection(boardPosition, targetPosition, out _))
+                if (!TryGetAttackDirection(boardPosition, targetPosition, state, out _))
                 {
                     continue;
                 }
@@ -264,6 +302,16 @@ namespace Entities.Enemies
             }
 
             return false;
+        }
+
+        private bool CanLineContinueThrough(Vector2Int position)
+        {
+            return HexGridManager.Instance.BoardDictionary.ContainsKey(position);
+        }
+
+        private bool IsLineInterruptedByEntity(PlayingState state, Vector2Int position)
+        {
+            return IsHexOccupiedByOtherEntity(state, position);
         }
     }
 }

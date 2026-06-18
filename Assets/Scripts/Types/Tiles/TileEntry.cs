@@ -70,10 +70,12 @@ namespace Types.Tiles
         public TileTriggerLimit triggerLimit;
         public Func<List<AbstractCardEvent>, Card, TileContext, bool> shouldMarkAsTriggered;
         public TileCountdownEffect countdownEffect;
+        public PairedTilesEntry pairedTilesEntry;
 
         public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType,
             Func<List<AbstractCardEvent>, Card, TileContext, List<AbstractCardEvent>> cardModifier,
             Dictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> triggerEvents,
+            PairedTilesEntry pairedTilesEntry = null,
             string icon = "none", 
             TileTriggerLimit triggerLimit = TileTriggerLimit.None,
             Func<List<AbstractCardEvent>, Card, TileContext, bool> shouldMarkAsTriggered = null,
@@ -93,6 +95,7 @@ namespace Types.Tiles
             this.triggerLimit = triggerLimit;
             this.shouldMarkAsTriggered = shouldMarkAsTriggered;
             this.countdownEffect = countdownEffect;
+            this.pairedTilesEntry = pairedTilesEntry;
         }
 
     }

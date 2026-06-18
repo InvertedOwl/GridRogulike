@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Cards.CardEvents;
+using Grid;
 using Serializer;
 using StateManager;
 using UnityEngine;
@@ -38,6 +41,14 @@ namespace Entities
             
             playingState.ResetTurnTileTriggers();
             playingState.TriggerPlayerTileStart(positionRowCol, this);
+
+            // Gain movement at start of turn
+            foreach (AbstractCardEvent cardEvent in ModifyEvents(new List<AbstractCardEvent> { new GainStepsCardEvent(1) }, false))
+            {
+                cardEvent.Activate(this);
+            }
+
+            HexClickPlayerController.instance?.UpdateMovableParticles(playingState);
         }
 
         public override void EndTurn()

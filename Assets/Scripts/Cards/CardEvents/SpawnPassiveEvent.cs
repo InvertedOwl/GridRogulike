@@ -25,9 +25,9 @@ namespace Cards.CardEvents
 
         public override void Activate(AbstractEntity entity)
         {
-            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { })
+            if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playingState)
             {
-                EnvironmentManager.instance.AddPassive(PassiveData.GetPassiveEntry(_passive));
+                playingState.AddEnvironmentPassive(PassiveData.GetPassiveEntry(_passive));
             }
         }
     }

@@ -29,7 +29,7 @@ namespace Cards.CardEvents
 
             if (sourceEntity is Player)
             {
-                modifiedEvents = ApplyEnvironmentModifiers(modifiedEvents, card, previewMode);
+                modifiedEvents = ApplyEnvironmentModifiers(modifiedEvents, sourceEntity, card, previewMode);
             }
 
             if (sourceEntity?.statusManager != null)
@@ -113,6 +113,7 @@ namespace Cards.CardEvents
 
         private static List<AbstractCardEvent> ApplyEnvironmentModifiers(
             List<AbstractCardEvent> eventQueue,
+            AbstractEntity sourceEntity,
             Card? card,
             bool previewMode)
         {
@@ -123,15 +124,11 @@ namespace Cards.CardEvents
 
             foreach (PassiveEntry entry in EnvironmentManager.instance.GetPassiveEntries())
             {
-                if (previewMode && !entry.Condition.CanPreview)
-                {
+                if (entry == null || entry.ModifyEvents == null)
                     continue;
-                }
 
-                if (entry.Condition.Condition(card.GetValueOrDefault(), eventQueue))
-                {
-                    eventQueue = entry.CardModifier.Modify(eventQueue, previewMode);
-                }
+                PassiveContext passiveContext = new PassiveContext(entry.Name, sourceEntity, previewMode);
+                eventQueue = entry.ModifyEvents.Invoke(eventQueue, card, passiveContext) ?? eventQueue;
             }
 
             return eventQueue;

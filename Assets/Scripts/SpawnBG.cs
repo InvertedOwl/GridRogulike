@@ -24,6 +24,7 @@ public class SpawnBG : MonoBehaviour
     // Fallback wait if a tile has no EaseScale to report its own duration.
     [SerializeField] private float flipAnimDuration = 0.2f;
     [SerializeField] private float radialRingPause = 0.04f;
+    [SerializeField] private float colorChangeDelay = 0.1f;
     [SerializeField] private Vector2Int radialCenterOffset = Vector2Int.zero;
     [SerializeField] private float tileOrthogonalSeparation = 0.001f;
 
@@ -60,10 +61,22 @@ public class SpawnBG : MonoBehaviour
                     y,
                     tileOrthogonalSeparation);
 
-                hex.GetComponent<BGTile>().SetColor(
+                BGTile bgTile = hex.GetComponent<BGTile>();
+                bgTile.SetGridCoords(new Vector2Int(x, y));
+                bgTile.SetColor(
                     RandomizeColor(grasslandColors[Random.Range(0, grasslandColors.Count)])
                 );
             }
+        }
+    }
+
+    public void RefreshDecorations()
+    {
+        foreach (Transform child in transform)
+        {
+            BGTile tile = child.GetComponentInChildren<BGTile>();
+            if (tile != null)
+                tile.SetRandomDecoration();
         }
     }
 
@@ -87,12 +100,12 @@ public class SpawnBG : MonoBehaviour
         SpawnBackground();
     }
 
-    public void SetColorAnimation()
+    public void SetColorAnimation(List<string> decorationNames = null)
     {
-        StartCoroutine(ColorAnimationRadial());
+        StartCoroutine(ColorAnimationRadial(decorationNames));
     }
 
-    IEnumerator ColorAnimationRadial()
+    IEnumerator ColorAnimationRadial(List<string> decorationNames)
     {
         _activeColorAnimations++;
 
@@ -108,6 +121,14 @@ public class SpawnBG : MonoBehaviour
         }
         
         List<RadialTileEntry> tiles = GetTilesByRadialRing();
+        float sharedFlipDuration = GetSharedFlipDuration(tiles);
+        HexGridManager.Instance?.AnimateTilesWithBackgroundColors(
+            colors,
+            GetBackgroundCenterCoords(),
+            radialRingPause,
+            sharedFlipDuration,
+            colorChangeDelay);
+
         int currentRing = -1;
         float longestFlipDuration = 0f;
 
@@ -134,11 +155,22 @@ public class SpawnBG : MonoBehaviour
                 ease.SetScale(new Vector3(-1, 1, 1), () => SnapScaleBackToOne(tileTransform));
             }
 
-            StartCoroutine(SetBGColor(tile, colors[Random.Range(0, colors.Count)]));
+            StartCoroutine(SetBGColor(tile, colors[Random.Range(0, colors.Count)], decorationNames));
         }
 
         yield return new WaitForSeconds(Mathf.Max(longestFlipDuration, flipAnimDuration, 0.1f));
         _activeColorAnimations = Mathf.Max(0, _activeColorAnimations - 1);
+    }
+
+    private float GetSharedFlipDuration(List<RadialTileEntry> tiles)
+    {
+        foreach (RadialTileEntry entry in tiles)
+        {
+            if (entry.Tile?.EaseScale != null)
+                return entry.Tile.EaseScale.durationSeconds;
+        }
+
+        return flipAnimDuration;
     }
 
     private List<RadialTileEntry> GetTilesByRadialRing()
@@ -227,10 +259,10 @@ public class SpawnBG : MonoBehaviour
         t.localScale = Vector3.one;
     }
 
-    IEnumerator SetBGColor(BGTile tile, Color color)
+    IEnumerator SetBGColor(BGTile tile, Color color, List<string> decorationNames)
     {
-        yield return new WaitForSeconds(0.1f);
-        tile.SetColor(RandomizeColor(color));
+        yield return new WaitForSeconds(colorChangeDelay);
+        tile.SetColor(RandomizeColor(color), decorationNames);
     }
 }
 

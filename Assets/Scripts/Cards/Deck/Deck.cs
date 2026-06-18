@@ -61,6 +61,12 @@ public class Deck : MonoBehaviour
         Debug.Log("SEED: " + RunInfo.seed);
     }
 
+    private void EnsureDeckRandom()
+    {
+        if (_randomDeck == null)
+            _randomDeck = RunInfo.NewRandom("deck");
+    }
+
     public void SetInactive(bool inactive)
     {
         SetInactive(inactive, true);
@@ -91,6 +97,7 @@ public class Deck : MonoBehaviour
             _draw.Add(CreateCard(startingCard));
         }
 
+        ShuffleDrawPile();
         MarkHandLayoutDirty();
         MarkPlayabilityDirty();
     }
@@ -486,6 +493,7 @@ public class Deck : MonoBehaviour
         {
             _draw.Add(CreateCardMono(card));
         });
+        ShuffleDrawPile();
         MarkHandLayoutDirty();
         MarkPlayabilityDirty();
     }
@@ -594,6 +602,7 @@ public class Deck : MonoBehaviour
             drawnCard.ResetPlayState();
             drawnCard.transform.SetSiblingIndex(i);
             drawnCard.siblingIndex = i;
+            break;
         }
 
         MarkHandLayoutDirty();
@@ -625,6 +634,7 @@ public class Deck : MonoBehaviour
 
             _draw.AddRange(_discard);
             _discard.Clear();
+            ShuffleDrawPile();
             MarkHandLayoutDirty();
             MarkPlayabilityDirty();
             StartCoroutine(WaitToDrawHand(numToDraw - partHand));
@@ -634,9 +644,8 @@ public class Deck : MonoBehaviour
         // Base case (normal deck)
         for (int i = 0; i < numToDraw; i++)
         {
-            int index = _randomDeck.Next(0, _draw.Count);
-            CardMonobehaviour drawnCard = _draw[index];
-            _draw.RemoveAt(index);
+            CardMonobehaviour drawnCard = _draw[0];
+            _draw.RemoveAt(0);
             _hand.Add(drawnCard);
 
             LerpPosition drawnLerp = drawnCard.GetComponent<LerpPosition>();
@@ -650,6 +659,28 @@ public class Deck : MonoBehaviour
         MarkHandLayoutDirty();
         MarkPlayabilityDirty();
         PositionHandCards(0);
+    }
+
+    private void ShuffleDrawPile()
+    {
+        EnsureDeckRandom();
+
+        for (int i = _draw.Count - 1; i > 0; i--)
+        {
+            int swapIndex = _randomDeck.Next(0, i + 1);
+            CardMonobehaviour temp = _draw[i];
+            _draw[i] = _draw[swapIndex];
+            _draw[swapIndex] = temp;
+        }
+
+        for (int i = 0; i < _draw.Count; i++)
+        {
+            if (_draw[i] == null)
+                continue;
+
+            _draw[i].transform.SetSiblingIndex(i);
+            _draw[i].siblingIndex = i;
+        }
     }
 
     IEnumerator WaitToDrawHand(int numToDraw)

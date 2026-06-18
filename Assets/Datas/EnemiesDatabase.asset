@@ -41,3 +41,7 @@ MonoBehaviour:
     enemyPrefab: {fileID: 3518368252074035926, guid: de8a763a9ec0c59438437f0b2ef72d32, type: 3}
     enemyType: 2
     enemyIconPrefab: {fileID: 0}
+  - enemyName: Rock
+    enemyPrefab: {fileID: 3518368252074035926, guid: 6cad08a7b46ed8543850b7bc38bf14e4, type: 3}
+    enemyType: 0
+    enemyIconPrefab: {fileID: 0}

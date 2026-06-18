@@ -36,10 +36,7 @@ namespace Cards.Actions
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             foreach (AbstractEntity target in playingState.GetEntities())
             {
-                if (target == null ||
-                    target == entity ||
-                    target.entityType != EntityType.Enemy ||
-                    target.Health <= 0)
+                if (!playingState.IsPlayerAttackTarget(target))
                 {
                     continue;
                 }

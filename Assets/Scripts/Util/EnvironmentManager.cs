@@ -37,7 +37,7 @@ public class EnvironmentManager : MonoBehaviour
         CreatePassiveObject(entry);
         
         AddPassiveBackgroundColors(entry);
-        SpawnBG.instance.SetColorAnimation();
+        SpawnBG.instance.SetColorAnimation(entry.decor);
     }
 
     public void ClearPassives()

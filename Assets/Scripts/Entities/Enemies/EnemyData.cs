@@ -11,6 +11,7 @@ namespace Entities.Enemies
         public float DifficultyMin; 
         public float DifficultyMax;
         public List<string> enemies;
+        public List<string> environmentPassives = new List<string>();
         public EnemyType EncounterType;
             
     }

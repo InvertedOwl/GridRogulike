@@ -40,7 +40,7 @@ namespace Cards.Actions
             PlayingState playing = GameStateManager.Instance.GetCurrent<PlayingState>();
             foreach (AbstractEntity ent in playing.GetEntities())
             {
-                if (ent == null || ent == entity || ent.entityType != EntityType.Enemy || ent.Health <= 0)
+                if (!playing.IsPlayerAttackTarget(ent))
                     continue;
 
                 if (!distanceMap.TryGetValue(ent.positionRowCol, out int distance))

@@ -33,8 +33,9 @@ namespace Cards.Actions
                 PlayingState playing = GameStateManager.Instance.GetCurrent<PlayingState>();
                 foreach (AbstractEntity ent in playing.GetEntities())
                 {
-                    if (entity == ent)
+                    if (!playing.IsPlayerAttackTarget(ent))
                         continue;
+
                     cardEvents.Add(new AttackCardEvent(ent.positionRowCol, _amount, manual:false));
 
                 }

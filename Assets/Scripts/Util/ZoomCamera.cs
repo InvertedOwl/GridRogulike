@@ -15,6 +15,7 @@ public class ZoomCamera : MonoBehaviour
 
     private float _currentMoveDistance;
     private float _targetMoveDistance;
+    private Vector3 _currentWorldOffset;
     private readonly List<RaycastResult> _uiRaycastResults = new();
 
     public Transform ZoomTransform
@@ -31,7 +32,7 @@ public class ZoomCamera : MonoBehaviour
         get
         {
             ResolveReferences();
-            return zoomTransform != null ? GetZoomDirection() * _currentMoveDistance : Vector3.zero;
+            return zoomTransform != null ? _currentWorldOffset : Vector3.zero;
         }
     }
 
@@ -125,16 +126,41 @@ public class ZoomCamera : MonoBehaviour
         if (Mathf.Approximately(delta, 0f))
             return;
 
-        zoomTransform.position += GetZoomDirection() * delta;
+        Vector3 offsetDelta = GetZoomDirection() * delta;
+        zoomTransform.position += offsetDelta;
+        _currentWorldOffset += offsetDelta;
     }
 
     private Vector3 GetZoomDirection()
     {
-        if (zoomTransform == null)
+        if (zoomTransform == null || !TryGetPlayerWorldPosition(out Vector3 playerPosition))
             return Vector3.forward;
 
-        Vector3 direction = zoomTransform.forward;
+        Vector3 direction = playerPosition - zoomTransform.position;
         return direction.sqrMagnitude > 0.001f ? direction.normalized : Vector3.forward;
+    }
+
+    private bool TryGetPlayerWorldPosition(out Vector3 playerPosition)
+    {
+        playerPosition = Vector3.zero;
+
+        PlayingState playingState = GameStateManager.Instance != null
+            ? GameStateManager.Instance.GetCurrent<PlayingState>()
+            : null;
+
+        if (playingState != null && playingState.player != null)
+        {
+            playerPosition = playingState.player.transform.position;
+            return true;
+        }
+
+        if (Entities.Player.Instance != null)
+        {
+            playerPosition = Entities.Player.Instance.transform.position;
+            return true;
+        }
+
+        return false;
     }
 
     private float GetEaseT()

@@ -140,12 +140,16 @@ namespace Grid {
             
             foreach (AbstractEntity entity in playingState.GetEntities())
             {
-                if (!(entity is NonPlayerEntity))
+                if (!playingState.IsPlayerAttackTarget(entity))
                     continue;
 
-                if (noBlockerMapFromPlayer[entity.positionRowCol] > ToAttack[0].distance ||
-                    noBlockerMapFromPlayer[entity.positionRowCol] == -1)
+                if (!noBlockerMapFromPlayer.TryGetValue(entity.positionRowCol, out int distanceFromPlayer) ||
+                    distanceFromPlayer > ToAttack[0].distance ||
+                    distanceFromPlayer == -1)
+                {
                     continue;
+                }
+
                 EaseColor tileColor = HexGridManager.Instance.GetWorldHexObject(entity.positionRowCol)
                     .GetComponent<GOList>().GetValue("RedGlow").GetComponent<EaseColor>();
                 Debug.Log("Settin red glow to 60 percent opacity");
@@ -363,7 +367,7 @@ namespace Grid {
             bool isHoveringEntity = false;
             foreach (AbstractEntity entity in playingState.GetEntities())
             {
-                if (entity.positionRowCol == hexPosition)
+                if (entity.positionRowCol == hexPosition && playingState.IsPlayerAttackTarget(entity))
                 {
                     isHoveringEntity = true;
                 }
@@ -424,7 +428,7 @@ namespace Grid {
                     distanceFromPlayer >= 0 &&
                     distanceFromPlayer <= ToAttack[0].distance &&
                     entitiesOnHex.Count > 0 &&
-                    !entitiesOnHex.Contains(playingState.player);
+                    entitiesOnHex.Exists(playingState.IsPlayerAttackTarget);
 
                 if (!validAttackTarget)
                     return;
@@ -451,7 +455,7 @@ namespace Grid {
                 }
 
                 AttackCardEvent queuedAttack = ToAttack[0];
-                AbstractEntity targetEntity = entitiesOnHex[0];
+                AbstractEntity targetEntity = entitiesOnHex.Find(playingState.IsPlayerAttackTarget);
                 ResolveManualAttackAgainstTarget(queuedAttack, targetEntity, playingState);
                 
                 // Reset situation

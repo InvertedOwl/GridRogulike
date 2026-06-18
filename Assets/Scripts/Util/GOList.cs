@@ -36,6 +36,8 @@ public class GOList : MonoBehaviour
     // Public Getter
     public GameObject GetValue(string key)
     {
+        EnsureDictionaryBuilt();
+
         if (myDictionary.ContainsKey(key))
             return myDictionary[key];
 
@@ -63,7 +65,21 @@ public class GOList : MonoBehaviour
 
     public bool HasValue(string key)
     {
+        EnsureDictionaryBuilt();
+
         return myDictionary.ContainsKey(key);
+    }
+
+    public bool TryGetValue(string key, out GameObject value)
+    {
+        EnsureDictionaryBuilt();
+        return myDictionary.TryGetValue(key, out value);
+    }
+
+    private void EnsureDictionaryBuilt()
+    {
+        if (myDictionary.Count == 0 && myDictionaryList.Count > 0)
+            RebuildDictionary();
     }
 
 }

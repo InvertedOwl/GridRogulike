@@ -23,7 +23,14 @@ namespace Cards.CardEvents
 
         public override void Activate(AbstractEntity entity)
         {
-            List<CardMonobehaviour> topCardMonos = Deck.Instance.Draw.GetRange(0, 3);
+            if (Deck.Instance == null || DeckView.Instance == null)
+                return;
+
+            int cardsToShow = Mathf.Min(Amount, Deck.Instance.Draw.Count);
+            if (cardsToShow <= 0)
+                return;
+
+            List<CardMonobehaviour> topCardMonos = Deck.Instance.Draw.GetRange(0, cardsToShow);
             List<Card> topCards = new List<Card>();
             foreach (CardMonobehaviour cardMono in topCardMonos)
             {
@@ -32,6 +39,9 @@ namespace Cards.CardEvents
             
             DeckView.Instance.GetCardWhitelist((card) =>
             {
+                if (!card.isReal)
+                    return;
+
                 Debug.Log("Chose card: " + card.CardName);
                 Deck.Instance.DrawCard(card);
             }, topCards.ToArray());

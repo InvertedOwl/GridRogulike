@@ -15,7 +15,7 @@ public class AddTilesAsPanels : MonoBehaviour
         foreach (KeyValuePair<string, TileEntry> tile in TileData.tiles)
         {
             GameObject newPanel = Instantiate(panelPrefab, transform);
-            newPanel.transform.GetChild(0).GetComponent<Image>().color = tile.Value.color;
+            // newPanel.transform.GetChild(0).GetComponent<Image>().color = tile.Value.color;
             newPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = tile.Value.name + " Tile";
             newPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = tile.Value.color;
             newPanel.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = tile.Value.description;

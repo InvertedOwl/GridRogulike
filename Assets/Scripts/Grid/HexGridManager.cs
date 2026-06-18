@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ScriptableObjects;
@@ -43,6 +44,7 @@ namespace Grid
         public Transform grid;
         public static HexGridManager Instance;
         private static MapData _saveData;
+        private readonly Dictionary<Transform, Vector3> _tileBaseScales = new Dictionary<Transform, Vector3>();
         
         public SpriteDatabase spriteDatabase;
 
@@ -172,6 +174,7 @@ namespace Grid
             }
 
             _hexObjects.Clear();
+            _tileBaseScales.Clear();
 
             foreach (var kvp in _boardDictionary)
             {
@@ -191,6 +194,8 @@ namespace Grid
                 AttachClickForwarder(newHex, pos);
                 AttachHoverForwarder(newHex, pos);
             }
+
+            SpawnBG.instance?.RefreshDecorations();
         }
 
         private void AttachClickForwarder(GameObject hexObj, Vector2Int gridPos)
@@ -363,21 +368,239 @@ namespace Grid
         public void UpdateHexObject(TileEntry entry, GameObject tile)
         {
             Color color = SpawnBG.RandomizeColor(entry.color, 0.001f, 0.01f, 0.05f);
-            
-            Color darker = new Color(color.r * .6f, color.g * .6f, color.b * .6f);
 
             GOList goList = tile.GetComponentInChildren<GOList>();
 
-            goList.GetValue("Display2").GetComponent<SpriteRenderer>().color = darker;
-            goList.GetValue("Display3").GetComponent<SpriteRenderer>().color = darker;
-            goList.GetValue("Display4").GetComponent<SpriteRenderer>().color = color;
+            SetHexObjectDisplayColors(tile, color);
 
             goList.GetValue("Title").GetComponent<TextMeshProUGUI>().text = entry.name;
             goList.GetValue("Description").GetComponent<TextMeshProUGUI>().text = entry.description;
-            goList.GetValue("HoverBG1").GetComponent<Image>().color = color;
-            goList.GetValue("HoverBG2").GetComponent<Image>().color = new Color(color.r * .44f, color.g * .44f, color.b * .44f);
+            // goList.GetValue("HoverBG1").GetComponent<Image>().color = color;
+            // goList.GetValue("HoverBG2").GetComponent<Image>().color = new Color(color.r * .44f, color.g * .44f, color.b * .44f);
+            try
+            {
+                goList.GetValue("IconHover").GetComponent<Image>().sprite = spriteDatabase.Get(entry.icon).Value.sprite;
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            TextMeshProUGUI titleText = goList.GetValue("Title").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI descriptionText = goList.GetValue("Description").GetComponent<TextMeshProUGUI>();
+
+            if (entry.pairedTilesEntry != null)
+            {
+                goList.GetValue("PairedContainer").SetActive(true);
+                goList.GetValue("PairedText").GetComponent<TextMeshProUGUI>().text = entry.pairedTilesEntry.description;
+                goList.GetValue("PairedAmount").GetComponent<TextMeshProUGUI>().text = entry.pairedTilesEntry.PairCount.ToString();
+            }
+
+            titleText.text = entry.name;
+            descriptionText.text = entry.description;
+
+            ForceRebuildTMPLayout(titleText);
+            ForceRebuildTMPLayout(descriptionText);
+
+            // Rebuild the layout roots, not Display4.
+            RebuildParents(descriptionText.rectTransform);
+            RebuildParents(titleText.rectTransform);
             
             SetHexObjectIcon(tile, entry.icon);
+        }
+
+        public void AnimateTilesWithBackgroundColors(
+            List<Color> colors,
+            Vector2Int centerCoords,
+            float radialRingPause,
+            float flipDuration,
+            float colorChangeDelay)
+        {
+            if (colors == null || colors.Count == 0 || _hexObjects.Count == 0)
+                return;
+
+            StartCoroutine(AnimateTilesWithBackgroundColorsCoroutine(
+                colors,
+                centerCoords,
+                radialRingPause,
+                flipDuration,
+                colorChangeDelay));
+        }
+
+        private IEnumerator AnimateTilesWithBackgroundColorsCoroutine(
+            List<Color> colors,
+            Vector2Int centerCoords,
+            float radialRingPause,
+            float flipDuration,
+            float colorChangeDelay)
+        {
+            List<BoardTileAnimationEntry> tiles = GetBoardTilesByRadialRing(centerCoords);
+            int currentRing = -1;
+
+            foreach (BoardTileAnimationEntry entry in tiles)
+            {
+                if (entry.Ring != currentRing)
+                {
+                    if (currentRing >= 0)
+                        yield return new WaitForSeconds(Mathf.Max(0f, radialRingPause));
+
+                    currentRing = entry.Ring;
+                }
+
+                AnimateTileFlip(entry.Tile, flipDuration);
+
+                if (entry.TileType == "basic")
+                {
+                    Color color = colors[UnityEngine.Random.Range(0, colors.Count)];
+                    StartCoroutine(SetBasicTileColorAfterDelay(entry.Tile, color, colorChangeDelay));
+                }
+            }
+        }
+
+        private List<BoardTileAnimationEntry> GetBoardTilesByRadialRing(Vector2Int centerCoords)
+        {
+            List<BoardTileAnimationEntry> tiles = new List<BoardTileAnimationEntry>();
+
+            foreach (var kvp in _hexObjects)
+            {
+                Vector2Int position = kvp.Key;
+                GameObject tile = kvp.Value;
+
+                if (tile == null)
+                    continue;
+
+                _boardDictionary.TryGetValue(position, out string tileType);
+                tiles.Add(new BoardTileAnimationEntry
+                {
+                    Tile = tile,
+                    TileType = tileType,
+                    Ring = HexDistance(centerCoords, position)
+                });
+            }
+
+            tiles.Sort((a, b) => a.Ring.CompareTo(b.Ring));
+            return tiles;
+        }
+
+        private void AnimateTileFlip(GameObject tile, float flipDuration)
+        {
+            if (tile == null)
+                return;
+
+            Transform tileTransform = tile.transform;
+            if (!_tileBaseScales.TryGetValue(tileTransform, out Vector3 baseScale))
+            {
+                baseScale = tileTransform.localScale;
+                _tileBaseScales[tileTransform] = baseScale;
+            }
+
+            EaseScale easeScale = tile.GetComponent<EaseScale>();
+            if (easeScale == null)
+                easeScale = tile.AddComponent<EaseScale>();
+
+            easeScale.durationSeconds = Mathf.Max(0f, flipDuration);
+            easeScale.SetScale(new Vector3(-baseScale.x, baseScale.y, baseScale.z), () =>
+            {
+                if (tileTransform != null && _tileBaseScales.TryGetValue(tileTransform, out Vector3 cachedScale))
+                    tileTransform.localScale = cachedScale;
+            });
+        }
+
+        private IEnumerator SetBasicTileColorAfterDelay(GameObject tile, Color backgroundColor, float colorChangeDelay)
+        {
+            yield return new WaitForSeconds(Mathf.Max(0f, colorChangeDelay));
+
+            if (tile == null)
+                yield break;
+
+            Color color = GetBasicTileColorFromBackgroundColor(
+                SpawnBG.RandomizeColor(backgroundColor, 0.001f, 0.005f, 0.01f));
+
+            SetHexObjectDisplayColors(tile, color);
+        }
+
+        private void SetHexObjectDisplayColors(GameObject tile, Color color)
+        {
+            GOList goList = tile.GetComponentInChildren<GOList>();
+            if (goList == null)
+                return;
+
+            color.a = 1f;
+            Color darker = new Color(color.r * .6f, color.g * .6f, color.b * .6f, 1f);
+
+            if (goList.HasValue("Display2"))
+                goList.GetValue("Display2").GetComponent<SpriteRenderer>().color = darker;
+
+            if (goList.HasValue("Display3"))
+                goList.GetValue("Display3").GetComponent<SpriteRenderer>().color = darker;
+
+            if (goList.HasValue("Display4"))
+                goList.GetValue("Display4").GetComponent<SpriteRenderer>().color = color;
+        }
+
+        private Color GetBasicTileColorFromBackgroundColor(Color backgroundColor)
+        {
+            Color.RGBToHSV(backgroundColor, out float h, out float s, out float v);
+
+            s = Mathf.Clamp01(s * 0.25f);
+            v = Mathf.Clamp01(v + 0.12f);
+
+            Color color = Color.HSVToRGB(h, s, v);
+            color.a = 1f;
+            return color;
+        }
+
+        private struct BoardTileAnimationEntry
+        {
+            public GameObject Tile;
+            public string TileType;
+            public int Ring;
+        }
+
+        private void ForceRebuildTMPLayout(TextMeshProUGUI tmp)
+        {
+            if (tmp == null)
+                return;
+
+            tmp.ForceMeshUpdate();
+
+            RectTransform rect = tmp.rectTransform;
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+
+            ContentSizeFitter fitter = rect.GetComponent<ContentSizeFitter>();
+            if (fitter != null)
+            {
+                fitter.SetLayoutVertical();
+                fitter.SetLayoutHorizontal();
+            }
+        }
+
+        private void RebuildParents(RectTransform start)
+        {
+            if (start == null)
+                return;
+
+            Canvas.ForceUpdateCanvases();
+
+            RectTransform current = start;
+
+            while (current != null)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(current);
+
+                ContentSizeFitter fitter = current.GetComponent<ContentSizeFitter>();
+                if (fitter != null)
+                {
+                    fitter.SetLayoutVertical();
+                    fitter.SetLayoutHorizontal();
+                }
+
+                current = current.parent as RectTransform;
+            }
+
+            Canvas.ForceUpdateCanvases();
         }
 
         public void SetHexIcon(Vector2Int position, string icon)
@@ -569,6 +792,28 @@ namespace Grid
             int s = -q - r;
 
             return Mathf.Max(Mathf.Abs(q), Mathf.Abs(r), Mathf.Abs(s));
+        }
+
+        private static int HexDistance(Vector2Int a, Vector2Int b)
+        {
+            Vector3Int cubeA = OddRowOffsetToCube(a);
+            Vector3Int cubeB = OddRowOffsetToCube(b);
+
+            return Mathf.Max(
+                Mathf.Abs(cubeA.x - cubeB.x),
+                Mathf.Abs(cubeA.y - cubeB.y),
+                Mathf.Abs(cubeA.z - cubeB.z)
+            );
+        }
+
+        private static Vector3Int OddRowOffsetToCube(Vector2Int coords)
+        {
+            int rowParity = Mathf.Abs(coords.y % 2);
+            int q = coords.x - ((coords.y - rowParity) / 2);
+            int r = coords.y;
+            int s = -q - r;
+
+            return new Vector3Int(q, r, s);
         }
 
         private static bool IsOdd(int value)

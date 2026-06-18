@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Entities.Enemies;
 using Map;
+using ScriptableObjects;
 using Serializer;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +35,7 @@ namespace StateManager
         public int scrollDistance = 120;
 
         public int numShops = 5;
+        public EncounterDatabase encounterDatabase;
 
         public static MapSaveData mapSaveData;
 
@@ -296,6 +299,21 @@ namespace StateManager
             }
 
             Debug.Log("Map generated with " + layers + " layers.");
+        }
+
+        public EncounterData GetRandomEncounter(EnemyType enemyType, RandomState random)
+        {
+            const float encounterDifficulty = 0f;
+
+            if (encounterDatabase != null)
+                return encounterDatabase.GetRandomEncounter(encounterDifficulty, enemyType, random);
+
+            EnemyData fallbackEncounterData = GetComponent<EnemyData>();
+            if (fallbackEncounterData != null)
+                return fallbackEncounterData.GetRandomEncounter(encounterDifficulty, enemyType, random);
+
+            Debug.LogError("MapState has no EncounterDatabase assigned and no EnemyData fallback component.");
+            return null;
         }
 
         private void ClearGeneratedMapObjects()

@@ -99,5 +99,11 @@ namespace Entities.Enemies
         }
 
         public abstract List<AbstractAction> NextTurn();
+
+        public virtual List<AbstractAction> NextTurn(
+            IReadOnlyDictionary<AbstractEntity, Vector2Int> plannedEntityPositions)
+        {
+            return NextTurn();
+        }
     }
 }
