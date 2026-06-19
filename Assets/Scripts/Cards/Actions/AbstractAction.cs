@@ -93,6 +93,11 @@ namespace Cards.Actions
             return Activate(cardMono);
         }
 
+        public virtual List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            return Activate(context?.CardMono, context?.PreviewMode ?? false);
+        }
+
         protected RandomState GetActionRandom(bool previewMode)
         {
             return previewMode ? _actionRandom.Clone() : _actionRandom;
@@ -114,9 +119,22 @@ namespace Cards.Actions
             return previewMode ? random.Clone() : random;
         }
 
+        protected RandomState GetStableActionRandom(CardPlayContext context, string stream = "default")
+        {
+            if (context == null || string.IsNullOrEmpty(context.Card.UniqueId))
+                return GetActionRandom(false);
+
+            return context.GetStableActionRandom(GetType().FullName, stream);
+        }
+
         public virtual List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
         {
             return new List<AbstractCardEvent>();
+        }
+
+        public virtual List<AbstractCardEvent> Preview(CardPlayContext context)
+        {
+            return Preview(context?.CardMono);
         }
 
         public bool hovering = false;

@@ -116,12 +116,13 @@ public class InfoPanelManager : MonoBehaviour
             AddPanelsFromString(manualInput);
         }
 
-        for (int i = textSources.Count - 1; i >= 0; i--)
+        for (int i = 0; i < textSources.Count; i++)
         {
             TextMeshProUGUI textSource = textSources[i];
             if (textSource == null)
             {
                 textSources.RemoveAt(i);
+                i--;
                 continue;
             }
 
@@ -137,22 +138,33 @@ public class InfoPanelManager : MonoBehaviour
         if (string.IsNullOrWhiteSpace(input) || InfoPanelsData == null)
             return;
 
-        foreach (InfoPanelsData.InfoPanel infoPanel in InfoPanelsData.GetAllInString(input))
-        {
-            AddPanel(infoPanel);
-        }
+        List<InfoPanelsData.InfoPanelMatch> matches = InfoPanelsData.GetAllMatchesInString(input);
+        int iconOrder = 10000;
 
         foreach (var icon in CardActionTextMapper.icons)
         {
-            if (input.IndexOf(icon.Value, System.StringComparison.OrdinalIgnoreCase) < 0)
+            int iconIndex = input.IndexOf(icon.Value, System.StringComparison.OrdinalIgnoreCase);
+            if (iconIndex < 0)
                 continue;
 
             string key = icon.Key.Trim('<', '>');
             InfoPanelsData.InfoPanel? infoPanel = InfoPanelsData.Get(key);
             if (infoPanel.HasValue)
             {
-                AddPanel(infoPanel.Value);
+                matches.Add(new InfoPanelsData.InfoPanelMatch(infoPanel.Value, iconIndex, iconOrder));
+                iconOrder++;
             }
+        }
+
+        matches.Sort((a, b) =>
+        {
+            int indexCompare = a.index.CompareTo(b.index);
+            return indexCompare != 0 ? indexCompare : a.order.CompareTo(b.order);
+        });
+
+        foreach (InfoPanelsData.InfoPanelMatch match in matches)
+        {
+            AddPanel(match.infoPanel);
         }
     }
 
@@ -174,12 +186,13 @@ public class InfoPanelManager : MonoBehaviour
             return string.Empty;
 
         System.Text.StringBuilder builder = new System.Text.StringBuilder();
-        for (int i = textSources.Count - 1; i >= 0; i--)
+        for (int i = 0; i < textSources.Count; i++)
         {
             TextMeshProUGUI textSource = textSources[i];
             if (textSource == null)
             {
                 textSources.RemoveAt(i);
+                i--;
                 continue;
             }
 

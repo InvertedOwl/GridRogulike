@@ -24,6 +24,21 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount, new PoisonStatus(poisonAmount)) };
         }
 
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            PoisonStatus poison = new PoisonStatus(poisonAmount);
+            if (context?.Targets == null)
+                return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount, poison) };
+
+            if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
+                return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, _amount, poison, manual: false) };
+
+            if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
+                return new List<AbstractCardEvent> { new AttackCardEvent(targetPosition, _amount, poison, manual: false) };
+
+            return new List<AbstractCardEvent>();
+        }
+
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)
         {
             GameObject basic = GameObject.Instantiate(tilePrefab, diagram.transform);

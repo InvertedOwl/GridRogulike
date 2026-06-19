@@ -25,7 +25,7 @@ namespace Entities.Enemies
                 OnBeforeAction(action);
 
                 CardEventContext context = new CardEventContext();
-                foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate(null)))
+                foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate((global::CardMonobehaviour)null)))
                 {
                     OnBeforeEvent(modifiedEvent);
                     CardEventResult result = modifiedEvent.ActivateWithResult(self, context);

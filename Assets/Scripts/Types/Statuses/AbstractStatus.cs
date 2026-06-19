@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Cards;
+using Cards.CardList;
 using Cards.CardEvents;
 using Entities;
 using UnityEngine;
@@ -18,6 +20,11 @@ namespace Types.Statuses
         public virtual int ModifyDrawCount(int drawCount)
         {
             return drawCount;
+        }
+
+        public virtual TargetDefinition ModifyTargetDefinition(TargetDefinition targetDefinition, CardPlayContext context)
+        {
+            return targetDefinition;
         }
 
         public virtual void OnApply(AbstractEntity entity, int amountAdded)

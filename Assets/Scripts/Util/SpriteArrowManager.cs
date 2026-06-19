@@ -10,6 +10,7 @@ public class SpriteArrowManager : MonoBehaviour
     
     public Dictionary<string, GameObject> arrows = new Dictionary<string, GameObject>();
     private readonly HashSet<string> enemyPreviewArrows = new HashSet<string>();
+    private readonly Dictionary<string, bool> enemyPreviewArrowLocalVisibility = new Dictionary<string, bool>();
     private bool enemyPreviewArrowsVisible = true;
 
     void Awake ()
@@ -29,6 +30,7 @@ public class SpriteArrowManager : MonoBehaviour
         if (enemyPreview)
         {
             enemyPreviewArrows.Add(uuid);
+            enemyPreviewArrowLocalVisibility[uuid] = false;
         }
 
         SpriteArrowController controller = GetArrowController(arrow);
@@ -39,7 +41,7 @@ public class SpriteArrowManager : MonoBehaviour
         SetArrowIcon(controller, icon, amount);
 
         if (enemyPreview)
-            arrow.SetActive(enemyPreviewArrowsVisible);
+            arrow.SetActive(enemyPreviewArrowsVisible && enemyPreviewArrowLocalVisibility[uuid]);
         
         return uuid;
     }
@@ -91,6 +93,7 @@ public class SpriteArrowManager : MonoBehaviour
             }
 
             enemyPreviewArrows.Remove(uuid);
+            enemyPreviewArrowLocalVisibility.Remove(uuid);
             Destroy(arrows[uuid]);
             arrows.Remove(uuid);
         }
@@ -109,9 +112,21 @@ public class SpriteArrowManager : MonoBehaviour
         {
             if (arrows.TryGetValue(uuid, out GameObject arrow) && arrow != null)
             {
-                arrow.SetActive(visible);
+                bool localVisible = enemyPreviewArrowLocalVisibility.TryGetValue(uuid, out bool value) && value;
+                arrow.SetActive(visible && localVisible);
             }
         }
+    }
+
+    public void SetEnemyPreviewArrowVisible(string uuid, bool visible)
+    {
+        if (string.IsNullOrEmpty(uuid) || !enemyPreviewArrows.Contains(uuid))
+            return;
+
+        enemyPreviewArrowLocalVisibility[uuid] = visible;
+
+        if (arrows.TryGetValue(uuid, out GameObject arrow) && arrow != null)
+            arrow.SetActive(enemyPreviewArrowsVisible && visible);
     }
 
 }

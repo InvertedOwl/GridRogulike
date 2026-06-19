@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Cards;
+using Cards.CardList;
 using Cards.CardEvents;
 using Entities;
 
@@ -28,6 +30,21 @@ namespace Types.Statuses
 
         public override void OnEndTurn()
         {
+        }
+
+        public override TargetDefinition ModifyTargetDefinition(TargetDefinition targetDefinition, CardPlayContext context)
+        {
+            if (targetDefinition == null ||
+                Amount <= 0 ||
+                !targetDefinition.MaxRange.HasValue ||
+                targetDefinition.TargetType is not (TargetType.AnyEnemy or TargetType.EveryEnemy))
+            {
+                return targetDefinition;
+            }
+
+            TargetDefinition modified = targetDefinition.Copy();
+            modified.MaxRange = modified.MaxRange.Value + Amount;
+            return modified;
         }
 
         public static void ConsumeAfterAttack(AbstractEntity entity)

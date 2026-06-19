@@ -38,6 +38,21 @@ namespace Cards.Actions
             };
         }
 
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            AbstractStatus status = CreateStatus(context);
+            if (context?.Targets == null)
+                return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount, status) };
+
+            if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
+                return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, _amount, status, manual: false) };
+
+            if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
+                return new List<AbstractCardEvent> { new AttackCardEvent(targetPosition, _amount, status, manual: false) };
+
+            return new List<AbstractCardEvent>();
+        }
+
         public override string GetText()
         {
             return Amount + " <attack><pos=60%>" + statusAmount + " " + StatusIcon();
@@ -55,6 +70,51 @@ namespace Cards.Actions
         private AbstractStatus CreateStatus(bool previewMode)
         {
             RandomState statusRandom = GetActionRandom(previewMode);
+
+            switch (statusType)
+            {
+                case StatusApplicationType.Dazed:
+                case StatusApplicationType.Daze:
+                    return new DazedStatus(statusAmount, statusRandom);
+                case StatusApplicationType.Frost:
+                    return new FrostStatus(statusAmount);
+                case StatusApplicationType.Frozen:
+                    return new FrozenStatus(statusAmount);
+                case StatusApplicationType.Poison:
+                    return new PoisonStatus(statusAmount);
+                case StatusApplicationType.Restless:
+                    return new RestlessStatus(statusAmount);
+                case StatusApplicationType.Fall:
+                    return new FallStatus(statusAmount);
+                case StatusApplicationType.Shocked:
+                    return new ShockedStatus(statusAmount);
+                case StatusApplicationType.Energetic:
+                    return new EnergeticStatus(statusAmount);
+                case StatusApplicationType.Excited:
+                    return new ExcitedStatus(statusAmount);
+                case StatusApplicationType.Sleepy:
+                    return new SleepyStatus(statusAmount);
+                case StatusApplicationType.Ranged:
+                    return new RangedStatus(statusAmount);
+                case StatusApplicationType.Haste:
+                    return new HasteStatus(statusAmount);
+                case StatusApplicationType.Blind:
+                    return new BlindStatus(statusAmount, statusRandom);
+                case StatusApplicationType.Volatile:
+                    return new VolatileStatus(statusAmount);
+                case StatusApplicationType.Dizzy:
+                    return new DizzyStatus(statusAmount, statusRandom);
+                case StatusApplicationType.ShieldCarryover:
+                    return new ShieldCarryoverStatus(statusAmount);
+                case StatusApplicationType.Buffed:
+                default:
+                    return new BuffedStatus(statusAmount);
+            }
+        }
+
+        private AbstractStatus CreateStatus(CardPlayContext context)
+        {
+            RandomState statusRandom = GetStableActionRandom(context, "status");
 
             switch (statusType)
             {

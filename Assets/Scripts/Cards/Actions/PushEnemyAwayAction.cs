@@ -30,6 +30,17 @@ namespace Cards.Actions
             };
         }
 
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            if (context?.Targets != null && context.Targets.TryGetFirstEntity(out AbstractEntity target))
+                return new List<AbstractCardEvent> { new PushEntityAwayCardEvent(target, amount) };
+
+            if (context?.Targets != null && context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
+                return new List<AbstractCardEvent> { new PushEntityAwayCardEvent(targetPosition, amount) };
+
+            return Activate(context?.CardMono);
+        }
+
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)
         {
             return new List<RectTransform>();

@@ -44,9 +44,29 @@ namespace Cards.Actions
             return cardEvents;
         }
 
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
+            if (context?.Targets == null)
+                return Activate(context?.CardMono);
+
+            foreach (AbstractEntity target in context.Targets.TargetEntities)
+            {
+                if (target != null && target.Health > 0)
+                    cardEvents.Add(new AttackCardEvent(target.positionRowCol, _amount, manual: false));
+            }
+
+            return cardEvents;
+        }
+
         public override List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
         {
             return Activate(cardMono);
+        }
+
+        public override List<AbstractCardEvent> Preview(CardPlayContext context)
+        {
+            return Activate(context);
         }
 
 

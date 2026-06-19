@@ -53,6 +53,31 @@ namespace Cards.Actions
             return cardEvents;
         }
 
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
+
+            if (context?.PlayingState == null || context.SourceEntity == null || HexGridManager.Instance == null)
+                return cardEvents;
+
+            Dictionary<Vector2Int, int> distanceMap =
+                HexGridManager.Instance.CalculateDistanceMap(context.SourceEntity.positionRowCol, new List<Vector2Int>());
+
+            foreach (AbstractEntity ent in context.PlayingState.GetEntities())
+            {
+                if (!context.PlayingState.IsPlayerAttackTarget(ent))
+                    continue;
+
+                if (!distanceMap.TryGetValue(ent.positionRowCol, out int distance))
+                    continue;
+
+                if (distance >= 0 && distance <= Radius)
+                    cardEvents.Add(new AttackCardEvent(ent.positionRowCol, Amount, manual: false));
+            }
+
+            return cardEvents;
+        }
+
         public override List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
         {
             List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
@@ -62,6 +87,29 @@ namespace Cards.Actions
 
             Dictionary<Vector2Int, int> distanceMap =
                 HexGridManager.Instance.CalculateDistanceMap(entity.positionRowCol, new List<Vector2Int>());
+
+            foreach (KeyValuePair<Vector2Int, int> entry in distanceMap)
+            {
+                if (entry.Value >= 0 && entry.Value <= Radius)
+                    cardEvents.Add(new AttackCardEvent(entry.Key, Amount, manual: false));
+            }
+
+            return cardEvents;
+        }
+
+        public override List<AbstractCardEvent> Preview(CardPlayContext context)
+        {
+            List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
+
+            if (context?.SourceEntity == null ||
+                context.PlayingState == null ||
+                HexGridManager.Instance == null)
+            {
+                return cardEvents;
+            }
+
+            Dictionary<Vector2Int, int> distanceMap =
+                HexGridManager.Instance.CalculateDistanceMap(context.SourceEntity.positionRowCol, new List<Vector2Int>());
 
             foreach (KeyValuePair<Vector2Int, int> entry in distanceMap)
             {

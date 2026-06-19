@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Cards;
 using Cards.CardEvents;
 using Entities;
 using StateManager;
@@ -18,6 +20,9 @@ namespace Grid {
         public List<AttackCardEvent> ToAttack = new List<AttackCardEvent>();
         private CardMonobehaviour _pendingCard;
         private bool _pendingCardHasStarted;
+        private CardMonobehaviour _pendingTargetCard;
+        private TargetSelection _pendingTargetSelection = TargetSelection.Empty();
+        private readonly HashSet<Vector2Int> _pendingTargetPositions = new HashSet<Vector2Int>();
         private CardMonobehaviour _pendingNonManualAttackPreviewCard;
         private readonly HashSet<Vector2Int> _pendingNonManualAttackPreviewPositions = new HashSet<Vector2Int>();
         private readonly HashSet<int> _syncedMovableParticleObjects = new HashSet<int>();
@@ -76,6 +81,41 @@ namespace Grid {
             {
                 if (TryGetAttackPosition(attackCardEvent, playingState.player.positionRowCol, out Vector2Int attackPosition))
                     _pendingNonManualAttackPreviewPositions.Add(attackPosition);
+            }
+        }
+
+        public void BeginCardTargeting(CardMonobehaviour card)
+        {
+            ClearPendingAttacks();
+            ClearPendingCardTargeting(false);
+            ClearToAttackEmitters();
+
+            _pendingTargetCard = card;
+            RefreshPendingCardTargets();
+
+            if (SpriteArrowManager.Instance != null)
+                SpriteArrowManager.Instance.SetEnemyPreviewArrowsVisible(false);
+        }
+
+        private void RefreshPendingCardTargets()
+        {
+            _pendingTargetPositions.Clear();
+            _pendingTargetSelection = TargetSelection.Empty();
+
+            if (_pendingTargetCard == null ||
+                GameStateManager.Instance == null ||
+                !GameStateManager.Instance.IsCurrent<PlayingState>())
+            {
+                return;
+            }
+
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            _pendingTargetSelection = _pendingTargetCard.ResolveAvailableTargets(false);
+
+            foreach (Vector2Int position in _pendingTargetSelection.TargetPositions)
+            {
+                _pendingTargetPositions.Add(position);
+                ShowAttackPreview(position);
             }
         }
         
@@ -174,6 +214,7 @@ namespace Grid {
 
         public void ClearPendingAttacks()
         {
+            ClearPendingCardTargeting();
             ClearPendingNonManualAttackPreview();
 
             if (_pendingCard != null)
@@ -195,7 +236,20 @@ namespace Grid {
             isAttacking = false;
         }
 
-        private void ClearPendingNonManualAttackPreview()
+        public void ClearPendingCardTargeting(bool cancelCard = true)
+        {
+            if (_pendingTargetCard != null && cancelCard)
+                _pendingTargetCard.CancelTargeting();
+
+            _pendingTargetCard = null;
+            _pendingTargetSelection = TargetSelection.Empty();
+            _pendingTargetPositions.Clear();
+
+            if (SpriteArrowManager.Instance != null)
+                SpriteArrowManager.Instance.SetEnemyPreviewArrowsVisible(true);
+        }
+
+        public void ClearPendingNonManualAttackPreview()
         {
             _pendingNonManualAttackPreviewCard = null;
             _pendingNonManualAttackPreviewPositions.Clear();
@@ -355,7 +409,34 @@ namespace Grid {
         {
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
-            
+
+            if (_pendingTargetCard != null && _pendingTargetPositions.Contains(hexPosition))
+            {
+                PlayingState targetPreviewState = GameStateManager.Instance.GetCurrent<PlayingState>();
+                if (CardTargetResolver.TryResolveSelectionForClick(
+                        _pendingTargetCard,
+                        _pendingTargetCard.Card,
+                        targetPreviewState.player,
+                        targetPreviewState,
+                        hexPosition,
+                        out TargetSelection selection))
+                {
+                    AttackCardEvent previewAttack = _pendingTargetCard
+                        .BuildPreviewEventsForSelection(selection)
+                        .OfType<AttackCardEvent>()
+                        .FirstOrDefault();
+
+                    int amount = previewAttack?.amount ?? 0;
+                    arrowUUID = SpriteArrowManager.Instance.CreateArrow(
+                        targetPreviewState.player.positionRowCol,
+                        hexPosition,
+                        Color.red,
+                        "AttackIcon",
+                        amount);
+                }
+
+                return;
+            }
 
             if (!isAttacking)
                 return;
@@ -416,6 +497,9 @@ namespace Grid {
             playingState.EntitiesOnHex(hexPosition, out entitiesOnHex);
 
             if (TryPlayPendingNonManualAttackPreview(hexPosition, playingState))
+                return;
+
+            if (TryPlayPendingCardTarget(hexPosition, playingState))
                 return;
             
             // If player is attacking, and the target is within the distance in the event
@@ -491,6 +575,41 @@ namespace Grid {
             }
             
             playingState.CaptureFinish();
+        }
+
+        private bool TryPlayPendingCardTarget(Vector2Int hexPosition, PlayingState playingState)
+        {
+            if (_pendingTargetCard == null)
+                return false;
+
+            if (!_pendingTargetPositions.Contains(hexPosition))
+                return true;
+
+            CardMonobehaviour card = _pendingTargetCard;
+            if (!CardTargetResolver.TryResolveSelectionForClick(
+                    card,
+                    card.Card,
+                    playingState.player,
+                    playingState,
+                    hexPosition,
+                    out TargetSelection selection))
+            {
+                return true;
+            }
+
+            ClearPendingCardTargeting(false);
+            ClearToAttackEmitters();
+
+            if (!card.TryPlayWithTargets(selection))
+            {
+                ClearToAttackEmitters();
+                return true;
+            }
+
+            SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
+            UpdateMovableParticles(playingState);
+            playingState.CaptureFinish();
+            return true;
         }
 
         private void HandleSelectedCardMissClick()

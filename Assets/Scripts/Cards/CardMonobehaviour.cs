@@ -9,6 +9,7 @@ using StateManager;
 using TMPro;
 using Cards.CardEvents;
 using Cards.CardStatuses;
+using Cards.CardList;
 using Grid;
 using Passives;
 using ScriptableObjects;
@@ -186,9 +187,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void CancelManualAttackTargeting()
     {
-        _waitingForManualAttackResolution = false;
-        used = false;
-        _manualAttackFollowUpEvents.Clear();
+        CancelTargeting();
     }
 
     public bool IsResolvingManualAttack => _waitingForManualAttackResolution;
@@ -522,23 +521,15 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             if (played || !clickHasEnoughEnergy || !clickIsPlayerTurn || !clickCanPlayByRestrictions)
                 return;
 
-            Deck.Instance.SetHandToUnused();
-            used = true;
-            CardClickedCallback?.Invoke();
-
-            if (HasManualAttackAction())
-            {
-                if (BeginManualAttackTargeting())
-                    PlayCardClickSound();
-
-                HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
-                return;
-            }
-
             if (!wasUsed)
             {
-                PreviewNonManualAttacks();
+                Deck.Instance.SetHandToUnused();
+                used = true;
+                CardClickedCallback?.Invoke();
+                BeginSelectionOrPreview(playingState);
                 PlayCardClickSound();
+                HexClickPlayerController.instance.UpdateMovableParticles(playingState);
+                return;
             }
         }
 
@@ -551,19 +542,124 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions)
         {
-            if (HexClickPlayerController.instance != null)
-                HexClickPlayerController.instance.ClearToAttackEmitters();
-
-            PlayCard(out List<AttackCardEvent> attackCardEvents);
-
-            if (attackCardEvents.Count > 0)
-                HexClickPlayerController.instance.AddToAttack(attackCardEvents);
-
-            played = true;
+            if (TryPlayFromCardClick())
+            {
+                HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
+                return;
+            }
         }
 
 
         HexClickPlayerController.instance.UpdateMovableParticles(GameStateManager.Instance.GetCurrent<PlayingState>());
+    }
+
+    private void BeginSelectionOrPreview(PlayingState playingState)
+    {
+        if (playingState == null)
+            return;
+
+        TargetDefinition targetDefinition = CardTargetResolver.GetModifiedTargetDefinition(
+            this,
+            _card,
+            playingState.player,
+            playingState,
+            true);
+
+        if (targetDefinition.RequiresWorldTarget)
+        {
+            _waitingForManualAttackResolution = true;
+            HexClickPlayerController.instance.BeginCardTargeting(this);
+            return;
+        }
+
+        PreviewTargetlessAttacks();
+    }
+
+    private bool TryPlayFromCardClick()
+    {
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is not { } playingState)
+            return false;
+
+        if (!CardTargetResolver.TryResolveCardClickSelection(
+                this,
+                _card,
+                playingState.player,
+                playingState,
+                out TargetSelection selection))
+        {
+            return false;
+        }
+
+        if (HexClickPlayerController.instance != null)
+        {
+            HexClickPlayerController.instance.ClearPendingCardTargeting(false);
+            HexClickPlayerController.instance.ClearPendingNonManualAttackPreview();
+            HexClickPlayerController.instance.ClearToAttackEmitters();
+        }
+
+        return TryPlayWithTargets(selection);
+    }
+
+    public TargetSelection ResolveAvailableTargets(bool previewMode)
+    {
+        PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        return CardTargetResolver.ResolveAvailableTargets(
+            this,
+            _card,
+            playingState?.player,
+            playingState,
+            previewMode);
+    }
+
+    public List<AbstractCardEvent> BuildPreviewEventsForSelection(TargetSelection selection)
+    {
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is not { } playingState)
+            return new List<AbstractCardEvent>();
+
+        CardPlayContext context = new CardPlayContext(
+            this,
+            _card,
+            playingState.player,
+            selection,
+            playingState,
+            true);
+
+        List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
+        for (int actionIndex = 0; actionIndex < _card.Actions.Count; actionIndex++)
+        {
+            CardPlayContext actionContext = context.WithActionIndex(actionIndex);
+            List<AbstractCardEvent> cardEvents = _card.Actions[actionIndex].Preview(actionContext);
+            if (cardEvents == null || cardEvents.Count == 0)
+                cardEvents = _card.Actions[actionIndex].Activate(actionContext);
+
+            foreach (AbstractCardEvent cardEvent in cardEvents)
+            {
+                cardEvent.PreviewSourceActionIndex = actionIndex;
+                eventQueue.Add(cardEvent);
+            }
+        }
+
+        return ApplyCardModifiers(
+            eventQueue,
+            previewMode: true);
+    }
+
+    public bool TryPlayWithTargets(TargetSelection selection)
+    {
+        bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride > -1) ? CostOverride : _card.Cost);
+        bool isPlayerTurn = false;
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
+            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
+
+        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
+        {
+            CancelTargeting();
+            return false;
+        }
+
+        PlayCard(selection);
+        FinishManualAttackResolution();
+        return true;
     }
 
     private void PlayCardClickSound()
@@ -577,27 +673,27 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         return _card.Actions.Any(action => action is AttackAction);
     }
 
-    private void PreviewNonManualAttacks()
+    private void PreviewTargetlessAttacks()
     {
         if (HexClickPlayerController.instance == null)
             return;
 
-        List<AttackCardEvent> attackCardEvents = new List<AttackCardEvent>();
-
-        foreach (AbstractAction action in _card.Actions)
-        {
-            foreach (AbstractCardEvent cardEvent in action.Preview(cardMono:this))
-            {
-                if (cardEvent is AttackCardEvent attackCardEvent && !attackCardEvent.manual)
-                    attackCardEvents.Add(attackCardEvent);
-            }
-        }
+        List<AttackCardEvent> attackCardEvents = BuildPreviewEventsForSelection(TargetSelection.Empty(_card.TargetDefinition))
+            .OfType<AttackCardEvent>()
+            .ToList();
 
         if (attackCardEvents.Count > 0)
         {
             HexClickPlayerController.instance.PreviewAttackEvents(attackCardEvents);
             HexClickPlayerController.instance.BeginNonManualAttackPreview(attackCardEvents, this);
         }
+    }
+
+    public void CancelTargeting()
+    {
+        _waitingForManualAttackResolution = false;
+        used = false;
+        _manualAttackFollowUpEvents.Clear();
     }
 
     private bool BeginManualAttackTargeting()
@@ -650,13 +746,35 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
             return false;
 
-        PlayCard(out List<AttackCardEvent> attackCardEvents);
-
-        if (attackCardEvents.Count > 0 && HexClickPlayerController.instance != null)
-            HexClickPlayerController.instance.AddToAttack(attackCardEvents);
-
-        played = true;
+        PlayCard(TargetSelection.Empty(_card.TargetDefinition));
+        FinishManualAttackResolution();
         return true;
+    }
+
+    private void PlayCard(TargetSelection selection)
+    {
+        sound?.PlaySound("play", 0.5f);
+        int currentCost = (int)((CostOverride > -1) ? CostOverride : _card.Cost);
+        Player player = GameStateManager.Instance.GetCurrent<PlayingState>().player;
+
+        BattleStats.CardsPlayedThisBattle += 1;
+        BattleStats.CardsPlayedThisTurn += 1;
+
+        CardPlayContext context = new CardPlayContext(
+            this,
+            _card,
+            player,
+            selection ?? TargetSelection.Empty(_card.TargetDefinition),
+            GameStateManager.Instance.GetCurrent<PlayingState>(),
+            false);
+
+        List<CardEventPreviewSnapshot> unusedBaseEventSnapshots;
+        List<AbstractCardEvent> eventQueue = ApplyCardModifiers(
+            BuildBaseEventQueue(out unusedBaseEventSnapshots, context),
+            previewMode: false);
+
+        CardEventPipeline.ActivateResolved(eventQueue, player);
+        RunInfo.Instance.CurrentEnergy -= currentCost;
     }
 
     private void PlayCard(out List<AttackCardEvent> attackCardEvents)
@@ -810,6 +928,22 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         return CardPlayRestrictionSystem.CanPlay(this, out blockedReason);
     }
 
+    public bool HasPlayableTarget()
+    {
+        if (GameStateManager.Instance == null ||
+            !GameStateManager.Instance.IsCurrent<PlayingState>())
+        {
+            return true;
+        }
+
+        PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        return CardTargetResolver.HasPlayableTargets(
+            this,
+            _card,
+            playingState.player,
+            playingState);
+    }
+
     public List<AbstractCardEvent> BuildRestrictionPreviewEvents()
     {
         int previousCardsPlayedThisBattle = BattleStats.CardsPlayedThisBattle;
@@ -841,12 +975,33 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         out List<CardEventPreviewSnapshot> baseEventSnapshots,
         bool previewMode)
     {
+        PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        TargetSelection targetSelection = previewMode
+            ? ResolveAvailableTargets(true)
+            : TargetSelection.Empty(_card.TargetDefinition);
+
+        CardPlayContext context = new CardPlayContext(
+            this,
+            _card,
+            playingState?.player,
+            targetSelection,
+            playingState,
+            previewMode);
+
+        return BuildBaseEventQueue(out baseEventSnapshots, context);
+    }
+
+    private List<AbstractCardEvent> BuildBaseEventQueue(
+        out List<CardEventPreviewSnapshot> baseEventSnapshots,
+        CardPlayContext context)
+    {
         baseEventSnapshots = new List<CardEventPreviewSnapshot>();
         List<AbstractCardEvent> eventQueue = new List<AbstractCardEvent>();
 
         for (int actionIndex = 0; actionIndex < _card.Actions.Count; actionIndex++)
         {
-            List<AbstractCardEvent> cardEvents = _card.Actions[actionIndex].Activate(this, previewMode);
+            CardPlayContext actionContext = context.WithActionIndex(actionIndex);
+            List<AbstractCardEvent> cardEvents = _card.Actions[actionIndex].Activate(actionContext);
 
             foreach (AbstractCardEvent cardEvent in cardEvents)
             {

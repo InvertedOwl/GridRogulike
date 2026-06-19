@@ -58,6 +58,21 @@ namespace Cards.Actions
             return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, BattleStats.TilesMovedThisTurn * 5) };
         }
 
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            int amount = BattleStats.TilesMovedThisTurn * 5;
+            if (context?.Targets == null)
+                return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, amount) };
+
+            if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
+                return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, amount, manual: false) };
+
+            if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
+                return new List<AbstractCardEvent> { new AttackCardEvent(targetPosition, amount, manual: false) };
+
+            return new List<AbstractCardEvent>();
+        }
+
         public string arrowUUID;
         
         public override void HoverOn()

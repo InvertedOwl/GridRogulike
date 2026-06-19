@@ -91,7 +91,7 @@ namespace Entities.Enemies
                 OnBeforeAction(action);
 
                 CardEventContext context = new CardEventContext();
-                foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate(null)))
+                foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate((global::CardMonobehaviour)null)))
                 {
                     if (!EnemyActionValidator.CanExecuteEvent(modifiedEvent, self, state))
                     {

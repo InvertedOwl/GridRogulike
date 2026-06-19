@@ -100,6 +100,7 @@ public class HexPreviewHandler : MonoBehaviour
     {
         int amountOfDamage = GetDamageAmount(localEvents);
         bool hasAttack = amountOfDamage > 0;
+        UpdateDamageHere(amountOfDamage);
 
         if (amountOfDamage > 0)
         {
@@ -124,6 +125,48 @@ public class HexPreviewHandler : MonoBehaviour
         catch (Exception) { }
 
         UpdateAttackEdges(hasAttack);
+    }
+
+    private void UpdateDamageHere(int amountOfDamage)
+    {
+        try
+        {
+            GameObject damageHere = GoList.GetValue("DamageHere");
+            if (damageHere == null)
+                return;
+
+            damageHere.SetActive(amountOfDamage > 0 && IsMouseHoveringThisHex());
+
+            TMP_Text damageText = damageHere.GetComponent<TMP_Text>();
+            if (damageText == null)
+                damageText = damageHere.GetComponentInChildren<TMP_Text>(true);
+
+            if (damageText != null)
+                damageText.text = amountOfDamage > 0 ? amountOfDamage.ToString() : "";
+        }
+        catch (Exception) { }
+    }
+
+    private bool IsMouseHoveringThisHex()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
+            return false;
+
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit3D, Mathf.Infinity) &&
+            hit3D.collider != null &&
+            (hit3D.collider.transform == transform ||
+             hit3D.collider.transform.IsChildOf(transform)))
+        {
+            return true;
+        }
+
+        RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+        return hit2D.collider != null &&
+               (hit2D.collider.transform == transform ||
+                hit2D.collider.transform.IsChildOf(transform));
     }
 
     public void MarkPreviewDirty()
@@ -188,8 +231,12 @@ public class HexPreviewHandler : MonoBehaviour
             _forcePreviewRefresh = true;
         }
 
-        if (!_forcePreviewRefresh && _lastRenderedGlobalPreviewRevision == _globalPreviewRevision)
+        if (!_forcePreviewRefresh &&
+            _lastRenderedGlobalPreviewRevision == _globalPreviewRevision &&
+            GetDamageAmount(eventsOnThisHex) <= 0)
+        {
             return;
+        }
 
         UpdatePreview(eventsOnThisHex);
         _lastRenderedGlobalPreviewRevision = _globalPreviewRevision;

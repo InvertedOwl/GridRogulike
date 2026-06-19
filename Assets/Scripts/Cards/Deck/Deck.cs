@@ -142,7 +142,8 @@ public class Deck : MonoBehaviour
                !card.played &&
                !card.IsResolvingManualAttack &&
                !IsCardTooExpensive(card) &&
-               !IsCardBlockedByRestriction(card);
+               !IsCardBlockedByRestriction(card) &&
+               card.HasPlayableTarget();
     }
 
     private bool IsCardResolvingManualAttack(CardMonobehaviour card, PlayingState playingState)
@@ -284,6 +285,7 @@ public class Deck : MonoBehaviour
                 PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
                 hash = hash * 31 + (playingState != null && playingState.AllowUserInput ? 1 : 0);
                 hash = hash * 31 + (playingState != null ? playingState.GetCardPlayRestrictionSignature() : 0);
+                hash = AppendCombatTargetSignature(hash, playingState);
             }
 
             hash = AppendPileSignature(hash, _hand, true);
@@ -318,6 +320,44 @@ public class Deck : MonoBehaviour
                 hash = hash * 31 + (card.onlyDisplay ? 1 : 0);
                 hash = hash * 31 + Mathf.RoundToInt(card.CostOverride * 100f);
                 hash = hash * 31 + Mathf.RoundToInt(card.Card.Cost * 100f);
+            }
+
+            return hash;
+        }
+    }
+
+    private int AppendCombatTargetSignature(int hash, PlayingState playingState)
+    {
+        if (playingState == null)
+            return hash;
+
+        unchecked
+        {
+            if (playingState.player != null)
+            {
+                hash = hash * 31 + playingState.player.positionRowCol.x;
+                hash = hash * 31 + playingState.player.positionRowCol.y;
+
+                if (playingState.player.statusManager != null)
+                {
+                    foreach (AbstractStatus status in playingState.player.statusManager.statusList)
+                    {
+                        hash = hash * 31 + (status != null ? status.GetType().FullName.GetHashCode() : 0);
+                        hash = hash * 31 + (status != null ? status.Amount : 0);
+                    }
+                }
+            }
+
+            foreach (AbstractEntity entity in playingState.GetEntities())
+            {
+                if (entity == null)
+                    continue;
+
+                hash = hash * 31 + entity.GetInstanceID();
+                hash = hash * 31 + entity.positionRowCol.x;
+                hash = hash * 31 + entity.positionRowCol.y;
+                hash = hash * 31 + Mathf.RoundToInt(entity.Health);
+                hash = hash * 31 + (int)entity.entityType;
             }
 
             return hash;

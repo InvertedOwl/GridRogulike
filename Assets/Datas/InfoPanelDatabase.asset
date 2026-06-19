@@ -78,3 +78,8 @@ MonoBehaviour:
     color: {r: 1, g: 0.913522, b: 0.9009434, a: 1}
     title: Steps
     description: Used to move from one tile to another
+  - key: draw
+    sprite: {fileID: 21300000, guid: 75dcecfb121c243568ddfac70eb67e7c, type: 3}
+    color: {r: 1, g: 0.3443396, b: 0.85718143, a: 1}
+    title: Draw
+    description: Draw cards from the top of your draw pile

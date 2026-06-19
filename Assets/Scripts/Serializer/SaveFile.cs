@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cards;
 using Entities;
 using Grid;
@@ -13,7 +14,7 @@ namespace Serializer
     [System.Serializable]
     public class SaveFile
     {
-        public List<Card> deck;
+        public List<CardSaveData> deck;
         public RunInfoSaveData runInfo;
         public PlayingStateSaveData stateData;
         public PlayerSaveData player;
@@ -54,7 +55,7 @@ namespace Serializer
 
             SaveFile saveFile = new SaveFile
             {
-                deck = Deck.Instance.Cards,
+                deck = Deck.Instance.Cards.Select(CardSaveData.FromCard).ToList(),
                 runInfo = RunInfo.Instance.CaptureSaveData(),
                 currentGameState = GameStateManager.Instance.GetCurrentStateType()?.FullName,
                 stateData = stateData,
@@ -92,14 +93,21 @@ namespace Serializer
                 return null;
             }
 
-            if (saveFile.player != null)
-                Player.Instance.RestoreFromSaveData(saveFile.player);
-
-            if (saveFile.deck != null)
-                Deck.Instance.Cards = saveFile.deck;
-
             if (saveFile.runInfo != null)
                 RunInfo.Instance.RestoreFromSaveData(saveFile.runInfo);
+
+            if (saveFile.deck != null)
+            {
+                Deck.Instance.Cards = new List<Card>();
+                foreach (CardSaveData cardSaveData in saveFile.deck)
+                {
+                    if (cardSaveData != null && cardSaveData.TryCreateCard(out Card card))
+                        Deck.Instance.Cards.Add(card);
+                }
+            }
+
+            if (saveFile.player != null)
+                Player.Instance.RestoreFromSaveData(saveFile.player);
 
             currentJSON = json;
             GameState.SaveData = saveFile.stateData;

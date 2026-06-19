@@ -40,6 +40,7 @@ namespace Entities
         private const float EnemyDamageShakeDamping = 10f;
         private const string MoveFxKey = "ToonPunchLight";
         private const float MoveFxBackwardOffset = 0.75f;
+        private Camera _previewHoverCamera;
 
         public Image turnIndicatorIcon;
         
@@ -213,10 +214,82 @@ namespace Entities
         {
             if (healthBarManager != null)
                 healthBarManager.SetValues(Health, initialHealth, Shield);
-            
+
+            UpdateEnemyPreviewArrowVisibility();
 
 
             FollowEyes();
+        }
+
+        private void UpdateEnemyPreviewArrowVisibility()
+        {
+            if (entityType != EntityType.Enemy ||
+                arrowUUIDs.Count == 0 ||
+                SpriteArrowManager.Instance == null)
+            {
+                return;
+            }
+
+            bool isEntityHovered = IsMouseHoveringThisEntity();
+            foreach (string arrowUUID in arrowUUIDs)
+            {
+                bool isArrowHovered = isEntityHovered ||
+                                      (_arrowTargetPositions.TryGetValue(arrowUUID, out Vector2Int targetPosition) &&
+                                       IsMouseHoveringHex(targetPosition));
+
+                SpriteArrowManager.Instance.SetEnemyPreviewArrowVisible(arrowUUID, isArrowHovered);
+            }
+        }
+
+        private bool IsMouseHoveringThisEntity()
+        {
+            if (_previewHoverCamera == null)
+                _previewHoverCamera = Camera.main;
+
+            if (_previewHoverCamera == null)
+                return false;
+
+            Ray ray = _previewHoverCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit3D, Mathf.Infinity) &&
+                hit3D.collider != null &&
+                hit3D.collider.GetComponentInParent<AbstractEntity>() == this)
+            {
+                return true;
+            }
+
+            RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+            return hit2D.collider != null &&
+                   hit2D.collider.GetComponentInParent<AbstractEntity>() == this;
+        }
+
+        private bool IsMouseHoveringHex(Vector2Int hexPosition)
+        {
+            if (_previewHoverCamera == null)
+                _previewHoverCamera = Camera.main;
+
+            if (_previewHoverCamera == null ||
+                HexGridManager.Instance == null ||
+                !HexGridManager.Instance._hexObjects.TryGetValue(hexPosition, out GameObject hexObject) ||
+                hexObject == null)
+            {
+                return false;
+            }
+
+            Ray ray = _previewHoverCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit3D, Mathf.Infinity) &&
+                hit3D.collider != null &&
+                (hit3D.collider.transform == hexObject.transform ||
+                 hit3D.collider.transform.IsChildOf(hexObject.transform)))
+            {
+                return true;
+            }
+
+            RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+            return hit2D.collider != null &&
+                   (hit2D.collider.transform == hexObject.transform ||
+                    hit2D.collider.transform.IsChildOf(hexObject.transform));
         }
 
 
@@ -261,7 +334,7 @@ namespace Entities
 
                 Debug.Log("Queued action for next turn " + action.GetText());
                 CardEventContext context = new CardEventContext();
-                foreach (AbstractCardEvent modifiedEvent in ModifyEvents(action.Activate(null)))
+                foreach (AbstractCardEvent modifiedEvent in ModifyEvents(action.Activate((global::CardMonobehaviour)null)))
                 {
                     CardEventResult result = modifiedEvent.ActivateWithResult(this, context);
                     context.Record(result);
@@ -488,6 +561,7 @@ namespace Entities
 
         
         List<string> arrowUUIDs = new List<string>();
+        private readonly Dictionary<string, Vector2Int> _arrowTargetPositions = new Dictionary<string, Vector2Int>();
         private readonly Dictionary<int, List<string>> _arrowUUIDsByActionIndex = new Dictionary<int, List<string>>();
 
         public virtual void ClearNextTurnActionPreviews()
@@ -498,6 +572,7 @@ namespace Entities
             }
 
             arrowUUIDs.Clear();
+            _arrowTargetPositions.Clear();
             _arrowUUIDsByActionIndex.Clear();
 
             foreach (Vector2Int pos in HexGridManager.Instance._hexObjects.Keys)
@@ -526,6 +601,7 @@ namespace Entities
                 {
                     SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
                     arrowUUIDs.Remove(arrowUUID);
+                    _arrowTargetPositions.Remove(arrowUUID);
                 }
 
                 _arrowUUIDsByActionIndex.Remove(actionIndex);
@@ -603,6 +679,7 @@ namespace Entities
                                 pos, Color.red, "AttackIcon", attack.amount, enemyPreview: true);
 
                             arrowUUIDs.Add(arrowUUID);
+                            _arrowTargetPositions[arrowUUID] = pos;
                             if (!_arrowUUIDsByActionIndex.TryGetValue(actionIndex, out List<string> actionArrowUUIDs))
                             {
                                 actionArrowUUIDs = new List<string>();

@@ -42,9 +42,34 @@ namespace Cards.Actions
             return cardEvents;
         }
 
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
+            int amount = CurrentDetonationDamage(context?.SourceEntity);
+
+            if (amount <= 0)
+                return cardEvents;
+
+            if (context?.Targets == null)
+                return Activate(context?.CardMono, context?.PreviewMode ?? false);
+
+            foreach (AbstractEntity target in context.Targets.TargetEntities)
+            {
+                if (target != null && target.Health > 0)
+                    cardEvents.Add(new AttackCardEvent(target.positionRowCol, amount, manual: false));
+            }
+
+            return cardEvents;
+        }
+
         public override List<AbstractCardEvent> Preview(CardMonobehaviour cardMono)
         {
             return Activate(cardMono, previewMode: true);
+        }
+
+        public override List<AbstractCardEvent> Preview(CardPlayContext context)
+        {
+            return Activate(context);
         }
 
         public override string GetText()
@@ -78,7 +103,11 @@ namespace Cards.Actions
 
         private int CurrentDetonationDamage()
         {
-            AbstractEntity source = entity;
+            return CurrentDetonationDamage(entity);
+        }
+
+        private int CurrentDetonationDamage(AbstractEntity source)
+        {
             if (source == null)
                 return 0;
 
