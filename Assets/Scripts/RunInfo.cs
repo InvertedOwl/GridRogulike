@@ -264,8 +264,24 @@ public class RunInfo : MonoBehaviour
             Difficulty = Difficulty,
             CurrentSteps = CurrentSteps,
             Seed = seed,
-            randoms = randoms
+            randoms = CaptureUsedRandoms()
         };
+    }
+
+    private static Dictionary<int, RandomState> CaptureUsedRandoms()
+    {
+        Dictionary<int, RandomState> usedRandoms = new Dictionary<int, RandomState>();
+
+        foreach (KeyValuePair<int, RandomState> randomEntry in randoms)
+        {
+            RandomState randomState = randomEntry.Value;
+            if (randomState == null || randomState.calls <= 0)
+                continue;
+
+            usedRandoms[randomEntry.Key] = randomState.Clone();
+        }
+
+        return usedRandoms;
     }
     
     public void RestoreFromSaveData(RunInfoSaveData data)
