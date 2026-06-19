@@ -287,16 +287,11 @@ public class HexPreviewHandler : MonoBehaviour
         return amountOfDamage;
     }
 
-    private bool HasDamage()
-    {
-        return GetDamageAmount(eventsOnThisHex) > 0;
-    }
-
     private void UpdateAttackEdges(bool thisHexHasDamage)
     {
         foreach (string direction in HexGridManager.HexDirections)
         {
-            SetEdge(GetEdgeName(direction), thisHexHasDamage && !NeighborHasDamage(direction));
+            SetEdge(GetEdgeName(direction), thisHexHasDamage);
         }
     }
 
@@ -312,18 +307,6 @@ public class HexPreviewHandler : MonoBehaviour
             "se" => "EdgeSParent",
             _ => ""
         };
-    }
-
-    private bool NeighborHasDamage(string direction)
-    {
-        Vector2Int neighborPos = HexGridManager.MoveHex(currentPos, direction, 1);
-
-        if (AllHexHandlers.TryGetValue(neighborPos, out HexPreviewHandler neighbor))
-        {
-            return !neighbor.DisablePreview && neighbor.HasDamage();
-        }
-
-        return false;
     }
 
     private void SetEdge(string edgeName, bool value)
