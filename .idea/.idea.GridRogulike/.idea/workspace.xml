@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Datas/EncountersDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Datas/EncountersDatabase.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/DiamondBoy.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/CampfireState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/CampfireState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/CardData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/DirectionalAttackEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/DirectionalAttackEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyActionValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyActionValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainLine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/WideMeleeAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/WideMeleeAttackRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StaticResetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StaticResetManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

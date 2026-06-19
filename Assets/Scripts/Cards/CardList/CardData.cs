@@ -122,20 +122,20 @@ namespace Cards.CardList
                 // Common Shields
                 ["Guard"] = () => new(new Card("Guard", new List<AbstractAction>
                     {
-                        new ShieldAction(1, "basic", null, 10),
+                        new ShieldAction(1, "basic", null, 4),
                     }, Rarity.Common, CardSet.Base),
                     new [] { new StartingDeckEntry(StartingDecks.basic, 4) }, false),
                 ["Reinforce"] = () => new(new Card("Reinforce", new List<AbstractAction>
                     {
-                        new ShieldAction(1, "basic", null, 15),
+                        new ShieldAction(1, "basic", null, 9),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Delayed Block"] = () => new(new Card("Delayed Block", new List<AbstractAction>
                     {
-                        new DelayedShieldAction(1, "basic", null, 20),
+                        new DelayedShieldAction(1, "basic", null, 18),
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Heavy Guard"] = () => new(new Card("Heavy Guard", new List<AbstractAction>
                     {
-                        new ShieldAction(2, "basic", null, 25)
+                        new ShieldAction(2, "basic", null, 22)
                     }, Rarity.Common, CardSet.Base), new StartingDeckEntry[0], true),
                 ["Drunken Guard"] = () => new(new Card("Drunken Guard", new List<AbstractAction>
                     {

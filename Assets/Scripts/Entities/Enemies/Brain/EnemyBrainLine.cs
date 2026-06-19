@@ -35,7 +35,7 @@ namespace Entities.Enemies
                         return true;
                     }
 
-                    if (context.IsOccupied(attackTile))
+                    if (context.IsAttackLineBlocked(attackTile))
                         break;
                 }
             }
@@ -64,7 +64,7 @@ namespace Entities.Enemies
                 if (context.AddAction(new AttackAction(baseCost, color, context.Self, direction, distance, damage)))
                     added++;
 
-                if (context.IsOccupied(attackTile))
+                if (context.IsAttackLineBlocked(attackTile))
                     break;
             }
 

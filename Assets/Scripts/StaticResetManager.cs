@@ -5,9 +5,6 @@ using Grid;
 using Map;
 using Serializer;
 using StateManager;
-using Types.CardModifiers;
-using Types.CardModifiers.Conditions;
-using Types.CardModifiers.Modifiers;
 using Types.ShopActions;
 using UnityEngine;
 using Util;
@@ -38,10 +35,6 @@ public class StaticResetManager : MonoBehaviour
         AbstractAction.ResetStatics();
         AbstractEntity.ResetStatics();
         MapNode.ResetStatics();
-        AbstractCardCondition.ResetStatics();
-        AbstractCardModifier.ResetStatics();
-        CardConditionsData.ResetStatics();
-        CardModifiersData.ResetStatics();
         ShopActionData.ResetStatics();
     }
 }

@@ -92,6 +92,26 @@ namespace Entities.Enemies
             return IsBoardPosition(position) && !IsOccupied(position);
         }
 
+        public bool IsAttackLineBlocked(Vector2Int position)
+        {
+            if (State == null)
+                return IsOccupied(position);
+
+            foreach (AbstractEntity entity in State.GetEntities())
+            {
+                if (entity == null || entity == Self || entity.Health <= 0)
+                    continue;
+
+                if (entity.entityType == EntityType.Player)
+                    continue;
+
+                if (GetEntityPosition(entity) == position)
+                    return true;
+            }
+
+            return false;
+        }
+
         public Vector2Int GetEntityPosition(AbstractEntity entity)
         {
             if (entity == null)

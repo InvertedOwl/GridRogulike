@@ -3,6 +3,18 @@ using UnityEngine;
 
 namespace Entities.Enemies
 {
+    public struct EnemyBrainPlanResult
+    {
+        public bool PlannedAny { get; }
+        public bool StopBrain { get; }
+
+        public EnemyBrainPlanResult(bool plannedAny, bool stopBrain)
+        {
+            PlannedAny = plannedAny;
+            StopBrain = stopBrain;
+        }
+    }
+
     [CreateAssetMenu(fileName = "EnemyBrainData", menuName = "Game/Enemy Brain/Brain Data")]
     public class EnemyBrainData : ScriptableObject
     {
@@ -12,23 +24,40 @@ namespace Entities.Enemies
 
         public bool TryPlanAttack(EnemyTurnContext context)
         {
-            return TryPlanPhase(context, attackRules);
+            return PlanAttack(context).PlannedAny;
         }
 
         public bool TryPlanMove(EnemyTurnContext context)
         {
-            return TryPlanPhase(context, moveRules);
+            return PlanMove(context).PlannedAny;
         }
 
         public bool TryPlanUtility(EnemyTurnContext context)
         {
-            return TryPlanPhase(context, utilityRules);
+            return PlanUtility(context).PlannedAny;
         }
 
-        private bool TryPlanPhase(EnemyTurnContext context, List<EnemyBrainRule> rules)
+        public EnemyBrainPlanResult PlanAttack(EnemyTurnContext context)
+        {
+            return PlanPhase(context, attackRules);
+        }
+
+        public EnemyBrainPlanResult PlanMove(EnemyTurnContext context)
+        {
+            return PlanPhase(context, moveRules);
+        }
+
+        public EnemyBrainPlanResult PlanUtility(EnemyTurnContext context)
+        {
+            return PlanPhase(context, utilityRules);
+        }
+
+        private EnemyBrainPlanResult PlanPhase(EnemyTurnContext context, List<EnemyBrainRule> rules)
         {
             if (context == null || rules == null)
-                return false;
+                return new EnemyBrainPlanResult(false, false);
+
+            bool plannedAny = false;
 
             foreach (EnemyBrainRule rule in rules)
             {
@@ -36,11 +65,21 @@ namespace Entities.Enemies
                     continue;
 
                 int actionCountBefore = context.PlannedActions.Count;
-                if (rule.TryPlan(context) && context.PlannedActions.Count > actionCountBefore)
-                    return true;
+                rule.TryPlan(context);
+
+                if (context.PlannedActions.Count <= actionCountBefore)
+                    continue;
+
+                plannedAny = true;
+
+                if (rule.AfterSuccessfulPlan == EnemyBrainRuleFlow.StopBrain)
+                    return new EnemyBrainPlanResult(true, true);
+
+                if (rule.AfterSuccessfulPlan == EnemyBrainRuleFlow.StopPhase)
+                    return new EnemyBrainPlanResult(true, false);
             }
 
-            return false;
+            return new EnemyBrainPlanResult(plannedAny, false);
         }
     }
 }

@@ -311,7 +311,25 @@ namespace Entities.Enemies
 
         private bool IsLineInterruptedByEntity(PlayingState state, Vector2Int position)
         {
-            return IsHexOccupiedByOtherEntity(state, position);
+            foreach (AbstractEntity entity in state.GetEntities())
+            {
+                if (entity == null || entity == self || entity.Health <= 0)
+                {
+                    continue;
+                }
+
+                if (entity.entityType == EntityType.Player)
+                {
+                    continue;
+                }
+
+                if (entity.positionRowCol == position)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

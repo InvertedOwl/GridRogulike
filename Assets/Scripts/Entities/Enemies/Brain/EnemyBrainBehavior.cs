@@ -54,9 +54,11 @@ namespace Entities.Enemies
                 moveBudget,
                 plannedEntityPositions);
 
-            brainData.TryPlanAttack(context);
-            brainData.TryPlanMove(context);
-            brainData.TryPlanUtility(context);
+            if (!brainData.PlanAttack(context).StopBrain &&
+                !brainData.PlanMove(context).StopBrain)
+            {
+                brainData.PlanUtility(context);
+            }
 
             self.plannedAction.AddRange(context.PlannedActions);
             foreach (KeyValuePair<AbstractAction, Vector2Int> entry in context.ActionSourcePositions)

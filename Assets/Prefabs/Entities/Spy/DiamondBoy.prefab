@@ -636,7 +636,7 @@ PrefabInstance:
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: behavior
       value: 
-      objectReference: {fileID: 3287205965066659470}
+      objectReference: {fileID: 7389293652755173526}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: eyesFollowMouse
       value: 
@@ -758,33 +758,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3287205965066659470}
+      addedObject: {fileID: 167770871164903161}
     - targetCorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 167770871164903161}
+      addedObject: {fileID: 7389293652755173526}
   m_SourcePrefab: {fileID: 100100000, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
 --- !u!1 &3518368252074035926 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
   m_PrefabInstance: {fileID: 3670034809583585440}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3287205965066659470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3518368252074035926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6254b6ad063d439d979dbea54a19d8a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveAttackWideEnemy
-  self: {fileID: 8912749352281746896}
-  targetSearchMode: 0
-  maxMovesPerTurn: 1
-  stopMovingWhenWithinDistance: 1
-  defaultDamage: 8
 --- !u!70 &167770871164903161
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -822,6 +805,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.2113333}
   m_Size: {x: 0.9999999, y: 0.9999999}
   m_Direction: 0
+--- !u!114 &7389293652755173526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518368252074035926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d582750fa14e98abe73111de0341d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainBehavior
+  self: {fileID: 8912749352281746896}
+  brainData: {fileID: 11400000, guid: 63b23b316ac2c774bbdc7473872ea2f9, type: 2}
+  moveBudget: 3
 --- !u!4 &3822521651334489867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}

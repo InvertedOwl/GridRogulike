@@ -102,12 +102,20 @@ namespace Entities.Enemies
                 state.EntitiesOnHex(tile, out List<AbstractEntity> entitiesOnHex);
                 foreach (AbstractEntity entity in entitiesOnHex)
                 {
-                    if (entity != null && entity != self && entity.Health > 0)
+                    if (IsAttackLineBlockedByEntity(entity, self))
                         return false;
                 }
             }
 
             return true;
+        }
+
+        private static bool IsAttackLineBlockedByEntity(AbstractEntity entity, NonPlayerEntity self)
+        {
+            return entity != null &&
+                   entity != self &&
+                   entity.Health > 0 &&
+                   entity.entityType != EntityType.Player;
         }
 
         private static bool IsValidAttackTile(

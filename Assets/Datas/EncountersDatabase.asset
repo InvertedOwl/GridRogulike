@@ -34,6 +34,7 @@ MonoBehaviour:
     enemies:
     - DiamondBoy
     - DiamondBoy
+    - DiamondBoy
     environmentPassives: []
     EncounterType: 0
   - DifficultyMin: 0
