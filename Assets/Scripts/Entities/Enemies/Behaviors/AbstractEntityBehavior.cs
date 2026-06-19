@@ -45,7 +45,7 @@ namespace Entities.Enemies
 
         protected virtual float GetActionDelay(AbstractAction action)
         {
-            return 0.5f * (1 / GameplayNavSettings.speed);
+            return 2f * (1 / (GameplayNavSettings.speed * 6));
         }
 
         protected virtual void OnBeforeAction(AbstractAction action) { }
