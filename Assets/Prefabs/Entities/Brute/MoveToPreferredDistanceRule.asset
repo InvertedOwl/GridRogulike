@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f8a958d10d4e85acc7f5424418fdcd, type: 3}
-  m_Name: DirectLineAttackRule
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.DirectLineAttackRule
-  afterSuccessfulPlan: 0
+  m_Script: {fileID: 11500000, guid: 1cd2695c899046ac9978517e321b0ddc, type: 3}
+  m_Name: MoveToPreferredDistanceRule
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveToPreferredDistanceRule
+  afterSuccessfulPlan: 1
   targetSelector: 0
-  damage: 5
-  range: 3
-  baseCost: 0
-  color: basic
+  preferredDistance: 3
+  maxMoves: 3

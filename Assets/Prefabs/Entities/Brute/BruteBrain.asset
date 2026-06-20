@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d69805d2524895bdb1fb09da535ddb, type: 3}
+  m_Name: BruteBrain
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
+  attackRules:
+  - {fileID: 11400000, guid: 0389dfbdc2284944db491aed59f5a3b2, type: 2}
+  moveRules:
+  - {fileID: 11400000, guid: 29b724e4c31182f49bdc88c91db8c64a, type: 2}
+  - {fileID: 11400000, guid: 0e5011d8a145e3e498096e7310cc3250, type: 2}
+  utilityRules: []

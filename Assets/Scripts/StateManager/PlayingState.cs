@@ -489,7 +489,6 @@ namespace StateManager
         {
             entities.Clear();
             entities.Add(player);
-            entities.AddRange(FindObjectsByType<TestNonPlayerEntity>(FindObjectsSortMode.InstanceID));
 
             
             entities.ForEach(e =>

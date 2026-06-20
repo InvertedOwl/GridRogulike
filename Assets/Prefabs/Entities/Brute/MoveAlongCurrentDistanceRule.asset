@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f8a958d10d4e85acc7f5424418fdcd, type: 3}
-  m_Name: DirectLineAttackRule
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.DirectLineAttackRule
-  afterSuccessfulPlan: 0
+  m_Script: {fileID: 11500000, guid: d1e8c9d2f6a8444ca02d74e7c25875c1, type: 3}
+  m_Name: MoveAlongCurrentDistanceRule
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveAlongCurrentDistanceRule
+  afterSuccessfulPlan: 1
   targetSelector: 0
-  damage: 5
-  range: 3
-  baseCost: 0
-  color: basic
+  maxMoves: 1

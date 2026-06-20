@@ -402,9 +402,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: _health
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: behavior
       value: 
-      objectReference: {fileID: 6414198009395434826}
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: initialHealth
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: skeletonAnimation
       value: 
@@ -492,14 +500,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6414198009395434826}
+      addedObject: {fileID: -2850464258678313878}
   m_SourcePrefab: {fileID: 100100000, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
 --- !u!1 &3326344764978528588 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
   m_PrefabInstance: {fileID: 3176401745532699450}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6414198009395434826
+--- !u!114 &-2850464258678313878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -508,15 +516,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3326344764978528588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df3069c532894aa1944f7237d84ce05f, type: 3}
+  m_Script: {fileID: 11500000, guid: 06d582750fa14e98abe73111de0341d1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.DirectionalAttackEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainBehavior
   self: {fileID: 7298716413688849994}
-  targetSearchMode: 0
-  maxMovesPerTurn: 1
-  stopMovingWhenWithinDistance: 2
-  DefaultDamage: 15
-  attackRange: 5
+  brainData: {fileID: 11400000, guid: 15b4451feaf09a34a91a4dae0f171cec, type: 2}
+  moveBudget: 3
 --- !u!114 &7298716413688849994 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
