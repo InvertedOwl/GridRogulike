@@ -55,6 +55,7 @@ namespace StateManager
                 if (!confirmed)
                     return;
                 Player.Instance.initialHealth += amount;
+                Player.Instance.Health += amount;
                 PlayHealthPickup();
                 StartCoroutine(Leave());
             });

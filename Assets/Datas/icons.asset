@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e369d08ee8994449a20e07953204b8d7, type: 3}
+  m_Name: icons
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjectIconMap
+  entries:
+  - scriptableObjectScript: {fileID: 11500000, guid: 861b370d93a3477295b389591a6c2f52, type: 3}
+    icon: {fileID: 2800000, guid: 77f0f1edc29e09546b0a940c5ca92a79, type: 3}
+    includeDerivedTypes: 1
+  - scriptableObjectScript: {fileID: 11500000, guid: 0ad0c823e0014c4fb0fa1566b7ad70d8, type: 3}
+    icon: {fileID: 2800000, guid: b6f2e93034d8d4fbd9e33e35223df466, type: 3}
+    includeDerivedTypes: 1
+  - scriptableObjectScript: {fileID: 11500000, guid: 9f455a60e9b34871b5f3bcb76a9bb0f5, type: 3}
+    icon: {fileID: 2800000, guid: 65ebd912f04b30142ba2b5697cdf9674, type: 3}
+    includeDerivedTypes: 1
+  - scriptableObjectScript: {fileID: 11500000, guid: ad112f9d4a2346f486ca99aa25c172e1, type: 3}
+    icon: {fileID: 2800000, guid: 9d7ace5dc4ba1cd4fa19c51d1d7f296b, type: 3}
+    includeDerivedTypes: 1
