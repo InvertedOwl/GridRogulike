@@ -15,6 +15,7 @@ namespace Entities.Enemies
         public List<AbstractAction> PlannedActions { get; }
         public Dictionary<AbstractAction, Vector2Int> ActionSourcePositions { get; }
         public RandomState PlanningRandom { get; }
+        public int PlannedActionRevision { get; private set; }
         public int MoveBudget { get; private set; }
         private readonly IReadOnlyDictionary<AbstractEntity, Vector2Int> _plannedEntityPositions;
 
@@ -51,9 +52,66 @@ namespace Entities.Enemies
             if (action == null || Self == null)
                 return false;
 
+            if (action is AttackAction attackAction &&
+                TryResolveAttackTarget(attackAction, SimulatedPosition, out Vector2Int attackTarget) &&
+                TryHandleDuplicateAttackOnTarget(attackAction, attackTarget, out bool plannedAttack))
+            {
+                return plannedAttack;
+            }
+
             action.entity = Self;
             PlannedActions.Add(action);
             ActionSourcePositions[action] = SimulatedPosition;
+            PlannedActionRevision++;
+            return true;
+        }
+
+        private bool TryHandleDuplicateAttackOnTarget(
+            AttackAction newAttack,
+            Vector2Int newTarget,
+            out bool plannedAttack)
+        {
+            plannedAttack = false;
+
+            for (int i = 0; i < PlannedActions.Count; i++)
+            {
+                if (PlannedActions[i] is not AttackAction existingAttack)
+                    continue;
+
+                if (!ActionSourcePositions.TryGetValue(existingAttack, out Vector2Int existingSource))
+                    existingSource = SimulatedPosition;
+
+                if (!TryResolveAttackTarget(existingAttack, existingSource, out Vector2Int existingTarget) ||
+                    existingTarget != newTarget)
+                {
+                    continue;
+                }
+
+                if (existingAttack.Amount >= newAttack.Amount)
+                    return true;
+
+                newAttack.entity = Self;
+                ActionSourcePositions.Remove(existingAttack);
+                PlannedActions[i] = newAttack;
+                ActionSourcePositions[newAttack] = SimulatedPosition;
+                PlannedActionRevision++;
+                plannedAttack = true;
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryResolveAttackTarget(
+            AttackAction attack,
+            Vector2Int source,
+            out Vector2Int target)
+        {
+            target = Vector2Int.zero;
+            if (attack == null || string.IsNullOrEmpty(attack.Direction) || attack.Distance <= 0)
+                return false;
+
+            target = HexGridManager.MoveHex(source, attack.Direction, attack.Distance);
             return true;
         }
 

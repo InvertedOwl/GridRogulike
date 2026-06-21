@@ -4,7 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Datas/EncountersDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Datas/EncountersDatabase.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Snake/DirectLineAttackRule.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Snake/DirectLineAttackRule.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Snake/SnakeBrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Snake/SnakeBrain.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/WideMeleeAttackRule.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/WideMeleeAttackRule.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/BaseCardDefinitions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/BaseCardDefinitions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ApplyStatusAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ApplyStatusAttackRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ApplyStatusToSelfRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ApplyStatusToSelfRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ApplyStatusToTargetRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ApplyStatusToTargetRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/AttackOnlyWhenAloneRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/AttackOnlyWhenAloneRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/BuffSelfRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/BuffSelfRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/DirectLineAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/DirectLineAttackRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MeleeAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MeleeAttackRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveAlongCurrentDistanceRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveAlongCurrentDistanceRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveAwayFromTargetRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveAwayFromTargetRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveIntoDirectLineRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveIntoDirectLineRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveToPreferredDistanceRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveToPreferredDistanceRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveTowardStatusTargetRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveTowardStatusTargetRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveTowardTargetRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/MoveTowardTargetRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ShieldSelfRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/ShieldSelfRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/UtilityOnlyWhenAloneRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/UtilityOnlyWhenAloneRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/WideMeleeAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/WideMeleeAttackRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Types/Tiles/TileData.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -202,7 +228,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/Debug-0.2.19-Profiler\GridRoguelike.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/0.2.19\GridRoguelike.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\comma\Projects\GridRogulike\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />

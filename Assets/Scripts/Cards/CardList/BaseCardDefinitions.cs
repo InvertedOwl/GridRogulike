@@ -239,7 +239,7 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
         public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(new ShieldAction(1, "basic", null, 4));
+        public override List<AbstractAction> BuildActions() => Actions(new ShieldAction(1, "basic", null, 6));
     }
 
     [CardDefinition("Reinforce")]

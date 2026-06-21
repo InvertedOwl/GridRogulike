@@ -1,9 +1,8 @@
-using Cards.Actions;
 using UnityEngine;
 
 namespace Entities.Enemies
 {
-    public class AttackOnlyWhenAloneRule : EnemyBrainRule
+    public class AttackOnlyWhenAloneRule : EnemyBrainAttackRule
     {
         [SerializeField] private EnemyBrainTargetSelector targetSelector = EnemyBrainTargetSelector.Player;
         [SerializeField] private int damage = 10;
@@ -16,23 +15,14 @@ namespace Entities.Enemies
             if (!IsOnlyLivingEnemy(context))
                 return false;
 
-            if (!TrySelectTarget(context, targetSelector, out AbstractEntity target))
-                return false;
-
-            if (!EnemyBrainLine.TryFindDirectLine(
-                    context,
-                    context.SimulatedPosition,
-                    context.GetEntityPosition(target),
-                    Mathf.Max(1, range),
-                    out string direction,
-                    out int distance))
-            {
-                return false;
-            }
-
-            return context.AddAction(
-                new AttackAction(baseCost, color, context.Self, direction, distance, damage)
-            );
+            return TryFindDirectAttackLine(
+                       context,
+                       targetSelector,
+                       range,
+                       out _,
+                       out string direction,
+                       out int distance) &&
+                   TryAddAttack(context, direction, distance, damage, baseCost, color);
         }
     }
 }

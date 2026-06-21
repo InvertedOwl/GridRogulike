@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Entities.Enemies
 {
-    public class UtilityOnlyWhenAloneRule : EnemyBrainRule
+    public class UtilityOnlyWhenAloneRule : EnemyBrainUtilityRule
     {
-        [SerializeField] private EnemyBrainRule innerRule;
+        [SerializeField] private EnemyBrainUtilityRule innerRule;
 
         public override bool TryPlan(EnemyTurnContext context)
         {

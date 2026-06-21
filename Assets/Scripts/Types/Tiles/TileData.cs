@@ -326,6 +326,11 @@ namespace Types.Tiles
                 icon: "glassedge",
                 incomingEventModifier: (e, context) =>
                 {
+                    if (context.Entity == null || context.Entity.entityType != EntityType.Player)
+                    {
+                        return e;
+                    }
+
                     foreach (AbstractCardEvent cardEvent in e)
                     {
                         if (cardEvent is AttackCardEvent attackCardEvent)

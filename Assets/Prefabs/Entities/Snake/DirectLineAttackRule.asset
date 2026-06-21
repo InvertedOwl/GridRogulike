@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DirectLineAttackRule
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.DirectLineAttackRule
   afterSuccessfulPlan: 0
+  conditions: []
+  alwaysPlan: 0
   targetSelector: 0
   damage: 5
   range: 3

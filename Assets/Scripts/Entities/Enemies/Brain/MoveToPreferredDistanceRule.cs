@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Entities.Enemies
 {
     [CreateAssetMenu(fileName = "MoveToPreferredDistanceRule", menuName = "Game/Enemy Brain/Rules/Move/Move To Preferred Distance")]
-    public class MoveToPreferredDistanceRule : EnemyBrainRule
+    public class MoveToPreferredDistanceRule : EnemyBrainMoveRule
     {
         [SerializeField] private EnemyBrainTargetSelector targetSelector = EnemyBrainTargetSelector.Player;
         [SerializeField] private int preferredDistance = 1;
@@ -11,12 +11,7 @@ namespace Entities.Enemies
 
         public override bool TryPlan(EnemyTurnContext context)
         {
-            return TrySelectTarget(context, targetSelector, out AbstractEntity target) &&
-                   EnemyBrainMovement.TryMoveToPreferredDistance(
-                       context,
-                       target,
-                       preferredDistance,
-                       maxMoves);
+            return TryMoveToPreferredDistance(context, targetSelector, preferredDistance, maxMoves);
         }
     }
 }

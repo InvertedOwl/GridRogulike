@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
   attackRules:
   - {fileID: 11400000, guid: 226f3dfc471faf346b1553e5ac94d237, type: 2}
+  - {fileID: 11400000, guid: b923d048ea805064aaa28b711620e4b9, type: 2}
   moveRules:
   - {fileID: 11400000, guid: d50783b4d12c414498a2adbb480a25fe, type: 2}
   - {fileID: 11400000, guid: 3208e3f26d5303d468122cba1c7710c2, type: 2}

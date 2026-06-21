@@ -34,15 +34,11 @@ MonoBehaviour:
     enemies:
     - DiamondBoy
     - DiamondBoy
-    - DiamondBoy
     environmentPassives: []
     EncounterType: 0
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
-    - Snake
-    - Snake
-    - Snake
     - Snake
     environmentPassives: []
     EncounterType: 0

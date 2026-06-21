@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Entities.Enemies
 {
     [CreateAssetMenu(fileName = "DirectLineAttackRule", menuName = "Game/Enemy Brain/Rules/Attack/Direct Line Attack")]
-    public class DirectLineAttackRule : EnemyBrainRule
+    public class DirectLineAttackRule : EnemyBrainAttackRule
     {
         [SerializeField] private EnemyBrainTargetSelector targetSelector = EnemyBrainTargetSelector.Player;
         [SerializeField] private int damage = 10;
@@ -13,27 +13,14 @@ namespace Entities.Enemies
 
         public override bool TryPlan(EnemyTurnContext context)
         {
-            if (!TrySelectTarget(context, targetSelector, out AbstractEntity target))
-                return false;
-
-            if (!EnemyBrainLine.TryFindDirectLine(
-                    context,
-                    context.SimulatedPosition,
-                    context.GetEntityPosition(target),
-                    Mathf.Max(1, range),
-                    out string direction,
-                    out _))
-            {
-                return false;
-            }
-
-            return EnemyBrainLine.AddLineAttackActions(
-                context,
-                direction,
-                Mathf.Max(1, range),
-                damage,
-                baseCost,
-                color) > 0;
+            return TryFindDirectAttackLine(
+                       context,
+                       targetSelector,
+                       range,
+                       out _,
+                       out string direction,
+                       out _) &&
+                   AddLineAttackActions(context, direction, range, damage, baseCost, color) > 0;
         }
     }
 }

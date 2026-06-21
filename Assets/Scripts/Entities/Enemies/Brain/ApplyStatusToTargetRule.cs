@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entities.Enemies
 {
     [CreateAssetMenu(fileName = "ApplyStatusToTargetRule", menuName = "Game/Enemy Brain/Rules/Utility/Apply Status To Target")]
-    public class ApplyStatusToTargetRule : EnemyBrainRule
+    public class ApplyStatusToTargetRule : EnemyBrainUtilityRule
     {
         [SerializeField] private EnemyBrainTargetSelector targetSelector = EnemyBrainTargetSelector.ClosestAlly;
         [SerializeField] private int range = 1;
@@ -15,15 +15,13 @@ namespace Entities.Enemies
 
         public override bool TryPlan(EnemyTurnContext context)
         {
-            if (!TrySelectTarget(context, targetSelector, out AbstractEntity target))
+            if (!TrySelectUtilityTarget(context, targetSelector, out AbstractEntity target))
                 return false;
 
-            if (!context.TryGetDistanceTo(target, out int distance) || distance > range)
+            if (!IsTargetInRange(context, target, range, out _))
                 return false;
 
-            return context.AddAction(
-                new ApplyStatusToEntityAction(baseCost, color, context.Self, target, statusType, statusAmount)
-            );
+            return TryAddStatusToTarget(context, target, statusType, statusAmount, baseCost, color);
         }
     }
 }

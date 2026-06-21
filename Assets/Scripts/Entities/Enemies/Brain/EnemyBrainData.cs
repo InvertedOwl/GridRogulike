@@ -18,9 +18,9 @@ namespace Entities.Enemies
     [CreateAssetMenu(fileName = "EnemyBrainData", menuName = "Game/Enemy Brain/Brain Data")]
     public class EnemyBrainData : ScriptableObject
     {
-        [SerializeField] private List<EnemyBrainRule> attackRules = new List<EnemyBrainRule>();
-        [SerializeField] private List<EnemyBrainRule> moveRules = new List<EnemyBrainRule>();
-        [SerializeField] private List<EnemyBrainRule> utilityRules = new List<EnemyBrainRule>();
+        [SerializeField] private List<EnemyBrainAttackRule> attackRules = new List<EnemyBrainAttackRule>();
+        [SerializeField] private List<EnemyBrainMoveRule> moveRules = new List<EnemyBrainMoveRule>();
+        [SerializeField] private List<EnemyBrainUtilityRule> utilityRules = new List<EnemyBrainUtilityRule>();
 
         public bool TryPlanAttack(EnemyTurnContext context)
         {
@@ -52,7 +52,8 @@ namespace Entities.Enemies
             return PlanPhase(context, utilityRules);
         }
 
-        private EnemyBrainPlanResult PlanPhase(EnemyTurnContext context, List<EnemyBrainRule> rules)
+        private EnemyBrainPlanResult PlanPhase<T>(EnemyTurnContext context, List<T> rules)
+            where T : EnemyBrainRule
         {
             if (context == null || rules == null)
                 return new EnemyBrainPlanResult(false, false);
@@ -64,10 +65,10 @@ namespace Entities.Enemies
                 if (rule == null)
                     continue;
 
-                int actionCountBefore = context.PlannedActions.Count;
+                int revisionBefore = context.PlannedActionRevision;
                 rule.TryPlanIfConditionsPass(context);
 
-                if (context.PlannedActions.Count <= actionCountBefore)
+                if (context.PlannedActionRevision == revisionBefore)
                     continue;
 
                 plannedAny = true;

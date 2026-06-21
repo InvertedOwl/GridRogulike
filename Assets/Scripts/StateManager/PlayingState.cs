@@ -518,6 +518,14 @@ namespace StateManager
             Deck.Instance?.UpdatePlayability();
         }
 
+        public void OnAllPhasesEnd()
+        {
+            YourTurn.targetLocation = new Vector2(0, 50);
+            MovePhase.targetLocation = new Vector2(0, 0);
+            CardPhase.targetLocation = new Vector2(0, 0);
+            EnemyTurn.targetLocation = new Vector2(0, 50);
+        }
+        
         public virtual void OnMovePhaseActivated()
         {
             YourTurn.targetLocation = new Vector2(0, 0);
@@ -566,10 +574,9 @@ namespace StateManager
                 return;
             }
 
-            _enemyPlanningPositions.Clear();
-            foreach (AbstractEntity entity in entities)
+            foreach (NonPlayerEntity enemy in _enemiesNeedingIntentRefresh)
             {
-                if (entity is NonPlayerEntity enemy && enemy.Health > 0)
+                if (enemy != null && enemy.Health > 0 && entities.Contains(enemy))
                 {
                     PlanEnemyNextTurn(enemy, true);
                 }
@@ -1509,7 +1516,7 @@ namespace StateManager
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             
             playingUI.SetScale(new Vector3(2, 2, 2));
-
+            OnAllPhasesEnd();
             player.transform.SetParent(this.transform);
             
             EnvironmentManager.instance.ClearPassives();

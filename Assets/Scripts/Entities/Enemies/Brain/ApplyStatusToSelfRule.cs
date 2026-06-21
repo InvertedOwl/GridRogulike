@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entities.Enemies
 {
     [CreateAssetMenu(fileName = "ApplyStatusToSelfRule", menuName = "Game/Enemy Brain/Rules/Utility/Apply Status To Self")]
-    public class ApplyStatusToSelfRule : EnemyBrainRule
+    public class ApplyStatusToSelfRule : EnemyBrainUtilityRule
     {
         [SerializeField] private StatusApplicationType statusType = StatusApplicationType.Buffed;
         [SerializeField] private int statusAmount = 3;
@@ -13,16 +13,7 @@ namespace Entities.Enemies
 
         public override bool TryPlan(EnemyTurnContext context)
         {
-            return context != null &&
-                   context.AddAction(
-                       new ApplyStatusToEntityAction(
-                           baseCost,
-                           color,
-                           context.Self,
-                           context.Self,
-                           statusType,
-                           statusAmount)
-                   );
+            return TryAddStatusToSelf(context, statusType, statusAmount, baseCost, color);
         }
     }
 }

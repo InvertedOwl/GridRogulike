@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entities.Enemies
 {
     [CreateAssetMenu(fileName = "ApplyStatusAttackRule", menuName = "Game/Enemy Brain/Rules/Attack/Apply Status Attack")]
-    public class ApplyStatusAttackRule : EnemyBrainRule
+    public class ApplyStatusAttackRule : EnemyBrainAttackRule
     {
         [SerializeField] private EnemyBrainTargetSelector targetSelector = EnemyBrainTargetSelector.Player;
         [SerializeField] private int damage = 10;
@@ -16,31 +16,22 @@ namespace Entities.Enemies
 
         public override bool TryPlan(EnemyTurnContext context)
         {
-            if (!TrySelectTarget(context, targetSelector, out AbstractEntity target))
-                return false;
-
-            if (!EnemyBrainLine.TryFindDirectLine(
-                    context,
-                    context.SimulatedPosition,
-                    context.GetEntityPosition(target),
-                    Mathf.Max(1, range),
-                    out string direction,
-                    out int distance))
-            {
-                return false;
-            }
-
-            return context.AddAction(
-                new StatusAttackAction(
-                    baseCost,
-                    color,
-                    context.Self,
-                    direction,
-                    distance,
-                    damage,
-                    statusType,
-                    statusAmount)
-            );
+            return TryFindDirectAttackLine(
+                       context,
+                       targetSelector,
+                       range,
+                       out _,
+                       out string direction,
+                       out int distance) &&
+                   TryAddStatusAttack(
+                       context,
+                       direction,
+                       distance,
+                       damage,
+                       statusType,
+                       statusAmount,
+                       baseCost,
+                       color);
         }
     }
 }
