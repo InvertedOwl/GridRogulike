@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3739634389966307953}
   - component: {fileID: 8149859710638922124}
   - component: {fileID: 5286917440407922032}
-  - component: {fileID: 5709112935243033909}
   - component: {fileID: 776052003631651691}
   m_Layer: 0
   m_Name: PentagonBoy
@@ -222,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entities.NonPlayerEntity
   eyesFollowMouse: {fileID: 1247428267075556919}
   initialHealth: 20
-  behavior: {fileID: 5709112935243033909}
+  behavior: {fileID: 0}
   GoList: {fileID: 3739634389966307953}
   skeletonAnimation: {fileID: 0}
   _health: 20
@@ -235,25 +234,6 @@ MonoBehaviour:
   boardWorldEulerAngles: {x: -70, y: 0, z: 0}
   plannedActionSprite: {fileID: 9200434352245936555}
   SpriteDatabase: {fileID: 11400000, guid: acde3d98c26f8304e85fb628fb2148af, type: 2}
---- !u!114 &5709112935243033909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161378063130477174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ad60e4d4d54cc28769bf8b30d1ff08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveAttackEnemy
-  self: {fileID: 5286917440407922032}
-  targetSearchMode: 0
-  maxMovesPerTurn: 5
-  stopMovingWhenWithinDistance: 1
-  attackRange: 1
-  defaultDamage: 10
-  actionDelay: 0.5
 --- !u!114 &776052003631651691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,6 +1659,7 @@ GameObject:
   - component: {fileID: 4355257331381562356}
   - component: {fileID: 6226464690143497161}
   - component: {fileID: 7298320196034087537}
+  - component: {fileID: 5639752350756401372}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -1796,7 +1777,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b8ad8d7dcf8264488664cb40980799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EaseScale
-  durationSeconds: 0.25
+  durationSeconds: 0.1
+  _elapsedTime: 0
+--- !u!114 &5639752350756401372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6899305101611133571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4768a617ad4eaeb941fd6adb658dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Util.EasePosition
+  durationSeconds: 0.1
+  isLocal: 1
   _elapsedTime: 0
 --- !u!1 &7020613049314384353
 GameObject:

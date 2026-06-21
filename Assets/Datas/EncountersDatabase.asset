@@ -16,8 +16,8 @@ MonoBehaviour:
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
-    - SquareBoy
     - TriangleBoy
+    - SquareBoy
     environmentPassives:
     - Forest
     EncounterType: 0

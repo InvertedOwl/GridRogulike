@@ -138,7 +138,7 @@ public class Deck : MonoBehaviour
     {
         return card != null &&
                playingState != null &&
-               playingState.AllowUserInput &&
+               playingState.CanPlayerPlayCards &&
                !card.played &&
                !card.IsResolvingManualAttack &&
                !IsCardTooExpensive(card) &&
@@ -150,7 +150,7 @@ public class Deck : MonoBehaviour
     {
         return card != null &&
                playingState != null &&
-               playingState.AllowUserInput &&
+               playingState.CanPlayerPlayCards &&
                !card.played &&
                card.IsResolvingManualAttack;
     }
@@ -284,6 +284,7 @@ public class Deck : MonoBehaviour
             {
                 PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
                 hash = hash * 31 + (playingState != null && playingState.AllowUserInput ? 1 : 0);
+                hash = hash * 31 + (playingState != null ? playingState.GetTurnPhaseSignature() : 0);
                 hash = hash * 31 + (playingState != null ? playingState.GetCardPlayRestrictionSignature() : 0);
                 hash = AppendCombatTargetSignature(hash, playingState);
             }

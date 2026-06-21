@@ -25,3 +25,9 @@ MonoBehaviour:
   - scriptableObjectScript: {fileID: 11500000, guid: ad112f9d4a2346f486ca99aa25c172e1, type: 3}
     icon: {fileID: 2800000, guid: 9d7ace5dc4ba1cd4fa19c51d1d7f296b, type: 3}
     includeDerivedTypes: 1
+  - scriptableObjectScript: {fileID: 11500000, guid: 07e40b992bf2494e9f746226eda2b2b7, type: 3}
+    icon: {fileID: 2800000, guid: fc3dcfe7939ccba41a453a023d983976, type: 3}
+    includeDerivedTypes: 1
+  - scriptableObjectScript: {fileID: 11500000, guid: 29d69805d2524895bdb1fb09da535ddb, type: 3}
+    icon: {fileID: 2800000, guid: f7a22d56eb4318549a93c932a100895f, type: 3}
+    includeDerivedTypes: 1

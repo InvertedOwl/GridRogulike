@@ -327,6 +327,7 @@ namespace Grid {
             foreach (var key in currentMap.Keys)
             {
                 if (!playingState.IsPlayerMovementBlocked &&
+                    playingState.CanPlayerMove &&
                     currentMap[key] <= RunInfo.Instance.CurrentSteps &&
                     currentMap[key] > 0 &&
                     playingState.CurrentTurn.entityType == EntityType.Player)
@@ -568,6 +569,7 @@ namespace Grid {
             
             // If player exists, and has enough steps, and is not already moving
             if (!playingState.IsPlayerMovementBlocked &&
+                playingState.CanPlayerMove &&
                 distanceMap.ContainsKey(playingState.player.positionRowCol) &&
                 distanceMap[playingState.player.positionRowCol] <= RunInfo.Instance.CurrentSteps && !isMoving)
             {

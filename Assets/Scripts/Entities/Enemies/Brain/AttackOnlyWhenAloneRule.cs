@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Entities.Enemies
 {
-    [CreateAssetMenu(fileName = "AttackOnlyWhenAloneRule", menuName = "Game/Enemy Brain/Rules/Attack/Attack Only When Alone")]
     public class AttackOnlyWhenAloneRule : EnemyBrainRule
     {
         [SerializeField] private EnemyBrainTargetSelector targetSelector = EnemyBrainTargetSelector.Player;

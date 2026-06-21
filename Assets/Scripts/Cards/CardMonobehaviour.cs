@@ -515,7 +515,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
 
             bool clickHasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
-            bool clickIsPlayerTurn = isPlayingState && playingState.CurrentTurn.entityType == EntityType.Player;
+            bool clickIsPlayerTurn = isPlayingState && playingState.CanPlayerPlayCards;
             bool clickCanPlayByRestrictions = CanPlayByRestrictions(out _);
 
             if (played || !clickHasEnoughEnergy || !clickIsPlayerTurn || !clickCanPlayByRestrictions)
@@ -537,7 +537,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
 
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride > -1) ? CostOverride : _card.Cost);
-        bool isPlayerTurn = isPlayingState && playingState.CurrentTurn.entityType == EntityType.Player;
+        bool isPlayerTurn = isPlayingState && playingState.CanPlayerPlayCards;
         bool canPlayByRestrictions = CanPlayByRestrictions(out _);
 
         if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions)
@@ -649,7 +649,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride > -1) ? CostOverride : _card.Cost);
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
+            isPlayerTurn = playing.CanPlayerPlayCards;
 
         if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
         {
@@ -723,7 +723,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
+            isPlayerTurn = playing.CanPlayerPlayCards;
 
         if (!hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
         {
@@ -741,7 +741,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride > -1) ? CostOverride : _card.Cost);
         bool isPlayerTurn = false;
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
-            isPlayerTurn = playing.CurrentTurn.entityType == EntityType.Player;
+            isPlayerTurn = playing.CanPlayerPlayCards;
 
         if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
             return false;

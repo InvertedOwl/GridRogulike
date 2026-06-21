@@ -16,6 +16,7 @@ using Types.Statuses;
 using Types.Tiles;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Util;
 
@@ -23,6 +24,13 @@ namespace StateManager
 {
     public class PlayingState : GameState
     {
+        public enum TurnPhase
+        {
+            None,
+            Move,
+            Card,
+            Enemy
+        }
 
         private bool _allowUserInput = true;
         
@@ -88,10 +96,21 @@ namespace StateManager
 
         
         public TurnIndicatorManager turnIndicatorManager;
+
+        [Header("Turn Phase Events")]
+        public UnityEvent MovePhaseActivatedEvent;
+        public UnityEvent CardPhaseActivatedEvent;
+        public UnityEvent EnemyTurnPhaseActivatedEvent;
         
         private readonly List<int> _turnOrder = new();
         private int _currentTurnIndex;
         public AbstractEntity CurrentTurn => entities[_turnOrder[_currentTurnIndex]];
+        public TurnPhase CurrentTurnPhase { get; private set; } = TurnPhase.None;
+        public bool IsMovePhaseActive => CurrentTurnPhase == TurnPhase.Move;
+        public bool IsCardPhaseActive => CurrentTurnPhase == TurnPhase.Card;
+        public bool IsEnemyTurnPhaseActive => CurrentTurnPhase == TurnPhase.Enemy;
+        public bool CanPlayerMove => IsMovePhaseActive && AllowUserInput && IsPlayerTurnActive();
+        public bool CanPlayerPlayCards => IsCardPhaseActive && AllowUserInput && IsPlayerTurnActive();
         private float _autoEndReadyTime = -1f;
         private const float AutoEndDelaySeconds = 0.5f;
         private Coroutine _finishCoroutine;
@@ -117,6 +136,12 @@ namespace StateManager
             public bool exploded;
             public bool iconCleared;
         }
+
+        [Header("Phases")] 
+        [SerializeField] private EasePosition YourTurn;
+        [SerializeField] private EasePosition EnemyTurn;
+        [SerializeField] private EasePosition MovePhase;
+        [SerializeField] private EasePosition CardPhase;
 
         [Header("Enemy Scaling")]
         [Min(0)]
@@ -353,26 +378,55 @@ namespace StateManager
                 return;
             }
 
-            if (HasResolvingCard() || HasPlayableCard() || HasPendingPlayerAttack() || HasReachableMove())
+            if (IsMovePhaseActive)
+            {
+                if (HasReachableMove())
+                {
+                    ResetAutoEndTimer();
+                    return;
+                }
+
+                if (!TryWaitForAutoEndDelay())
+                    return;
+
+                ActivateCardPhase();
+                return;
+            }
+
+            if (!IsCardPhaseActive)
             {
                 ResetAutoEndTimer();
                 return;
             }
 
-            if (_autoEndReadyTime < 0f)
+            if (HasResolvingCard() || HasPlayableCard() || HasPendingPlayerAttack())
             {
-                _autoEndReadyTime = Time.time + AutoEndDelaySeconds;
+                ResetAutoEndTimer();
                 return;
             }
 
-            if (Time.time < _autoEndReadyTime)
+            if (!TryWaitForAutoEndDelay())
                 return;
+
+            PlayerEndTurn();
+        }
+
+        private bool TryWaitForAutoEndDelay()
+        {
+            if (_autoEndReadyTime < 0f)
+            {
+                _autoEndReadyTime = Time.time + AutoEndDelaySeconds;
+                return false;
+            }
+
+            if (Time.time < _autoEndReadyTime)
+                return false;
 
             if (IsBackgroundAnimationRunning())
-                return;
+                return false;
 
             ResetAutoEndTimer();
-            PlayerEndTurn();
+            return true;
         }
 
         private void ResetAutoEndTimer()
@@ -394,6 +448,98 @@ namespace StateManager
             return entityIndex >= 0 &&
                    entityIndex < entities.Count &&
                    entities[entityIndex].entityType == EntityType.Player;
+        }
+
+        public int GetTurnPhaseSignature()
+        {
+            return (int)CurrentTurnPhase;
+        }
+
+        public void ActivateMovePhase()
+        {
+            if (!IsPlayerTurnActive())
+                return;
+
+            SetTurnPhase(TurnPhase.Move);
+        }
+
+        public void ActivateCardPhase()
+        {
+            if (!IsPlayerTurnActive())
+                return;
+
+            SetTurnPhase(TurnPhase.Card);
+        }
+
+        private void ActivateEnemyTurnPhase()
+        {
+            SetTurnPhase(TurnPhase.Enemy, force: true);
+        }
+
+        private void SetTurnPhase(TurnPhase turnPhase, bool force = false)
+        {
+            if (!force && CurrentTurnPhase == turnPhase)
+                return;
+
+            CurrentTurnPhase = turnPhase;
+            ResetAutoEndTimer();
+            RefreshPhaseInputState();
+
+            switch (turnPhase)
+            {
+                case TurnPhase.Move:
+                    OnMovePhaseActivated();
+                    MovePhaseActivatedEvent?.Invoke();
+                    break;
+                case TurnPhase.Card:
+                    OnCardPhaseActivated();
+                    CardPhaseActivatedEvent?.Invoke();
+                    break;
+                case TurnPhase.Enemy:
+                    OnEnemyTurnPhaseActivated();
+                    EnemyTurnPhaseActivatedEvent?.Invoke();
+                    break;
+            }
+        }
+
+        private void RefreshPhaseInputState()
+        {
+            if (CurrentTurnPhase == TurnPhase.Move)
+            {
+                Deck.Instance?.SetHandToUnused();
+                HexClickPlayerController.instance?.UpdateMovableParticles(this);
+            }
+            else
+            {
+                HexClickPlayerController.instance?.ClearMovableParticles();
+            }
+
+            Deck.Instance?.MarkPlayabilityDirty();
+            Deck.Instance?.UpdatePlayability();
+        }
+
+        public virtual void OnMovePhaseActivated()
+        {
+            YourTurn.targetLocation = new Vector2(0, 0);
+            MovePhase.targetLocation = new Vector2(0, -14);
+            CardPhase.targetLocation = new Vector2(0, 0);
+            EnemyTurn.targetLocation = new Vector2(0, 50);
+        }
+
+        public virtual void OnCardPhaseActivated()
+        {
+            YourTurn.targetLocation = new Vector2(0, 0);
+            MovePhase.targetLocation = new Vector2(0, 0);
+            CardPhase.targetLocation = new Vector2(0, -14);
+            EnemyTurn.targetLocation = new Vector2(0, 50);
+        }
+
+        public virtual void OnEnemyTurnPhaseActivated()
+        {
+            YourTurn.targetLocation = new Vector2(0, 50);
+            MovePhase.targetLocation = new Vector2(0, 0);
+            CardPhase.targetLocation = new Vector2(0, 0);
+            EnemyTurn.targetLocation = new Vector2(0, 0);
         }
 
         private void QueueEnemyIntentRefreshAfterMove(AbstractEntity movedEntity)
@@ -439,6 +585,9 @@ namespace StateManager
 
         private bool HasPlayableCard()
         {
+            if (!CanPlayerPlayCards)
+                return false;
+
             foreach (CardMonobehaviour card in Deck.Instance.Hand)
             {
                 if (card == null || card.played || card.onlyDisplay)
@@ -460,6 +609,9 @@ namespace StateManager
 
         private bool HasReachableMove()
         {
+            if (!CanPlayerMove)
+                return false;
+
             if (IsPlayerMovementBlocked)
                 return false;
 
@@ -1487,6 +1639,15 @@ namespace StateManager
             var entity = CurrentTurn;
             turnIndicatorManager.SetCurrentTurn(_turnOrder, entities, _currentTurnIndex);
 
+            if (entity.entityType == EntityType.Player)
+            {
+                ActivateMovePhase();
+            }
+            else
+            {
+                ActivateEnemyTurnPhase();
+            }
+
             entity.StartTurn();
 
             if (entity.entityType == EntityType.Player)
@@ -1675,6 +1836,18 @@ namespace StateManager
             if (CurrentTurn.entityType != EntityType.Player)
                 return;
 
+            if (!AllowUserInput)
+                return;
+
+            if (IsMovePhaseActive)
+            {
+                ActivateCardPhase();
+                return;
+            }
+
+            if (!IsCardPhaseActive)
+                return;
+
             BattleStats.ResetStatsTurn();
 
             CaptureFinish();
@@ -1683,6 +1856,11 @@ namespace StateManager
             
             AllowUserInput = false;
             
+        }
+
+        public void PlayerEndPhase()
+        {
+            PlayerEndTurn();
         }
 
         public void CaptureFinish()

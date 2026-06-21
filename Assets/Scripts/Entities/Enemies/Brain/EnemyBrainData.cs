@@ -65,7 +65,7 @@ namespace Entities.Enemies
                     continue;
 
                 int actionCountBefore = context.PlannedActions.Count;
-                rule.TryPlan(context);
+                rule.TryPlanIfConditionsPass(context);
 
                 if (context.PlannedActions.Count <= actionCountBefore)
                     continue;

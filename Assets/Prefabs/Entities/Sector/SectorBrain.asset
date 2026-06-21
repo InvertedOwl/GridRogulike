@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d69805d2524895bdb1fb09da535ddb, type: 3}
+  m_Name: SectorBrain
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
+  attackRules:
+  - {fileID: 11400000, guid: 6651ff48969d74e49993546b3f998ad0, type: 2}
+  moveRules:
+  - {fileID: 11400000, guid: a84e412bb306bc845bb6b536f118f70f, type: 2}
+  - {fileID: 11400000, guid: 20274bf091c4b124fb50a9ff3b4f9cdb, type: 2}
+  utilityRules:
+  - {fileID: 11400000, guid: 30e3bff60f8e08945a825f4e8b3ee05e, type: 2}
+  - {fileID: 11400000, guid: ecd3b7f62f0d26e45bae098494205627, type: 2}

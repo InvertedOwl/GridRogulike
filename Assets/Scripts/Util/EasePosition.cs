@@ -15,6 +15,7 @@ namespace Util
 
         private RectTransform _rectTransform;
         private bool _useRectTransform;
+        private bool _initialized;
 
         public Vector3 targetLocation
         {
@@ -29,17 +30,33 @@ namespace Util
                 : 1 - Math.Pow(-2 * x + 2, 3) / 2;
         }
 
+        void Awake()
+        {
+            Initialize();
+        }
+
         void Start()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            if (_initialized)
+                return;
+
             _rectTransform = GetComponent<RectTransform>();
             _useRectTransform = _rectTransform != null;
-            Vector3 pos = GetCurrentPosition();
+            Vector3 pos = GetCurrentPositionRaw();
             _lastPosition = pos;
             _targetPosition = pos;
+            _initialized = true;
         }
 
         public void InstantSend(Vector3 position)
         {
+            Initialize();
+
             _lastPosition = position;
             _targetPosition = position;
             _elapsedTime = 0f;
@@ -49,6 +66,8 @@ namespace Util
 
         public void SendToLocation(Vector3 location, Action onComplete = null)
         {
+            Initialize();
+
             _lastPosition = GetCurrentPosition();
             _targetPosition = location;
             _elapsedTime = 0f;
@@ -64,6 +83,8 @@ namespace Util
 
         void Update()
         {
+            Initialize();
+
             if (_elapsedTime >= (durationSeconds / GameplayNavSettings.speed))
                 return;
 
@@ -87,6 +108,12 @@ namespace Util
         }
 
         private Vector3 GetCurrentPosition()
+        {
+            Initialize();
+            return GetCurrentPositionRaw();
+        }
+
+        private Vector3 GetCurrentPositionRaw()
         {
             if (_useRectTransform)
                 return _rectTransform.anchoredPosition3D;

@@ -217,8 +217,13 @@ namespace Entities
 
             UpdateEnemyPreviewArrowVisibility();
 
+            UpdateEntityHoverState();
 
             FollowEyes();
+        }
+
+        protected virtual void UpdateEntityHoverState()
+        {
         }
 
         private void UpdateEnemyPreviewArrowVisibility()
@@ -241,7 +246,7 @@ namespace Entities
             }
         }
 
-        private bool IsMouseHoveringThisEntity()
+        protected bool IsMouseHoveringThisEntity()
         {
             if (_previewHoverCamera == null)
                 _previewHoverCamera = Camera.main;

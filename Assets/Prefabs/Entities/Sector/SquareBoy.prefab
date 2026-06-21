@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 283.55
       objectReference: {fileID: 0}
     - target: {fileID: 72168153603838142, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -656,7 +656,7 @@ PrefabInstance:
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: behavior
       value: 
-      objectReference: {fileID: 4660519174454911957}
+      objectReference: {fileID: -4318895965289767056}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: eyesFollowMouse
       value: 
@@ -765,14 +765,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4660519174454911957}
+      addedObject: {fileID: -4318895965289767056}
   m_SourcePrefab: {fileID: 100100000, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
 --- !u!1 &3518368252074035926 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
   m_PrefabInstance: {fileID: 3670034809583585440}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4660519174454911957
+--- !u!114 &-4318895965289767056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -781,19 +781,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3518368252074035926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 878ae12623b325c4fadd6255e742277e, type: 3}
+  m_Script: {fileID: 11500000, guid: 06d582750fa14e98abe73111de0341d1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveApplyStatusEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainBehavior
   self: {fileID: 8912749352281746896}
-  targetSearchMode: 1
-  maxMovesPerTurn: 3
-  stopMovingWhenWithinDistance: 1
-  attackRange: 1
-  defaultDamage: 10
-  actionDelay: 0.5
-  statusType: 0
-  statusAmount: 3
-  statusRange: 1
+  brainData: {fileID: 11400000, guid: 5ed79507416e0ed41a55140cb755487d, type: 2}
+  moveBudget: 3
 --- !u!4 &3822521651334489867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
