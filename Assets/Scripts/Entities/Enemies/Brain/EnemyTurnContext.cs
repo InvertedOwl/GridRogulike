@@ -216,5 +216,13 @@ namespace Entities.Enemies
 
             return distanceMap.TryGetValue(SimulatedPosition, out distance) && distance >= 0;
         }
+
+        public void CommitPlanningRandom()
+        {
+            if (Self?.EntityRandom == null || PlanningRandom == null)
+                return;
+
+            Self.EntityRandom.CopyFrom(PlanningRandom);
+        }
     }
 }

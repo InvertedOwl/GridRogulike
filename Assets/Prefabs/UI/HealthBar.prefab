@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 101
+  m_SortingOrder: 104
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: a0156a2eeac7a440c934dfab912479ed, type: 3}
   m_Color: {r: 0.036311854, g: 0.0925038, b: 0.1509434, a: 0.83137256}
@@ -313,7 +313,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 102
+  m_SortingOrder: 105
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &130587233977928602
@@ -673,7 +673,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 85
+  m_SortingOrder: 101
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: a0156a2eeac7a440c934dfab912479ed, type: 3}
   m_Color: {r: 0.036311854, g: 0.0925038, b: 0.1509434, a: 1}
@@ -812,7 +812,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 85
+  m_SortingOrder: 101
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b2927846096c6e948be15c891c116b92, type: 3}
   m_Color: {r: 0, g: 0.015686275, b: 0.043137256, a: 1}
@@ -903,7 +903,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 85
+  m_SortingOrder: 101
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b2927846096c6e948be15c891c116b92, type: 3}
   m_Color: {r: 0, g: 0.015686275, b: 0.043137256, a: 1}
@@ -1072,7 +1072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019518305390563358, guid: 9363949d74c40f345a6fad1a25fee3b7, type: 3}
       propertyPath: m_SortingOrder
-      value: 86
+      value: 102
       objectReference: {fileID: 0}
     - target: {fileID: 5019518305390563358, guid: 9363949d74c40f345a6fad1a25fee3b7, type: 3}
       propertyPath: m_SpriteSortPoint
@@ -1171,11 +1171,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019518305390563358, guid: 9363949d74c40f345a6fad1a25fee3b7, type: 3}
       propertyPath: m_SortingOrder
-      value: 90
+      value: 103
       objectReference: {fileID: 0}
     - target: {fileID: 5133783098552052307, guid: 9363949d74c40f345a6fad1a25fee3b7, type: 3}
       propertyPath: m_Name
       value: HealthActiveShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133783098552052307, guid: 9363949d74c40f345a6fad1a25fee3b7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

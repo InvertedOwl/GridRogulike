@@ -60,6 +60,8 @@ namespace Entities.Enemies
                 brainData.PlanUtility(context);
             }
 
+            context.CommitPlanningRandom();
+
             self.plannedAction.AddRange(context.PlannedActions);
             foreach (KeyValuePair<AbstractAction, Vector2Int> entry in context.ActionSourcePositions)
             {
@@ -114,7 +116,6 @@ namespace Entities.Enemies
                 OnAfterAction(action);
             }
 
-            self.EntityRandom.Next();
             self.plannedAction.Clear();
             _plannedActionSources.Clear();
         }
