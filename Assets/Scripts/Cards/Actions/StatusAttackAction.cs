@@ -15,11 +15,9 @@ namespace Cards.Actions
             int baseCost,
             string color,
             AbstractEntity entity,
-            string direction,
-            int distance,
             int amount,
             StatusApplicationType statusType,
-            int statusAmount) : base(baseCost, color, entity, direction, distance, amount)
+            int statusAmount) : base(baseCost, color, entity, amount)
         {
             this.statusType = statusType;
             this.statusAmount = statusAmount;
@@ -27,22 +25,14 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return Activate(cardMono, previewMode: false);
-        }
-
-        public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono, bool previewMode)
-        {
-            return new List<AbstractCardEvent>
-            {
-                new AttackCardEvent(_distance, _direction, _amount, CreateStatus(previewMode))
-            };
+            return new List<AbstractCardEvent>();
         }
 
         public override List<AbstractCardEvent> Activate(CardPlayContext context)
         {
             AbstractStatus status = CreateStatus(context);
             if (context?.Targets == null)
-                return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, _amount, status) };
+                return new List<AbstractCardEvent>();
 
             if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
                 return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, _amount, status, manual: false) };
@@ -67,133 +57,17 @@ namespace Cards.Actions
                    preview.FormatValue(StatusIcon(), statusAmount, finalStatus);
         }
 
-        private AbstractStatus CreateStatus(bool previewMode)
-        {
-            RandomState statusRandom = GetActionRandom(previewMode);
-
-            switch (statusType)
-            {
-                case StatusApplicationType.Dazed:
-                case StatusApplicationType.Daze:
-                    return new DazedStatus(statusAmount, statusRandom);
-                case StatusApplicationType.Frost:
-                    return new FrostStatus(statusAmount);
-                case StatusApplicationType.Frozen:
-                    return new FrozenStatus(statusAmount);
-                case StatusApplicationType.Poison:
-                    return new PoisonStatus(statusAmount);
-                case StatusApplicationType.Restless:
-                    return new RestlessStatus(statusAmount);
-                case StatusApplicationType.Fall:
-                    return new FallStatus(statusAmount);
-                case StatusApplicationType.Shocked:
-                    return new ShockedStatus(statusAmount);
-                case StatusApplicationType.Energetic:
-                    return new EnergeticStatus(statusAmount);
-                case StatusApplicationType.Excited:
-                    return new ExcitedStatus(statusAmount);
-                case StatusApplicationType.Sleepy:
-                    return new SleepyStatus(statusAmount);
-                case StatusApplicationType.Ranged:
-                    return new RangedStatus(statusAmount);
-                case StatusApplicationType.Haste:
-                    return new HasteStatus(statusAmount);
-                case StatusApplicationType.Blind:
-                    return new BlindStatus(statusAmount, statusRandom);
-                case StatusApplicationType.Volatile:
-                    return new VolatileStatus(statusAmount);
-                case StatusApplicationType.Dizzy:
-                    return new DizzyStatus(statusAmount, statusRandom);
-                case StatusApplicationType.ShieldCarryover:
-                    return new ShieldCarryoverStatus(statusAmount);
-                case StatusApplicationType.Buffed:
-                default:
-                    return new BuffedStatus(statusAmount);
-            }
-        }
-
         private AbstractStatus CreateStatus(CardPlayContext context)
         {
-            RandomState statusRandom = GetStableActionRandom(context, "status");
-
-            switch (statusType)
-            {
-                case StatusApplicationType.Dazed:
-                case StatusApplicationType.Daze:
-                    return new DazedStatus(statusAmount, statusRandom);
-                case StatusApplicationType.Frost:
-                    return new FrostStatus(statusAmount);
-                case StatusApplicationType.Frozen:
-                    return new FrozenStatus(statusAmount);
-                case StatusApplicationType.Poison:
-                    return new PoisonStatus(statusAmount);
-                case StatusApplicationType.Restless:
-                    return new RestlessStatus(statusAmount);
-                case StatusApplicationType.Fall:
-                    return new FallStatus(statusAmount);
-                case StatusApplicationType.Shocked:
-                    return new ShockedStatus(statusAmount);
-                case StatusApplicationType.Energetic:
-                    return new EnergeticStatus(statusAmount);
-                case StatusApplicationType.Excited:
-                    return new ExcitedStatus(statusAmount);
-                case StatusApplicationType.Sleepy:
-                    return new SleepyStatus(statusAmount);
-                case StatusApplicationType.Ranged:
-                    return new RangedStatus(statusAmount);
-                case StatusApplicationType.Haste:
-                    return new HasteStatus(statusAmount);
-                case StatusApplicationType.Blind:
-                    return new BlindStatus(statusAmount, statusRandom);
-                case StatusApplicationType.Volatile:
-                    return new VolatileStatus(statusAmount);
-                case StatusApplicationType.Dizzy:
-                    return new DizzyStatus(statusAmount, statusRandom);
-                case StatusApplicationType.ShieldCarryover:
-                    return new ShieldCarryoverStatus(statusAmount);
-                case StatusApplicationType.Buffed:
-                default:
-                    return new BuffedStatus(statusAmount);
-            }
+            return ApplyStatusToEntityAction.CreateStatus(
+                statusType,
+                statusAmount,
+                GetStableActionRandom(context, "status"));
         }
 
         private string StatusIcon()
         {
-            switch (statusType)
-            {
-                case StatusApplicationType.Dazed:
-                case StatusApplicationType.Daze:
-                    return "<sprite name=\"dazed\">";
-                case StatusApplicationType.Frost:
-                case StatusApplicationType.Frozen:
-                    return "<sprite name=\"snowflake\">";
-                case StatusApplicationType.Poison:
-                    return "<sprite name=\"droplets\">";
-                case StatusApplicationType.Restless:
-                    return "<sprite name=\"footsteps\">";
-                case StatusApplicationType.Fall:
-                    return "<sprite name=\"damage4\">";
-                case StatusApplicationType.Shocked:
-                case StatusApplicationType.Energetic:
-                    return "<sprite name=\"energyicon\">";
-                case StatusApplicationType.Excited:
-                    return "<sprite name=\"drawcard\">";
-                case StatusApplicationType.Sleepy:
-                case StatusApplicationType.Blind:
-                case StatusApplicationType.Dizzy:
-                    return "<sprite name=\"dazed\">";
-                case StatusApplicationType.Ranged:
-                    return "<sprite name=\"arrow\">";
-                case StatusApplicationType.Haste:
-                    return "<sprite name=\"footsteps\">";
-                case StatusApplicationType.Volatile:
-                    return "<sprite name=\"damage4\">";
-                case StatusApplicationType.ShieldCarryover:
-                    return "<sprite name=\"shield\">";
-                case StatusApplicationType.Buffed:
-                default:
-                    return "<sprite name=\"buffenemies\">";
-            }
+            return ApplyStatusToEntityAction.StatusIcon(statusType);
         }
     }
 }

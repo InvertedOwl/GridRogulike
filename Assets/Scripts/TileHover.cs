@@ -1,6 +1,9 @@
+using System.Collections;
 using Entities;
+using TMPro;
 using StateManager;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 
 public class TileHover : MonoBehaviour
@@ -24,6 +27,7 @@ public class TileHover : MonoBehaviour
     private Collider2D col2D;
     private Camera mainCam;
     private AbstractEntity owningEntity;
+    private Coroutine rebuildHoverDetailsCoroutine;
 
     private static float _cachedFixedTime = -1f;
     private static Camera _cachedCamera;
@@ -81,7 +85,7 @@ public class TileHover : MonoBehaviour
         {
             if (ShouldShowTileInfo() && activateOnHover && ticksHovered > waitTicks)
             {
-                activateOnHover.SetActive(true);
+                ShowHoverDetails();
             }
 
             if (sideThing)
@@ -228,11 +232,82 @@ public class TileHover : MonoBehaviour
             activateOnHover.SetActive(false);
         }
 
+        if (rebuildHoverDetailsCoroutine != null)
+        {
+            StopCoroutine(rebuildHoverDetailsCoroutine);
+            rebuildHoverDetailsCoroutine = null;
+        }
+
         if (sideThing)
         {
             sideThing.SetActive(true);
         }
 
         ticksHovered = 0;
+    }
+
+    private void ShowHoverDetails()
+    {
+        bool wasActive = activateOnHover.activeSelf;
+        activateOnHover.SetActive(true);
+
+        if (wasActive)
+            return;
+
+        RebuildHoverDetailsLayout();
+
+        if (rebuildHoverDetailsCoroutine != null)
+        {
+            StopCoroutine(rebuildHoverDetailsCoroutine);
+        }
+
+        rebuildHoverDetailsCoroutine = StartCoroutine(RebuildHoverDetailsLayoutAtEndOfFrame());
+    }
+
+    private IEnumerator RebuildHoverDetailsLayoutAtEndOfFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (activateOnHover && activateOnHover.activeInHierarchy)
+        {
+            RebuildHoverDetailsLayout();
+        }
+
+        rebuildHoverDetailsCoroutine = null;
+    }
+
+    private void RebuildHoverDetailsLayout()
+    {
+        if (!activateOnHover)
+            return;
+
+        foreach (TextMeshProUGUI text in activateOnHover.GetComponentsInChildren<TextMeshProUGUI>(true))
+        {
+            text.ForceMeshUpdate();
+        }
+
+        RectTransform[] rectTransforms = activateOnHover.GetComponentsInChildren<RectTransform>(true);
+        for (int i = rectTransforms.Length - 1; i >= 0; i--)
+        {
+            RectTransform rectTransform = rectTransforms[i];
+
+            ContentSizeFitter fitter = rectTransform.GetComponent<ContentSizeFitter>();
+            if (fitter != null)
+            {
+                fitter.SetLayoutHorizontal();
+                fitter.SetLayoutVertical();
+            }
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+        }
+
+        RectTransform root = activateOnHover.transform as RectTransform;
+        while (root != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(root);
+            root = root.parent as RectTransform;
+        }
+
+        Canvas.ForceUpdateCanvases();
     }
 }

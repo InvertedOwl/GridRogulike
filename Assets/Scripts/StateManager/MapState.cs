@@ -98,6 +98,7 @@ namespace StateManager
 
             // MapState builds/restores its persistent map inside Enter, so refresh the checkpoint after that setup.
             SaveFile.currentJSON = SaveFile.ToJSON();
+            SaveGameObject.PersistCheckpoint();
         }
         
         public void SetMapState()

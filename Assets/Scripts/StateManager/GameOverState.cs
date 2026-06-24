@@ -1,7 +1,7 @@
+using Serializer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Util;
-using System.IO;
 
 namespace StateManager
 {
@@ -57,13 +57,7 @@ namespace StateManager
 
         private void DeleteSave()
         {
-            string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
-
-            if (File.Exists(savePath))
-            {
-                File.Delete(savePath);
-                Debug.Log("Save file deleted: " + savePath);
-            }
+            SaveGameObject.DeleteSaveFiles();
         }
     }
 }

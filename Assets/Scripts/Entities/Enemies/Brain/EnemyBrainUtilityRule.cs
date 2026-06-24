@@ -61,7 +61,7 @@ namespace Entities.Enemies
                    target != null &&
                    TryAddUtilityAction(
                        context,
-                       new ApplyStatusToEntityAction(
+                       new ApplyStatusToFixedEntityAction(
                            baseCost,
                            color,
                            context.Self,

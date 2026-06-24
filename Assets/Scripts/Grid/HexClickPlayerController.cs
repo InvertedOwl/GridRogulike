@@ -825,9 +825,8 @@ namespace Grid {
                 currentMap = CalculateDistanceMap(targetPosition, playingState);
             }
             isMoving = false;
-            
-            UpdateMovableParticles(playingState);
             playingState.AllowUserInput = true;
+            UpdateMovableParticles(playingState);
         }
     }
 }

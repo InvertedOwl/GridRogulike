@@ -21,6 +21,8 @@ public class SettingsMenu : MonoBehaviour
     public GameObject SettingsContent;
     public EaseColor screenColor;
     public bool settingsOpen = false;
+
+    public GameObject debugMenu;
     
     public void CloseSettings()
     {
@@ -40,6 +42,11 @@ public class SettingsMenu : MonoBehaviour
 
     public void Update()
     {
+        if (UnityEngine.Input.GetKeyDown(KeyCode.G))
+        {
+            debugMenu.SetActive(!debugMenu.activeSelf);
+        }
+        
         if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
         {
             if (AreYouSure.Instance != null && AreYouSure.Instance.IsOpen)
@@ -50,6 +57,8 @@ public class SettingsMenu : MonoBehaviour
                 CloseSettings();
             }
         }
+
+
     }
 
 

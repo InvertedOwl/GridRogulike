@@ -1,19 +1,13 @@
-using System;
 using System.Collections.Generic;
-using Entities;
-using Grid;
-using StateManager;
 using Cards.CardEvents;
-using Types.Statuses;
+using Entities;
 using UnityEngine;
-using UnityEngine.UI;
 using Util;
 
 namespace Cards.Actions
 {
     public class AttackFromSteps: AttackAction
     {
-        
         public override string Icon
         {
             get
@@ -21,48 +15,21 @@ namespace Cards.Actions
                 return "Damage4";
             }
         }
-        
-        protected string _direction;
-        public int Amount { get { return _amount; } set { _amount = value; } }
-        protected HexGridManager _grid;
-        public AttackFromSteps(int baseCost, string color, AbstractEntity entity, string direction, int distance) : base(baseCost, color, entity, direction, distance, 0)
-        {
-            this._amount = 0;
-            _grid = HexGridManager.Instance;
 
+        public AttackFromSteps(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity, 0)
+        {
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-            List<AbstractEntity> entities = new List<AbstractEntity>();
-            if (!String.IsNullOrEmpty(_direction) && _distance > 0)
-            {
-                playingState.EntitiesOnHex(HexGridManager.MoveHex(entity.positionRowCol, _direction, _distance), out entities);
-                bool containsFriend = false;
-                foreach (AbstractEntity e in entities)
-                {
-                    if (e.entityType == entity.entityType)
-                    {
-                        containsFriend = true;
-                    }
-                }
-
-                if (containsFriend)
-                {
-                    return new List<AbstractCardEvent>();
-                }
-            }
-
-            
-            return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, BattleStats.TilesMovedThisTurn * 5) };
+            return new List<AbstractCardEvent>();
         }
 
         public override List<AbstractCardEvent> Activate(CardPlayContext context)
         {
             int amount = BattleStats.TilesMovedThisTurn * 5;
             if (context?.Targets == null)
-                return new List<AbstractCardEvent> { new AttackCardEvent(_distance, _direction, amount) };
+                return new List<AbstractCardEvent>();
 
             if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
                 return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, amount, manual: false) };
@@ -73,24 +40,6 @@ namespace Cards.Actions
             return new List<AbstractCardEvent>();
         }
 
-        public string arrowUUID;
-        
-        public override void HoverOn()
-        {
-            Debug.Log("Hovering on attack actions");
-        }
-
-        public override void HoverOff()
-        {
-            Debug.Log("Hovering off attack actions");
-        }
-
-        public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)
-        {
-            GameObject basic = GameObject.Instantiate(tilePrefab, diagram.transform);
-            return new List<RectTransform> { basic.GetComponent<RectTransform>() };
-        }
-
         public override string GetText()
         {
             return "Deal damage equal to number of tiles moved this turn (0)";
@@ -98,14 +47,16 @@ namespace Cards.Actions
 
         public override string GetText(CardActionPreview preview)
         {
-            int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Damage, BattleStats.TilesMovedThisTurn * 5);
-            
-            return "Deal <sprite name=\"Damage4\"> equal to number of tiles moved this turn (" + preview.FormatValue("", BattleStats.TilesMovedThisTurn * 5, finalAmount) + ")";
+            int amount = BattleStats.TilesMovedThisTurn * 5;
+            int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Damage, amount);
+            return "Deal <sprite name=\"Damage4\"> equal to number of tiles moved this turn (" +
+                   preview.FormatValue("", amount, finalAmount) +
+                   ")";
         }
 
         public override string ToString()
         {
-            return "Attack " + this._distance + " " + FixDirection(this._direction) + " D:" + this._amount;
+            return "Attack From Steps";
         }
     }
 }

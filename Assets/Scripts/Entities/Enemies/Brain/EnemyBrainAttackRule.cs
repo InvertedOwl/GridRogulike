@@ -74,7 +74,7 @@ namespace Entities.Enemies
                 return false;
 
             return context.AddAction(
-                new AttackAction(baseCost, color, context.Self, direction, distance, damage)
+                new DirectionalAttackAction(baseCost, color, context.Self, direction, distance, damage)
             );
         }
 
@@ -92,7 +92,7 @@ namespace Entities.Enemies
                 return false;
 
             return context.AddAction(
-                new StatusAttackAction(
+                new DirectionalStatusAttackAction(
                     baseCost,
                     color,
                     context.Self,

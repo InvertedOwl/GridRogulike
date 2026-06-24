@@ -8,6 +8,20 @@ namespace StateManager
 {
     public class GameStateManager : MonoBehaviour
     {
+        private static readonly Dictionary<Type, string> StateIdsByType = new()
+        {
+            [typeof(MapState)] = "map",
+            [typeof(PlayingState)] = "playing",
+            [typeof(TilePickState)] = "tile_pick",
+            [typeof(ShopState)] = "shop",
+            [typeof(CampfireState)] = "campfire",
+            [typeof(EventState)] = "event",
+            [typeof(GameOverState)] = "game_over"
+        };
+
+        private static readonly Dictionary<string, Type> StateTypesById =
+            StateIdsByType.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
+
         public static GameStateManager Instance { get; private set; } = null!;
 
         private readonly Dictionary<Type, GameState> _states = new();
@@ -29,6 +43,55 @@ namespace StateManager
         public Type GetCurrentStateType()
         {
             return _current?.GetType();
+        }
+
+        public string GetCurrentStateId()
+        {
+            return TryGetStateId(GetCurrentStateType(), out string stateId) ? stateId : null;
+        }
+
+        public static bool TryGetStateId(Type stateType, out string stateId)
+        {
+            if (stateType == null)
+            {
+                stateId = null;
+                return false;
+            }
+
+            return StateIdsByType.TryGetValue(stateType, out stateId);
+        }
+
+        public static bool TryGetStateType(string stateId, out Type stateType)
+        {
+            if (string.IsNullOrWhiteSpace(stateId))
+            {
+                stateType = null;
+                return false;
+            }
+
+            return StateTypesById.TryGetValue(stateId, out stateType);
+        }
+
+        public static bool TryGetStateIdFromLegacyTypeName(string legacyTypeName, out string stateId)
+        {
+            stateId = null;
+            if (string.IsNullOrWhiteSpace(legacyTypeName))
+                return false;
+
+            foreach (KeyValuePair<Type, string> kvp in StateIdsByType)
+            {
+                Type stateType = kvp.Key;
+                if (legacyTypeName == stateType.FullName ||
+                    legacyTypeName == stateType.AssemblyQualifiedName ||
+                    legacyTypeName == stateType.Name)
+                {
+                    stateId = kvp.Value;
+                    return true;
+                }
+            }
+
+            Type resolvedType = Type.GetType(legacyTypeName);
+            return resolvedType != null && TryGetStateId(resolvedType, out stateId);
         }
 
         public void Awake ()
@@ -80,6 +143,7 @@ namespace StateManager
             _current = _states[typeof(T)];
             _current.enabled = true;
             SaveFile.currentJSON = SaveFile.ToJSON();
+            SaveGameObject.PersistCheckpoint();
             _current.Enter();
         }
         public T GetState<T>() where T : GameState =>

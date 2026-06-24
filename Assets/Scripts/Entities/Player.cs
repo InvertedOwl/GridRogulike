@@ -43,7 +43,12 @@ namespace Entities
             playingState.TriggerPlayerTileStart(positionRowCol, this);
 
             // Gain movement at start of turn
-            foreach (AbstractCardEvent cardEvent in ModifyEvents(new List<AbstractCardEvent> { new GainStepsCardEvent(1) }, false))
+            int stepsToGain = 1;
+            if (DebugStats.Enabled)
+            {
+                stepsToGain = 1000;
+            }
+            foreach (AbstractCardEvent cardEvent in ModifyEvents(new List<AbstractCardEvent> { new GainStepsCardEvent(stepsToGain) }, false))
             {
                 cardEvent.Activate(this);
             }

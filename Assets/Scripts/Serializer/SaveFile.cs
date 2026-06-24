@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cards;
+using Cards.CardList;
 using Entities;
 using Grid;
 using Map;
@@ -14,20 +15,25 @@ namespace Serializer
     [System.Serializable]
     public class SaveFile
     {
+        public const int CurrentVersion = 2;
+
+        public int version = CurrentVersion;
         public List<CardSaveData> deck;
         public RunInfoSaveData runInfo;
         public PlayingStateSaveData stateData;
         public PlayerSaveData player;
         public MapSaveData mapData;
         public MapData boardData;
+        public string stateId;
         public string currentGameState;
 
         private static JsonSerializerSettings settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.Auto,
-            Formatting = Formatting.Indented,
+            Formatting = Formatting.None,
             ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
-            PreserveReferencesHandling = PreserveReferencesHandling.All
+            PreserveReferencesHandling = PreserveReferencesHandling.All,
+            NullValueHandling = NullValueHandling.Ignore
         };
 
         public static string currentJSON;
@@ -55,9 +61,10 @@ namespace Serializer
 
             SaveFile saveFile = new SaveFile
             {
+                version = CurrentVersion,
                 deck = Deck.Instance.Cards.Select(CardSaveData.FromCard).ToList(),
                 runInfo = RunInfo.Instance.CaptureSaveData(),
-                currentGameState = GameStateManager.Instance.GetCurrentStateType()?.FullName,
+                stateId = GameStateManager.Instance.GetCurrentStateId(),
                 stateData = stateData,
                 player = Player.Instance.CaptureSaveData(),
                 mapData = MapState.Instance.GetSaveData(),
@@ -68,28 +75,16 @@ namespace Serializer
             return currentJSON;
         }
 
+        public static bool TryValidateJSON(string json, out string error)
+        {
+            return TryDeserializeAndValidate(json, out _, out error);
+        }
+
         public static Type FromJSON(string json)
         {
-            if (string.IsNullOrWhiteSpace(json))
+            if (!TryDeserializeAndValidate(json, out SaveFile saveFile, out string error))
             {
-                Debug.LogWarning("Save file is empty or whitespace.");
-                return null;
-            }
-
-            SaveFile saveFile;
-            try
-            {
-                saveFile = JsonConvert.DeserializeObject<SaveFile>(json, settings);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Failed to deserialize save file: {ex.Message}");
-                return null;
-            }
-
-            if (saveFile == null)
-            {
-                Debug.LogWarning("Save file deserialized to null.");
+                Debug.LogError($"Failed to load save file: {error}");
                 return null;
             }
 
@@ -109,24 +104,119 @@ namespace Serializer
             if (saveFile.player != null)
                 Player.Instance.RestoreFromSaveData(saveFile.player);
 
-            currentJSON = json;
+            currentJSON = JsonConvert.SerializeObject(saveFile, settings);
             GameState.SaveData = saveFile.stateData;
             MapState.mapSaveData = saveFile.mapData;
             HexGridManager.LoadFromSaveData(saveFile.boardData);
 
-            Type stateType = null;
-            if (!string.IsNullOrEmpty(saveFile.currentGameState))
-            {
-                Debug.Log("Loading state " + saveFile.currentGameState);
-                stateType = Type.GetType(saveFile.currentGameState);
+            GameStateManager.TryGetStateType(saveFile.stateId, out Type stateType);
+            Debug.Log("Loading state " + saveFile.stateId);
+            return stateType;
+        }
 
-                if (stateType == null)
+        private static bool TryDeserializeAndValidate(string json, out SaveFile saveFile, out string error)
+        {
+            saveFile = null;
+            error = null;
+
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                error = "Save file is empty or whitespace.";
+                return false;
+            }
+
+            try
+            {
+                saveFile = JsonConvert.DeserializeObject<SaveFile>(json, settings);
+            }
+            catch (Exception ex)
+            {
+                error = $"Save file JSON could not be deserialized: {ex.Message}";
+                return false;
+            }
+
+            if (saveFile == null)
+            {
+                error = "Save file deserialized to null.";
+                return false;
+            }
+
+            Migrate(saveFile);
+            return Validate(saveFile, out error);
+        }
+
+        private static void Migrate(SaveFile saveFile)
+        {
+            if (saveFile.version <= 0)
+            {
+                saveFile.version = 1;
+            }
+
+            if (string.IsNullOrWhiteSpace(saveFile.stateId) &&
+                GameStateManager.TryGetStateIdFromLegacyTypeName(saveFile.currentGameState, out string migratedStateId))
+            {
+                saveFile.stateId = migratedStateId;
+            }
+
+            if (saveFile.version < CurrentVersion)
+            {
+                saveFile.version = CurrentVersion;
+            }
+
+            saveFile.currentGameState = null;
+        }
+
+        private static bool Validate(SaveFile saveFile, out string error)
+        {
+            error = null;
+
+            if (saveFile.version > CurrentVersion)
+            {
+                error = $"Save version {saveFile.version} is newer than supported version {CurrentVersion}.";
+                return false;
+            }
+
+            if (!GameStateManager.TryGetStateType(saveFile.stateId, out _))
+            {
+                error = $"Save file has unknown state id '{saveFile.stateId}'.";
+                return false;
+            }
+
+            if (saveFile.runInfo == null)
+            {
+                error = "Save file is missing run info.";
+                return false;
+            }
+
+            if (saveFile.player == null)
+            {
+                error = "Save file is missing player data.";
+                return false;
+            }
+
+            if (saveFile.deck == null)
+            {
+                error = "Save file is missing deck data.";
+                return false;
+            }
+
+            foreach (CardSaveData card in saveFile.deck)
+            {
+                if (card == null)
                 {
-                    Debug.LogError($"Could not resolve game state type: {saveFile.currentGameState}");
+                    error = "Save file contains a null card entry.";
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(card.definitionId) ||
+                    !CardDefinitionRegistry.TryGetDefinition(card.definitionId, out _))
+                {
+                    error = $"Save file references unknown card definition '{card.definitionId}'.";
+                    return false;
                 }
             }
 
-            return stateType;
+            return true;
         }
     }
 }

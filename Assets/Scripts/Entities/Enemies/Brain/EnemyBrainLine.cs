@@ -61,7 +61,7 @@ namespace Entities.Enemies
                 if (!context.IsBoardPosition(attackTile))
                     break;
 
-                if (context.AddAction(new AttackAction(baseCost, color, context.Self, direction, distance, damage)))
+                if (context.AddAction(new DirectionalAttackAction(baseCost, color, context.Self, direction, distance, damage)))
                     added++;
 
                 if (context.IsAttackLineBlocked(attackTile))

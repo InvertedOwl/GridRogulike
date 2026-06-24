@@ -24,10 +24,10 @@ namespace Entities.Enemies
             if (action is MoveAction moveAction)
                 return CanExecuteMove(moveAction, self, state);
 
-            if (action is AttackAction attackAction)
+            if (action is DirectionalAttackAction attackAction)
                 return CanExecuteAttack(attackAction, self, state);
 
-            if (action is ApplyStatusToEntityAction applyStatusAction)
+            if (action is ApplyStatusToFixedEntityAction applyStatusAction)
                 return applyStatusAction.target != null && applyStatusAction.target.Health > 0;
 
             return true;
@@ -68,7 +68,7 @@ namespace Entities.Enemies
             return state.IsValidHex(targetPosition);
         }
 
-        private static bool CanExecuteAttack(AttackAction action, NonPlayerEntity self, PlayingState state)
+        private static bool CanExecuteAttack(DirectionalAttackAction action, NonPlayerEntity self, PlayingState state)
         {
             if (!HasClearLineToAttackDistance(self, state, action.Direction, action.Distance))
                 return false;

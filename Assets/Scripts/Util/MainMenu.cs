@@ -1,4 +1,4 @@
-using System.IO;
+using Serializer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,25 +22,13 @@ public class MainMenu : MonoBehaviour
     
     public void DeleteSave()
     {
-        string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
-
-        if (File.Exists(savePath))
-        {
-            File.Delete(savePath);
-            Debug.Log("Save file deleted: " + savePath);
-        }
-        else
-        {
-            Debug.Log("No save file to delete.");
-        }
-
+        SaveGameObject.DeleteSaveFiles();
         StaticResetManager.ResetRunStatics();
     }
 
     public void UpdateMainMenu()
     {
-        string savePath = Path.Combine(Application.persistentDataPath, "save1.json");
-        bool saveExists = File.Exists(savePath);
+        bool saveExists = SaveGameObject.HasValidSave();
 
         SetMenuGroupVisible(SaveExists, saveExists);
         SetMenuGroupVisible(SaveDoesntExist, !saveExists);

@@ -125,6 +125,7 @@ namespace StateManager
         private int _cardRestrictionVersion;
         private bool _playerMovementBlockedThisTurn;
         private bool _playerMovementBlockedThisCombat;
+        private RunInfo _subscribedRunInfo;
         private CameraMove _cameraMove;
         private readonly Dictionary<Vector2Int, TileCountdownRuntimeState> _tileCountdownStates = new();
         private List<TileCountdownSaveData> _loadedTileCountdownStates;
@@ -181,6 +182,7 @@ namespace StateManager
             ResetCombatTileTriggers();
             SpawnEncounterEnvironmentPassives();
             RunInfo.Instance.CurrentSteps = 0;
+            SubscribeToRunInfoEvents();
             _enemyPlanningPositions.Clear();
             SetupEntities();
             RebuildTurnOrder();
@@ -1511,6 +1513,7 @@ namespace StateManager
 
         public override void Exit()
         {
+            UnsubscribeFromRunInfoEvents();
             PlayWindowOutSound();
             SendCameraToBoardCenter();
             playingHealth.targetLocation = new Vector3(0, -600, 0);
@@ -1566,6 +1569,37 @@ namespace StateManager
             
             HexClickPlayerController.instance?.ClearMovableParticles();
             HexClickPlayerController.instance?.ClearPendingAttacks();
+        }
+
+        private void SubscribeToRunInfoEvents()
+        {
+            UnsubscribeFromRunInfoEvents();
+
+            _subscribedRunInfo = RunInfo.Instance;
+            if (_subscribedRunInfo != null)
+            {
+                _subscribedRunInfo.CurrentStepsChanged += HandleCurrentStepsChanged;
+            }
+        }
+
+        private void UnsubscribeFromRunInfoEvents()
+        {
+            if (_subscribedRunInfo != null)
+            {
+                _subscribedRunInfo.CurrentStepsChanged -= HandleCurrentStepsChanged;
+                _subscribedRunInfo = null;
+            }
+        }
+
+        private void HandleCurrentStepsChanged(int previousSteps, int currentSteps)
+        {
+            if (!IsMovePhaseActive || !AllowUserInput)
+                return;
+
+            if (HexClickPlayerController.instance != null && !HexClickPlayerController.instance.isMoving)
+            {
+                HexClickPlayerController.instance.UpdateMovableParticles(this);
+            }
         }
 
         private void SendCameraToBoardCenter()
@@ -2036,6 +2070,82 @@ namespace StateManager
                 return true;
 
             return ent.StatusesBlockMovement(Mathf.Max(1, distance));
+        }
+
+        public bool SwapEntities(AbstractEntity first, AbstractEntity second)
+        {
+            if (first == null ||
+                second == null ||
+                first == second ||
+                first.Health <= 0 ||
+                second.Health <= 0)
+            {
+                return false;
+            }
+
+            Vector2Int firstPosition = first.positionRowCol;
+            Vector2Int secondPosition = second.positionRowCol;
+            if (firstPosition == secondPosition)
+                return false;
+
+            if (!IsBoardHex(firstPosition) || !IsBoardHex(secondPosition))
+                return false;
+
+            if (HasOtherLiveEntityOnHex(firstPosition, first, second) ||
+                HasOtherLiveEntityOnHex(secondPosition, first, second))
+            {
+                return false;
+            }
+
+            if (IsMovementBlocked(first, 1) || IsMovementBlocked(second, 1))
+                return false;
+
+            first.MoveEntity(secondPosition);
+            second.MoveEntity(firstPosition);
+
+            QueueEnemyIntentRefreshAfterMove(first);
+            QueueEnemyIntentRefreshAfterMove(second);
+
+            RecordPlayerSwapMove(first, secondPosition);
+            RecordPlayerSwapMove(second, firstPosition);
+            Deck.Instance?.MarkPlayabilityDirty();
+
+            return true;
+        }
+
+        private bool IsBoardHex(Vector2Int coords)
+        {
+            return _grid != null && _grid.HexType(coords) != "none";
+        }
+
+        private bool HasOtherLiveEntityOnHex(Vector2Int coords, AbstractEntity first, AbstractEntity second)
+        {
+            if (!EntitiesOnHex(coords, out List<AbstractEntity> entitiesOnHex))
+                return false;
+
+            foreach (AbstractEntity entity in entitiesOnHex)
+            {
+                if (entity != null &&
+                    entity.Health > 0 &&
+                    entity != first &&
+                    entity != second)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void RecordPlayerSwapMove(AbstractEntity entity, Vector2Int target)
+        {
+            if (entity == null || entity.entityType != EntityType.Player)
+                return;
+
+            PlayerMovesThisTurn += 1;
+            TriggerPlayerTileLand(target, entity);
+            BattleStats.TilesMovedThisBattle += 1;
+            BattleStats.TilesMovedThisTurn += 1;
         }
         
         public bool MoveEntity(AbstractEntity ent, Vector2Int target)

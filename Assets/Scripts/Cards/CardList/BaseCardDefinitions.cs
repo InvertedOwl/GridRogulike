@@ -4,6 +4,10 @@ using Types;
 
 namespace Cards.CardList
 {
+
+
+
+    // -- Developer cards --
     [CardDefinition("DeveloperAttack")]
     [StartingDeck(StartingDecks.developer, 2)]
     public sealed class DeveloperAttackDefinition : CardDefinition
@@ -16,18 +20,6 @@ namespace Cards.CardList
         public override List<AbstractAction> BuildActions() => Actions(new AttackAllAction(0, "basic", null, 1000));
     }
 
-    [CardDefinition("DeveloperSteps")]
-    [StartingDeck(StartingDecks.developer, 2)]
-    public sealed class DeveloperStepsDefinition : CardDefinition
-    {
-        public override string DisplayName => "Developer Steps";
-        public override Rarity Rarity => Rarity.Developer;
-        public override CardSet CardSet => CardSet.Developer;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(new GainStepsCardAction(0, "basic", null, 1000));
-    }
-
     [CardDefinition("DeveloperPush")]
     [StartingDeck(StartingDecks.developer, 2)]
     public sealed class DeveloperPushDefinition : CardDefinition
@@ -35,7 +27,7 @@ namespace Cards.CardList
         public override string DisplayName => "Developer Push";
         public override Rarity Rarity => Rarity.Developer;
         public override CardSet CardSet => CardSet.Developer;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override bool CanShowInShop => false;
         public override List<AbstractAction> BuildActions() => Actions(new PushAllEnemiesAwayAction(0, "basic", null, 1000));
     }
@@ -47,11 +39,17 @@ namespace Cards.CardList
         public override string DisplayName => "Developer Shield";
         public override Rarity Rarity => Rarity.Developer;
         public override CardSet CardSet => CardSet.Developer;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override bool CanShowInShop => false;
         public override List<AbstractAction> BuildActions() => Actions(new ShieldAction(0, "basic", null, 1000));
     }
 
+
+
+
+
+    // -- Attack cards --
+    // Common
     [CardDefinition("Quick Strike")]
     [StartingDeck(StartingDecks.basic, 4)]
     public sealed class QuickStrikeDefinition : CardDefinition
@@ -61,7 +59,7 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(1, "basic", null, "", 1, 6));
+        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(1, "basic", null, 6));
     }
 
     [CardDefinition("Heavy Strike")]
@@ -71,7 +69,7 @@ namespace Cards.CardList
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
-        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(1, "basic", null, "", 1, 9));
+        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(1, "basic", null, 9));
     }
 
     [CardDefinition("Lance")]
@@ -81,7 +79,7 @@ namespace Cards.CardList
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 2);
-        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(2, "basic", null, "", 2, 6));
+        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(2, "basic", null, 6));
     }
 
     [CardDefinition("Sweep")]
@@ -100,7 +98,7 @@ namespace Cards.CardList
         public override string DisplayName => "Close Sweep";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new AttackRadiusAction(1, "basic", null, 1, 8));
     }
 
@@ -112,10 +110,11 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(1, "basic", null, "", 1, 2),
-            new ApplyStatusToEntityAction(0, "basic", null, null, StatusApplicationType.Dizzy, 2));
+            new AttackAction(1, "basic", null, 2),
+            new ApplyStatusToEntityAction(0, "basic", null, StatusApplicationType.Dizzy, 2));
     }
 
+    // Uncommon
     [CardDefinition("Slash")]
     public sealed class SlashDefinition : CardDefinition
     {
@@ -124,7 +123,7 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(1, "basic", null, "", 1, 8),
+            new AttackAction(1, "basic", null, 8),
             new AttackRadiusAction(1, "basic", null, 1, 4));
     }
 
@@ -136,7 +135,7 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(1, "basic", null, "", 1, 12),
+            new AttackAction(1, "basic", null, 12),
             new MoveRandomAction(0, "basic", null));
     }
 
@@ -148,7 +147,7 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(1, "basic", null, "", 1, 7),
+            new AttackAction(1, "basic", null, 7),
             new PushEnemyAwayAction(1, "basic", null, 1));
     }
 
@@ -160,18 +159,8 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(0, "basic", null, "", 1, 4),
+            new AttackAction(0, "basic", null, 4),
             new FirstCardEnergyCardAction(0, "basic", null, 1));
-    }
-
-    [CardDefinition("Energetic Strike")]
-    public sealed class EnergeticStrikeDefinition : CardDefinition
-    {
-        public override string DisplayName => "Energetic Strike";
-        public override Rarity Rarity => Rarity.Uncommon;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
-        public override List<AbstractAction> BuildActions() => Actions(new AttackFromSteps(1, "basic", null, "", 1));
     }
 
     [CardDefinition("Reaching Guard")]
@@ -180,12 +169,13 @@ namespace Cards.CardList
         public override string DisplayName => "Reaching Guard";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new ShieldAction(1, "basic", null, 5),
             new RangedSelfAction(1, "", null, 1));
     }
 
+    // Rare
     [CardDefinition("Cleaver")]
     public sealed class CleaverDefinition : CardDefinition
     {
@@ -204,7 +194,7 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(1, "basic", null, "", 1, 8),
+            new AttackAction(1, "basic", null, 8),
             new PushAllEnemiesAwayAction(0, "basic", null, 1));
     }
 
@@ -215,7 +205,7 @@ namespace Cards.CardList
         public override Rarity Rarity => Rarity.Rare;
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 2);
-        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(2, "basic", null, "", 2, 18));
+        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(2, "basic", null, 18));
     }
 
     [CardDefinition("Execution")]
@@ -226,10 +216,15 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(2, "basic", null, "", 1, 24),
+            new AttackAction(2, "basic", null, 24),
             new GainEnergyIfPreviousEventDefeatedEnemyAction(2, "basic", null, 2));
     }
 
+
+
+
+    // -- Block cards --
+    // Common
     [CardDefinition("Guard")]
     [StartingDeck(StartingDecks.basic, 4)]
     public sealed class GuardDefinition : CardDefinition
@@ -237,7 +232,7 @@ namespace Cards.CardList
         public override string DisplayName => "Guard";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override bool CanShowInShop => false;
         public override List<AbstractAction> BuildActions() => Actions(new ShieldAction(1, "basic", null, 6));
     }
@@ -248,7 +243,7 @@ namespace Cards.CardList
         public override string DisplayName => "Reinforce";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new ShieldAction(1, "basic", null, 9));
     }
 
@@ -258,7 +253,7 @@ namespace Cards.CardList
         public override string DisplayName => "Delayed Block";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new DelayedShieldAction(1, "basic", null, 18));
     }
 
@@ -268,7 +263,7 @@ namespace Cards.CardList
         public override string DisplayName => "Heavy Guard";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new ShieldAction(2, "basic", null, 22));
     }
 
@@ -278,7 +273,7 @@ namespace Cards.CardList
         public override string DisplayName => "Drunken Guard";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new ShieldAction(1, "basic", null, 14),
             new MoveRandomAction(1, "basic", null));
@@ -290,12 +285,13 @@ namespace Cards.CardList
         public override string DisplayName => "Great Root";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new ShieldAction(1, "basic", null, 20),
             new RootSelfAction(0, "basic", null));
     }
 
+    // Uncommon
     [CardDefinition("Shield Burst")]
     public sealed class ShieldBurstDefinition : CardDefinition
     {
@@ -314,7 +310,7 @@ namespace Cards.CardList
         public override string DisplayName => "Repel";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new ShieldAction(1, "basic", null, 8),
             new PushNearbyEnemiesAwayAction(1, "basic", null, 1));
@@ -326,7 +322,7 @@ namespace Cards.CardList
         public override string DisplayName => "Spiked Shield";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new ShieldAction(1, "basic", null, 14),
             new AttackRadiusAction(1, "basic", null, 1, 3));
@@ -338,17 +334,18 @@ namespace Cards.CardList
         public override string DisplayName => "Turtle";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new ShieldIfNoMoveAction(1, "basic", null, 24));
     }
 
+    // Rare
     [CardDefinition("Double Double")]
     public sealed class DoubleDoubleDefinition : CardDefinition
     {
         public override string DisplayName => "Double Double";
         public override Rarity Rarity => Rarity.Rare;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new DoubleShieldAction(1, "basic", null));
     }
 
@@ -358,7 +355,7 @@ namespace Cards.CardList
         public override string DisplayName => "Capitalism";
         public override Rarity Rarity => Rarity.Rare;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new GainShieldForMoneyAction(1, "basic", null));
     }
 
@@ -368,7 +365,7 @@ namespace Cards.CardList
         public override string DisplayName => "Iron Fortress";
         public override Rarity Rarity => Rarity.Rare;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new ShieldAction(1, "basic", null, 120),
             new ShieldCarryoverStatusSelfAction(0, "basic", null, 10),
@@ -393,135 +390,54 @@ namespace Cards.CardList
         public override string DisplayName => "Bullish";
         public override Rarity Rarity => Rarity.Rare;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new TripleShieldAction(1, "basic", null),
             new LoseQuarterMoneyAction(0, "basic", null));
     }
 
-    [CardDefinition("Step")]
-    public sealed class StepDefinition : CardDefinition
-    {
-        public override string DisplayName => "Step";
-        public override Rarity Rarity => Rarity.Common;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(new GainStepsCardAction(2, "basic", null, 1));
-    }
 
-    [CardDefinition("Careful Step")]
-    public sealed class CarefulStepDefinition : CardDefinition
-    {
-        public override string DisplayName => "Careful Step";
-        public override Rarity Rarity => Rarity.Common;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(
-            new GainStepsCardAction(1, "basic", null, 1),
-            new DrawCardAction(1, "basic", null, 1));
-    }
 
-    [CardDefinition("Sprint")]
-    public sealed class SprintDefinition : CardDefinition
-    {
-        public override string DisplayName => "Sprint";
-        public override Rarity Rarity => Rarity.Common;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(
-            new GainStepsCardAction(1, "basic", null, 2),
-            new DiscardHandAction(0, "basic", null));
-    }
 
+    // -- Step cards --
+    // Common
     [CardDefinition("Retreat")]
     public sealed class RetreatDefinition : CardDefinition
     {
         public override string DisplayName => "Retreat";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override bool CanShowInShop => false;
+
         public override List<AbstractAction> BuildActions() => Actions(
-            new GainStepsCardAction(1, "basic", null, 2),
-            new BlockAttackingForTurnAction(1, "basic", null));
+            new PushPlayerAwayFromTargetAction(1, "basic", null, 1));
     }
 
-    [CardDefinition("Quick Step")]
-    public sealed class QuickStepDefinition : CardDefinition
-    {
-        public override string DisplayName => "Quick Step";
-        public override Rarity Rarity => Rarity.Uncommon;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(new GainStepsCardAction(1, "basic", null, 1));
-    }
-
-    [CardDefinition("Overextend")]
-    public sealed class OverextendDefinition : CardDefinition
-    {
-        public override string DisplayName => "Overextend";
-        public override Rarity Rarity => Rarity.Uncommon;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override List<AbstractAction> BuildActions() => Actions(
-            new GainStepsCardAction(1, "basic", null, 4),
-            new DamageSelfAction(1, "basic", null, 6));
-    }
-
-    [CardDefinition("Crowded")]
-    public sealed class CrowdedDefinition : CardDefinition
-    {
-        public override string DisplayName => "Crowded";
-        public override Rarity Rarity => Rarity.Uncommon;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override List<AbstractAction> BuildActions() => Actions(new GainStepsForNearbyEnemiesAction(1, "basic", null));
-    }
-
+    // Uncommon
     [CardDefinition("Homesick")]
     public sealed class HomesickDefinition : CardDefinition
     {
         public override string DisplayName => "Homesick";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new TeleportToStartingTileAction(1, "basic", null));
     }
 
-    [CardDefinition("Book It")]
-    public sealed class BookItDefinition : CardDefinition
-    {
-        public override string DisplayName => "Book It";
-        public override Rarity Rarity => Rarity.Rare;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(
-            new GainStepsCardAction(1, "basic", null, 4),
-            new BlockShieldingForTurnAction(1, "basic", null));
-    }
 
-    [CardDefinition("Combo")]
-    public sealed class ComboDefinition : CardDefinition
-    {
-        public override string DisplayName => "Combo";
-        public override Rarity Rarity => Rarity.Rare;
-        public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
-        public override List<AbstractAction> BuildActions() => Actions(new GainStepsForCardsPlayedThisTurnAction(2, "basic", null));
-    }
 
+
+
+    // -- Draw and resource cards --
+    // Common
     [CardDefinition("Messy Draw")]
     public sealed class MessyDrawDefinition : CardDefinition
     {
         public override string DisplayName => "Messy Draw";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new DiscardCardsAction(0, "basic", null, 1),
             new DrawCardAction(1, "basic", null, 2));
@@ -533,7 +449,7 @@ namespace Cards.CardList
         public override string DisplayName => "Reset Button";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new DiscardHandAction(0, "basic", null),
             new DrawCardAction(1, "basic", null, 3),
@@ -546,7 +462,7 @@ namespace Cards.CardList
         public override string DisplayName => "Toss";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new DiscardCardsAction(1, "basic", null, 2),
             new DrawCardAction(1, "basic", null, 4));
@@ -558,19 +474,20 @@ namespace Cards.CardList
         public override string DisplayName => "Moment";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new GainEnergyAction(1, "basic", null, 2),
             new DamageSelfAction(0, "basic", null, 5));
     }
 
+    // Uncommon
     [CardDefinition("Quick Draw")]
     public sealed class QuickDrawDefinition : CardDefinition
     {
         public override string DisplayName => "Quick Draw";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(
             new RaiseCostAction(0, "basic", null),
             new DrawCardAction(0, "basic", null, 3));
@@ -582,7 +499,7 @@ namespace Cards.CardList
         public override string DisplayName => "Power Surge";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public override TargetDefinition TargetDefinition => TargetDefinition.None;
         public override List<AbstractAction> BuildActions() => Actions(new GainEnergyAction(5, "basic", null, 6));
     }
 }

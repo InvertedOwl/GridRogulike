@@ -11,6 +11,7 @@ using Random = System.Random;
 public class RunInfo : MonoBehaviour
 {
     public static RunInfo Instance;
+    public event Action<int, int> CurrentStepsChanged;
     
     public List<TextMeshProUGUI> energyText;
     public List<TextMeshProUGUI> moneyText;
@@ -27,8 +28,14 @@ public class RunInfo : MonoBehaviour
         get => _currentSteps;
         set
         {
+            int previousSteps = _currentSteps;
             _currentSteps = value;
             UpdateStepsText();
+
+            if (previousSteps != _currentSteps)
+            {
+                CurrentStepsChanged?.Invoke(previousSteps, _currentSteps);
+            }
         }
     }
     

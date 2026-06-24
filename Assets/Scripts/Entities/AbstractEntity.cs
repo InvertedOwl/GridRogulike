@@ -310,7 +310,7 @@ namespace Entities
                 
                 foreach (AbstractAction action in plannedAction)
                 {
-                    if (action is AttackAction attackAction)
+                    if (action is DirectionalAttackAction attackAction)
                     {
                         Vector2Int targetHexPos = HexGridManager.MoveHex(positionRowCol, attackAction.Direction,
                             attackAction.Distance);

@@ -52,7 +52,7 @@ namespace Entities.Enemies
             if (action == null || Self == null)
                 return false;
 
-            if (action is AttackAction attackAction &&
+            if (action is DirectionalAttackAction attackAction &&
                 TryResolveAttackTarget(attackAction, SimulatedPosition, out Vector2Int attackTarget) &&
                 TryHandleDuplicateAttackOnTarget(attackAction, attackTarget, out bool plannedAttack))
             {
@@ -67,7 +67,7 @@ namespace Entities.Enemies
         }
 
         private bool TryHandleDuplicateAttackOnTarget(
-            AttackAction newAttack,
+            DirectionalAttackAction newAttack,
             Vector2Int newTarget,
             out bool plannedAttack)
         {
@@ -75,7 +75,7 @@ namespace Entities.Enemies
 
             for (int i = 0; i < PlannedActions.Count; i++)
             {
-                if (PlannedActions[i] is not AttackAction existingAttack)
+                if (PlannedActions[i] is not DirectionalAttackAction existingAttack)
                     continue;
 
                 if (!ActionSourcePositions.TryGetValue(existingAttack, out Vector2Int existingSource))
@@ -103,7 +103,7 @@ namespace Entities.Enemies
         }
 
         private bool TryResolveAttackTarget(
-            AttackAction attack,
+            DirectionalAttackAction attack,
             Vector2Int source,
             out Vector2Int target)
         {
