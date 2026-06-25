@@ -516,9 +516,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
             bool clickHasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride>-1)?CostOverride:_card.Cost);
             bool clickIsPlayerTurn = isPlayingState && playingState.CanPlayerPlayCards;
-            bool clickCanPlayByRestrictions = CanPlayByRestrictions(out _);
+            bool clickCanPlayByRules = CanPlayByRules(out _) && HasPlayableTarget();
 
-            if (played || !clickHasEnoughEnergy || !clickIsPlayerTurn || !clickCanPlayByRestrictions)
+            if (played || !clickHasEnoughEnergy || !clickIsPlayerTurn || !clickCanPlayByRules)
                 return;
 
             if (!wasUsed)
@@ -538,9 +538,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         bool hasEnoughEnergy = RunInfo.Instance.CurrentEnergy >= ((CostOverride > -1) ? CostOverride : _card.Cost);
         bool isPlayerTurn = isPlayingState && playingState.CanPlayerPlayCards;
-        bool canPlayByRestrictions = CanPlayByRestrictions(out _);
+        bool canPlayByRules = CanPlayByRules(out _) && HasPlayableTarget();
 
-        if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRestrictions)
+        if (isLeftClick && !played && hasEnoughEnergy && isPlayerTurn && canPlayByRules)
         {
             if (TryPlayFromCardClick())
             {
@@ -651,7 +651,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CanPlayerPlayCards;
 
-        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
+        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRules(out _))
         {
             CancelTargeting();
             return false;
@@ -725,7 +725,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CanPlayerPlayCards;
 
-        if (!hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
+        if (!hasEnoughEnergy || !isPlayerTurn || !CanPlayByRules(out _))
         {
             attackCardEvents = new List<AttackCardEvent>();
             CancelManualAttackTargeting();
@@ -743,7 +743,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             isPlayerTurn = playing.CanPlayerPlayCards;
 
-        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRestrictions(out _))
+        if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRules(out _))
             return false;
 
         PlayCard(TargetSelection.Empty(_card.TargetDefinition));
@@ -926,6 +926,25 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public bool CanPlayByRestrictions(out string blockedReason)
     {
         return CardPlayRestrictionSystem.CanPlay(this, out blockedReason);
+    }
+
+    public bool CanPlayByCardRule()
+    {
+        return _card.CanPlayRule == null || _card.CanPlayRule(_card);
+    }
+
+    public bool CanPlayByRules(out string blockedReason)
+    {
+        if (!CanPlayByRestrictions(out blockedReason))
+            return false;
+
+        if (!CanPlayByCardRule())
+        {
+            blockedReason = "";
+            return false;
+        }
+
+        return true;
     }
 
     public bool HasPlayableTarget()

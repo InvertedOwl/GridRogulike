@@ -142,7 +142,7 @@ public class Deck : MonoBehaviour
                !card.played &&
                !card.IsResolvingManualAttack &&
                !IsCardTooExpensive(card) &&
-               !IsCardBlockedByRestriction(card) &&
+               !IsCardBlockedByRule(card) &&
                card.HasPlayableTarget();
     }
 
@@ -175,9 +175,9 @@ public class Deck : MonoBehaviour
                (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost) > RunInfo.Instance.CurrentEnergy;
     }
 
-    private bool IsCardBlockedByRestriction(CardMonobehaviour card)
+    private bool IsCardBlockedByRule(CardMonobehaviour card)
     {
-        return card != null && !card.CanPlayByRestrictions(out _);
+        return card != null && !card.CanPlayByRules(out _);
     }
 
     public void SetHandToUnused()

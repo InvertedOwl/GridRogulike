@@ -62,7 +62,7 @@ namespace Types.Tiles
         public Func<List<AbstractCardEvent>, TileContext, List<AbstractCardEvent>> incomingEventModifier;
         public string name;
         public string description;
-        public Color color;
+        public TileSetEnum color;
         public bool canAppearInShop;
         public Rarity rarity;
         public TileType tileType;
@@ -72,7 +72,7 @@ namespace Types.Tiles
         public TileCountdownEffect countdownEffect;
         public PairedTilesEntry pairedTilesEntry;
 
-        public TileEntry(string name, string description, Color color, bool canAppearInShop, Rarity rarity, TileType tileType,
+        public TileEntry(string name, string description, TileSetEnum color, bool canAppearInShop, Rarity rarity, TileType tileType,
             Func<List<AbstractCardEvent>, Card, TileContext, List<AbstractCardEvent>> cardModifier,
             Dictionary<TriggerEventTime, Func<TileContext, List<AbstractCardEvent>>> triggerEvents,
             PairedTilesEntry pairedTilesEntry = null,

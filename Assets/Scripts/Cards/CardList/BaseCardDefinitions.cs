@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cards.Actions;
+using Util;
 using Types;
 
 namespace Cards.CardList
@@ -335,6 +336,7 @@ namespace Cards.CardList
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => TargetDefinition.None;
+        public override System.Func<Card, bool> CanPlayRule => card => BattleStats.TilesMovedThisBattle == 0;
         public override List<AbstractAction> BuildActions() => Actions(new ShieldIfNoMoveAction(1, "basic", null, 24));
     }
 
@@ -493,13 +495,14 @@ namespace Cards.CardList
             new DrawCardAction(0, "basic", null, 3));
     }
 
+    // Rare
     [CardDefinition("Power Surge")]
     public sealed class PowerSurgeDefinition : CardDefinition
     {
         public override string DisplayName => "Power Surge";
-        public override Rarity Rarity => Rarity.Uncommon;
+        public override Rarity Rarity => Rarity.Rare;
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => TargetDefinition.None;
-        public override List<AbstractAction> BuildActions() => Actions(new GainEnergyAction(5, "basic", null, 6));
+        public override List<AbstractAction> BuildActions() => Actions(new GainEnergyAction(5, "basic", null, 7));
     }
 }

@@ -37,6 +37,7 @@ namespace Cards.CardList
         public abstract Rarity Rarity { get; }
         public abstract CardSet CardSet { get; }
         public virtual TargetDefinition TargetDefinition => Cards.CardList.TargetDefinition.None;
+        public virtual Func<Card, bool> CanPlayRule => null;
         public virtual bool CanShowInShop => true;
 
         public abstract List<AbstractAction> BuildActions();
@@ -51,7 +52,8 @@ namespace Cards.CardList
                 CardSet,
                 TargetDefinition.Copy(),
                 true,
-                uniqueId);
+                uniqueId,
+                CanPlayRule);
         }
 
         public StartingDeckEntry[] GetStartingDeckEntries()

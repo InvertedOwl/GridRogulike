@@ -21,7 +21,7 @@ namespace Types.Tiles
             ["Foresight"] = new (
                 "Foresight",
                 "<b><u>On enter:</u></b> Look at the top 3 random cards in your draw pile. Draw one.",
-                HexColorUtility.HexToColor("#8E44AD"),
+                TileSetEnum.Purple,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -39,7 +39,7 @@ namespace Types.Tiles
             ["Stumble"] = new (
                 "Stumble",
                 "<b><u>On enter:</u></b> Once per turn gain 2 <sprite name=\"footsteps\">, move in a random direction.",
-                HexColorUtility.HexToColor("#16A085"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -52,12 +52,12 @@ namespace Types.Tiles
                         new RandomMoveCardEvent(1, context.GetRandom("randomdir"))
                     }
                 },
-                icon: "stumble", triggerLimit: TileTriggerLimit.OncePerTurn),
+                icon: "stumblee", triggerLimit: TileTriggerLimit.OncePerTurn),
 
             ["Refund"] = new (
                 "Refund",
                 "<b><u>Once per turn:</u></b> When you play a card costing 2+ <sprite name=\"energyicon\"> here, gain 1 <sprite name=\"energyicon\">.",
-                HexColorUtility.HexToColor("#2ECC71"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -79,7 +79,7 @@ namespace Types.Tiles
             ["Stride"] = new (
                 "Stride",
                 "<b><u>On enter:</u></b> Draw cards equal to tiles moved this turn.",
-                HexColorUtility.HexToColor("#3498DB"),
+                TileSetEnum.Purple,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -96,7 +96,7 @@ namespace Types.Tiles
             ["Cornered"] = new (
                 "Cornered",
                 "<b><u>On enter:</u></b> Gain 5 <sprite name=\"shield\"> for each adjacent enemy.",
-                HexColorUtility.HexToColor("#2471A3"),
+                TileSetEnum.Blue,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -129,7 +129,7 @@ namespace Types.Tiles
             ["HeadStart"] = new (
                 "Head Start",
                 "<b><u>Start turn here:</u></b> Gain 1 <sprite name=\"footsteps\">.",
-                HexColorUtility.HexToColor("#1ABC9C"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -149,7 +149,7 @@ namespace Types.Tiles
             ["Momentum"] = new (
                 "Momentum",
                 "<b><u>Played cards:</u></b> Deal 1 additional damage for each tile moved this combat.",
-                HexColorUtility.HexToColor("#2874A6"),
+                TileSetEnum.Red,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -173,7 +173,7 @@ namespace Types.Tiles
             ["Stacked"] = new (
                 "Stacked",
                 "<b><u>Played cards:</u></b> When drawing more cards, draw 1 extra.",
-                HexColorUtility.HexToColor("#5DADE2"),
+                TileSetEnum.Purple,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -196,7 +196,7 @@ namespace Types.Tiles
             ["RestlessStep"] = new (
                 "Restless Step",
                 "<b><u>On enter:</u></b> Gain 1 <sprite name=\"footsteps\">. You must move before playing cards.",
-                HexColorUtility.HexToColor("#16A085"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -217,7 +217,7 @@ namespace Types.Tiles
             ["Ignite"] = new (
                 "Ignite",
                 "<b><u>On enter:</u></b> Gain 1 <sprite name=\"energyicon\">. A random card in your hand gains Burning,",
-                HexColorUtility.HexToColor("#E74C3C"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -238,7 +238,7 @@ namespace Types.Tiles
             ["Countdown"] = new (
                 "Countdown",
                 "<b><u>Counts down.</u></b>  At 0, deal 60 <sprite name=\"damage4\"> to anything here.",
-                HexColorUtility.HexToColor("#C0392B"),
+                TileSetEnum.Red,
                 true,
                 Rarity.Common,
                 TileType.Bad,
@@ -257,7 +257,7 @@ namespace Types.Tiles
             ["BloodyBattery"] = new (
                 "Bloody Battery",
                 "<b><u>On enter:</u></b> Gain 1 <sprite name=\"energyicon\"> and take 5 <sprite name=\"damage4\">.",
-                HexColorUtility.HexToColor("#27AE60"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -278,7 +278,7 @@ namespace Types.Tiles
             ["HouseEdge"] = new (
                 "House Edge",
                 "<b><u>Played Cards:</u></b> 25% chance to play it twice, 75% to not play.",
-                HexColorUtility.HexToColor("#9B59B6"),
+                TileSetEnum.Purple,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -306,7 +306,7 @@ namespace Types.Tiles
             ["GlassEdge"] = new (
                 "Glass Edge",
                 "<b><u>Played Cards:</u></b> Double attack damage from this tile, but increase damage received by 50%.",
-                HexColorUtility.HexToColor("#C0392B"),
+                TileSetEnum.Red,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -345,7 +345,7 @@ namespace Types.Tiles
             ["LoanShark"] = new (
                 "Loan Shark",
                 "<b><u>On enter:</u></b> Gain $5.\n<b><u>End turn here:</u></b> Lose $7.",
-                HexColorUtility.HexToColor("#27AE60"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -395,7 +395,7 @@ namespace Types.Tiles
             ["RecklessStrike"] = new (
                 "Reckless Strike",
                 "<b><u>Played cards:</u></b> Deal double <sprite name=\"damage4\">. You cannot gain <sprite name=\"shield\">.",
-                HexColorUtility.HexToColor("#E67E22"),
+                TileSetEnum.Red,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -422,7 +422,7 @@ namespace Types.Tiles
             ["Overcharge"] = new (
                 "Overcharge",
                 "<b><u>On enter:</u></b> Gain 2 <sprite name=\"energyicon\">.\n<b><u>End turn here:</u></b> Take <sprite name=\"damage4\"> equal to 5x current <sprite name=\"energyicon\">.",
-                HexColorUtility.HexToColor("#229954"),
+                TileSetEnum.Green,
                 true,
                 Rarity.Common,
                 TileType.Good,
@@ -449,7 +449,7 @@ namespace Types.Tiles
             ["basic"] = new (
                 "Basic",
                 "No effect.",
-                HexColorUtility.HexToColor("#375166"),
+                TileSetEnum.Unchanged,
                 false,
                 Rarity.Common,
                 TileType.Good,
@@ -459,7 +459,7 @@ namespace Types.Tiles
             ["start"] = new (
                 "Start",
                 "Starting tile.",
-                new Color(173.0f/255.0f,173.0f/255.0f,173.0f/255.0f),
+                TileSetEnum.System,
                 false,
                 Rarity.Common,
                 TileType.Good,

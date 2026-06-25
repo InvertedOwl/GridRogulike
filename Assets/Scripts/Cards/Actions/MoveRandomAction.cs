@@ -61,7 +61,7 @@ namespace Cards.Actions
 
                 possibleTile.GetComponent<RectTransform>().localPosition = tileWorldPosition;
                 Image tileImage = possibleTile.GetComponent<Image>();
-                tileImage.color = TileData.tiles["basic"].color;
+                tileImage.color = TileData.tiles["basic"].color.ToColor();
                 tileImage.color = new Color(tileImage.color.r, tileImage.color.g, tileImage.color.b, 0.45f);
 
                 elements.Add(possibleTile.GetComponent<RectTransform>());

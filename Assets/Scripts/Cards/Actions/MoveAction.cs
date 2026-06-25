@@ -75,7 +75,7 @@ namespace Cards.Actions
             Vector2 newPosWorldT = HexGridManager.GetHexCenter(newPosT.x, newPosT.y) * 46.2222f;
 
             basic.GetComponent<RectTransform>().localPosition = newPosWorldT;
-            basic.GetComponent<Image>().color = TileData.tiles["basic"].color;
+            basic.GetComponent<Image>().color = TileData.tiles["basic"].color.ToColor();
 
             GameObject move = GameObject.Instantiate(arrowPrefab, diagram.transform);
             move.GetComponent<ArrowController>().SetHeight(40 * this.Distance);

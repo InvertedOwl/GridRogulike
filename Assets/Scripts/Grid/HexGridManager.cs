@@ -45,6 +45,10 @@ namespace Grid
         public static HexGridManager Instance;
         private static MapData _saveData;
         private readonly Dictionary<Transform, Vector3> _tileBaseScales = new Dictionary<Transform, Vector3>();
+        private const float BasicTileEnvironmentSaturationScale = 0.65f;
+        private const float BasicTileEnvironmentMinimumSaturation = 0.35f;
+        private const float BasicTileEnvironmentValueBoost = 0.07f;
+        private const float BasicTileEnvironmentMinimumValue = 0.22f;
         
         public SpriteDatabase spriteDatabase;
 
@@ -367,7 +371,7 @@ namespace Grid
 
         public void UpdateHexObject(TileEntry entry, GameObject tile)
         {
-            Color color = SpawnBG.RandomizeColor(entry.color, 0.001f, 0.01f, 0.05f);
+            Color color = SpawnBG.RandomizeColor(entry.color.ToColor(), 0.001f, 0.01f, 0.05f);
 
             GOList goList = tile.GetComponentInChildren<GOList>();
 
@@ -543,8 +547,10 @@ namespace Grid
         {
             Color.RGBToHSV(backgroundColor, out float h, out float s, out float v);
 
-            s = Mathf.Clamp01(s * 0.25f);
-            v = Mathf.Clamp01(v + 0.12f);
+            if (s > 0.05f)
+                s = Mathf.Max(s * BasicTileEnvironmentSaturationScale, BasicTileEnvironmentMinimumSaturation);
+
+            v = Mathf.Max(v + BasicTileEnvironmentValueBoost, BasicTileEnvironmentMinimumValue);
 
             Color color = Color.HSVToRGB(h, s, v);
             color.a = 1f;
@@ -626,7 +632,7 @@ namespace Grid
             if (iconRenderer == null)
                 return;
 
-            if (string.IsNullOrEmpty(icon) || icon == "none" || spriteDatabase == null || !spriteDatabase.HasKey(icon))
+            if (string.IsNullOrEmpty(icon) || icon == "none" || spriteDatabase == null)
             {
                 iconParent.SetActive(false);
                 iconRenderer.sprite = null;

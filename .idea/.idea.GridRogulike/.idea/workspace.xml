@@ -4,53 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ApplyStatusToFixedEntityAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ApplyStatusToFixedEntityAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalAttackAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalAttackAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalStatusAttackAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalStatusAttackAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PushPlayerAwayFromTargetAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PushPlayerAwayFromTargetAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/SwapWithEntityAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/SwapWithEntityAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/PushPlayerAwayFromTargetCardEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/PushPlayerAwayFromTargetCardEvent.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/SwapEnemiesCardEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/SwapEnemiesCardEvent.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/SwapEntitiesCardEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/SwapEntitiesCardEvent.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Flyer/TriangleBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Flyer/TriangleBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/SquareBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/SquareBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ApplyStatusToEntityAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ApplyStatusToEntityAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromSteps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromSteps.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MultiAttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MultiAttackAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/StatusAttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/StatusAttackAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/BaseCardDefinitions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/BaseCardDefinitions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyActionValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyActionValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainAttackRule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainLine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainUtilityRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainUtilityRule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveGameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveGameObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameOverState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameOverState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/MapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/MainMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/SettingsMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/SettingsMenu.cs" afterDir="false" />
-    </list>
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -463,15 +417,7 @@
       <workItem from="1781890646438" duration="576000" />
       <workItem from="1781891350332" duration="7838000" />
       <workItem from="1781976153759" duration="13660000" />
-      <workItem from="1782242810920" duration="8189000" />
-    </task>
-    <task id="LOCAL-00045" summary="More bug fixing">
-      <option name="closed" value="true" />
-      <created>1776360823965</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1776360823965</updated>
+      <workItem from="1782242810920" duration="8274000" />
     </task>
     <task id="LOCAL-00046" summary="fix arrow z heighthttps://trello.com/c/IA1TUNLS">
       <option name="closed" value="true" />
@@ -857,7 +803,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782178580657</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="Woooho">
+      <option name="closed" value="true" />
+      <created>1782264531996</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1782264531997</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -884,7 +838,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Damn this sprite is not good :(" />
     <MESSAGE value="Major polish and some bug fixes" />
     <MESSAGE value="Minor project update" />
     <MESSAGE value="Minor affinity adjustment" />
@@ -909,7 +862,8 @@
     <MESSAGE value="Cleanup + new brain for brute" />
     <MESSAGE value="Phases + new brain behavior" />
     <MESSAGE value="minor changes and bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes and bug fixes" />
+    <MESSAGE value="Woooho" />
+    <option name="LAST_COMMIT_MESSAGE" value="Woooho" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

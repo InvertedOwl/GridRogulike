@@ -89,7 +89,7 @@ namespace Map
                 }
             }
 
-            rewardMoney = (numNormalEnemy * 3) + (numHardEnemy * 5) + (numBossEnemy * 7);
+            rewardMoney = ((numNormalEnemy>0)?5:0) + ((numHardEnemy>0)?10:0) + ((numBossEnemy>0)?20:0);
             
             if (GoList)
             {

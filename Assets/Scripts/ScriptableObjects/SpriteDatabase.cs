@@ -7,6 +7,8 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "SpriteDatabase", menuName = "Game/Sprite Database")]
     public class SpriteDatabase : ScriptableObject
     {
+        private const string MissingKey = "missing";
+
         [System.Serializable]
         public struct SpriteInfo
         {
@@ -28,7 +30,11 @@ namespace ScriptableObjects
         public SpriteInfo? Get(string key)
         {
             if (_lookup == null) BuildLookup();
-            return _lookup.TryGetValue(key, out var panel) ? panel : null;
+
+            if (!string.IsNullOrEmpty(key) && _lookup.TryGetValue(key, out var panel))
+                return panel;
+
+            return _lookup.TryGetValue(MissingKey, out var missing) ? missing : null;
         }
         
         public bool HasKey(string key)

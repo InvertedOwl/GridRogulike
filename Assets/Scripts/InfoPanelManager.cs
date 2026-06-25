@@ -174,10 +174,10 @@ public class InfoPanelManager : MonoBehaviour
             return;
 
         GameObject infoPanelObject = Instantiate(infoPanelPrefab, transform);
-        infoPanelObject.transform.GetChild(0).GetComponent<Image>().sprite = infoPanel.sprite;
-        infoPanelObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = infoPanel.title;
-        infoPanelObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = infoPanel.color;
-        infoPanelObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = infoPanel.description;
+        infoPanelObject.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = infoPanel.sprite;
+        infoPanelObject.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = infoPanel.title;
+        infoPanelObject.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().color = infoPanel.color;
+        infoPanelObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = infoPanel.description;
     }
 
     private string GetTextSignature()

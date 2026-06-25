@@ -7,6 +7,7 @@ using Entities;
 using Grid;
 using Types.Tiles;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 
 namespace StateManager
@@ -17,9 +18,17 @@ namespace StateManager
 
         public RandomState campfireRandom = RunInfo.NewRandom("campfire");
         public Transform effectLocation;
+
+        public Button Button1;
+        public Button Button2;
+        public Button Button3;
         
         public override void Enter()
         {
+            Button1.enabled = true;
+            Button2.enabled = true;
+            Button3.enabled = true;
+            
             PlayWindowInSound();
             window.GetComponent<LerpPosition>().targetLocation = new Vector2(0, 0);
         }
@@ -44,7 +53,11 @@ namespace StateManager
 
         public IEnumerator Leave()
         {
-            yield return new WaitForSeconds(1);
+            Button1.enabled = false;
+            Button2.enabled = false;
+            Button3.enabled = false;
+            
+            yield return new WaitForSeconds(.6f);
             GameStateManager.Instance.Change<MapState>();
         }
         

@@ -19,7 +19,7 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            if (BattleStats.CardsPlayedThisTurn == 0)
+            if (BattleStats.CardsPlayedThisTurn == 1)
             {
                 return new List<AbstractCardEvent> { new GainEnergyCardEvent(_amount) };
             }

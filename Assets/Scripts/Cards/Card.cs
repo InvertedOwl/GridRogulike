@@ -26,6 +26,10 @@ namespace Cards
         [JsonIgnore]
         public TargetDefinition TargetDefinition;
 
+        [NonSerialized]
+        [JsonIgnore]
+        public Func<Card, bool> CanPlayRule;
+
         [JsonIgnore]
         public int Cost =>
             (int)Mathf.Round(Actions.Sum(action => action.Cost) * 0.75f);
@@ -60,6 +64,7 @@ namespace Cards
             cardRandom = RunInfo.NewRandom(UniqueId);
             CardSet = CardSet.Base;
             TargetDefinition = Cards.CardList.TargetDefinition.None;
+            CanPlayRule = null;
         }
 
         public Card(Card card)
@@ -73,6 +78,7 @@ namespace Cards
                 CardSet = definition.CardSet;
                 DefinitionId = definition.Id;
                 TargetDefinition = definition.TargetDefinition.Copy();
+                CanPlayRule = definition.CanPlayRule;
             }
             else
             {
@@ -82,6 +88,7 @@ namespace Cards
                 CardSet = card.CardSet;
                 DefinitionId = card.DefinitionId;
                 TargetDefinition = card.TargetDefinition?.Copy() ?? Cards.CardList.TargetDefinition.None;
+                CanPlayRule = card.CanPlayRule;
             }
 
             UniqueId = GenerateDeterministicId();
@@ -102,7 +109,8 @@ namespace Cards
             CardSet cardSet,
             TargetDefinition targetDefinition,
             bool isReal = true,
-            string uniqueId = null)
+            string uniqueId = null,
+            Func<Card, bool> canPlayRule = null)
         {
             Actions = actions;
             CardName = cardName;
@@ -113,6 +121,7 @@ namespace Cards
             CardSet = cardSet;
             DefinitionId = definitionId;
             TargetDefinition = targetDefinition ?? Cards.CardList.TargetDefinition.None;
+            CanPlayRule = canPlayRule;
         }
 
         public override bool Equals(object obj)

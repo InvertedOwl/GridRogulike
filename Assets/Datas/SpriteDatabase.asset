@@ -133,3 +133,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 65bfc4713b3d6194e9510d83a62b538e, type: 3}
   - key: restlessstep
     sprite: {fileID: 21300000, guid: d07beaae473bd8e4883118edce8bc31a, type: 3}
+  - key: Cards
+    sprite: {fileID: 21300000, guid: 3347143fbb28c364e82280ad5714c354, type: 3}
+  - key: missing
+    sprite: {fileID: 21300000, guid: ac6f31ae50680bd40a31f4956c344242, type: 3}

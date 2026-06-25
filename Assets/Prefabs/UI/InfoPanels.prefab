@@ -77,3 +77,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   infoPanelPrefab: {fileID: 8559018747458216719, guid: 078d5cd4d3e29f04a9ecf37b5c5ea63e, type: 3}
   InfoPanelsData: {fileID: 11400000, guid: a43ee54d852e24945bcc968f508b81dd, type: 2}
+  textSources: []

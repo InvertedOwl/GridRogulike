@@ -388,9 +388,7 @@ namespace StateManager
                     return;
                 }
 
-                if (!TryWaitForAutoEndDelay())
-                    return;
-
+                ResetAutoEndTimer();
                 ActivateCardPhase();
                 return;
             }
@@ -603,8 +601,12 @@ namespace StateManager
                     continue;
 
                 int cost = (int)(card.CostOverride > -1 ? card.CostOverride : card.Card.Cost);
-                if (cost <= RunInfo.Instance.CurrentEnergy && card.CanPlayByRestrictions(out _))
+                if (cost <= RunInfo.Instance.CurrentEnergy &&
+                    card.CanPlayByRules(out _) &&
+                    card.HasPlayableTarget())
+                {
                     return true;
+                }
             }
 
             return false;
@@ -1794,6 +1796,11 @@ namespace StateManager
         
         private IEnumerator MakeEnemyTurn(NonPlayerEntity nonPlayerEntity)
         {
+            if (nonPlayerEntity.behavior == null)
+            {
+                EntityEndTurn();
+                yield break;
+            }
             yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
             yield return nonPlayerEntity.behavior.MakeTurn();
             yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
