@@ -6,6 +6,7 @@ using Util;
 public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     // Thank you AI :)
+    private const float HoverExitMouseTolerancePixels = 3f;
     
     [Header("Scale Settings")]
     [Tooltip("Enable scale animation on hover")]
@@ -60,6 +61,7 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
     
     // Flag to track if we're currently hovered
     private bool _isHovered = false;
+    private Vector3 _hoverStartMousePosition;
 
     /// <summary>
     /// Initialize the script and validate components
@@ -129,7 +131,23 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
     /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
+        BeginHover();
+    }
+
+    private void Update()
+    {
+        if (_isHovered &&
+            HasPointerMovedPastHoverTolerance() &&
+            !IsPointerInsideOwnRect())
+        {
+            EndHover();
+        }
+    }
+
+    private void BeginHover()
+    {
         _isHovered = true;
+        _hoverStartMousePosition = Input.mousePosition;
         
         // Cancel any ongoing return animations
         if (_scaleDownCoroutine != null)
@@ -161,6 +179,17 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
     /// </summary>
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!HasPointerMovedPastHoverTolerance() || IsPointerInsideOwnRect())
+            return;
+
+        EndHover();
+    }
+
+    private void EndHover()
+    {
+        if (!_isHovered)
+            return;
+
         _isHovered = false;
         
         // Cancel any ongoing hover animations
@@ -186,6 +215,29 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
         {
             _moveDownCoroutine = StartCoroutine(MoveToOriginal());
         }
+    }
+
+    private bool HasPointerMovedPastHoverTolerance()
+    {
+        return (Input.mousePosition - _hoverStartMousePosition).sqrMagnitude >
+               HoverExitMouseTolerancePixels * HoverExitMouseTolerancePixels;
+    }
+
+    private bool IsPointerInsideOwnRect()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        if (rectTransform == null)
+            return false;
+
+        Canvas canvas = GetComponentInParent<Canvas>();
+        Camera eventCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay
+            ? canvas.worldCamera
+            : null;
+
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            rectTransform,
+            Input.mousePosition,
+            eventCamera);
     }
 
     /// <summary>
@@ -279,6 +331,8 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
     /// </summary>
     private void OnDisable()
     {
+        _isHovered = false;
+
         // Stop all running coroutines
         if (_scaleUpCoroutine != null)
         {

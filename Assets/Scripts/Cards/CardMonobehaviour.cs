@@ -24,16 +24,27 @@ using Util;
 
 public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private const float HoverExitMouseTolerancePixels = 3f;
     private bool isPointerOver = false;
+    private Vector3 _hoverStartMousePosition;
 
     public bool IsPointerOver => isPointerOver;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         isPointerOver = true;
+        _hoverStartMousePosition = Input.mousePosition;
     }
 
     public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!HasPointerMovedPastHoverTolerance() || IsPointerInsideOwnRect())
+            return;
+
+        isPointerOver = false;
+    }
+
+    private void OnDisable()
     {
         isPointerOver = false;
     }
@@ -1053,6 +1064,36 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     bool IsPointerOverThisUIElement()
     {
+        if (isPointerOver &&
+            HasPointerMovedPastHoverTolerance() &&
+            !IsPointerInsideOwnRect())
+        {
+            isPointerOver = false;
+        }
+
         return isPointerOver;
+    }
+
+    private bool HasPointerMovedPastHoverTolerance()
+    {
+        return (Input.mousePosition - _hoverStartMousePosition).sqrMagnitude >
+               HoverExitMouseTolerancePixels * HoverExitMouseTolerancePixels;
+    }
+
+    private bool IsPointerInsideOwnRect()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        if (rectTransform == null)
+            return false;
+
+        Canvas canvas = GetComponentInParent<Canvas>();
+        Camera eventCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay
+            ? canvas.worldCamera
+            : null;
+
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            rectTransform,
+            Input.mousePosition,
+            eventCamera);
     }
 }

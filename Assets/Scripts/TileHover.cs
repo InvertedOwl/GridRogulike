@@ -8,6 +8,8 @@ using Util;
 
 public class TileHover : MonoBehaviour
 {
+    private const float HoverExitMouseTolerancePixels = 3f;
+
     public LerpPosition lerpPosition;
     public GameObject activateOnHover;
     public int waitTicks = 20;
@@ -28,6 +30,10 @@ public class TileHover : MonoBehaviour
     private Camera mainCam;
     private AbstractEntity owningEntity;
     private Coroutine rebuildHoverDetailsCoroutine;
+    private bool _animationHoverLatched;
+    private bool _directHoverLatched;
+    private Vector3 _animationHoverStartMousePosition;
+    private Vector3 _directHoverStartMousePosition;
 
     private static float _cachedFixedTime = -1f;
     private static Camera _cachedCamera;
@@ -59,15 +65,27 @@ public class TileHover : MonoBehaviour
         {
             ResetHoverAnimation();
             ResetHoverDetails();
+            ResetHoverLatches();
             return;
         }
 
-        bool isAnimationHovering = IsMouseHovering(includeChildColliders: true);
-        bool isDirectHovering = IsMouseHovering(includeChildColliders: false);
-        if (isDirectHovering && ShouldHideForEntityHover())
+        bool rawAnimationHovering = IsMouseHovering(includeChildColliders: true);
+        bool rawDirectHovering = IsMouseHovering(includeChildColliders: false);
+        bool hideForEntityHover = rawDirectHovering && ShouldHideForEntityHover();
+        if (hideForEntityHover)
         {
-            isDirectHovering = false;
+            rawDirectHovering = false;
         }
+
+        bool isAnimationHovering = StabilizeHover(
+            rawAnimationHovering,
+            ref _animationHoverLatched,
+            ref _animationHoverStartMousePosition);
+        bool isDirectHovering = StabilizeHover(
+            rawDirectHovering,
+            ref _directHoverLatched,
+            ref _directHoverStartMousePosition,
+            hideForEntityHover);
 
         if (isAnimationHovering && activeHover)
         {
@@ -99,6 +117,37 @@ public class TileHover : MonoBehaviour
         {
             ResetHoverDetails();
         }
+    }
+
+    private bool StabilizeHover(
+        bool isCurrentlyHit,
+        ref bool isLatched,
+        ref Vector3 hoverStartMousePosition,
+        bool forceRelease = false)
+    {
+        if (forceRelease)
+        {
+            isLatched = false;
+            return false;
+        }
+
+        Vector3 mousePosition = Input.mousePosition;
+        if (isCurrentlyHit)
+        {
+            isLatched = true;
+            hoverStartMousePosition = mousePosition;
+            return true;
+        }
+
+        if (isLatched &&
+            (mousePosition - hoverStartMousePosition).sqrMagnitude <=
+            HoverExitMouseTolerancePixels * HoverExitMouseTolerancePixels)
+        {
+            return true;
+        }
+
+        isLatched = false;
+        return false;
     }
 
     private bool IsMouseHovering(bool includeChildColliders)
@@ -244,6 +293,12 @@ public class TileHover : MonoBehaviour
         }
 
         ticksHovered = 0;
+    }
+
+    private void ResetHoverLatches()
+    {
+        _animationHoverLatched = false;
+        _directHoverLatched = false;
     }
 
     private void ShowHoverDetails()
