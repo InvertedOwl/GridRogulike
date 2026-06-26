@@ -12,8 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d69805d2524895bdb1fb09da535ddb, type: 3}
   m_Name: SpyBrain
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
-  attackRules:
-  - {fileID: 11400000, guid: 8f23669a3efa2c34785d091aa79f430b, type: 2}
-  moveRules:
-  - {fileID: 11400000, guid: d9d6e97fcbaf1c94e92fe81757b10d74, type: 2}
-  utilityRules: []
+  startNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+  nodes:
+  - guid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+    title: Plan
+    type: 0
+    editorPosition: {x: 40, y: 48}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+  - guid: a7d0febb-7c81-4527-87d9-02e38c740cb0
+    title: MoveToPlayer
+    type: 1
+    editorPosition: {x: 282.40002, y: 91.2}
+    rule: {fileID: 11400000, guid: d9d6e97fcbaf1c94e92fe81757b10d74, type: 2}
+    condition: {fileID: 0}
+  - guid: 004ba7cf-face-452e-b1f1-151ce20f8109
+    title: WideMeleeAttackRule
+    type: 1
+    editorPosition: {x: 282.40002, y: -48.8}
+    rule: {fileID: 11400000, guid: 8f23669a3efa2c34785d091aa79f430b, type: 2}
+    condition: {fileID: 0}
+  connections:
+  - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+    toNodeGuid: a7d0febb-7c81-4527-87d9-02e38c740cb0
+    outputName: Out
+  - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+    toNodeGuid: 004ba7cf-face-452e-b1f1-151ce20f8109
+    outputName: Out

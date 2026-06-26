@@ -15,14 +15,12 @@ namespace Entities.Enemies
 
         public override bool TryPlan(EnemyTurnContext context)
         {
-            if (!TryFindDirectAttackLine(
-                    context,
-                    targetSelector,
-                    range,
-                    out _,
-                    out string direction,
-                    out int distance))
+            if (!TrySelectAttackTarget(context, targetSelector, out AbstractEntity target) ||
+                !TryFindDirectAttackLine(context, target, range, out _, out _) ||
+                !TryFindClosestAttackLine(context, target, range, out string direction, out int distance))
+            {
                 return false;
+            }
 
             bool added = false;
             foreach (int attackDistance in GetCenteredDistances(distance, height))

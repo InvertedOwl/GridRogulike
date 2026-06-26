@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="" />
+    <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainAttackRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/UtilityOnlyWhenAloneRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/UtilityOnlyWhenAloneRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/WideMeleeAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/WideMeleeAttackRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +42,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Datas/icons.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/IconImporter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/SpineSettings.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/Ball.prefab" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/Ball.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/Brute.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/ApplyStatusToSelfRule.asset" root0="FORCE_HIGHLIGHTING" />
@@ -418,30 +427,7 @@
       <workItem from="1781891350332" duration="7838000" />
       <workItem from="1781976153759" duration="13660000" />
       <workItem from="1782242810920" duration="8274000" />
-    </task>
-    <task id="LOCAL-00046" summary="fix arrow z heighthttps://trello.com/c/IA1TUNLS">
-      <option name="closed" value="true" />
-      <created>1776444288381</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1776444288381</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Small bug fixes tile picker">
-      <option name="closed" value="true" />
-      <created>1776451233962</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1776451233962</updated>
-    </task>
-    <task id="LOCAL-00048" summary="Fix player mess up">
-      <option name="closed" value="true" />
-      <created>1776705011331</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1776705011331</updated>
+      <workItem from="1782411939643" duration="14713000" />
     </task>
     <task id="LOCAL-00049" summary="Fix bug https://trello.com/c/ewXizuCl">
       <option name="closed" value="true" />
@@ -811,7 +797,31 @@
       <option name="project" value="LOCAL" />
       <updated>1782264531997</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="Minor bug fixes and changes">
+      <option name="closed" value="true" />
+      <created>1782428894497</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1782428894497</updated>
+    </task>
+    <task id="LOCAL-00096" summary="minor hover fix + UI change">
+      <option name="closed" value="true" />
+      <created>1782432665917</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1782432665917</updated>
+    </task>
+    <task id="LOCAL-00097" summary="No Sprite image. Keyed as &quot;missing&quot;">
+      <option name="closed" value="true" />
+      <created>1782432690240</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1782432690240</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -838,9 +848,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Major polish and some bug fixes" />
-    <MESSAGE value="Minor project update" />
-    <MESSAGE value="Minor affinity adjustment" />
     <MESSAGE value="Animation Animation Animation aniamt ani tmar tana" />
     <MESSAGE value="More animation work" />
     <MESSAGE value="some minor changes to sprites" />
@@ -863,7 +870,10 @@
     <MESSAGE value="Phases + new brain behavior" />
     <MESSAGE value="minor changes and bug fixes" />
     <MESSAGE value="Woooho" />
-    <option name="LAST_COMMIT_MESSAGE" value="Woooho" />
+    <MESSAGE value="Minor bug fixes and changes" />
+    <MESSAGE value="minor hover fix + UI change" />
+    <MESSAGE value="No Sprite image. Keyed as &quot;missing&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="No Sprite image. Keyed as &quot;missing&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

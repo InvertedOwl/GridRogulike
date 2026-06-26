@@ -54,11 +54,7 @@ namespace Entities.Enemies
                 moveBudget,
                 plannedEntityPositions);
 
-            if (!brainData.PlanAttack(context).StopBrain &&
-                !brainData.PlanMove(context).StopBrain)
-            {
-                brainData.PlanUtility(context);
-            }
+            brainData.Plan(context);
 
             context.CommitPlanningRandom();
 
@@ -79,45 +75,171 @@ namespace Entities.Enemies
             PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
             List<AbstractAction> actions = new List<AbstractAction>(self.plannedAction);
 
-            foreach (AbstractAction action in actions)
+            for (int i = 0; i < actions.Count;)
             {
-                _plannedActionSources.TryGetValue(action, out Vector2Int plannedSource);
-                Vector2Int? source = _plannedActionSources.ContainsKey(action) ? plannedSource : null;
-
-                if (!EnemyActionValidator.CanExecuteAction(action, self, state, source))
+                AbstractAction action = actions[i];
+                if (action is DirectionalAttackAction)
                 {
-                    self.ClearNextTurnActionPreviewForAction(action);
+                    int runStartIndex = i;
+                    while (i < actions.Count && actions[i] is DirectionalAttackAction)
+                        i++;
+
+                    foreach (DirectionalAttackActionGroup group in BuildDirectionalAttackGroups(actions, runStartIndex, i))
+                    {
+                        bool activatedAny = false;
+                        bool attackWindupUsed = false;
+                        float delay = 0f;
+
+                        foreach (AbstractAction groupedAction in group.Actions)
+                        {
+                            if (!TryExecuteActionWithoutDelay(
+                                    groupedAction,
+                                    state,
+                                    suppressRepeatedAttackWindup: true,
+                                    ref attackWindupUsed))
+                            {
+                                continue;
+                            }
+
+                            activatedAny = true;
+                            delay = Mathf.Max(delay, GetActionDelay(groupedAction));
+                        }
+
+                        if (activatedAny)
+                            yield return new WaitForSeconds(delay);
+                    }
+
                     continue;
                 }
 
-                OnBeforeAction(action);
-
-                CardEventContext context = new CardEventContext();
-                foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate((global::CardMonobehaviour)null)))
-                {
-                    if (!EnemyActionValidator.CanExecuteEvent(modifiedEvent, self, state))
-                    {
-                        if (modifiedEvent is AttackCardEvent)
-                            self.ClearNextTurnActionPreviewForAction(action);
-
-                        continue;
-                    }
-
-                    OnBeforeEvent(modifiedEvent);
-                    CardEventResult result = modifiedEvent.ActivateWithResult(self, context);
-                    context.Record(result);
-
-                    if (modifiedEvent is AttackCardEvent)
-                        self.ClearNextTurnActionPreviewForAction(action);
-
-                    yield return new WaitForSeconds(GetActionDelay(action));
-                }
-
-                OnAfterAction(action);
+                i++;
+                yield return ExecuteActionWithDefaultDelay(action, state);
             }
 
             self.plannedAction.Clear();
             _plannedActionSources.Clear();
+        }
+
+        private IEnumerator ExecuteActionWithDefaultDelay(AbstractAction action, PlayingState state)
+        {
+            _plannedActionSources.TryGetValue(action, out Vector2Int plannedSource);
+            Vector2Int? source = _plannedActionSources.ContainsKey(action) ? plannedSource : null;
+
+            if (!EnemyActionValidator.CanExecuteAction(action, self, state, source))
+            {
+                self.ClearNextTurnActionPreviewForAction(action);
+                yield break;
+            }
+
+            OnBeforeAction(action);
+
+            CardEventContext context = new CardEventContext();
+            foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate((global::CardMonobehaviour)null)))
+            {
+                if (!EnemyActionValidator.CanExecuteEvent(modifiedEvent, self, state))
+                {
+                    if (modifiedEvent is AttackCardEvent)
+                        self.ClearNextTurnActionPreviewForAction(action);
+
+                    continue;
+                }
+
+                OnBeforeEvent(modifiedEvent);
+                CardEventResult result = modifiedEvent.ActivateWithResult(self, context);
+                context.Record(result);
+
+                if (modifiedEvent is AttackCardEvent)
+                    self.ClearNextTurnActionPreviewForAction(action);
+
+                yield return new WaitForSeconds(GetActionDelay(action));
+            }
+
+            OnAfterAction(action);
+        }
+
+        private bool TryExecuteActionWithoutDelay(
+            AbstractAction action,
+            PlayingState state,
+            bool suppressRepeatedAttackWindup,
+            ref bool attackWindupUsed)
+        {
+            _plannedActionSources.TryGetValue(action, out Vector2Int plannedSource);
+            Vector2Int? source = _plannedActionSources.ContainsKey(action) ? plannedSource : null;
+
+            if (!EnemyActionValidator.CanExecuteAction(action, self, state, source))
+            {
+                self.ClearNextTurnActionPreviewForAction(action);
+                return false;
+            }
+
+            OnBeforeAction(action);
+
+            bool activatedAny = false;
+            CardEventContext context = new CardEventContext();
+            foreach (AbstractCardEvent modifiedEvent in self.ModifyEvents(action.Activate((global::CardMonobehaviour)null)))
+            {
+                if (!EnemyActionValidator.CanExecuteEvent(modifiedEvent, self, state))
+                {
+                    if (modifiedEvent is AttackCardEvent)
+                        self.ClearNextTurnActionPreviewForAction(action);
+
+                    continue;
+                }
+
+                bool isAttackEvent = modifiedEvent is AttackCardEvent;
+                if (!isAttackEvent || !suppressRepeatedAttackWindup || !attackWindupUsed)
+                {
+                    OnBeforeEvent(modifiedEvent);
+                    if (isAttackEvent)
+                        attackWindupUsed = true;
+                }
+
+                CardEventResult result = modifiedEvent.ActivateWithResult(self, context);
+                context.Record(result);
+                activatedAny = true;
+
+                if (isAttackEvent)
+                    self.ClearNextTurnActionPreviewForAction(action);
+            }
+
+            OnAfterAction(action);
+            return activatedAny;
+        }
+
+        private static List<DirectionalAttackActionGroup> BuildDirectionalAttackGroups(
+            List<AbstractAction> actions,
+            int startIndex,
+            int endIndex)
+        {
+            List<DirectionalAttackActionGroup> groups = new List<DirectionalAttackActionGroup>();
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                if (actions[i] is not DirectionalAttackAction attackAction)
+                    continue;
+
+                string direction = attackAction.Direction ?? "";
+                DirectionalAttackActionGroup group = groups.Find(entry => entry.Direction == direction);
+                if (group == null)
+                {
+                    group = new DirectionalAttackActionGroup(direction);
+                    groups.Add(group);
+                }
+
+                group.Actions.Add(actions[i]);
+            }
+
+            return groups;
+        }
+
+        private class DirectionalAttackActionGroup
+        {
+            public string Direction { get; }
+            public List<AbstractAction> Actions { get; } = new List<AbstractAction>();
+
+            public DirectionalAttackActionGroup(string direction)
+            {
+                Direction = direction;
+            }
         }
     }
 }

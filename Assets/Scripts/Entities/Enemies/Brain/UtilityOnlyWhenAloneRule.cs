@@ -11,7 +11,7 @@ namespace Entities.Enemies
             if (innerRule == null || innerRule == this || !IsOnlyLivingEnemy(context))
                 return false;
 
-            return innerRule.TryPlanIfConditionsPass(context);
+            return innerRule.TryPlan(context);
         }
     }
 }

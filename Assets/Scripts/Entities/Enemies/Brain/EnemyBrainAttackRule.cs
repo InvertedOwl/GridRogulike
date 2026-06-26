@@ -193,7 +193,7 @@ namespace Entities.Enemies
             return Mathf.Max(1, range);
         }
 
-        private bool TryFindClosestAttackLine(
+        protected bool TryFindClosestAttackLine(
             EnemyTurnContext context,
             AbstractEntity target,
             int range,

@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8dc0c8392c421a997910cbd56727af, type: 3}
   m_Name: WideMeleeAttackRule
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.WideMeleeAttackRule
-  afterSuccessfulPlan: 0
-  conditions:
-  - {fileID: 11400000, guid: 8c23256b3c94539479d0820ae1496866, type: 2}
   alwaysPlan: 1
   targetSelector: 0
   damage: 10
