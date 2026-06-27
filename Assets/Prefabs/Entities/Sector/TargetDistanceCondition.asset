@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a3dc1961b4f4e3ba3f02ff3d8ffec23, type: 3}
-  m_Name: MoveBuff
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveTowardTargetRule
+  m_Script: {fileID: 11500000, guid: c9585c2ab6cb487689113acbb25c111a, type: 3}
+  m_Name: TargetDistanceCondition
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.TargetDistanceCondition
+  invert: 0
   targetSelector: 3
-  stopDistance: 1
-  maxMoves: 5
+  minDistance: 0
+  maxDistance: 5

@@ -786,7 +786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainBehavior
   self: {fileID: 8912749352281746896}
   brainData: {fileID: 11400000, guid: 5ed79507416e0ed41a55140cb755487d, type: 2}
-  moveBudget: 3
+  moveBudget: 5
 --- !u!4 &3822521651334489867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}

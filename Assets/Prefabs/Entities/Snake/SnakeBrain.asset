@@ -17,37 +17,37 @@ MonoBehaviour:
   - guid: 861ed858-37c1-4d7a-8027-5bbb89351e40
     title: Plan
     type: 0
-    editorPosition: {x: 90.399994, y: 157.6}
+    editorPosition: {x: -23.5, y: 181}
     rule: {fileID: 0}
     condition: {fileID: 0}
   - guid: eeb073c3-d6a6-4a52-8346-989c98f3a3af
     title: TargetDistanceCondition
     type: 2
-    editorPosition: {x: 356, y: 157.6}
+    editorPosition: {x: 171.5, y: 90.5}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: 8c23256b3c94539479d0820ae1496866, type: 2}
   - guid: 21e1af23-cabd-46a4-8038-85aa7ff855c7
     title: MoveAlongCurrentDistanceRule
     type: 1
-    editorPosition: {x: 595.2, y: 60.800003}
+    editorPosition: {x: 570, y: -36.5}
     rule: {fileID: 11400000, guid: 3208e3f26d5303d468122cba1c7710c2, type: 2}
     condition: {fileID: 0}
   - guid: 93af0192-e7b9-42a1-94f2-b63dea5cd4f6
     title: DirectLineAttackRule
     type: 1
-    editorPosition: {x: 687.7, y: 148.12001}
+    editorPosition: {x: 361.5, y: -37.5}
     rule: {fileID: 11400000, guid: 226f3dfc471faf346b1553e5ac94d237, type: 2}
     condition: {fileID: 0}
   - guid: 2b70ff32-552f-4fb2-889c-125a7aa6732d
     title: WideMeleeAttackRule
     type: 1
-    editorPosition: {x: 210.542, y: 334.328}
+    editorPosition: {x: 164.5, y: 277}
     rule: {fileID: 11400000, guid: b923d048ea805064aaa28b711620e4b9, type: 2}
     condition: {fileID: 0}
   - guid: 201d9d50-7ede-4aaf-9f67-f2f799c2768d
     title: MoveToPreferredDistanceRule
     type: 1
-    editorPosition: {x: 640, y: 307.2}
+    editorPosition: {x: 358.5, y: 156.5}
     rule: {fileID: 11400000, guid: d50783b4d12c414498a2adbb480a25fe, type: 2}
     condition: {fileID: 0}
   connections:

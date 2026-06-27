@@ -12,11 +12,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d69805d2524895bdb1fb09da535ddb, type: 3}
   m_Name: SectorBrain
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
-  attackRules:
-  - {fileID: 11400000, guid: 6651ff48969d74e49993546b3f998ad0, type: 2}
-  moveRules:
-  - {fileID: 11400000, guid: a84e412bb306bc845bb6b536f118f70f, type: 2}
-  - {fileID: 11400000, guid: 20274bf091c4b124fb50a9ff3b4f9cdb, type: 2}
-  utilityRules:
-  - {fileID: 11400000, guid: 30e3bff60f8e08945a825f4e8b3ee05e, type: 2}
-  - {fileID: 11400000, guid: ecd3b7f62f0d26e45bae098494205627, type: 2}
+  startNodeGuid: 0ecacac0-9606-4bce-9221-98c3fe7f8386
+  nodes:
+  - guid: 0ecacac0-9606-4bce-9221-98c3fe7f8386
+    title: Plan
+    type: 0
+    editorPosition: {x: 91.5, y: 280.5}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+  - guid: 32586630-2563-433c-bfa6-8eac22965baa
+    title: MoveBuff
+    type: 1
+    editorPosition: {x: 483.5, y: 373}
+    rule: {fileID: 11400000, guid: a84e412bb306bc845bb6b536f118f70f, type: 2}
+    condition: {fileID: 0}
+  - guid: fb614e56-1845-41ca-ba9c-3559ffbeeeeb
+    title: ApplyStatusToTargetRule
+    type: 1
+    editorPosition: {x: 838, y: 363.5}
+    rule: {fileID: 11400000, guid: 30e3bff60f8e08945a825f4e8b3ee05e, type: 2}
+    condition: {fileID: 0}
+  - guid: b514e9c1-0ca8-4b77-bf84-162a36bda710
+    title: TargetDistanceCondition
+    type: 2
+    editorPosition: {x: 656.5, y: 368.5}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: e653ed4564cb10140b3799d7fbd45dbc, type: 2}
+  - guid: 478335be-6c8a-492c-aeeb-ceca17db0665
+    title: MovePlayer
+    type: 1
+    editorPosition: {x: 687.5, y: 137.5}
+    rule: {fileID: 11400000, guid: 20274bf091c4b124fb50a9ff3b4f9cdb, type: 2}
+    condition: {fileID: 0}
+  - guid: 732be1ce-4188-45a3-8b70-60f2a89eb5ed
+    title: Attack
+    type: 1
+    editorPosition: {x: 494.5, y: 137.5}
+    rule: {fileID: 11400000, guid: 6651ff48969d74e49993546b3f998ad0, type: 2}
+    condition: {fileID: 0}
+  - guid: 79a98a61-404a-4e70-9ef6-e97c37391df4
+    title: IsAloneCondition
+    type: 2
+    editorPosition: {x: 288, y: 235}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: f390b821a440bf848b88d3eb7fbf9404, type: 2}
+  connections:
+  - fromNodeGuid: 32586630-2563-433c-bfa6-8eac22965baa
+    toNodeGuid: b514e9c1-0ca8-4b77-bf84-162a36bda710
+    outputName: Out
+  - fromNodeGuid: b514e9c1-0ca8-4b77-bf84-162a36bda710
+    toNodeGuid: fb614e56-1845-41ca-ba9c-3559ffbeeeeb
+    outputName: True
+  - fromNodeGuid: 732be1ce-4188-45a3-8b70-60f2a89eb5ed
+    toNodeGuid: 478335be-6c8a-492c-aeeb-ceca17db0665
+    outputName: Out
+  - fromNodeGuid: 0ecacac0-9606-4bce-9221-98c3fe7f8386
+    toNodeGuid: 79a98a61-404a-4e70-9ef6-e97c37391df4
+    outputName: Out
+  - fromNodeGuid: 79a98a61-404a-4e70-9ef6-e97c37391df4
+    toNodeGuid: 732be1ce-4188-45a3-8b70-60f2a89eb5ed
+    outputName: True
+  - fromNodeGuid: 79a98a61-404a-4e70-9ef6-e97c37391df4
+    toNodeGuid: 32586630-2563-433c-bfa6-8eac22965baa
+    outputName: False

@@ -18,12 +18,21 @@ namespace Entities.Enemies
             int stopDistance,
             int maxMoves)
         {
-            return TrySelectMoveTarget(context, selector, out AbstractEntity target) &&
-                   EnemyBrainMovement.TryMoveTowardTarget(
-                       context,
-                       target,
-                       ClampDistance(stopDistance),
-                       maxMoves);
+            int clampedStopDistance = ClampDistance(stopDistance);
+            if (!TrySelectMoveTarget(context, selector, out AbstractEntity target))
+                return false;
+
+            if (EnemyBrainMovement.TryMoveTowardTarget(
+                    context,
+                    target,
+                    clampedStopDistance,
+                    maxMoves))
+            {
+                return true;
+            }
+
+            return IsAllySelector(selector) &&
+                   IsTargetWithinDistance(context, target, clampedStopDistance);
         }
 
         protected bool TryMoveAwayFromTarget(
@@ -87,6 +96,23 @@ namespace Entities.Enemies
         protected int ClampDistance(int distance)
         {
             return Mathf.Max(0, distance);
+        }
+
+        private bool IsAllySelector(EnemyBrainTargetSelector selector)
+        {
+            return selector == EnemyBrainTargetSelector.ClosestAlly ||
+                   selector == EnemyBrainTargetSelector.LowestHealthAlly;
+        }
+
+        private bool IsTargetWithinDistance(
+            EnemyTurnContext context,
+            AbstractEntity target,
+            int distance)
+        {
+            return context != null &&
+                   target != null &&
+                   context.TryGetDistanceTo(target, out int currentDistance) &&
+                   currentDistance <= distance;
         }
     }
 }

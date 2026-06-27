@@ -132,6 +132,9 @@ namespace GridRoguelike.EditorTools
         {
             base.BuildContextualMenu(evt);
 
+            evt.menu.AppendAction("Refresh Graph View", _ => RefreshGraphView());
+            evt.menu.AppendSeparator();
+
             if (BrainData == null)
             {
                 evt.menu.AppendAction(
@@ -148,6 +151,14 @@ namespace GridRoguelike.EditorTools
             Vector2 graphPosition = contentViewContainer.WorldToLocal(evt.mousePosition);
             evt.menu.AppendAction("Create Rule Node", _ => CreateNode(EnemyBrainNodeType.Rule, graphPosition));
             evt.menu.AppendAction("Create Condition Node", _ => CreateNode(EnemyBrainNodeType.Condition, graphPosition));
+        }
+
+        private void RefreshGraphView()
+        {
+            if (BrainData == null && Selection.activeObject is EnemyBrainData selectedBrainData)
+                BrainData = selectedBrainData;
+
+            LoadGraph();
         }
 
         private void LoadGraph()
@@ -250,7 +261,7 @@ namespace GridRoguelike.EditorTools
                 change.edgesToCreate = HandleEdgesToCreate(change.edgesToCreate);
 
             if (change.movedElements != null)
-                HandleMovedElements(change.movedElements);
+                SaveMovedElements(change.movedElements);
 
             return change;
         }
@@ -321,8 +332,11 @@ namespace GridRoguelike.EditorTools
             return allowedEdges;
         }
 
-        private void HandleMovedElements(List<GraphElement> movedElements)
+        internal void SaveMovedElements(IReadOnlyList<GraphElement> movedElements)
         {
+            if (isLoading || BrainData == null || movedElements == null || movedElements.Count == 0)
+                return;
+
             Undo.RecordObject(BrainData, "Move Enemy Brain Node");
 
             foreach (GraphElement element in movedElements)
@@ -799,12 +813,18 @@ public class NoAutoPanSelectionDragger : MouseManipulator
 
     private void OnMouseCaptureOut(MouseCaptureOutEvent evt)
     {
+        if (active && target is EnemyBrainGraphView graphView)
+            graphView.SaveMovedElements(draggedElements);
+
         active = false;
         draggedElements.Clear();
     }
 
     private void StopDragging(EventBase evt)
     {
+        if (target is EnemyBrainGraphView graphView)
+            graphView.SaveMovedElements(draggedElements);
+
         active = false;
         draggedElements.Clear();
 

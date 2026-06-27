@@ -371,7 +371,9 @@ namespace Cards.CardList
         public override List<AbstractAction> BuildActions() => Actions(
             new ShieldAction(1, "basic", null, 120),
             new ShieldCarryoverStatusSelfAction(0, "basic", null, 10),
-            new RootSelfForCombatAction(0, "basic", null));
+            new RootSelfForCombatAction(0, "basic", null),
+            new ScrapCurrentCardAction(0, "basic", null, false)
+            );
     }
 
     [CardDefinition("Shield Detonation")]

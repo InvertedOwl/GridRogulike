@@ -12,9 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d69805d2524895bdb1fb09da535ddb, type: 3}
   m_Name: FlyerBrain
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
-  attackRules:
-  - {fileID: 11400000, guid: f6013d23852bcd0468efa4cf436c1f7e, type: 2}
-  moveRules:
-  - {fileID: 11400000, guid: 57c0e215b22edaa4dae6da6d7f71c709, type: 2}
-  utilityRules:
-  - {fileID: 11400000, guid: 631097afd9cf08445b85369e12348d74, type: 2}
+  startNodeGuid: f543aeb0-5881-4957-befb-eb145fae86d8
+  nodes:
+  - guid: f543aeb0-5881-4957-befb-eb145fae86d8
+    title: Plan
+    type: 0
+    editorPosition: {x: -15.5, y: 181}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+  - guid: 3620b267-63d9-41c8-8447-3ec504e60c83
+    title: WideMeleeAttackRule
+    type: 1
+    editorPosition: {x: 362.5, y: 125}
+    rule: {fileID: 11400000, guid: f6013d23852bcd0468efa4cf436c1f7e, type: 2}
+    condition: {fileID: 0}
+  - guid: 41492fa0-3aec-434d-af44-4e1cd409142c
+    title: MoveTowardTargetRule
+    type: 1
+    editorPosition: {x: 365, y: 287.5}
+    rule: {fileID: 11400000, guid: 57c0e215b22edaa4dae6da6d7f71c709, type: 2}
+    condition: {fileID: 0}
+  - guid: 1f9f59e9-54dc-4a63-b110-974263b3b600
+    title: TargetDistanceCondition
+    type: 2
+    editorPosition: {x: 169, y: 183.5}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: 8b3869148d471144a82fb2a040f377c8, type: 2}
+  - guid: 56208b91-d1a9-4e84-87dc-0298b7d04432
+    title: ShieldSelfRule
+    type: 1
+    editorPosition: {x: 538.5, y: 124}
+    rule: {fileID: 11400000, guid: 631097afd9cf08445b85369e12348d74, type: 2}
+    condition: {fileID: 0}
+  - guid: bfbacce8-e554-4d9d-86be-7b2e6acd81d1
+    title: MoveTowardTargetRule
+    type: 1
+    editorPosition: {x: 722.5, y: 125.5}
+    rule: {fileID: 11400000, guid: 57c0e215b22edaa4dae6da6d7f71c709, type: 2}
+    condition: {fileID: 0}
+  connections:
+  - fromNodeGuid: f543aeb0-5881-4957-befb-eb145fae86d8
+    toNodeGuid: 1f9f59e9-54dc-4a63-b110-974263b3b600
+    outputName: Out
+  - fromNodeGuid: 1f9f59e9-54dc-4a63-b110-974263b3b600
+    toNodeGuid: 3620b267-63d9-41c8-8447-3ec504e60c83
+    outputName: True
+  - fromNodeGuid: 3620b267-63d9-41c8-8447-3ec504e60c83
+    toNodeGuid: 56208b91-d1a9-4e84-87dc-0298b7d04432
+    outputName: Out
+  - fromNodeGuid: 1f9f59e9-54dc-4a63-b110-974263b3b600
+    toNodeGuid: 41492fa0-3aec-434d-af44-4e1cd409142c
+    outputName: False
+  - fromNodeGuid: 56208b91-d1a9-4e84-87dc-0298b7d04432
+    toNodeGuid: bfbacce8-e554-4d9d-86be-7b2e6acd81d1
+    outputName: Out

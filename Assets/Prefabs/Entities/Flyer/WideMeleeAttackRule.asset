@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8dc0c8392c421a997910cbd56727af, type: 3}
   m_Name: WideMeleeAttackRule
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.WideMeleeAttackRule
-  afterSuccessfulPlan: 0
-  conditions: []
+  alwaysPlan: 1
   targetSelector: 0
   damage: 4
   range: 1
-  width: 3
-  height: 2
+  width: 6
+  height: 1
   baseCost: 1
   color: basic

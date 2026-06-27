@@ -38,7 +38,13 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!HasPointerMovedPastHoverTolerance() || IsPointerInsideOwnRect())
+        if (ShouldUseDeckViewHover())
+        {
+            isPointerOver = false;
+            return;
+        }
+
+        if (!HasPointerMovedPastHoverTolerance() || IsPointerInsideActiveHoverRegion())
             return;
 
         isPointerOver = false;
@@ -1064,14 +1070,25 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     bool IsPointerOverThisUIElement()
     {
+        if (ShouldUseDeckViewHover())
+        {
+            isPointerOver = IsPointerInsideRaycastRect();
+            return isPointerOver;
+        }
+
         if (isPointerOver &&
             HasPointerMovedPastHoverTolerance() &&
-            !IsPointerInsideOwnRect())
+            !IsPointerInsideActiveHoverRegion())
         {
             isPointerOver = false;
         }
 
         return isPointerOver;
+    }
+
+    private bool ShouldUseDeckViewHover()
+    {
+        return onlyDisplay && DeckView.Instance != null && DeckView.Instance.IsOpen;
     }
 
     private bool HasPointerMovedPastHoverTolerance()
@@ -1080,12 +1097,29 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
                HoverExitMouseTolerancePixels * HoverExitMouseTolerancePixels;
     }
 
+    private bool IsPointerInsideActiveHoverRegion()
+    {
+        if (IsPointerInsideOwnRect())
+            return true;
+
+        if (!onlyDisplay || DeckView.Instance == null || !DeckView.Instance.IsOpen)
+            return false;
+
+        RectTransform hoverVisual = GetHoverVisualRect();
+        return hoverVisual != null && IsPointerInsideRect(hoverVisual);
+    }
+
     private bool IsPointerInsideOwnRect()
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
         if (rectTransform == null)
             return false;
 
+        return IsPointerInsideRect(rectTransform);
+    }
+
+    private bool IsPointerInsideRect(RectTransform rectTransform)
+    {
         Canvas canvas = GetComponentInParent<Canvas>();
         Camera eventCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay
             ? canvas.worldCamera
@@ -1095,5 +1129,26 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             rectTransform,
             Input.mousePosition,
             eventCamera);
+    }
+
+    private RectTransform GetHoverVisualRect()
+    {
+        if (transform.childCount == 0)
+            return null;
+
+        Transform firstChild = transform.GetChild(0);
+        if (firstChild.childCount == 0)
+            return firstChild as RectTransform;
+
+        return firstChild.GetChild(0) as RectTransform;
+    }
+
+    private bool IsPointerInsideRaycastRect()
+    {
+        if (transform.childCount == 0)
+            return IsPointerInsideOwnRect();
+
+        RectTransform raycastRect = transform.GetChild(0) as RectTransform;
+        return raycastRect != null && IsPointerInsideRect(raycastRect);
     }
 }

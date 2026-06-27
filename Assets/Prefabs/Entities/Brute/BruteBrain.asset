@@ -12,9 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d69805d2524895bdb1fb09da535ddb, type: 3}
   m_Name: BruteBrain
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
-  attackRules:
-  - {fileID: 11400000, guid: 0389dfbdc2284944db491aed59f5a3b2, type: 2}
-  moveRules:
-  - {fileID: 11400000, guid: 29b724e4c31182f49bdc88c91db8c64a, type: 2}
-  - {fileID: 11400000, guid: 0e5011d8a145e3e498096e7310cc3250, type: 2}
-  utilityRules: []
+  startNodeGuid: a039bd88-de43-46a3-9f2d-dcb6b2ac2035
+  nodes:
+  - guid: a039bd88-de43-46a3-9f2d-dcb6b2ac2035
+    title: Plan
+    type: 0
+    editorPosition: {x: 62.5, y: 244.5}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+  - guid: b5740028-b143-47c6-9f9a-d8fcb4dc7b34
+    title: DirectLineAttackRule
+    type: 1
+    editorPosition: {x: 432.5, y: 113}
+    rule: {fileID: 11400000, guid: 0389dfbdc2284944db491aed59f5a3b2, type: 2}
+    condition: {fileID: 0}
+  - guid: 1ecf8a16-0686-4b6e-ab7c-7458a60e958d
+    title: MoveAlongCurrentDistanceRule
+    type: 1
+    editorPosition: {x: 636, y: 105.5}
+    rule: {fileID: 11400000, guid: 0e5011d8a145e3e498096e7310cc3250, type: 2}
+    condition: {fileID: 0}
+  - guid: 7c98a238-6be4-4efc-a851-c28139ca32fe
+    title: HasLineOfSightCondition
+    type: 2
+    editorPosition: {x: 242, y: 233.5}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: 005472668ef7c1b4387d719ec0fd8e97, type: 2}
+  - guid: 6795ba12-2e03-4b4d-9799-6f0276670921
+    title: MoveToPreferredDistanceRule
+    type: 1
+    editorPosition: {x: 437, y: 259.5}
+    rule: {fileID: 11400000, guid: 29b724e4c31182f49bdc88c91db8c64a, type: 2}
+    condition: {fileID: 0}
+  connections:
+  - fromNodeGuid: b5740028-b143-47c6-9f9a-d8fcb4dc7b34
+    toNodeGuid: 1ecf8a16-0686-4b6e-ab7c-7458a60e958d
+    outputName: Out
+  - fromNodeGuid: 7c98a238-6be4-4efc-a851-c28139ca32fe
+    toNodeGuid: b5740028-b143-47c6-9f9a-d8fcb4dc7b34
+    outputName: True
+  - fromNodeGuid: a039bd88-de43-46a3-9f2d-dcb6b2ac2035
+    toNodeGuid: 7c98a238-6be4-4efc-a851-c28139ca32fe
+    outputName: Out
+  - fromNodeGuid: 7c98a238-6be4-4efc-a851-c28139ca32fe
+    toNodeGuid: 6795ba12-2e03-4b4d-9799-6f0276670921
+    outputName: False

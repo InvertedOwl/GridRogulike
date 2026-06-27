@@ -17,25 +17,52 @@ MonoBehaviour:
   - guid: 2ab17ad0-0ade-4f73-9606-22902399cf26
     title: Plan
     type: 0
-    editorPosition: {x: 40, y: 48}
+    editorPosition: {x: -81.5, y: 92}
     rule: {fileID: 0}
     condition: {fileID: 0}
   - guid: a7d0febb-7c81-4527-87d9-02e38c740cb0
     title: MoveToPlayer
     type: 1
-    editorPosition: {x: 282.40002, y: 91.2}
+    editorPosition: {x: 500, y: 148}
     rule: {fileID: 11400000, guid: d9d6e97fcbaf1c94e92fe81757b10d74, type: 2}
     condition: {fileID: 0}
   - guid: 004ba7cf-face-452e-b1f1-151ce20f8109
     title: WideMeleeAttackRule
     type: 1
-    editorPosition: {x: 282.40002, y: -48.8}
+    editorPosition: {x: 273.5, y: 148.5}
     rule: {fileID: 11400000, guid: 8f23669a3efa2c34785d091aa79f430b, type: 2}
     condition: {fileID: 0}
+  - guid: e508abbb-2e40-4237-ba8d-7b16dbc7564e
+    title: HeavyWideAttack
+    type: 1
+    editorPosition: {x: 275, y: -3.5}
+    rule: {fileID: 11400000, guid: 653ba710cd286ee48bc849c40a73999d, type: 2}
+    condition: {fileID: 0}
+  - guid: c4c015e8-17ca-4539-a715-73e433324b03
+    title: IsAloneCondition
+    type: 2
+    editorPosition: {x: 86.5, y: 87.5}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: a1c6c816c9b018044b6da5000b6f3946, type: 2}
+  - guid: 511986ba-ca32-4f87-a743-b81a72d864e5
+    title: MoveToPlayer
+    type: 1
+    editorPosition: {x: 482.5, y: -8}
+    rule: {fileID: 11400000, guid: d9d6e97fcbaf1c94e92fe81757b10d74, type: 2}
+    condition: {fileID: 0}
   connections:
-  - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+  - fromNodeGuid: 004ba7cf-face-452e-b1f1-151ce20f8109
     toNodeGuid: a7d0febb-7c81-4527-87d9-02e38c740cb0
     outputName: Out
   - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+    toNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
+    outputName: Out
+  - fromNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
     toNodeGuid: 004ba7cf-face-452e-b1f1-151ce20f8109
+    outputName: False
+  - fromNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
+    toNodeGuid: e508abbb-2e40-4237-ba8d-7b16dbc7564e
+    outputName: True
+  - fromNodeGuid: e508abbb-2e40-4237-ba8d-7b16dbc7564e
+    toNodeGuid: 511986ba-ca32-4f87-a743-b81a72d864e5
     outputName: Out

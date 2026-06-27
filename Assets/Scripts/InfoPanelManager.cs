@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Cards.CardList;
@@ -17,6 +18,9 @@ public class InfoPanelManager : MonoBehaviour
     private HashSet<string> manualInputs = new HashSet<string>();
     private string _lastTextSignature;
     private bool _dirty = true;
+    private Coroutine _rebuildLayoutCoroutine;
+
+    private const int LayoutRebuildPasses = 3;
 
     private void Update()
     {
@@ -27,11 +31,17 @@ public class InfoPanelManager : MonoBehaviour
         RebuildPanels(textSignature);
     }
 
+    private void OnDisable()
+    {
+        StopPanelLayoutRebuild();
+    }
+
     public void RemovePanels()
     {
         textSources.Clear();
         manualInputs.Clear();
         ClearPanelObjects();
+        StopPanelLayoutRebuild();
         _lastTextSignature = string.Empty;
         _dirty = false;
     }
@@ -105,6 +115,7 @@ public class InfoPanelManager : MonoBehaviour
 
         manualInputs.Add(input);
         AddPanelsFromString(input);
+        SchedulePanelLayoutRebuild();
     }
 
     private void RebuildPanels(string textSignature)
@@ -131,6 +142,7 @@ public class InfoPanelManager : MonoBehaviour
 
         _lastTextSignature = textSignature;
         _dirty = false;
+        SchedulePanelLayoutRebuild();
     }
 
     private void AddPanelsFromString(string input)
@@ -178,6 +190,70 @@ public class InfoPanelManager : MonoBehaviour
         infoPanelObject.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = infoPanel.title;
         infoPanelObject.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().color = infoPanel.color;
         infoPanelObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = infoPanel.description;
+    }
+
+    private void SchedulePanelLayoutRebuild()
+    {
+        if (!isActiveAndEnabled)
+            return;
+
+        if (_rebuildLayoutCoroutine != null)
+            StopCoroutine(_rebuildLayoutCoroutine);
+
+        RebuildPanelLayout();
+        _rebuildLayoutCoroutine = StartCoroutine(RebuildPanelLayoutOverFrames());
+    }
+
+    private IEnumerator RebuildPanelLayoutOverFrames()
+    {
+        for (int i = 0; i < LayoutRebuildPasses; i++)
+        {
+            yield return new WaitForEndOfFrame();
+            RebuildPanelLayout();
+        }
+
+        _rebuildLayoutCoroutine = null;
+    }
+
+    private void RebuildPanelLayout()
+    {
+        foreach (TextMeshProUGUI text in GetComponentsInChildren<TextMeshProUGUI>(true))
+        {
+            text.ForceMeshUpdate();
+        }
+
+        RectTransform[] rectTransforms = GetComponentsInChildren<RectTransform>(true);
+        for (int i = rectTransforms.Length - 1; i >= 0; i--)
+        {
+            RectTransform rectTransform = rectTransforms[i];
+
+            ContentSizeFitter fitter = rectTransform.GetComponent<ContentSizeFitter>();
+            if (fitter != null)
+            {
+                fitter.SetLayoutHorizontal();
+                fitter.SetLayoutVertical();
+            }
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+        }
+
+        RectTransform root = transform as RectTransform;
+        while (root != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(root);
+            root = root.parent as RectTransform;
+        }
+
+        Canvas.ForceUpdateCanvases();
+    }
+
+    private void StopPanelLayoutRebuild()
+    {
+        if (_rebuildLayoutCoroutine == null)
+            return;
+
+        StopCoroutine(_rebuildLayoutCoroutine);
+        _rebuildLayoutCoroutine = null;
     }
 
     private string GetTextSignature()
