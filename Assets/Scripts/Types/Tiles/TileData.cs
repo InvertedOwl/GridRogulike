@@ -52,7 +52,7 @@ namespace Types.Tiles
                         new RandomMoveCardEvent(1, context.GetRandom("randomdir"))
                     }
                 },
-                icon: "stumblee", triggerLimit: TileTriggerLimit.OncePerTurn),
+                icon: "stumble", triggerLimit: TileTriggerLimit.OncePerTurn),
 
             ["Refund"] = new (
                 "Refund",

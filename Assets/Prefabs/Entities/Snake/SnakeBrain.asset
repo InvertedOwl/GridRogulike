@@ -29,7 +29,7 @@ MonoBehaviour:
   - guid: 21e1af23-cabd-46a4-8038-85aa7ff855c7
     title: MoveAlongCurrentDistanceRule
     type: 1
-    editorPosition: {x: 570, y: -36.5}
+    editorPosition: {x: 562.4, y: -38.4}
     rule: {fileID: 11400000, guid: 3208e3f26d5303d468122cba1c7710c2, type: 2}
     condition: {fileID: 0}
   - guid: 93af0192-e7b9-42a1-94f2-b63dea5cd4f6

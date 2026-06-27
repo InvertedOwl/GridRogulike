@@ -140,12 +140,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverScale
   enableScale: 1
   scalePercent: 1.05
-  scaleTime: 0.3
+  scaleTime: 0.15
   scaleOffsetBefore: 0
   scaleOffsetAfter: 0
   enablePosition: 1
   positionOffset: {x: 0, y: 1, z: 0}
-  positionTime: 0.3
+  positionTime: 0.15
   positionOffsetBefore: 0
   positionOffsetAfter: 0
   scaleGraphic: {fileID: 4612005314234437133}
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b8ad8d7dcf8264488664cb40980799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EaseScale
-  durationSeconds: 1
+  durationSeconds: 0.25
   _elapsedTime: 0
 --- !u!114 &5426899804073744674
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4768a617ad4eaeb941fd6adb658dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Util.EasePosition
-  durationSeconds: 1
+  durationSeconds: 0.25
   isLocal: 1
   _elapsedTime: 0
 --- !u!114 &6839642429833799491

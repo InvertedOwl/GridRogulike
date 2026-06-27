@@ -1977,9 +1977,29 @@ namespace StateManager
         public void PlayerWon()
         {
             Debug.Log("Player has finished");
-            GameStateManager.Instance.Change<TilePickState>();
-
             RunInfo.Instance.Money += RewardMoney;
+
+            if (IsFinalMapLayer())
+            {
+                if (GameStateManager.Instance.GetState<GameFinishState>() != null)
+                {
+                    GameStateManager.Instance.Change<GameFinishState>();
+                }
+                else
+                {
+                    Debug.LogWarning("GameFinishState is not registered on the GameStateManager.");
+                }
+
+                return;
+            }
+
+            GameStateManager.Instance.Change<TilePickState>();
+        }
+
+        private bool IsFinalMapLayer()
+        {
+            return MapProgressLayerCount > 0 &&
+                   MapProgressLayer >= MapProgressLayerCount - 1;
         }
 
         public void EntityWon()

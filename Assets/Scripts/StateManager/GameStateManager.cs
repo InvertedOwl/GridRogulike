@@ -16,7 +16,8 @@ namespace StateManager
             [typeof(ShopState)] = "shop",
             [typeof(CampfireState)] = "campfire",
             [typeof(EventState)] = "event",
-            [typeof(GameOverState)] = "game_over"
+            [typeof(GameOverState)] = "game_over",
+            [typeof(GameFinishState)] = "game_finish"
         };
 
         private static readonly Dictionary<string, Type> StateTypesById =
