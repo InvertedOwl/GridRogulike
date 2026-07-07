@@ -1,0 +1,51 @@
+{
+"skeleton": {
+	"hash": "Xp3djLO3LCg",
+	"spine": "4.3.23",
+	"x": -500,
+	"y": -500,
+	"width": 1000,
+	"height": 1000,
+	"images": null,
+	"audio": null
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "InvertedOwl", "bone": "root", "attachment": "InvertedOwl" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"InvertedOwl": {
+				"InvertedOwl": { "width": 1000, "height": 1000 }
+			}
+		}
+	}
+],
+"animations": {
+	"invert": {
+		"bones": {
+			"root": {
+				"rotate": [
+					{
+						"curve": [ 0.05687053, 25.20349, 0.09634268, 6.13974 ]
+					},
+					{
+						"time": 0.1,
+						"curve": [ 0.24078947, -236.3526, 0.4029418, -206.11383 ]
+					},
+					{
+						"time": 0.4666667,
+						"value": -192.4792,
+						"curve": [ 0.567536, -170.8971, 0.7576992, -181.1818 ]
+					},
+					{ "time": 1, "value": -180 }
+				]
+			}
+		}
+	}
+}
+}

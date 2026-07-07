@@ -25,6 +25,8 @@ namespace StateManager
 
         public static GameStateManager Instance { get; private set; } = null!;
 
+        public static bool GameLoaded = false;
+
         private readonly Dictionary<Type, GameState> _states = new();
         private GameState _current;
         private RandomPitchSound _randomPitchSound;
@@ -105,6 +107,7 @@ namespace StateManager
                 _states[s.GetType()] = s;
                 s.enabled = false;
             }
+            GameLoaded = true;
         }
 
         public void Change(Type stateType)

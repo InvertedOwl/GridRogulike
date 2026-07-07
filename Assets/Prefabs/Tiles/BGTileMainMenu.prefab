@@ -80,6 +80,8 @@ MonoBehaviour:
   activeHover: 1
   hoverWhenNotPlaytate: 1
   ignoreOcclusion: 0
+  hideWhenEntityHovered: 1
+  tileType: 
   sideThing: {fileID: 0}
 --- !u!114 &5388217033557812795
 MonoBehaviour:
@@ -93,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366e474f45f10b548804d989643e9de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  decoration: {fileID: 0}
 --- !u!114 &789633502256468043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b8ad8d7dcf8264488664cb40980799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EaseScale
-  durationSeconds: 0.245
+  durationSeconds: 0.1
   _elapsedTime: 0
 --- !u!58 &8485644413627293999
 CircleCollider2D:

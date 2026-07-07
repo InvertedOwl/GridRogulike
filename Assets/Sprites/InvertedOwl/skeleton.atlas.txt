@@ -1,0 +1,5 @@
+skeleton.png
+size:1004,1004
+filter:Linear,Linear
+InvertedOwl
+bounds:2,2,1000,1000

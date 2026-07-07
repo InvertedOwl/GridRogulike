@@ -24,29 +24,17 @@ using Util;
 
 public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private const float HoverExitMouseTolerancePixels = 3f;
     private bool isPointerOver = false;
-    private Vector3 _hoverStartMousePosition;
 
     public bool IsPointerOver => isPointerOver;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         isPointerOver = true;
-        _hoverStartMousePosition = Input.mousePosition;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (ShouldUseDeckViewHover())
-        {
-            isPointerOver = false;
-            return;
-        }
-
-        if (!HasPointerMovedPastHoverTolerance() || IsPointerInsideActiveHoverRegion())
-            return;
-
         isPointerOver = false;
     }
 
@@ -1076,37 +1064,12 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return isPointerOver;
         }
 
-        if (isPointerOver &&
-            HasPointerMovedPastHoverTolerance() &&
-            !IsPointerInsideActiveHoverRegion())
-        {
-            isPointerOver = false;
-        }
-
         return isPointerOver;
     }
 
     private bool ShouldUseDeckViewHover()
     {
         return onlyDisplay && DeckView.Instance != null && DeckView.Instance.IsOpen;
-    }
-
-    private bool HasPointerMovedPastHoverTolerance()
-    {
-        return (Input.mousePosition - _hoverStartMousePosition).sqrMagnitude >
-               HoverExitMouseTolerancePixels * HoverExitMouseTolerancePixels;
-    }
-
-    private bool IsPointerInsideActiveHoverRegion()
-    {
-        if (IsPointerInsideOwnRect())
-            return true;
-
-        if (!onlyDisplay || DeckView.Instance == null || !DeckView.Instance.IsOpen)
-            return false;
-
-        RectTransform hoverVisual = GetHoverVisualRect();
-        return hoverVisual != null && IsPointerInsideRect(hoverVisual);
     }
 
     private bool IsPointerInsideOwnRect()
@@ -1129,18 +1092,6 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             rectTransform,
             Input.mousePosition,
             eventCamera);
-    }
-
-    private RectTransform GetHoverVisualRect()
-    {
-        if (transform.childCount == 0)
-            return null;
-
-        Transform firstChild = transform.GetChild(0);
-        if (firstChild.childCount == 0)
-            return firstChild as RectTransform;
-
-        return firstChild.GetChild(0) as RectTransform;
     }
 
     private bool IsPointerInsideRaycastRect()
