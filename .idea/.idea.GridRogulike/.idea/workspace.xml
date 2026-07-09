@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTileMainMenu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTileMainMenu.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/LabeledDropdown.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/LabeledDropdown.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileCampfire.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileCampfire.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MapTiles/TileEvent.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/ScaleHoverMainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/ScaleHoverMainMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TileHover.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Comfortaa-VariableFont_wght SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/Comfortaa-VariableFont_wght SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +41,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/Brute.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/PentagonBoy.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/ApplyStatusToSelfRule.asset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Tiles/BGTileMainMenu.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/Tiles/Basic Tile.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/UI/Action Texts/Normal Text.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" root0="FORCE_HIGHLIGHTING" />
@@ -182,6 +172,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Util/VideoNavSettings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Spine/Runtime/spine-csharp/AnimationState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Sprites/InvertedOwl/InvertedOwl.png.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Recovery/0 (11).unity" root0="FORCE_HIGHLIGHTING" />
@@ -436,15 +427,7 @@
       <workItem from="1782411939643" duration="18595000" />
       <workItem from="1782667449262" duration="1586000" />
       <workItem from="1783363397553" duration="164000" />
-      <workItem from="1783366929621" duration="2586000" />
-    </task>
-    <task id="LOCAL-00051" summary="Bug fix https://trello.com/c/YiFCTF0o/114-does-not-save-hexes">
-      <option name="closed" value="true" />
-      <created>1777136072218</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1777136072218</updated>
+      <workItem from="1783366929621" duration="6749000" />
     </task>
     <task id="LOCAL-00052" summary="Fix bug (Not in trello) of enemies not setting intent correctly. Turns out it was a ease scale issue">
       <option name="closed" value="true" />
@@ -830,7 +813,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782601756354</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="Bwoah">
+      <option name="closed" value="true" />
+      <created>1783456777214</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1783456777215</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -857,7 +848,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="some minor changes to sprites" />
     <MESSAGE value="Bug fixes + Minor Features + WIP auto camera" />
     <MESSAGE value="revert auto camera stuff" />
     <MESSAGE value="Death Animations" />
@@ -882,7 +872,8 @@
     <MESSAGE value="No Sprite image. Keyed as &quot;missing&quot;" />
     <MESSAGE value="Enemy Brain node Editor!@!!!! :)" />
     <MESSAGE value="fsd" />
-    <option name="LAST_COMMIT_MESSAGE" value="fsd" />
+    <MESSAGE value="Bwoah" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bwoah" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

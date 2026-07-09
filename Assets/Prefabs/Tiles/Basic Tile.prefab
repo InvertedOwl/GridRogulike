@@ -13720,7 +13720,8 @@ MonoBehaviour:
   lerpPosition: {fileID: 2323667082491459199}
   activateOnHover: {fileID: 4417866245236661259}
   waitTicks: 15
-  hoverYOffset: -0.07
+  hoverYOffset: 0
+  hoverZOffset: 0.07
   activeHover: 1
   hoverWhenNotPlaytate: 1
   ignoreOcclusion: 0

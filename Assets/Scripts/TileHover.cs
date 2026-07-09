@@ -14,6 +14,7 @@ public class TileHover : MonoBehaviour
     public GameObject activateOnHover;
     public int waitTicks = 20;
     public float hoverYOffset = -0.07f;
+    public float hoverZOffset = 0f;
 
     private int ticksHovered = 0;
     public bool activeHover = true;
@@ -91,7 +92,10 @@ public class TileHover : MonoBehaviour
         {
             if (lerpPosition)
             {
-                lerpPosition.targetLocation = new Vector3(0, hoverYOffset, lerpPosition.startPosition.z);
+                lerpPosition.targetLocation = new Vector3(
+                    0,
+                    hoverYOffset,
+                    lerpPosition.startPosition.z + hoverZOffset);
             }
         }
         else
