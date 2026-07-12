@@ -2046,6 +2046,26 @@ namespace StateManager
             return list.Count > 0;
         }
 
+        public List<AbstractEntity> GetAdjacentEntities(Vector2Int center)
+        {
+            List<AbstractEntity> adjacentEntities = new List<AbstractEntity>();
+
+            foreach (Vector2Int adjacentPosition in HexGridManager.AdjacentHexes(center))
+            {
+                if (EntitiesOnHex(adjacentPosition, out List<AbstractEntity> entitiesOnHex))
+                    adjacentEntities.AddRange(entitiesOnHex);
+            }
+
+            return adjacentEntities;
+        }
+
+        public List<AbstractEntity> GetAdjacentEnemies(Vector2Int center)
+        {
+            return GetAdjacentEntities(center)
+                .Where(entity => entity != null && entity.entityType == EntityType.Enemy)
+                .ToList();
+        }
+
         public List<AbstractEntity> GetEntities()
         {
             return entities;

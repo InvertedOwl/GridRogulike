@@ -27,7 +27,7 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardPlayContext context)
         {
-            int amount = BattleStats.TilesMovedThisTurn * 5;
+            int amount = BattleStats.TilesMovedThisTurn * 4;
             if (context?.Targets == null)
                 return new List<AbstractCardEvent>();
 
@@ -42,14 +42,14 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Deal damage equal to number of tiles moved this turn (0)";
+            return "Deal 4 damage for each tile moved this turn (0)";
         }
 
         public override string GetText(CardActionPreview preview)
         {
-            int amount = BattleStats.TilesMovedThisTurn * 5;
+            int amount = BattleStats.TilesMovedThisTurn * 4;
             int finalAmount = preview.GetTotalFinalValue(CardPreviewKeys.Damage, amount);
-            return "Deal <sprite name=\"Damage4\"> equal to number of tiles moved this turn (" +
+            return "Deal 4 <sprite name=\"Damage4\"> for each tile moved this turn (" +
                    preview.FormatValue("", amount, finalAmount) +
                    ")";
         }
