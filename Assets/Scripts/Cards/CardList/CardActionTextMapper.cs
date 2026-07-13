@@ -18,6 +18,7 @@ namespace Cards.CardList
                 ["<frost>"] = "<sprite name=\"Snowflake_1\">",
                 ["<buff>"] = "<sprite name=\"BuffEnemies\">",
                 ["<arrow>"] = "<sprite name=\"BowAndArrow\">",
+                ["<within>"] = "<sprite name=\"Within\">",
                 ["<dazed>"] = "<sprite name=\"Dazed\">"
             };
 

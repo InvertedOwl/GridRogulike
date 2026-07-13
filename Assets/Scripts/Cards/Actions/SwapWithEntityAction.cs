@@ -48,7 +48,7 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Swap positions with target";
+            return "Swap positions with random enemy";
         }
 
         public override string GetText(CardActionPreview preview)

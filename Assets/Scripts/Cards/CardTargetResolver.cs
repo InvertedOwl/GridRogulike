@@ -59,13 +59,23 @@ namespace Cards
                 playingState,
                 previewMode);
 
-            return ResolveAvailableTargets(targetDefinition, sourceEntity, playingState);
+            RandomState random = GetCardTargetRandom(card, previewMode);
+            return ResolveAvailableTargets(targetDefinition, sourceEntity, playingState, random);
         }
 
         public static TargetSelection ResolveAvailableTargets(
             TargetDefinition targetDefinition,
             AbstractEntity sourceEntity,
             PlayingState playingState)
+        {
+            return ResolveAvailableTargets(targetDefinition, sourceEntity, playingState, null);
+        }
+
+        private static TargetSelection ResolveAvailableTargets(
+            TargetDefinition targetDefinition,
+            AbstractEntity sourceEntity,
+            PlayingState playingState,
+            RandomState random)
         {
             targetDefinition ??= TargetDefinition.None;
 
@@ -87,6 +97,9 @@ namespace Cards
                 case TargetType.EveryEnemy:
                 case TargetType.AnyEntity:
                     return ResolveEntityTargets(targetDefinition, sourceEntity, playingState);
+
+                case TargetType.RandomEnemy:
+                    return ResolveRandomEnemyTarget(targetDefinition, sourceEntity, playingState, random);
 
                 case TargetType.AnyTile:
                 case TargetType.EmptyTile:
@@ -171,6 +184,9 @@ namespace Cards
             if (available.Definition.TargetType == TargetType.EveryEnemy)
                 return available.HasTargets;
 
+            if (available.Definition.TargetType == TargetType.RandomEnemy)
+                return available.HasTargets;
+
             return false;
         }
 
@@ -190,6 +206,12 @@ namespace Cards
                 return available.HasTargets;
 
             return available.HasTargets;
+        }
+
+        private static RandomState GetCardTargetRandom(Card card, bool previewMode)
+        {
+            RandomState random = card.cardRandom ?? RunInfo.NewRandom("cardtarget:randomenemy");
+            return previewMode ? random.Clone() : random;
         }
 
         private static TargetSelection ResolveEntityTargets(
@@ -213,6 +235,25 @@ namespace Cards
             }
 
             return new TargetSelection(targetDefinition, targets, positions);
+        }
+
+        private static TargetSelection ResolveRandomEnemyTarget(
+            TargetDefinition targetDefinition,
+            AbstractEntity sourceEntity,
+            PlayingState playingState,
+            RandomState random)
+        {
+            TargetSelection available = ResolveEntityTargets(targetDefinition, sourceEntity, playingState);
+            if (available.TargetEntities.Count == 0)
+                return TargetSelection.Empty(targetDefinition);
+
+            RandomState targetRandom = random ?? RunInfo.NewRandom("cardtarget:randomenemy");
+            AbstractEntity target = available.TargetEntities[targetRandom.Next(available.TargetEntities.Count)];
+
+            return new TargetSelection(
+                targetDefinition,
+                new[] { target },
+                new[] { target.positionRowCol });
         }
 
         private static TargetSelection ResolveTileTargets(
@@ -253,6 +294,7 @@ namespace Cards
             {
                 case TargetType.AnyEnemy:
                 case TargetType.EveryEnemy:
+                case TargetType.RandomEnemy:
                     return playingState.IsPlayerAttackTarget(candidate);
                 case TargetType.AnyEntity:
                     return true;

@@ -118,7 +118,7 @@ namespace Cards.CardList
     }
     
     // -- Area Offense --
-    // Wild Swipe
+    // Uncommon
     [CardDefinition("Wild Swipe")]
     public sealed class WildSwipe : CardDefinition
     {
@@ -129,6 +129,157 @@ namespace Cards.CardList
         public override bool CanShowInShop => true;
         public override List<AbstractAction> BuildActions() => Actions(
             new AttackRadiusAction(2, "basic", null, 1, 9)
+        );
+    }
+
+    // -- Player Displacement --
+    // Common
+    [CardDefinition("Force")]
+    public sealed class Force : CardDefinition
+    {
+        public override string DisplayName => "Force";
+        public override Rarity Rarity => Rarity.Common;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new AttackAction(1, "basic", null, 5),
+            new PushPlayerAwayFromTargetAction(1, "basic", null, 1)
+        );
+    }
+    // Rare
+    [CardDefinition("Warp")]
+    public sealed class Warp : CardDefinition
+    {
+        public override string DisplayName => "Warp";
+        public override Rarity Rarity => Rarity.Rare;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.RandomEnemy);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new SwapWithEntityAction(0, "basic", null),
+            new ScrapCurrentCardAction(0, "basic", null)
+        );
+    }
+
+    // -- Direct Defense --
+    // Common
+    [CardDefinition("Block")]
+    [StartingDeck(StartingDecks.basic, 4)]
+    public sealed class Block : CardDefinition
+    {
+        public override string DisplayName => "Block";
+        public override Rarity Rarity => Rarity.Common;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.Self);
+        public override bool CanShowInShop => false;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new ShieldAction(1, "basic", null, 6)
+        );
+    }
+    [CardDefinition("Heavy Shield")]
+    public sealed class HeavyShield : CardDefinition
+    {
+        public override string DisplayName => "Heavy Shield";
+        public override Rarity Rarity => Rarity.Common;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.Self);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new ShieldAction(2, "basic", null, 14)
+        );
+    }
+
+    // -- Conditional Defense --
+    // Common
+    [CardDefinition("Close Encounter")]
+    public sealed class CloseEncounter : CardDefinition
+    {
+        public override string DisplayName => "Close Encounter";
+        public override Rarity Rarity => Rarity.Common;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.Self);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new ShieldAction(1, "basic", null, 3),
+            new ShieldFromSurroundedAction(0, "basic", null)
+        );
+    }
+    // Uncommon
+    [CardDefinition("Fall Back")]
+    public sealed class FallBack : CardDefinition
+    {
+        public override string DisplayName => "Fall Back";
+        public override Rarity Rarity => Rarity.Uncommon;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.Self);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new ShieldAction(1, "basic", null, 5),
+            new ShieldIfDoneDamageAction(0, "basic", null, 5, 10)
+        );
+    }
+    
+    // -- Conversion --
+    // Uncommon
+    [CardDefinition("Dropped")]
+    public sealed class Dropped : CardDefinition
+    {
+        public override string DisplayName => "Dropped";
+        public override Rarity Rarity => Rarity.Uncommon;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new ShieldDetonationAction(1, "basic", null),
+            new RemoveAllShieldAction(0, "basic", null)
+        );
+    }
+    // Rare
+    [CardDefinition("Quick Footed")]
+    public sealed class QuickFooted : CardDefinition
+    {
+        public override string DisplayName => "Quick Footed";
+        public override Rarity Rarity => Rarity.Rare;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new AttackFromTilesMovedThisCombatAction(1, "basic", null)
+        );
+    }
+    
+    
+    // -- Draw and Filtering -- 
+    // Uncommon
+    [CardDefinition("Quick Draw")]
+    public sealed class QuickDraw : CardDefinition
+    {
+        public override string DisplayName => "Quick Draw";
+        public override Rarity Rarity => Rarity.Uncommon;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.Self);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new RaiseCostAction(0, "basic", null),
+            new DrawCardAction(0, "basic", null, 2)
+        );
+    }
+    
+    // -- Draw and Filtering -- 
+    // Uncommon
+    [CardDefinition("Opening Act")]
+    public sealed class OpeningAct : CardDefinition
+    {
+        public override string DisplayName => "Opening Act";
+        public override Rarity Rarity => Rarity.Uncommon;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.Self);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new AttackAction(0, "basic", null, 4),
+            new FirstCardEnergyCardAction(0,  "basic", null, 1),
+            new ScrapCurrentCardAction(0, "basic", null)
         );
     }
 }

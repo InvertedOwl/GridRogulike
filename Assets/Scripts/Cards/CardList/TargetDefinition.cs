@@ -8,6 +8,7 @@ namespace Cards.CardList
         Self,
         AnyEnemy,
         EveryEnemy,
+        RandomEnemy,
         AnyEntity,
         AnyTile,
         EmptyTile
@@ -37,7 +38,8 @@ namespace Cards.CardList
         public bool CanPlayFromCardClick =>
             TargetType == TargetType.None ||
             TargetType == TargetType.Self ||
-            TargetType == TargetType.EveryEnemy;
+            TargetType == TargetType.EveryEnemy ||
+            TargetType == TargetType.RandomEnemy;
 
         public TargetDefinition Copy()
         {

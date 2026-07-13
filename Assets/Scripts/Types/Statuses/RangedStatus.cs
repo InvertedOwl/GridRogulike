@@ -37,7 +37,7 @@ namespace Types.Statuses
             if (targetDefinition == null ||
                 Amount <= 0 ||
                 !targetDefinition.MaxRange.HasValue ||
-                targetDefinition.TargetType is not (TargetType.AnyEnemy or TargetType.EveryEnemy))
+                targetDefinition.TargetType is not (TargetType.AnyEnemy or TargetType.EveryEnemy or TargetType.RandomEnemy))
             {
                 return targetDefinition;
             }

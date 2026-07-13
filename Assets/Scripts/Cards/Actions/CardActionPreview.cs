@@ -79,6 +79,23 @@ namespace Cards.Actions
             return Math.Max(0, fallbackBaseValue + delta);
         }
 
+        public int GetTotalBaseValue(string key, int fallbackValue)
+        {
+            int total = 0;
+            bool foundValue = false;
+
+            foreach (CardEventPreviewSnapshot snapshot in BaseEvents(key))
+            {
+                if (!snapshot.TryGetInt(key, out int amount))
+                    continue;
+
+                total += amount;
+                foundValue = true;
+            }
+
+            return foundValue ? total : fallbackValue;
+        }
+
         public bool TryGetFirstModifiedValue(string key, out PreviewValue value)
         {
             foreach (CardEventPreviewSnapshot snapshot in ModifiedEvents(key))

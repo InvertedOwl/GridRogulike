@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Entities;
 using Cards.CardEvents;
-using StateManager;
 using UnityEngine;
 
 namespace Cards.Actions
 {
     public class ShieldDetonationAction : AbstractAction
     {
+        private const float ShieldDamageMultiplier = 0.75f;
+
         public ShieldDetonationAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity)
         {
 
@@ -15,31 +16,12 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            return Activate(cardMono, previewMode: false);
+            return new List<AbstractCardEvent>();
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono, bool previewMode)
         {
-            List<AbstractCardEvent> cardEvents = new List<AbstractCardEvent>();
-            int amount = CurrentDetonationDamage();
-
-            if (amount <= 0 ||
-                GameStateManager.Instance == null ||
-                !GameStateManager.Instance.IsCurrent<PlayingState>())
-            {
-                return cardEvents;
-            }
-
-            PlayingState playing = GameStateManager.Instance.GetCurrent<PlayingState>();
-            foreach (AbstractEntity target in playing.GetEntities())
-            {
-                if (!playing.IsPlayerAttackTarget(target))
-                    continue;
-
-                cardEvents.Add(new AttackCardEvent(target.positionRowCol, amount, manual: false));
-            }
-
-            return cardEvents;
+            return new List<AbstractCardEvent>();
         }
 
         public override List<AbstractCardEvent> Activate(CardPlayContext context)
@@ -51,13 +33,12 @@ namespace Cards.Actions
                 return cardEvents;
 
             if (context?.Targets == null)
-                return Activate(context?.CardMono, context?.PreviewMode ?? false);
+                return cardEvents;
 
-            foreach (AbstractEntity target in context.Targets.TargetEntities)
-            {
-                if (target != null && target.Health > 0)
-                    cardEvents.Add(new AttackCardEvent(target.positionRowCol, amount, manual: false));
-            }
+            if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
+                cardEvents.Add(new AttackCardEvent(target.positionRowCol, amount, manual: false));
+            else if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
+                cardEvents.Add(new AttackCardEvent(targetPosition, amount, manual: false));
 
             return cardEvents;
         }
@@ -74,20 +55,20 @@ namespace Cards.Actions
 
         public override string GetText()
         {
-            return "Deal <sprite name=\"damage4\"> to all enemies equal to 50% of current <shield>";
+            return "Deal <attack> to target equal to 75% of current <shield>";
         }
 
         public override string GetText(CardActionPreview preview)
         {
             int amount = CurrentDetonationDamage();
             int finalAmount = preview.GetFirstFinalValue(CardPreviewKeys.Damage, amount);
-            return "Deal <sprite name=\"damage4\"> to all enemies equal to 50% of current <shield> (" +
-                   preview.FormatValue("<attack>", amount, finalAmount) + ")";
+            return "Deal <attack> to target equal to 75% of current <shield> (" +
+                   preview.FormatValue("", amount, finalAmount) + ")";
         }
 
         public override string ToSimpleText()
         {
-            return " <sprite name=shield>";
+            return "<sprite name=Damage4>";
         }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab,
@@ -111,7 +92,7 @@ namespace Cards.Actions
             if (source == null)
                 return 0;
 
-            return Mathf.FloorToInt(source.Shield * 0.5f);
+            return Mathf.FloorToInt(source.Shield * ShieldDamageMultiplier);
         }
 
     }

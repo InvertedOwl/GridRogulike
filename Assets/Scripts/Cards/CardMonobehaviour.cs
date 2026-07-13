@@ -57,6 +57,9 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public bool onlyDisplay = false;
     public RandomPitchSound sound;
 
+    public Image rangeIcon;
+    public TextMeshProUGUI rangeText;
+
     public Card Card => _card;
     public float CostOverride = -1f;
 
@@ -121,6 +124,8 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         SetCardSetIcon();
 
+        SetCardRange();
+
         SetCardStatus(null);
     }
 
@@ -128,6 +133,23 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         GoList.GetValue("CardSetImage").GetComponent<Image>().sprite =
             spriteDatabase.Get(_card.CardSet.ToString()).Value.sprite;
+    }
+
+    public void SetCardRange()
+    {
+        rangeIcon.gameObject.SetActive(false);
+        if (_card.TargetDefinition.TargetType is TargetType.AnyEnemy or TargetType.RandomEnemy)
+        {
+            rangeIcon.gameObject.SetActive(true);
+            rangeIcon.sprite = spriteDatabase.Get("BowAndArrow").Value.sprite;
+            rangeText.text = _card.TargetDefinition.MaxRange.ToString();
+        }
+        if (_card.TargetDefinition.TargetType == TargetType.EveryEnemy)
+        {
+            rangeIcon.gameObject.SetActive(true);
+            rangeIcon.sprite = spriteDatabase.Get("Within").Value.sprite;
+            rangeText.text = _card.TargetDefinition.MaxRange.ToString();
+        }
     }
 
     public void SetCardStatus(CardStatusDatabase.CardStatus cardStatusNullable)
@@ -683,7 +705,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (HexClickPlayerController.instance == null)
             return;
 
-        List<AttackCardEvent> attackCardEvents = BuildPreviewEventsForSelection(TargetSelection.Empty(_card.TargetDefinition))
+        TargetSelection previewSelection = ResolveAvailableTargets(true);
+        if (previewSelection.Definition.TargetType != TargetType.RandomEnemy)
+            previewSelection = TargetSelection.Empty(previewSelection.Definition);
+
+        List<AttackCardEvent> attackCardEvents = BuildPreviewEventsForSelection(previewSelection)
             .OfType<AttackCardEvent>()
             .ToList();
 
@@ -751,7 +777,20 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (!used || played || onlyDisplay || !hasEnoughEnergy || !isPlayerTurn || !CanPlayByRules(out _))
             return false;
 
-        PlayCard(TargetSelection.Empty(_card.TargetDefinition));
+        TargetSelection selection = TargetSelection.Empty(_card.TargetDefinition);
+        if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playingState &&
+            CardTargetResolver.TryResolveCardClickSelection(
+                this,
+                _card,
+                playingState.player,
+                playingState,
+                out TargetSelection resolvedSelection))
+        {
+            if (resolvedSelection.Definition.TargetType == TargetType.RandomEnemy)
+                selection = resolvedSelection;
+        }
+
+        PlayCard(selection);
         FinishManualAttackResolution();
         return true;
     }
