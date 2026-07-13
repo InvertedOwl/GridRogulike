@@ -31,7 +31,7 @@ namespace Cards.Actions
             if (preview.TryGetFirstModifiedValue(CardPreviewKeys.Cost, out PreviewValue value) &&
                 value.TryGetFloat(out float cost))
             {
-                return "Raise cost of this card to " + cost.ToString("0.#");
+                return "Raise cost of this card by " + cost.ToString("0.#");
             }
 
             return GetText();

@@ -30,7 +30,8 @@ namespace Cards.Actions
                 target == null ||
                 source == target ||
                 source.Health <= 0 ||
-                target.Health <= 0)
+                target.Health <= 0 ||
+                target.entityType != EntityType.Enemy)
             {
                 return new List<AbstractCardEvent>();
             }

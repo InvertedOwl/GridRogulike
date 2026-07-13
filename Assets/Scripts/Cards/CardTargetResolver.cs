@@ -294,8 +294,9 @@ namespace Cards
             {
                 case TargetType.AnyEnemy:
                 case TargetType.EveryEnemy:
-                case TargetType.RandomEnemy:
                     return playingState.IsPlayerAttackTarget(candidate);
+                case TargetType.RandomEnemy:
+                    return candidate.entityType == EntityType.Enemy;
                 case TargetType.AnyEntity:
                     return true;
                 default:
