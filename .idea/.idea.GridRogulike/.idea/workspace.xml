@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RaiseCostAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RaiseCostAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/SwapWithEntityAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/SwapWithEntityAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardTargetResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardTargetResolver.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -432,14 +429,6 @@
       <workItem from="1783363397553" duration="164000" />
       <workItem from="1783366929621" duration="6749000" />
     </task>
-    <task id="LOCAL-00053" summary="Working on dashed stuff">
-      <option name="closed" value="true" />
-      <created>1777156907462</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1777156907462</updated>
-    </task>
     <task id="LOCAL-00054" summary="Sprites">
       <option name="closed" value="true" />
       <created>1777157052690</created>
@@ -824,7 +813,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783906319652</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="Random enemy now targets enemies">
+      <option name="closed" value="true" />
+      <created>1783975116939</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1783975116939</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -851,7 +848,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="revert auto camera stuff" />
     <MESSAGE value="Death Animations" />
     <MESSAGE value="Minor Balance and updates: Todo is events" />
     <MESSAGE value="Ball Boss" />
@@ -876,7 +872,8 @@
     <MESSAGE value="fsd" />
     <MESSAGE value="Bwoah" />
     <MESSAGE value="New cards!" />
-    <option name="LAST_COMMIT_MESSAGE" value="New cards!" />
+    <MESSAGE value="Random enemy now targets enemies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Random enemy now targets enemies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
