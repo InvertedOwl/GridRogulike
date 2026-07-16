@@ -124,7 +124,7 @@ namespace Entities
         public StatusManager statusManager;
         public HealthBarManager healthBarManager;
         [SerializeField] private Vector3 boardWorldEulerAngles = new Vector3(-70f, 0f, 0f);
-        private Vector3 boardLocalOffset = new Vector3(0.121f, 0.18f, -0.171f);
+        private Vector3 boardLocalOffset = new Vector3(0.121f, 0.18f, -0.27f);
 
         public void MoveEntity(Vector2Int newCoords)
         {
