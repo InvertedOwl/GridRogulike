@@ -1274,7 +1274,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   Speed: {fileID: 2745000259744899393}
   autoendturn: {fileID: 7062470904991231099}
-  autocameratoggle: {fileID: 0}
 --- !u!1 &5516920374363730532
 GameObject:
   m_ObjectHideFlags: 0

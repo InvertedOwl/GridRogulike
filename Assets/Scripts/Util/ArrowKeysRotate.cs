@@ -4,15 +4,17 @@ using Util;
 public class ArrowKeysRotate : MonoBehaviour
 {
     [SerializeField] private EaseRotation easeRotation;
-    void Update()
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0, 0, 60));
+            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0f, 0f, 60f));
         }
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0, 0, -60));
+            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0f, 0f, -60f));
         }
     }
 }

@@ -126,7 +126,6 @@ namespace StateManager
         private bool _playerMovementBlockedThisTurn;
         private bool _playerMovementBlockedThisCombat;
         private RunInfo _subscribedRunInfo;
-        private CameraMove _cameraMove;
         private readonly Dictionary<Vector2Int, TileCountdownRuntimeState> _tileCountdownStates = new();
         private List<TileCountdownSaveData> _loadedTileCountdownStates;
         public int PlayerMovesThisTurn { get; private set; }
@@ -243,7 +242,6 @@ namespace StateManager
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
 
-            UpdateAutoCamera();
             RefreshMovedEnemyIntents();
 
             if (CheckForFinish() != "none")
@@ -253,105 +251,6 @@ namespace StateManager
             }
 
             TryAutoEndPlayerTurn();
-        }
-
-        private void UpdateAutoCamera()
-        {
-            CameraMove cameraMove = GetCameraMove();
-            if (cameraMove == null)
-                return;
-
-            if (!GameplayNavSettings.autocamera)
-            {
-                cameraMove.ClearAutoCameraTarget();
-                return;
-            }
-
-            if (TryGetCombatCenter(out Vector3 combatCenter))
-            {
-                cameraMove.SetAutoCameraTarget(combatCenter);
-            }
-            else
-            {
-                cameraMove.ClearAutoCameraTarget();
-            }
-        }
-
-        private CameraMove GetCameraMove()
-        {
-            if (_cameraMove != null)
-                return _cameraMove;
-
-            Camera mainCamera = Camera.main;
-            if (mainCamera != null)
-            {
-                _cameraMove = mainCamera.GetComponent<CameraMove>();
-
-                if (_cameraMove == null)
-                    _cameraMove = mainCamera.GetComponentInParent<CameraMove>();
-
-                if (_cameraMove == null)
-                    _cameraMove = mainCamera.GetComponentInChildren<CameraMove>();
-            }
-
-            if (_cameraMove == null)
-                _cameraMove = FindFirstObjectByType<CameraMove>();
-
-            return _cameraMove;
-        }
-
-        private bool TryGetCombatCenter(out Vector3 center)
-        {
-            center = Vector3.zero;
-            Vector3 playerCenter = Vector3.zero;
-            Vector3 enemyCenter = Vector3.zero;
-            int playerCount = 0;
-            int enemyCount = 0;
-
-            foreach (AbstractEntity entity in entities)
-            {
-                if (entity == null || entity.Health <= 0)
-                {
-                    continue;
-                }
-
-                Vector3 entityPosition = GetEntityBoardPosition(entity);
-
-                if (entity.entityType == EntityType.Player)
-                {
-                    playerCenter += entityPosition;
-                    playerCount++;
-                }
-                else if (entity.entityType == EntityType.Enemy)
-                {
-                    enemyCenter += entityPosition;
-                    enemyCount++;
-                }
-            }
-
-            if (playerCount == 0 && enemyCount == 0)
-                return false;
-
-            if (playerCount > 0)
-            {
-                playerCenter /= playerCount;
-                center = playerCenter;
-                return true;
-            }
-
-            if (enemyCount > 0)
-                enemyCenter /= enemyCount;
-
-            center = enemyCenter;
-            return true;
-        }
-
-        private Vector3 GetEntityBoardPosition(AbstractEntity entity)
-        {
-            HexGridManager.Instance._hexObjects.TryGetValue(entity.positionRowCol, out GameObject entityHex);
-            return entityHex != null
-                ? entityHex.transform.position
-                : HexGridManager.GetHexCenter(entity.positionRowCol.x, entity.positionRowCol.y);
         }
 
         private void TryAutoEndPlayerTurn()
@@ -1517,7 +1416,6 @@ namespace StateManager
         {
             UnsubscribeFromRunInfoEvents();
             PlayWindowOutSound();
-            SendCameraToBoardCenter();
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             
             playingUI.SetScale(new Vector3(2, 2, 2));
@@ -1602,15 +1500,6 @@ namespace StateManager
             {
                 HexClickPlayerController.instance.UpdateMovableParticles(this);
             }
-        }
-
-        private void SendCameraToBoardCenter()
-        {
-            CameraMove cameraMove = GetCameraMove();
-            if (cameraMove == null)
-                return;
-
-            cameraMove.SetAutoCameraTarget(Vector3.zero);
         }
 
         #region Turn System ---------------
