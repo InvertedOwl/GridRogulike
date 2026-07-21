@@ -10,6 +10,7 @@ namespace Grid
     {
         public Vector2Int key;
         public string value;
+        public int height;
     }
 
     [Serializable]
@@ -24,6 +25,18 @@ namespace Grid
             foreach (var entry in entries)
             {
                 dict[entry.key] = entry.value;
+            }
+
+            return dict;
+        }
+
+        public Dictionary<Vector2Int, int> ToHeightDictionary()
+        {
+            Dictionary<Vector2Int, int> dict = new Dictionary<Vector2Int, int>();
+
+            foreach (var entry in entries)
+            {
+                dict[entry.key] = entry.height;
             }
 
             return dict;

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5286917440407922032}
   - component: {fileID: 776052003631651691}
   - component: {fileID: 1558766002146486362}
+  - component: {fileID: 2468135790246813579}
   m_Layer: 0
   m_Name: PentagonBoy
   m_TagString: Untagged
@@ -236,6 +237,20 @@ CapsuleCollider:
   m_Height: 1.8789592
   m_Direction: 1
   m_Center: {x: -0.0044694496, y: -0.22814642, z: -0.14999996}
+--- !u!114 &2468135790246813579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161378063130477174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64f0a47cfae4c9daeb58140327d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirection
+  targetCamera: {fileID: 0}
+  keepLerpPositionInSync: 1
 --- !u!1 &436744844242049286
 GameObject:
   m_ObjectHideFlags: 0

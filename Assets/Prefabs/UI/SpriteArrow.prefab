@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 4460989998532928306}
   - component: {fileID: 4192950447953472695}
   - component: {fileID: 7130147843812809072}
+  - component: {fileID: 7376548199940484406}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -650,3 +651,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4192950447953472695}
   m_maskType: 0
+--- !u!114 &7376548199940484406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024873066696189170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4c29b8d3a14f2e9c65a1074bd8e631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirectionOnZ

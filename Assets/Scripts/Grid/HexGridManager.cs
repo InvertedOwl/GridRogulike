@@ -40,6 +40,7 @@ namespace Grid
 
         public GameObject hexPrefab;
         private Dictionary<Vector2Int, string> _boardDictionary = new Dictionary<Vector2Int, string>();
+        private Dictionary<Vector2Int, int> _heightDictionary = new Dictionary<Vector2Int, int>();
         public Dictionary<Vector2Int, GameObject> _hexObjects = new Dictionary<Vector2Int, GameObject>();
         public Transform grid;
         public static HexGridManager Instance;
@@ -65,6 +66,7 @@ namespace Grid
         public HexHoveredEvent onHexHoverExit;
 
         [SerializeField] private float tileOrthogonalSeparation = 0.001f;
+        private const float TileHeightZOffset = -0.25f;
 
         void Awake ()
         {
@@ -106,17 +108,42 @@ namespace Grid
             //     new Vector3(normalizedPos.x, normalizedPos.y, -10);
         }
 
-        public void TryAdd(Vector2Int current, string type)
+        public void TryAdd(Vector2Int current, string type, int height = 0)
         {
             if (!_boardDictionary.ContainsKey(current))
             {
                 _boardDictionary.Add(current, type);
+                _heightDictionary[current] = Mathf.Max(0, height);
             }
         }
 
         public void Replace(Vector2Int current, string type)
         {
             _boardDictionary[current] = type;
+            if (!_heightDictionary.ContainsKey(current))
+                _heightDictionary[current] = 0;
+        }
+
+        public int GetHeight(Vector2Int position)
+        {
+            return _heightDictionary.TryGetValue(position, out int height) ? height : 0;
+        }
+
+        public void SetHeight(Vector2Int position, int height)
+        {
+            if (!_boardDictionary.ContainsKey(position))
+                return;
+
+            _heightDictionary[position] = Mathf.Max(0, height);
+
+            if (_hexObjects.TryGetValue(position, out GameObject tile) && tile != null)
+            {
+                tile.transform.localPosition = GetHexCenterWithOrthogonalOffset(
+                    position.x,
+                    position.y,
+                    tileOrthogonalSeparation,
+                    _heightDictionary[position]);
+            }
         }
 
         public MapData CaptureSaveData()
@@ -128,7 +155,8 @@ namespace Grid
                 data.entries.Add(new MapEntry
                 {
                     key = kvp.Key,
-                    value = kvp.Value
+                    value = kvp.Value,
+                    height = GetHeight(kvp.Key)
                 });
             }
 
@@ -143,6 +171,7 @@ namespace Grid
             }
 
             _boardDictionary = data.ToDictionary();
+            _heightDictionary = data.ToHeightDictionary();
             UpdateBoard();
         }
 
@@ -187,7 +216,8 @@ namespace Grid
                 newHex.transform.localPosition = GetHexCenterWithOrthogonalOffset(
                     pos.x,
                     pos.y,
-                    tileOrthogonalSeparation);
+                    tileOrthogonalSeparation,
+                    GetHeight(pos));
                 _hexObjects[pos] = newHex;
 
                 SpriteRenderer displayRenderer = newHex.transform.GetChild(3).GetComponent<SpriteRenderer>();
@@ -368,6 +398,8 @@ namespace Grid
         {
             get => _boardDictionary;
         }
+
+        public IReadOnlyDictionary<Vector2Int, int> HeightDictionary => _heightDictionary;
 
         public void UpdateHexObject(TileEntry entry, GameObject tile)
         {
@@ -675,10 +707,16 @@ namespace Grid
             return new Vector2(centerX, centerY);
         }
 
-        public static Vector3 GetHexCenterWithOrthogonalOffset(int col, int row, float orthogonalSeparation)
+        public static Vector3 GetHexCenterWithOrthogonalOffset(
+            int col,
+            int row,
+            float orthogonalSeparation,
+            int height = 0)
         {
             Vector2 center = GetHexCenter(col, row);
-            return new Vector3(center.x, center.y, GetHexOrthogonalOffset(col, row, orthogonalSeparation));
+            float z = GetHexOrthogonalOffset(col, row, orthogonalSeparation) +
+                      (Mathf.Max(0, height) * TileHeightZOffset);
+            return new Vector3(center.x, center.y, z);
         }
 
         private static float GetHexOrthogonalOffset(int col, int row, float orthogonalSeparation)

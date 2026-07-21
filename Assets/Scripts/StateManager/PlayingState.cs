@@ -771,18 +771,27 @@ namespace StateManager
         [SerializeField] private int initialMapRadius = 2;
         [SerializeField] private string homeTileType = "start";
         [SerializeField] private string generatedTileType = "basic";
+        [SerializeField, Min(0.001f)] private float tileHeightNoiseScale = 0.35f;
 
         public List<MapData> maps = new List<MapData>();
 
         private void SetupInitialTiles()
         {
             var origin = new Vector2Int(0, 0);
+            RandomState noiseSeed = RunInfo.NewRandom("tile-height-noise");
+            RandomState noiseOffsetRandom = new RandomState(noiseSeed.seed);
+            Vector2 noiseOffset = new Vector2(
+                (float)noiseOffsetRandom.NextDouble() * 10000f,
+                (float)noiseOffsetRandom.NextDouble() * 10000f);
 
             if (generateInitialMap)
             {
                 foreach (Vector2Int position in HexGridManager.HexesInRadius(initialMapRadius))
                 {
-                    _grid.TryAdd(position, position == origin ? homeTileType : generatedTileType);
+                    TryAddTileWithNoiseHeight(
+                        position,
+                        position == origin ? homeTileType : generatedTileType,
+                        noiseOffset);
                 }
             }
 
@@ -790,11 +799,28 @@ namespace StateManager
             {
                 foreach (MapEntry mapEntry in map.entries)
                 {
-                    _grid.TryAdd(mapEntry.key, mapEntry.value);
+                    TryAddTileWithNoiseHeight(mapEntry.key, mapEntry.value, noiseOffset);
                 }
             }
             
             _grid.UpdateBoard();
+        }
+
+        private void TryAddTileWithNoiseHeight(
+            Vector2Int position,
+            string tileType,
+            Vector2 noiseOffset)
+        {
+            if (_grid.BoardDictionary.ContainsKey(position))
+                return;
+
+            Vector2 center = HexGridManager.GetHexCenter(position.x, position.y);
+            float noise = Mathf.PerlinNoise(
+                center.x * tileHeightNoiseScale + noiseOffset.x,
+                center.y * tileHeightNoiseScale + noiseOffset.y);
+            int height = Mathf.Min(2, Mathf.FloorToInt(noise * 3f));
+
+            _grid.TryAdd(position, tileType, height);
         }
 
         private void RestoreOrInitializeTileCountdownStates()
@@ -1882,7 +1908,7 @@ namespace StateManager
                 return;
             }
 
-            GameStateManager.Instance.Change<TilePickState>();
+            GameStateManager.Instance.Change<ShopState>();
         }
 
         private bool IsFinalMapLayer()

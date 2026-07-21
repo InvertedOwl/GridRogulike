@@ -2268,7 +2268,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.17326, y: 0, z: 0.009}
-  m_LocalScale: {x: 0.047113616, y: 0.047113616, z: 0.024591977}
+  m_LocalScale: {x: 0.047113616, y: 0.047113616, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4184089505140709005}
@@ -8095,6 +8095,7 @@ GameObject:
   - component: {fileID: 1778149916096298581}
   - component: {fileID: 6558966996837920556}
   - component: {fileID: 7410803384063885617}
+  - component: {fileID: 8708927212136252310}
   m_Layer: 0
   m_Name: DamageHere
   m_TagString: Untagged
@@ -8118,7 +8119,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -43.066, y: 32.659, z: -43.189}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.029, y: 0.05}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6558966996837920556
@@ -8267,6 +8268,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 6558966996837920556}
   m_maskType: 0
+--- !u!114 &8708927212136252310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5146700267523579123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64f0a47cfae4c9daeb58140327d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirection
+  targetCamera: {fileID: 0}
+  keepLerpPositionInSync: 0
 --- !u!1 &5239402385643238662
 GameObject:
   m_ObjectHideFlags: 0
@@ -13800,7 +13815,7 @@ Transform:
   - {fileID: 1958795343987671743}
   - {fileID: 1424529167092556907}
   - {fileID: 6029968728127235135}
-  - {fileID: 1109811019308606750}
+  - {fileID: 2299140425379986493}
   - {fileID: 2598650008894371580}
   - {fileID: 7112311178404127884}
   - {fileID: 6844023691564854603}
@@ -13969,6 +13984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5152587017390974075}
+  - component: {fileID: 7746512071835273110}
   m_Layer: 0
   m_Name: HexIcon
   m_TagString: Untagged
@@ -13993,6 +14009,18 @@ Transform:
   - {fileID: 9120073375831120938}
   m_Father: {fileID: 6029968728127235135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30}
+--- !u!114 &7746512071835273110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6413237813049652569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4c29b8d3a14f2e9c65a1074bd8e631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirectionOnZ
 --- !u!1 &6512301481776847560
 GameObject:
   m_ObjectHideFlags: 0
@@ -19633,13 +19661,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8176154423823230739}
-  m_LocalRotation: {x: -0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalRotation: {x: -0.42261827, y: -0, z: -0, w: 0.9063079}
   m_LocalPosition: {x: 0, y: 0, z: -0.08}
-  m_LocalScale: {x: 0.0014518787, y: 0.001451879, z: 0.0014518787}
+  m_LocalScale: {x: 0.0014518787, y: 0.0014518792, z: 0.0014518788}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2523958948969475152}
-  m_Father: {fileID: 4184089505140709005}
+  m_Father: {fileID: 2299140425379986493}
   m_LocalEulerAnglesHint: {x: -50, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -20212,3 +20240,48 @@ MonoBehaviour:
   durationSeconds: 0.25
   useMaterialColor: 1
   _elapsedTime: 0
+--- !u!1 &9143065655985390236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2299140425379986493}
+  - component: {fileID: 8600787742080731596}
+  m_Layer: 0
+  m_Name: FaceCameraZ
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2299140425379986493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143065655985390236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1109811019308606750}
+  m_Father: {fileID: 4184089505140709005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8600787742080731596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143065655985390236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4c29b8d3a14f2e9c65a1074bd8e631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirectionOnZ

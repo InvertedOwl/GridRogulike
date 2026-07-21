@@ -41,8 +41,6 @@ namespace Entities
         private const string MoveFxKey = "ToonPunchLight";
         private const float MoveFxBackwardOffset = 0.75f;
         private Camera _previewHoverCamera;
-        private Camera _mainCamera;
-        private LerpPosition _lerpPosition;
 
         public Image turnIndicatorIcon;
         
@@ -222,29 +220,6 @@ namespace Entities
             UpdateEntityHoverState();
 
             FollowEyes();
-        }
-
-        private void LateUpdate()
-        {
-            if (_mainCamera == null)
-                _mainCamera = Camera.main;
-
-            if (_mainCamera == null)
-                return;
-
-            // Directional billboard: all entities share the camera's orientation rather
-            // than individually turning toward the camera's position.
-            transform.rotation = _mainCamera.transform.rotation;
-
-            if (_lerpPosition == null)
-                _lerpPosition = GetComponent<LerpPosition>();
-
-            if (_lerpPosition != null)
-            {
-                _lerpPosition.targetRotation = _lerpPosition.isLocal
-                    ? transform.localRotation
-                    : transform.rotation;
-            }
         }
 
         protected virtual void UpdateEntityHoverState()
