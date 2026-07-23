@@ -767,8 +767,13 @@ namespace Grid
         {
             Vector2 center = GetHexCenter(col, row);
             float z = GetHexOrthogonalOffset(col, row, orthogonalSeparation) +
-                      (Mathf.Max(0, height) * TileHeightZOffset);
+                      GetTileHeightWorldOffset(height);
             return new Vector3(center.x, center.y, z);
+        }
+
+        public static float GetTileHeightWorldOffset(int height)
+        {
+            return Mathf.Max(0, height) * TileHeightZOffset;
         }
 
         private static float GetHexOrthogonalOffset(int col, int row, float orthogonalSeparation)

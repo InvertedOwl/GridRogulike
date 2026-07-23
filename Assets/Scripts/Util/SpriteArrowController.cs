@@ -80,9 +80,22 @@ namespace Util
             float lineLength = Mathf.Max(0f, scaledDistance - startPadding - endPadding);
             Vector2 direction = distance > 0f ? (headWorldPos - tailWorldPos) / distance : Vector2.up;
             Vector3 centerShift = new Vector3(direction.x, direction.y, 0f) * ((startPadding - endPadding) / 2f);
-            Vector3 offset = new Vector3(direction.x, direction.y, 0f) * (lineLength / 2f);
             Vector3 center = new Vector3(arrowWorldPos2d.x, arrowWorldPos2d.y, zPosition) + centerShift;
-            Vector3 lineEnd = center + offset;
+            Vector3 planarOffset = new Vector3(direction.x, direction.y, 0f) * (lineLength / 2f);
+            Vector3 lineStart = center - planarOffset;
+            Vector3 lineEnd = center + planarOffset;
+
+            int tailHeight = HexGridManager.Instance != null
+                ? HexGridManager.Instance.GetHeight(tail)
+                : 0;
+            int headHeight = HexGridManager.Instance != null
+                ? HexGridManager.Instance.GetHeight(head)
+                : 0;
+            lineStart.z = zPosition + HexGridManager.GetTileHeightWorldOffset(tailHeight);
+            lineEnd.z = zPosition + HexGridManager.GetTileHeightWorldOffset(headHeight);
+
+            center = (lineStart + lineEnd) / 2f;
+            Vector3 offset = (lineEnd - lineStart) / 2f;
 
             SetIconPosition(lineEnd, direction);
 

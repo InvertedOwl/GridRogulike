@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6202621961108413911}
   - component: {fileID: 7137682367518826761}
   - component: {fileID: 1600135840512626226}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 179764586078135499}
   - component: {fileID: 419847186260322616}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpriteArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,8 @@ GameObject:
   - component: {fileID: 4277487555120544341}
   - component: {fileID: 7387092438763785974}
   - component: {fileID: 7024779573618624037}
-  m_Layer: 0
+  - component: {fileID: 2365725421295066836}
+  m_Layer: 3
   m_Name: AttackIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,6 +404,20 @@ MonoBehaviour:
   arriveAt:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2365725421295066836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632207786464854307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64f0a47cfae4c9daeb58140327d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirection
+  targetCamera: {fileID: 0}
+  keepLerpPositionInSync: 1
 --- !u!1 &4538923130038391108
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5920533863201284086}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: IconList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5605971047195433900}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpriteArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,8 +495,8 @@ GameObject:
   - component: {fileID: 4460989998532928306}
   - component: {fileID: 4192950447953472695}
   - component: {fileID: 7130147843812809072}
-  - component: {fileID: 7376548199940484406}
-  m_Layer: 0
+  - component: {fileID: 5504502128474507126}
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,8 +566,8 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -345093561
+  m_SortingLayer: 1
   m_SortingOrder: 102
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -651,7 +666,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4192950447953472695}
   m_maskType: 0
---- !u!114 &7376548199940484406
+--- !u!114 &5504502128474507126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -660,6 +675,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7024873066696189170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f4c29b8d3a14f2e9c65a1074bd8e631, type: 3}
+  m_Script: {fileID: 11500000, guid: a64f0a47cfae4c9daeb58140327d6b92, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirectionOnZ
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirection
+  targetCamera: {fileID: 0}
+  keepLerpPositionInSync: 0

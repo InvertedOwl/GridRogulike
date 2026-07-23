@@ -287,7 +287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.6, y: -86.27001}
+  m_AnchoredPosition: {x: 327.59995, y: -86.27001}
   m_SizeDelta: {x: 630.54, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &32353971
@@ -26154,7 +26154,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.51593
+  m_Size: 0.5159298
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -28266,6 +28266,9 @@ MonoBehaviour:
       m_Calls: []
   deadEnemyCleanupScaleDuration: 0.2
   disabledTileOpacity: 0.6
+  cameraFollowRig: {fileID: 0}
+  cameraFollowSpeed: 5
+  cameraResetDuration: 0.5
   YourTurn: {fileID: 2018274465}
   EnemyTurn: {fileID: 1140111968}
   MovePhase: {fileID: 1366772763}
