@@ -305,13 +305,21 @@ namespace StateManager
         public EncounterData GetRandomEncounter(EnemyType enemyType, RandomState random)
         {
             const float encounterDifficulty = 0f;
+            random ??= RunInfo.NewRandom("encounters");
+            EncounterData encounter = null;
 
             if (encounterDatabase != null)
-                return encounterDatabase.GetRandomEncounter(encounterDifficulty, enemyType, random);
+                encounter = encounterDatabase.GetRandomEncounter(encounterDifficulty, enemyType, random);
 
-            EnemyData fallbackEncounterData = GetComponent<EnemyData>();
-            if (fallbackEncounterData != null)
-                return fallbackEncounterData.GetRandomEncounter(encounterDifficulty, enemyType, random);
+            if (encounter == null)
+            {
+                EnemyData fallbackEncounterData = GetComponent<EnemyData>();
+                if (fallbackEncounterData != null)
+                    encounter = fallbackEncounterData.GetRandomEncounter(encounterDifficulty, enemyType, random);
+            }
+
+            if (encounter != null)
+                return encounter.CreateRuntimeCopy(random.Next());
 
             Debug.LogError("MapState has no EncounterDatabase assigned and no EnemyData fallback component.");
             return null;

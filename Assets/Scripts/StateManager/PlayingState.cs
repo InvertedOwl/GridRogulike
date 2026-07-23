@@ -116,6 +116,10 @@ namespace StateManager
         private Coroutine _finishCoroutine;
         [SerializeField] private float deadEnemyCleanupScaleDuration = 0.2f;
         [SerializeField] private float disabledTileOpacity = 0.6f;
+        [Header("Camera Follow")]
+        [SerializeField] private Transform cameraFollowRig;
+        [SerializeField, Min(0f)] private float cameraFollowSpeed = 5f;
+        [SerializeField, Min(0f)] private float cameraResetDuration = 0.5f;
         private readonly HashSet<Vector2Int> _tilesUsedThisTurn = new();
         private readonly HashSet<Vector2Int> _tilesUsedThisCombat = new();
         private readonly HashSet<NonPlayerEntity> _enemiesNeedingIntentRefresh = new();
@@ -128,6 +132,10 @@ namespace StateManager
         private RunInfo _subscribedRunInfo;
         private readonly Dictionary<Vector2Int, TileCountdownRuntimeState> _tileCountdownStates = new();
         private List<TileCountdownSaveData> _loadedTileCountdownStates;
+        private Vector3 _cameraResetPosition;
+        private Vector3 _cameraPlayerOrigin;
+        private bool _hasCameraResetPosition;
+        private bool _cameraFollowActive;
         public int PlayerMovesThisTurn { get; private set; }
 
         private class TileCountdownRuntimeState
@@ -214,6 +222,8 @@ namespace StateManager
                     e.Health = e.initialHealth;
             }
 
+            BeginCameraFollow();
+
         }
 
         IEnumerator WaitFrameMove(AbstractEntity e)
@@ -251,6 +261,104 @@ namespace StateManager
             }
 
             TryAutoEndPlayerTurn();
+        }
+
+        private void LateUpdate()
+        {
+            if (cameraFollowRig == null)
+                return;
+
+            if (_cameraFollowActive)
+            {
+                Vector3 targetPosition = GetCameraFollowTarget();
+                cameraFollowRig.position = Vector3.Lerp(
+                    cameraFollowRig.position,
+                    targetPosition,
+                    GetCameraEaseT(cameraFollowSpeed));
+            }
+        }
+
+        private void BeginCameraFollow()
+        {
+            ResolveCameraFollowRig();
+            if (cameraFollowRig == null || player == null || HexGridManager.Instance == null)
+                return;
+
+            if (!_hasCameraResetPosition)
+            {
+                _cameraResetPosition = cameraFollowRig.position;
+                _hasCameraResetPosition = true;
+            }
+
+            _cameraPlayerOrigin = GetPlayerHexWorldPosition();
+            _cameraFollowActive = true;
+
+            EasePosition resetEase = cameraFollowRig.GetComponent<EasePosition>();
+            if (resetEase != null)
+            {
+                resetEase.isLocal = false;
+                resetEase.InstantSend(cameraFollowRig.position);
+            }
+        }
+
+        private void EndCameraFollow()
+        {
+            _cameraFollowActive = false;
+            if (!_hasCameraResetPosition || cameraFollowRig == null)
+                return;
+
+            EasePosition resetEase = cameraFollowRig.GetComponent<EasePosition>();
+            if (resetEase == null)
+                resetEase = cameraFollowRig.gameObject.AddComponent<EasePosition>();
+
+            resetEase.isLocal = false;
+            resetEase.durationSeconds = cameraResetDuration;
+            resetEase.targetLocation = _cameraResetPosition;
+        }
+
+        private void ResolveCameraFollowRig()
+        {
+            if (cameraFollowRig != null)
+                return;
+
+            Camera mainCamera = Camera.main;
+            if (mainCamera == null)
+                return;
+
+            Transform cameraTransform = mainCamera.transform;
+            cameraFollowRig = cameraTransform.parent != null && cameraTransform.parent.parent != null
+                ? cameraTransform.parent.parent
+                : cameraTransform.parent != null
+                    ? cameraTransform.parent
+                    : cameraTransform;
+        }
+
+        private Vector3 GetCameraFollowTarget()
+        {
+            Vector3 playerPosition = GetPlayerHexWorldPosition();
+            Vector3 playerOffset = playerPosition - _cameraPlayerOrigin;
+            return new Vector3(
+                _cameraResetPosition.x + playerOffset.x,
+                _cameraResetPosition.y + playerOffset.y,
+                _cameraResetPosition.z);
+        }
+
+        private Vector3 GetPlayerHexWorldPosition()
+        {
+            if (player != null &&
+                HexGridManager.Instance != null &&
+                HexGridManager.Instance._hexObjects.TryGetValue(player.positionRowCol, out GameObject tile) &&
+                tile != null)
+            {
+                return tile.transform.position;
+            }
+
+            return player != null ? player.transform.position : Vector3.zero;
+        }
+
+        private float GetCameraEaseT(float speed)
+        {
+            return speed <= 0f ? 1f : 1f - Mathf.Exp(-speed * Time.deltaTime);
         }
 
         private void TryAutoEndPlayerTurn()
@@ -391,6 +499,7 @@ namespace StateManager
                     MovePhaseActivatedEvent?.Invoke();
                     break;
                 case TurnPhase.Card:
+                    PlanAllEnemiesAfterPlayerMove();
                     OnCardPhaseActivated();
                     CardPhaseActivatedEvent?.Invoke();
                     break;
@@ -467,6 +576,9 @@ namespace StateManager
             if (_enemiesNeedingIntentRefresh.Count == 0)
                 return;
 
+            if (IsMovePhaseActive)
+                return;
+
             if (!IsPlayerTurnActive())
             {
                 _enemiesNeedingIntentRefresh.Clear();
@@ -482,6 +594,20 @@ namespace StateManager
             }
 
             _enemiesNeedingIntentRefresh.Clear();
+        }
+
+        private void PlanAllEnemiesAfterPlayerMove()
+        {
+            _enemiesNeedingIntentRefresh.Clear();
+            _enemyPlanningPositions.Clear();
+
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity is NonPlayerEntity enemy && enemy.Health > 0)
+                {
+                    PlanEnemyNextTurn(enemy, true);
+                }
+            }
         }
 
         private bool HasResolvingCard()
@@ -534,7 +660,10 @@ namespace StateManager
                 .ToList();
 
             Dictionary<Vector2Int, int> distanceMap =
-                HexGridManager.Instance.CalculateDistanceMap(player.positionRowCol, blockers);
+                HexGridManager.Instance.CalculateDistanceMap(
+                    player.positionRowCol,
+                    blockers,
+                    includeElevationCosts: true);
 
             return distanceMap.Values.Any(distance =>
                 distance > 0 && distance <= RunInfo.Instance.CurrentSteps);
@@ -611,13 +740,6 @@ namespace StateManager
                 .Contains(player));
             
             _enemyPlanningPositions.Clear();
-            foreach (AbstractEntity e in entities)
-            {
-                if (e is NonPlayerEntity nonPlayerEntity)
-                {
-                    PlanEnemyNextTurn(nonPlayerEntity, true);
-                }
-            }
         }
 
         private bool TryGetRandomEmptyHex(RandomState randomState, out Vector2Int pos)
@@ -771,15 +893,15 @@ namespace StateManager
         [SerializeField] private int initialMapRadius = 2;
         [SerializeField] private string homeTileType = "start";
         [SerializeField] private string generatedTileType = "basic";
-        [SerializeField, Min(0.001f)] private float tileHeightNoiseScale = 0.35f;
+        [SerializeField, Min(0.001f)] private float tileHeightNoiseScale = 0.001f;
 
         public List<MapData> maps = new List<MapData>();
 
         private void SetupInitialTiles()
         {
             var origin = new Vector2Int(0, 0);
-            RandomState noiseSeed = RunInfo.NewRandom("tile-height-noise");
-            RandomState noiseOffsetRandom = new RandomState(noiseSeed.seed);
+            int perlinNoiseSeed = encounterData != null ? encounterData.PerlinNoiseSeed : 0;
+            RandomState noiseOffsetRandom = new RandomState(perlinNoiseSeed);
             Vector2 noiseOffset = new Vector2(
                 (float)noiseOffsetRandom.NextDouble() * 10000f,
                 (float)noiseOffsetRandom.NextDouble() * 10000f);
@@ -788,10 +910,7 @@ namespace StateManager
             {
                 foreach (Vector2Int position in HexGridManager.HexesInRadius(initialMapRadius))
                 {
-                    TryAddTileWithNoiseHeight(
-                        position,
-                        position == origin ? homeTileType : generatedTileType,
-                        noiseOffset);
+                    _grid.TryAdd(position, position == origin ? homeTileType : generatedTileType);
                 }
             }
 
@@ -799,28 +918,25 @@ namespace StateManager
             {
                 foreach (MapEntry mapEntry in map.entries)
                 {
-                    TryAddTileWithNoiseHeight(mapEntry.key, mapEntry.value, noiseOffset);
+                    _grid.TryAdd(mapEntry.key, mapEntry.value);
                 }
+            }
+
+            foreach (Vector2Int position in _grid.BoardDictionary.Keys)
+            {
+                _grid.SetHeight(position, GetNoiseHeight(position, noiseOffset));
             }
             
             _grid.UpdateBoard();
         }
 
-        private void TryAddTileWithNoiseHeight(
-            Vector2Int position,
-            string tileType,
-            Vector2 noiseOffset)
+        private int GetNoiseHeight(Vector2Int position, Vector2 noiseOffset)
         {
-            if (_grid.BoardDictionary.ContainsKey(position))
-                return;
-
             Vector2 center = HexGridManager.GetHexCenter(position.x, position.y);
             float noise = Mathf.PerlinNoise(
                 center.x * tileHeightNoiseScale + noiseOffset.x,
                 center.y * tileHeightNoiseScale + noiseOffset.y);
-            int height = Mathf.Min(2, Mathf.FloorToInt(noise * 3f));
-
-            _grid.TryAdd(position, tileType, height);
+            return Mathf.Min(2, Mathf.FloorToInt(noise * 3f));
         }
 
         private void RestoreOrInitializeTileCountdownStates()
@@ -1441,6 +1557,8 @@ namespace StateManager
         public override void Exit()
         {
             UnsubscribeFromRunInfoEvents();
+            EndCameraFollow();
+            HexGridManager.Instance?.ResetAllHeights();
             PlayWindowOutSound();
             playingHealth.targetLocation = new Vector3(0, -600, 0);
             
@@ -1553,12 +1671,6 @@ namespace StateManager
             HexClickPlayerController.instance.UpdateMovableParticles(this);
 
             ClearDeadEnemies();
-
-            if (entity is NonPlayerEntity nonPlayerEntity)
-            {
-                PlanEnemyNextTurn(nonPlayerEntity, false);
-            }
-            
 
             // Unified start for the next entity
             StartEntityTurn();

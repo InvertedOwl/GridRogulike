@@ -43,7 +43,7 @@ namespace Entities
             playingState.TriggerPlayerTileStart(positionRowCol, this);
 
             // Gain movement at start of turn
-            int stepsToGain = 1;
+            int stepsToGain = 2;
             if (DebugStats.Enabled)
             {
                 stepsToGain = 1000;

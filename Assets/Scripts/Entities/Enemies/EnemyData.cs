@@ -13,7 +13,22 @@ namespace Entities.Enemies
         public List<string> enemies;
         public List<string> environmentPassives = new List<string>();
         public EnemyType EncounterType;
-            
+        public int PerlinNoiseSeed;
+
+        public EncounterData CreateRuntimeCopy(int perlinNoiseSeed)
+        {
+            return new EncounterData
+            {
+                DifficultyMin = DifficultyMin,
+                DifficultyMax = DifficultyMax,
+                enemies = enemies != null ? new List<string>(enemies) : new List<string>(),
+                environmentPassives = environmentPassives != null
+                    ? new List<string>(environmentPassives)
+                    : new List<string>(),
+                EncounterType = EncounterType,
+                PerlinNoiseSeed = perlinNoiseSeed
+            };
+        }
     }
     
     public class EnemyData : MonoBehaviour

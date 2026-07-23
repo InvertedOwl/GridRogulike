@@ -138,11 +138,45 @@ namespace Grid
 
             if (_hexObjects.TryGetValue(position, out GameObject tile) && tile != null)
             {
-                tile.transform.localPosition = GetHexCenterWithOrthogonalOffset(
+                Vector3 targetPosition = GetHexCenterWithOrthogonalOffset(
                     position.x,
                     position.y,
                     tileOrthogonalSeparation,
                     _heightDictionary[position]);
+                AnimateTileToPosition(tile, targetPosition);
+            }
+        }
+
+        private static void AnimateTileToPosition(GameObject tile, Vector3 localPosition)
+        {
+            EasePosition easePosition = tile.GetComponent<EasePosition>();
+            if (easePosition != null)
+            {
+                easePosition.targetLocation = easePosition.isLocal || tile.transform.parent == null
+                    ? localPosition
+                    : tile.transform.parent.TransformPoint(localPosition);
+                return;
+            }
+
+            LerpPosition lerpPosition = tile.GetComponent<LerpPosition>();
+            if (lerpPosition != null)
+            {
+                lerpPosition.targetLocation = lerpPosition.isLocal || tile.transform.parent == null
+                    ? localPosition
+                    : tile.transform.parent.TransformPoint(localPosition);
+                return;
+            }
+
+            easePosition = tile.AddComponent<EasePosition>();
+            easePosition.isLocal = true;
+            easePosition.targetLocation = localPosition;
+        }
+
+        public void ResetAllHeights()
+        {
+            foreach (Vector2Int position in _boardDictionary.Keys)
+            {
+                SetHeight(position, 0);
             }
         }
 
@@ -216,8 +250,7 @@ namespace Grid
                 newHex.transform.localPosition = GetHexCenterWithOrthogonalOffset(
                     pos.x,
                     pos.y,
-                    tileOrthogonalSeparation,
-                    GetHeight(pos));
+                    tileOrthogonalSeparation);
                 _hexObjects[pos] = newHex;
 
                 SpriteRenderer displayRenderer = newHex.transform.GetChild(3).GetComponent<SpriteRenderer>();
@@ -227,6 +260,7 @@ namespace Grid
 
                 AttachClickForwarder(newHex, pos);
                 AttachHoverForwarder(newHex, pos);
+                SetHeight(pos, GetHeight(pos));
             }
 
             SpawnBG.instance?.RefreshDecorations();
@@ -334,7 +368,10 @@ namespace Grid
             _hexHoverExitCallbacks.Clear();
         }
         
-        public Dictionary<Vector2Int, int> CalculateDistanceMap(Vector2Int start, List<Vector2Int> blockers)
+        public Dictionary<Vector2Int, int> CalculateDistanceMap(
+            Vector2Int start,
+            List<Vector2Int> blockers,
+            bool includeElevationCosts = false)
         {
             Dictionary<Vector2Int, int> distances = new Dictionary<Vector2Int, int>();
 
@@ -362,15 +399,26 @@ namespace Grid
                         continue;
                     }
 
-                    if (distances.ContainsKey(neighbor))
-                        continue;
+                    int candidateDistance = currentDist +
+                                            (includeElevationCosts ? GetMovementCost(current, neighbor) : 1);
 
-                    distances[neighbor] = currentDist + 1;
+                    if (distances.TryGetValue(neighbor, out int existingDistance) &&
+                        (existingDistance < 0 || existingDistance <= candidateDistance))
+                    {
+                        continue;
+                    }
+
+                    distances[neighbor] = candidateDistance;
                     queue.Enqueue(neighbor);
                 }
             }
 
             return distances;
+        }
+
+        public int GetMovementCost(Vector2Int from, Vector2Int to)
+        {
+            return GetHeight(from) == GetHeight(to) ? 1 : 2;
         }
 
         public GameObject GetHexPrefab(string id, Transform parent)
@@ -406,6 +454,10 @@ namespace Grid
             Color color = SpawnBG.RandomizeColor(entry.color.ToColor(), 0.001f, 0.01f, 0.05f);
 
             GOList goList = tile.GetComponentInChildren<GOList>();
+            Transform stepsHere = tile.GetComponentsInChildren<Transform>(true)
+                .FirstOrDefault(child => child.name == "StepsHere");
+            if (stepsHere != null)
+                stepsHere.gameObject.SetActive(false);
 
             SetHexObjectDisplayColors(tile, color);
 

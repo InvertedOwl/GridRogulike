@@ -9,12 +9,12 @@ public class ArrowKeysRotate : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0f, 0f, 60f));
+            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0f, 0f, -60f));
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0f, 0f, -60f));
+            easeRotation.SendToRotation(easeRotation.TargetEulerLocal + new Vector3(0f, 0f, 60f));
         }
     }
 }

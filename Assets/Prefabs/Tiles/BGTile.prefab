@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 0.24808311, y: 0.27494836, z: 0.24808311}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2395875268886162904}
+  - {fileID: 4315318731331513063}
   m_Father: {fileID: 8180037614569795847}
   m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
 --- !u!1 &4449493802187549647
@@ -110,6 +110,7 @@ MonoBehaviour:
   activateOnHover: {fileID: 0}
   waitTicks: 20
   hoverYOffset: -0.07
+  hoverZOffset: 0
   activeHover: 1
   hoverWhenNotPlaytate: 1
   ignoreOcclusion: 0
@@ -157,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GOList
   myDictionaryList:
   - Key: Tree
-    Value: {fileID: 6646004157911706776}
+    Value: {fileID: 6757943633502778730}
 --- !u!1 &4809054145525893587
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2395875268886162904
 Transform:
   m_ObjectHideFlags: 0
@@ -365,12 +366,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6646004157911706776}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000029802322, y: -0.00000008341783, z: 0.00000005507696, w: 1}
-  m_LocalPosition: {x: 0, y: -1.24, z: -0}
-  m_LocalScale: {x: 0.87633497, y: 0.90987957, z: 0.88427967}
+  m_LocalRotation: {x: 0.000000029802322, y: -0.00000008341783, z: 0.000000055076953, w: 1}
+  m_LocalPosition: {x: 0, y: 1.936, z: 0.117}
+  m_LocalScale: {x: 0.87633497, y: 0.90987957, z: 0.8842797}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7031338189124349847}
+  m_Father: {fileID: 4315318731331513063}
   m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
 --- !u!212 &9109467697778936738
 SpriteRenderer:
@@ -431,3 +432,50 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &6757943633502778730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4315318731331513063}
+  - component: {fileID: 423246934810416219}
+  m_Layer: 0
+  m_Name: Tree root (hah get it)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4315318731331513063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6757943633502778730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.53, z: 0.19}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2395875268886162904}
+  m_Father: {fileID: 7031338189124349847}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &423246934810416219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6757943633502778730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64f0a47cfae4c9daeb58140327d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceCameraDirection
+  targetCamera: {fileID: 0}
+  keepLerpPositionInSync: 1

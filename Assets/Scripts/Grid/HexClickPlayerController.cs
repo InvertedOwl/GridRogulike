@@ -350,6 +350,8 @@ namespace Grid {
             if (HexGridManager.Instance == null)
                 return;
 
+            ClearStepsHere();
+
             foreach (Vector2Int position in HexGridManager.Instance.BoardDictionary.Keys)
             {
                 if (!HexGridManager.Instance._hexObjects.TryGetValue(position, out GameObject hex) || hex == null)
@@ -408,8 +410,13 @@ namespace Grid {
         
         public void HexHoverOnCallback(Vector2Int hexPosition)
         {
+            ClearStepsHere();
+
             if (!GameStateManager.Instance.IsCurrent<PlayingState>())
                 return;
+
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            ShowStepsHere(hexPosition, playingState);
 
             if (_pendingTargetCard != null && _pendingTargetPositions.Contains(hexPosition))
             {
@@ -442,7 +449,6 @@ namespace Grid {
             if (!isAttacking)
                 return;
         
-            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             Dictionary<Vector2Int, int> distanceMap = HexGridManager.Instance.CalculateDistanceMap(playingState.player.positionRowCol, new List<Vector2Int>());
 
 
@@ -476,7 +482,67 @@ namespace Grid {
         }
         public void HexHoverOffCallback(Vector2Int hexPosition)
         {
+            ClearStepsHere();
             SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
+        }
+
+        private void ShowStepsHere(Vector2Int hexPosition, PlayingState playingState)
+        {
+            if (playingState == null ||
+                !playingState.CanPlayerMove ||
+                playingState.IsPlayerMovementBlocked)
+            {
+                return;
+            }
+
+            Dictionary<Vector2Int, int> distanceMap = CalculateDistanceMap(
+                playingState.player.positionRowCol,
+                playingState);
+
+            if (!distanceMap.TryGetValue(hexPosition, out int steps) || steps <= 0)
+                return;
+
+            GameObject stepsHere = GetStepsHereObject(hexPosition);
+            if (stepsHere == null)
+                return;
+
+            TMP_Text text = stepsHere.GetComponent<TMP_Text>() ??
+                            stepsHere.GetComponentInChildren<TMP_Text>(true);
+            if (text != null)
+                text.text = $"<sprite name=\"footsteps\">{steps}";
+
+            stepsHere.SetActive(true);
+        }
+
+        private void ClearStepsHere()
+        {
+            if (HexGridManager.Instance == null)
+                return;
+
+            foreach (Vector2Int position in HexGridManager.Instance.BoardDictionary.Keys)
+            {
+                GameObject stepsHere = GetStepsHereObject(position);
+                if (stepsHere != null)
+                    stepsHere.SetActive(false);
+            }
+        }
+
+        private GameObject GetStepsHereObject(Vector2Int position)
+        {
+            if (HexGridManager.Instance == null ||
+                !HexGridManager.Instance._hexObjects.TryGetValue(position, out GameObject hex) ||
+                hex == null)
+            {
+                return null;
+            }
+
+            GOList list = hex.GetComponent<GOList>();
+            if (list != null && list.TryGetValue("StepsHere", out GameObject registeredStepsHere))
+                return registeredStepsHere;
+
+            Transform stepsHere = hex.GetComponentsInChildren<Transform>(true)
+                .FirstOrDefault(child => child.name == "StepsHere");
+            return stepsHere != null ? stepsHere.gameObject : null;
         }
 
         public void HexClickCallback(Vector2Int hexPosition)
@@ -758,7 +824,10 @@ namespace Grid {
                 blockers.Add(abstractEntity.positionRowCol);
             }
             
-            Dictionary<Vector2Int, int> distanceMap = HexGridManager.Instance.CalculateDistanceMap(hexPosition, blockers);
+            Dictionary<Vector2Int, int> distanceMap = HexGridManager.Instance.CalculateDistanceMap(
+                hexPosition,
+                blockers,
+                includeElevationCosts: true);
             
             foreach (Vector2Int pos in distanceMap.Keys)
             {
@@ -796,14 +865,19 @@ namespace Grid {
                 bool tileMovedPlayer = false;
                 foreach (Vector2Int pos in positions)
                 {
+                    Vector2Int currentPosition = playingState.player.positionRowCol;
+                    int movementCost = HexGridManager.Instance.GetMovementCost(currentPosition, pos);
+
                     if (currentMap.ContainsKey(pos) &&
-                        currentMap[pos] < distanceMap[playingState.player.positionRowCol])
+                        currentMap.TryGetValue(currentPosition, out int currentDistance) &&
+                        currentMap[pos] + movementCost == currentDistance &&
+                        RunInfo.Instance.CurrentSteps >= movementCost)
                     {
                         if (playingState.MoveEntity(playingState.player, pos)) 
                         {
                             yield return new WaitForSeconds(0.3f * (1/GameplayNavSettings.speed));
                             moved = true;
-                            RunInfo.Instance.CurrentSteps -= 1;
+                            RunInfo.Instance.CurrentSteps -= movementCost;
 
                             tileMovedPlayer = playingState.player.positionRowCol != pos;
                             break;
