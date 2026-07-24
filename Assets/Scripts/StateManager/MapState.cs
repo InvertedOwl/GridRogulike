@@ -570,6 +570,7 @@ namespace StateManager
         
         private void MoveMap()
         {
+            HoverStateInvalidator.ReleaseAll();
             tempMapOffset = (int) Mathf.Clamp(tempMapOffset, -((GetLayerIndex(currentNode)) * layerSpacing), (layers * layerSpacing) - (2 * mapOffset) - ((GetLayerIndex(currentNode)) * layerSpacing));
             goList.GetValue("anchor").GetComponent<LerpPosition>().targetLocation = new Vector3((-(GetLayerIndex(currentNode)) * layerSpacing) - mapOffset - tempMapOffset, 0, 0);
             goList.GetValue("player").transform.SetAsLastSibling();
@@ -584,6 +585,13 @@ namespace StateManager
             }
 
             return -1;
+        }
+
+        public bool IsCurrentNodeInFinalLayer()
+        {
+            return currentNode != null &&
+                   mapLayers.Count > 0 &&
+                   mapLayers[mapLayers.Count - 1].Contains(currentNode);
         }
 
         public override void Exit()

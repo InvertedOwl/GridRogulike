@@ -5,6 +5,8 @@ namespace Util
 {
     public class SpriteArrowController : MonoBehaviour
     {
+        private const string BorderLayerName = "WorldUI";
+
         public float heightScale = 1; 
         public LineRenderer lineRenderer;
         public LineRenderer borderLineRenderer;
@@ -22,6 +24,7 @@ namespace Util
         public float arrowHeadOffset = 0f;
         public float arrowHeadAngleOffset = -90f;
         public float iconHeadOffset = 0f;
+        [Range(0f, 1f)] public float iconHeightLerp = 0.5f;
         public float zPosition = 0.9601f;
 
         public Vector2Int Tail
@@ -97,7 +100,8 @@ namespace Util
             center = (lineStart + lineEnd) / 2f;
             Vector3 offset = (lineEnd - lineStart) / 2f;
 
-            SetIconPosition(lineEnd, direction);
+            float iconHeight = Mathf.Lerp(lineStart.z, lineEnd.z, iconHeightLerp);
+            SetIconPosition(lineEnd, direction, iconHeight);
 
             if (lineRenderer == null)
                 return;
@@ -178,13 +182,15 @@ namespace Util
             arrowHeadBorder.localScale = arrowHead.localScale * arrowHeadBorderScaleMultiplier;
         }
 
-        private void SetIconPosition(Vector3 lineEnd, Vector2 direction)
+        private void SetIconPosition(Vector3 lineEnd, Vector2 direction, float midpointHeight)
         {
             if (iconContainer == null)
                 return;
 
             Vector3 direction3 = new Vector3(direction.x, direction.y, 0f);
-            iconContainer.position = lineEnd + direction3 * iconHeadOffset;
+            Vector3 iconPosition = lineEnd + direction3 * iconHeadOffset;
+            iconPosition.z = midpointHeight;
+            iconContainer.position = iconPosition;
         }
 
         private void SetArrowHeadColor()
@@ -222,6 +228,7 @@ namespace Util
                 return;
 
             GameObject borderLine = new GameObject("LineBorder");
+            borderLine.layer = LayerMask.NameToLayer(BorderLayerName);
             borderLine.transform.SetParent(lineRenderer.transform.parent, false);
             borderLine.transform.SetSiblingIndex(lineRenderer.transform.GetSiblingIndex());
 
@@ -246,6 +253,7 @@ namespace Util
                 return;
 
             GameObject borderHead = new GameObject("ArrowHeadBorder");
+            borderHead.layer = LayerMask.NameToLayer(BorderLayerName);
             borderHead.transform.SetParent(arrowHead.parent, false);
             borderHead.transform.SetSiblingIndex(arrowHead.GetSiblingIndex());
 

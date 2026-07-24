@@ -56,6 +56,12 @@ public class TileHover : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (HoverStateInvalidator.IsSuppressed)
+        {
+            ForceReleaseHover();
+            return;
+        }
+
         if (mainCam == null)
         {
             mainCam = Camera.main;
@@ -303,6 +309,13 @@ public class TileHover : MonoBehaviour
     {
         _animationHoverLatched = false;
         _directHoverLatched = false;
+    }
+
+    public void ForceReleaseHover()
+    {
+        ResetHoverAnimation();
+        ResetHoverDetails();
+        ResetHoverLatches();
     }
 
     private void ShowHoverDetails()

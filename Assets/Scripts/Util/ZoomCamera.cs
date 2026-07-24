@@ -133,16 +133,16 @@ public class ZoomCamera : MonoBehaviour
 
     private Vector3 GetZoomDirection()
     {
-        if (zoomTransform == null || !TryGetPlayerWorldPosition(out Vector3 playerPosition))
+        if (zoomTransform == null || !TryGetZoomTargetWorldPosition(out Vector3 targetPosition))
             return Vector3.forward;
 
-        Vector3 direction = playerPosition - zoomTransform.position;
+        Vector3 direction = targetPosition - zoomTransform.position;
         return direction.sqrMagnitude > 0.001f ? direction.normalized : Vector3.forward;
     }
 
-    private bool TryGetPlayerWorldPosition(out Vector3 playerPosition)
+    private bool TryGetZoomTargetWorldPosition(out Vector3 targetPosition)
     {
-        playerPosition = Vector3.zero;
+        targetPosition = Vector3.zero;
 
         PlayingState playingState = GameStateManager.Instance != null
             ? GameStateManager.Instance.GetCurrent<PlayingState>()
@@ -150,13 +150,13 @@ public class ZoomCamera : MonoBehaviour
 
         if (playingState != null && playingState.player != null)
         {
-            playerPosition = playingState.player.transform.position;
+            targetPosition = playingState.GetCameraFocusWorldPosition();
             return true;
         }
 
         if (Entities.Player.Instance != null)
         {
-            playerPosition = Entities.Player.Instance.transform.position;
+            targetPosition = Entities.Player.Instance.transform.position;
             return true;
         }
 

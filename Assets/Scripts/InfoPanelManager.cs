@@ -22,6 +22,14 @@ public class InfoPanelManager : MonoBehaviour
 
     private const int LayoutRebuildPasses = 3;
 
+    private void OnEnable()
+    {
+        // Cards usually populate their info panels while this object is hidden.
+        // The inactive rebuild request cannot start a coroutine, so schedule it
+        // again as soon as the first hover makes the panel active.
+        SchedulePanelLayoutRebuild();
+    }
+
     private void Update()
     {
         string textSignature = GetTextSignature();

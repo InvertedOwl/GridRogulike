@@ -181,6 +181,7 @@ MonoBehaviour:
   arrowHeadOffset: 0
   arrowHeadAngleOffset: -90
   iconHeadOffset: -0.15
+  iconHeightLerp: 0.716
   zPosition: 0.8601
   head: {x: 0, y: 0}
 --- !u!1 &1183235622032911629
@@ -591,7 +592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-'
+  m_text: 6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec0734524e7f89c4cb616d3f99739b81, type: 2}
   m_sharedMaterial: {fileID: -6789528112515909511, guid: ec0734524e7f89c4cb616d3f99739b81, type: 2}

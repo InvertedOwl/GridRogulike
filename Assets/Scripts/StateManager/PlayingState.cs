@@ -133,7 +133,7 @@ namespace StateManager
         private readonly Dictionary<Vector2Int, TileCountdownRuntimeState> _tileCountdownStates = new();
         private List<TileCountdownSaveData> _loadedTileCountdownStates;
         private Vector3 _cameraResetPosition;
-        private Vector3 _cameraPlayerOrigin;
+        private Vector3 _cameraWorldOrigin;
         private bool _hasCameraResetPosition;
         private bool _cameraFollowActive;
         public int PlayerMovesThisTurn { get; private set; }
@@ -290,7 +290,10 @@ namespace StateManager
                 _hasCameraResetPosition = true;
             }
 
-            _cameraPlayerOrigin = GetPlayerHexWorldPosition();
+            // The scene camera starts framed on the player's initial tile. Keep
+            // that as the world-space baseline so the initial entity average
+            // produces a real offset instead of being normalized back to zero.
+            _cameraWorldOrigin = GetPlayerHexWorldPosition();
             _cameraFollowActive = true;
 
             EasePosition resetEase = cameraFollowRig.GetComponent<EasePosition>();
@@ -335,25 +338,56 @@ namespace StateManager
 
         private Vector3 GetCameraFollowTarget()
         {
-            Vector3 playerPosition = GetPlayerHexWorldPosition();
-            Vector3 playerOffset = playerPosition - _cameraPlayerOrigin;
+            Vector3 focusPosition = GetCameraFocusWorldPosition();
+            Vector3 focusOffset = focusPosition - _cameraWorldOrigin;
             return new Vector3(
-                _cameraResetPosition.x + playerOffset.x,
-                _cameraResetPosition.y + playerOffset.y,
+                _cameraResetPosition.x + focusOffset.x,
+                _cameraResetPosition.y + focusOffset.y,
                 _cameraResetPosition.z);
+        }
+
+        public Vector3 GetCameraFocusWorldPosition()
+        {
+            Vector3 playerPosition = GetPlayerHexWorldPosition();
+            Vector3 enemyPositionSum = Vector3.zero;
+            int livingEnemyCount = 0;
+
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity == null ||
+                    entity.entityType != EntityType.Enemy ||
+                    entity.Health <= 0)
+                {
+                    continue;
+                }
+
+                enemyPositionSum += GetEntityHexWorldPosition(entity);
+                livingEnemyCount++;
+            }
+
+            if (livingEnemyCount == 0)
+                return playerPosition;
+
+            Vector3 enemyAveragePosition = enemyPositionSum / livingEnemyCount;
+            return playerPosition * 0.5f + enemyAveragePosition * 0.5f;
         }
 
         private Vector3 GetPlayerHexWorldPosition()
         {
-            if (player != null &&
+            return GetEntityHexWorldPosition(player);
+        }
+
+        private Vector3 GetEntityHexWorldPosition(AbstractEntity entity)
+        {
+            if (entity != null &&
                 HexGridManager.Instance != null &&
-                HexGridManager.Instance._hexObjects.TryGetValue(player.positionRowCol, out GameObject tile) &&
+                HexGridManager.Instance._hexObjects.TryGetValue(entity.positionRowCol, out GameObject tile) &&
                 tile != null)
             {
                 return tile.transform.position;
             }
 
-            return player != null ? player.transform.position : Vector3.zero;
+            return entity != null ? entity.transform.position : Vector3.zero;
         }
 
         private float GetCameraEaseT(float speed)
@@ -1940,17 +1974,25 @@ namespace StateManager
 
         public void CaptureFinish()
         {
+            string finish = CheckForFinish();
+            if (finish == "enemy")
+            {
+                if (_finishCoroutine != null)
+                {
+                    StopCoroutine(_finishCoroutine);
+                    _finishCoroutine = null;
+                }
+
+                EntityWon();
+                return;
+            }
+
             if (_finishCoroutine != null)
                 return;
 
-            string finish = CheckForFinish();
             if (finish == "player")
             {
                 _finishCoroutine = StartCoroutine(PlayerWonAfterDeaths());
-            }
-            else if (finish == "enemy")
-            {
-                EntityWon();
             }
         }
 
@@ -1963,7 +2005,12 @@ namespace StateManager
                 yield return new WaitForSeconds(waitSeconds);
 
             _finishCoroutine = null;
-            PlayerWon();
+
+            string finish = CheckForFinish();
+            if (finish == "enemy")
+                EntityWon();
+            else if (finish == "player")
+                PlayerWon();
         }
 
         private float GetLongestPendingDeathAnimation()
@@ -2025,6 +2072,9 @@ namespace StateManager
 
         private bool IsFinalMapLayer()
         {
+            if (MapState.Instance != null && MapState.Instance.IsCurrentNodeInFinalLayer())
+                return true;
+
             return MapProgressLayerCount > 0 &&
                    MapProgressLayer >= MapProgressLayerCount - 1;
         }
@@ -2045,24 +2095,22 @@ namespace StateManager
 
         public string CheckForFinish()
         {
-            bool enemyWin = true;
-            bool playerWin = true;
+            // Player death always wins ties and must not depend on whether dead
+            // entities have already been pruned from the combat entity list.
+            if (player == null || player.Health <= 0)
+                return "enemy";
+
             foreach (AbstractEntity entity in entities)
             {
-                if (entity.entityType == EntityType.Player && entity.Health > 0)
+                if (entity != null &&
+                    entity.entityType == EntityType.Enemy &&
+                    entity.Health > 0)
                 {
-                    enemyWin = false;
-                }
-
-                if (entity.entityType == EntityType.Enemy && entity.Health > 0)
-                {
-                    playerWin = false;
+                    return "none";
                 }
             }
 
-            if (enemyWin) return "enemy";
-            if (playerWin) return "player";
-            return "none";
+            return "player";
         }
         #endregion
 

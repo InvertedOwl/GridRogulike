@@ -104,10 +104,65 @@ namespace StateManager
 
             foreach (var s in GetComponentsInChildren<GameState>(true))
             {
+                if (_states.TryGetValue(s.GetType(), out GameState existingState))
+                {
+                    Debug.LogError(
+                        $"Duplicate game state type {s.GetType().Name}: " +
+                        $"'{existingState.gameObject.name}' and '{s.gameObject.name}'. " +
+                        "Check the scripts assigned to the state objects.");
+
+                    bool existingNameMatchesType =
+                        existingState.gameObject.name == existingState.GetType().Name;
+                    bool newNameMatchesType = s.gameObject.name == s.GetType().Name;
+
+                    // Prefer the correctly named state object. This prevents a
+                    // misconfigured duplicate (for example, GameFinishState with
+                    // a GameOverState component) from hijacking state lookup.
+                    if (existingNameMatchesType || !newNameMatchesType)
+                    {
+                        s.enabled = false;
+                        continue;
+                    }
+                }
+
                 _states[s.GetType()] = s;
                 s.enabled = false;
             }
+
+            RecoverMisconfiguredFinishState();
+
+            foreach (Type requiredStateType in StateIdsByType.Keys)
+            {
+                if (!_states.ContainsKey(requiredStateType))
+                {
+                    Debug.LogError(
+                        $"Required game state {requiredStateType.Name} is missing from " +
+                        $"{gameObject.name}'s hierarchy.");
+                }
+            }
+
             GameLoaded = true;
+        }
+
+        private void RecoverMisconfiguredFinishState()
+        {
+            if (_states.ContainsKey(typeof(GameFinishState)))
+                return;
+
+            GameOverState misconfiguredFinishState = GetComponentsInChildren<GameOverState>(true)
+                .FirstOrDefault(state => state.gameObject.name == nameof(GameFinishState));
+            if (misconfiguredFinishState == null)
+                return;
+
+            GameFinishState recoveredFinishState =
+                misconfiguredFinishState.gameObject.AddComponent<GameFinishState>();
+            recoveredFinishState.window = misconfiguredFinishState.window;
+            recoveredFinishState.enabled = false;
+            _states[typeof(GameFinishState)] = recoveredFinishState;
+
+            Debug.LogError(
+                "Recovered GameFinishState at runtime because the GameObject named " +
+                "GameFinishState had a GameOverState component. Fix the scene assignment.");
         }
 
         public void Change(Type stateType)

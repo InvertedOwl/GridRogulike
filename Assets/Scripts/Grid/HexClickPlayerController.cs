@@ -238,8 +238,12 @@ namespace Grid {
 
         public void ClearPendingCardTargeting(bool cancelCard = true)
         {
-            if (_pendingTargetCard != null && cancelCard)
-                _pendingTargetCard.CancelTargeting();
+            if (_pendingTargetCard != null)
+            {
+                _pendingTargetCard.ClearHoveredTargetPreview();
+                if (cancelCard)
+                    _pendingTargetCard.CancelTargeting();
+            }
 
             _pendingTargetCard = null;
             _pendingTargetSelection = TargetSelection.Empty();
@@ -429,6 +433,8 @@ namespace Grid {
                         hexPosition,
                         out TargetSelection selection))
                 {
+                    _pendingTargetCard.SetHoveredTargetPreview(selection);
+
                     AttackCardEvent previewAttack = _pendingTargetCard
                         .BuildPreviewEventsForSelection(selection)
                         .OfType<AttackCardEvent>()
@@ -483,6 +489,8 @@ namespace Grid {
         public void HexHoverOffCallback(Vector2Int hexPosition)
         {
             ClearStepsHere();
+            if (_pendingTargetCard != null)
+                _pendingTargetCard.ClearHoveredTargetPreview();
             SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
         }
 

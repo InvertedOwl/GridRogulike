@@ -7,6 +7,7 @@ using Passives;
 using StateManager;
 using Types.Statuses;
 using Types.Tiles;
+using Unity.Mathematics.Geometry;
 using UnityEngine;
 
 namespace Cards.CardEvents
@@ -39,6 +40,9 @@ namespace Cards.CardEvents
                     modifiedEvents = status.Modify(modifiedEvents, previewMode);
                 }
             }
+            
+            // Height diff
+            modifiedEvents = HeightDifferenceModifier(modifiedEvents, sourceEntity, card, previewMode);
 
             if (sourceEntity is Player && HexGridManager.Instance != null)
             {
@@ -109,6 +113,40 @@ namespace Cards.CardEvents
             }
 
             return context;
+        }
+
+        private static List<AbstractCardEvent> HeightDifferenceModifier(List<AbstractCardEvent> eventQueue,
+            AbstractEntity sourceEntity,
+            Card? card,
+            bool previewMode)
+        {
+            foreach (AbstractCardEvent cardevent in eventQueue)
+            {
+                if (cardevent is AttackCardEvent attackCardEvent)
+                {
+                    if (sourceEntity != null)
+                    {
+                        if (!(TryGetIncomingTarget(attackCardEvent, sourceEntity, out Vector2Int targetPosition)))
+                        {
+                            continue;
+                        }
+                        
+                        int heightDiff = HexGridManager.Instance.GetHeight(sourceEntity.positionRowCol) 
+                                         - HexGridManager.Instance.GetHeight(targetPosition);
+
+                        if (heightDiff < 0)
+                        {
+                            attackCardEvent.amount = Mathf.RoundToInt(attackCardEvent.amount * .75f);
+                        }
+                        else if (heightDiff > 0)
+                        {
+                            attackCardEvent.amount = Mathf.RoundToInt(attackCardEvent.amount * 1.25f);
+                        }
+                    }
+                }
+            }
+
+            return eventQueue;
         }
 
         private static List<AbstractCardEvent> ApplyEnvironmentModifiers(

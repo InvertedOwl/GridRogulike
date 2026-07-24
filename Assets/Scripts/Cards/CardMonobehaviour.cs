@@ -52,6 +52,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public bool played;
     private bool _waitingForManualAttackResolution;
     private readonly Dictionary<AttackCardEvent, List<AbstractCardEvent>> _manualAttackFollowUpEvents = new();
+    private TargetSelection _hoveredTargetPreviewSelection;
     public CardStatusDatabase.CardStatus? CardStatus;
     private Card _card;
     public bool onlyDisplay = false;
@@ -638,6 +639,16 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
             previewMode);
     }
 
+    public void SetHoveredTargetPreview(TargetSelection selection)
+    {
+        _hoveredTargetPreviewSelection = selection;
+    }
+
+    public void ClearHoveredTargetPreview()
+    {
+        _hoveredTargetPreviewSelection = null;
+    }
+
     public List<AbstractCardEvent> BuildPreviewEventsForSelection(TargetSelection selection)
     {
         if (GameStateManager.Instance.GetCurrent<PlayingState>() is not { } playingState)
@@ -1039,9 +1050,25 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         bool previewMode)
     {
         PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
-        TargetSelection targetSelection = previewMode
-            ? ResolveAvailableTargets(true)
-            : TargetSelection.Empty(_card.TargetDefinition);
+        TargetSelection targetSelection = TargetSelection.Empty(_card.TargetDefinition);
+        if (previewMode)
+        {
+            TargetSelection availableTargets = ResolveAvailableTargets(true);
+
+            if (_hoveredTargetPreviewSelection != null)
+            {
+                targetSelection = _hoveredTargetPreviewSelection;
+            }
+            else
+            {
+                // A general card-text preview has no world selection. Keeping every
+                // available target here made targeted actions silently use the first
+                // nearby entity, even when the player was not hovering it.
+                targetSelection = availableTargets.Definition.CanPlayFromCardClick
+                    ? availableTargets
+                    : TargetSelection.Empty(availableTargets.Definition);
+            }
+        }
 
         CardPlayContext context = new CardPlayContext(
             this,

@@ -131,11 +131,20 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
     /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (HoverStateInvalidator.IsSuppressed)
+            return;
+
         BeginHover();
     }
 
     private void Update()
     {
+        if (HoverStateInvalidator.IsSuppressed)
+        {
+            ForceReleaseHover();
+            return;
+        }
+
         if (_isHovered &&
             HasPointerMovedPastHoverTolerance() &&
             !IsPointerInsideOwnRect())
@@ -215,6 +224,11 @@ public class ButtonHoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExi
         {
             _moveDownCoroutine = StartCoroutine(MoveToOriginal());
         }
+    }
+
+    public void ForceReleaseHover()
+    {
+        EndHover();
     }
 
     private bool HasPointerMovedPastHoverTolerance()

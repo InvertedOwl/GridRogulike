@@ -287,7 +287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.59995, y: -86.27001}
+  m_AnchoredPosition: {x: 327.6, y: -86.27001}
   m_SizeDelta: {x: 630.54, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &32353971
@@ -8520,7 +8520,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0.30070576, y: -0, z: -0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: -6.14, z: 4.01}
+  m_LocalPosition: {x: 0, y: -5.53, z: 4.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11504,7 +11504,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 698215251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 272c67f68efa7ca4d8ee5003a8286c5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7731580f837e4e4ba1a774b8ec6b5b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   window: {fileID: 966324076}
@@ -23333,6 +23333,7 @@ MonoBehaviour:
   arrowHeadOffset: 0
   arrowHeadAngleOffset: -90
   iconHeadOffset: 0
+  iconHeightLerp: 0.5
   zPosition: 0.9601
   head: {x: 0, y: 0}
 --- !u!114 &1016337282
@@ -26154,7 +26155,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1247426029}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.5159298
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -28279,10 +28280,10 @@ MonoBehaviour:
   playingUI: {fileID: 900554495}
   playingHealth: {fileID: 6097504617308708764}
   generateInitialMap: 1
-  initialMapRadius: 4
+  initialMapRadius: 3
   homeTileType: start
   generatedTileType: basic
-  tileHeightNoiseScale: 0.5
+  tileHeightNoiseScale: 0.6
   maps: []
 --- !u!114 &1327594992
 MonoBehaviour:
@@ -38177,11 +38178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eyesFollowMouse: {fileID: 0}
-  initialHealth: 50
+  initialHealth: 75
   behavior: {fileID: 0}
   GoList: {fileID: 8026772340970594452}
   skeletonAnimation: {fileID: 260034295}
-  _health: 50
+  _health: 75
   entityType: 1
   turnIndicatorIcon: {fileID: 962720077}
   positionRowCol: {x: 0, y: 0}
