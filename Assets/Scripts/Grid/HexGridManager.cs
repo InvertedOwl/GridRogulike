@@ -66,7 +66,7 @@ namespace Grid
         public HexHoveredEvent onHexHoverExit;
 
         [SerializeField] private float tileOrthogonalSeparation = 0.001f;
-        private const float TileHeightZOffset = -0.25f;
+        private const float TileHeightZOffset = -0.4f;
 
         void Awake ()
         {
