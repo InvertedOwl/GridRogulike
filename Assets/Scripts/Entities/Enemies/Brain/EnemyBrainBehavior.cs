@@ -14,6 +14,9 @@ namespace Entities.Enemies
 
         private readonly Dictionary<AbstractAction, Vector2Int> _plannedActionSources =
             new Dictionary<AbstractAction, Vector2Int>();
+        private bool _hasPrePlanned;
+
+        public EnemyBrainIntent CurrentPrePlanIntent { get; private set; } = EnemyBrainIntent.None;
 
         private void Awake()
         {
@@ -32,14 +35,47 @@ namespace Entities.Enemies
             return PlanNextTurn(plannedEntityPositions);
         }
 
+        public override EnemyBrainIntent PrePlan()
+        {
+            if (_hasPrePlanned)
+                return CurrentPrePlanIntent;
+
+            CurrentPrePlanIntent = EnemyBrainIntent.None;
+
+            if (self == null)
+                self = GetComponent<NonPlayerEntity>();
+
+            ClearConcretePlan();
+
+            if (brainData == null || self == null || self.Health <= 0)
+                return CurrentPrePlanIntent;
+
+            PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
+            if (state == null)
+                return CurrentPrePlanIntent;
+
+            EnemyTurnContext context = new EnemyTurnContext(self, state, moveBudget);
+            if (brainData.PrePlan(context, out EnemyBrainIntent selectedIntent))
+                CurrentPrePlanIntent = selectedIntent;
+
+            context.CommitPlanningRandom();
+            _hasPrePlanned = true;
+            return CurrentPrePlanIntent;
+        }
+
         private List<AbstractAction> PlanNextTurn(
             IReadOnlyDictionary<AbstractEntity, Vector2Int> plannedEntityPositions)
         {
-            if (self.plannedAction == null)
-                self.plannedAction = new List<AbstractAction>();
+            if (self == null)
+                self = GetComponent<NonPlayerEntity>();
 
-            self.plannedAction.Clear();
-            _plannedActionSources.Clear();
+            if (!_hasPrePlanned)
+                PrePlan();
+
+            ClearConcretePlan();
+
+            if (self == null)
+                return new List<AbstractAction>();
 
             if (brainData == null || self == null || self.Health <= 0)
                 return self.plannedAction;
@@ -54,7 +90,7 @@ namespace Entities.Enemies
                 moveBudget,
                 plannedEntityPositions);
 
-            brainData.Plan(context);
+            brainData.Plan(context, CurrentPrePlanIntent);
 
             context.CommitPlanningRandom();
 
@@ -67,10 +103,24 @@ namespace Entities.Enemies
             return self.plannedAction;
         }
 
+        private void ClearConcretePlan()
+        {
+            _plannedActionSources.Clear();
+            if (self == null)
+                return;
+
+            self.plannedAction ??= new List<AbstractAction>();
+            self.plannedAction.Clear();
+        }
+
         public override IEnumerator MakeTurn()
         {
             if (self.plannedAction == null || self.plannedAction.Count == 0)
+            {
+                CurrentPrePlanIntent = EnemyBrainIntent.None;
+                _hasPrePlanned = false;
                 yield break;
+            }
 
             PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
             List<AbstractAction> actions = new List<AbstractAction>(self.plannedAction);
@@ -118,6 +168,8 @@ namespace Entities.Enemies
 
             self.plannedAction.Clear();
             _plannedActionSources.Clear();
+            CurrentPrePlanIntent = EnemyBrainIntent.None;
+            _hasPrePlanned = false;
         }
 
         private IEnumerator ExecuteActionWithDefaultDelay(AbstractAction action, PlayingState state)

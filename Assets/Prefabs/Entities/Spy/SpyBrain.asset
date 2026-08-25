@@ -13,56 +13,90 @@ MonoBehaviour:
   m_Name: SpyBrain
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.EnemyBrainData
   startNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+  prePlanStartNodeGuid: bcabb414-f0b6-4f6d-b9c8-bbd91528faa5
   nodes:
+  - guid: bcabb414-f0b6-4f6d-b9c8-bbd91528faa5
+    title: Pre Plan
+    type: 3
+    editorPosition: {x: -905.6, y: 132.8}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+    prePlanIntent: 0
   - guid: 2ab17ad0-0ade-4f73-9606-22902399cf26
     title: Plan
     type: 0
-    editorPosition: {x: -81.5, y: 92}
+    editorPosition: {x: -220.8, y: 119.2}
     rule: {fileID: 0}
     condition: {fileID: 0}
+    prePlanIntent: 0
   - guid: a7d0febb-7c81-4527-87d9-02e38c740cb0
     title: MoveToPlayer
     type: 1
-    editorPosition: {x: 500, y: 148}
+    editorPosition: {x: -27.199999, y: 384}
     rule: {fileID: 11400000, guid: d9d6e97fcbaf1c94e92fe81757b10d74, type: 2}
     condition: {fileID: 0}
+    prePlanIntent: 0
   - guid: 004ba7cf-face-452e-b1f1-151ce20f8109
     title: WideMeleeAttackRule
     type: 1
-    editorPosition: {x: 273.5, y: 148.5}
+    editorPosition: {x: 170.4, y: 113.600006}
     rule: {fileID: 11400000, guid: 8f23669a3efa2c34785d091aa79f430b, type: 2}
     condition: {fileID: 0}
+    prePlanIntent: 0
   - guid: e508abbb-2e40-4237-ba8d-7b16dbc7564e
     title: HeavyWideAttack
     type: 1
-    editorPosition: {x: 275, y: -3.5}
+    editorPosition: {x: 167.2, y: -168.8}
     rule: {fileID: 11400000, guid: 653ba710cd286ee48bc849c40a73999d, type: 2}
     condition: {fileID: 0}
+    prePlanIntent: 0
   - guid: c4c015e8-17ca-4539-a715-73e433324b03
     title: IsAloneCondition
     type: 2
-    editorPosition: {x: 86.5, y: 87.5}
+    editorPosition: {x: -28.8, y: -10.4}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: a1c6c816c9b018044b6da5000b6f3946, type: 2}
-  - guid: 511986ba-ca32-4f87-a743-b81a72d864e5
-    title: MoveToPlayer
-    type: 1
-    editorPosition: {x: 482.5, y: -8}
-    rule: {fileID: 11400000, guid: d9d6e97fcbaf1c94e92fe81757b10d74, type: 2}
+    prePlanIntent: 0
+  - guid: 3085b479-fbb8-496f-83a8-5b9ef42fd8d9
+    title: TargetDistanceCondition
+    type: 2
+    editorPosition: {x: -727.2, y: 131.2}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: 617d6206d62174a4b8f8b54d71fa0844, type: 2}
+    prePlanIntent: 0
+  - guid: d633ed1c-3e2e-49cc-a796-30b30e617e8d
+    title: Preplan
+    type: 4
+    editorPosition: {x: -535.2, y: 88.8}
+    rule: {fileID: 0}
     condition: {fileID: 0}
+    prePlanIntent: 1
+  - guid: d00251ba-9341-4fb9-9090-86c3f4298b7b
+    title: Preplan
+    type: 4
+    editorPosition: {x: -536.8, y: 200.8}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+    prePlanIntent: 2
   connections:
-  - fromNodeGuid: 004ba7cf-face-452e-b1f1-151ce20f8109
-    toNodeGuid: a7d0febb-7c81-4527-87d9-02e38c740cb0
-    outputName: Out
-  - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
-    toNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
-    outputName: Out
   - fromNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
     toNodeGuid: 004ba7cf-face-452e-b1f1-151ce20f8109
     outputName: False
   - fromNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
     toNodeGuid: e508abbb-2e40-4237-ba8d-7b16dbc7564e
     outputName: True
-  - fromNodeGuid: e508abbb-2e40-4237-ba8d-7b16dbc7564e
-    toNodeGuid: 511986ba-ca32-4f87-a743-b81a72d864e5
+  - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+    toNodeGuid: a7d0febb-7c81-4527-87d9-02e38c740cb0
+    outputName: Moving
+  - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
+    toNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
+    outputName: Attacking
+  - fromNodeGuid: bcabb414-f0b6-4f6d-b9c8-bbd91528faa5
+    toNodeGuid: 3085b479-fbb8-496f-83a8-5b9ef42fd8d9
     outputName: Out
+  - fromNodeGuid: 3085b479-fbb8-496f-83a8-5b9ef42fd8d9
+    toNodeGuid: d633ed1c-3e2e-49cc-a796-30b30e617e8d
+    outputName: True
+  - fromNodeGuid: 3085b479-fbb8-496f-83a8-5b9ef42fd8d9
+    toNodeGuid: d00251ba-9341-4fb9-9090-86c3f4298b7b
+    outputName: False

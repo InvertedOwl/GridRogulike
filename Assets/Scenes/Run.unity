@@ -28283,7 +28283,7 @@ MonoBehaviour:
   initialMapRadius: 3
   homeTileType: start
   generatedTileType: basic
-  tileHeightNoiseScale: 0.6
+  tileHeightNoiseScale: 0.3
   maps: []
 --- !u!114 &1327594992
 MonoBehaviour:

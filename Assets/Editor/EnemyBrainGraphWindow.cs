@@ -145,12 +145,17 @@ namespace GridRoguelike.EditorTools
                     "Create Condition Node",
                     _ => { },
                     _ => DropdownMenuAction.Status.Disabled);
+                evt.menu.AppendAction(
+                    "Create Preplan Node",
+                    _ => { },
+                    _ => DropdownMenuAction.Status.Disabled);
                 return;
             }
 
             Vector2 graphPosition = contentViewContainer.WorldToLocal(evt.mousePosition);
             evt.menu.AppendAction("Create Rule Node", _ => CreateNode(EnemyBrainNodeType.Rule, graphPosition));
             evt.menu.AppendAction("Create Condition Node", _ => CreateNode(EnemyBrainNodeType.Condition, graphPosition));
+            evt.menu.AppendAction("Create Preplan Node", _ => CreateNode(EnemyBrainNodeType.PrePlan, graphPosition));
         }
 
         private void RefreshGraphView()
@@ -227,7 +232,9 @@ namespace GridRoguelike.EditorTools
 
         private void CreateNode(EnemyBrainNodeType type, Vector2 position)
         {
-            if (BrainData == null || type == EnemyBrainNodeType.Start)
+            if (BrainData == null ||
+                type == EnemyBrainNodeType.Start ||
+                type == EnemyBrainNodeType.PrePlanStart)
                 return;
 
             Undo.RecordObject(BrainData, $"Create {type} Node");
@@ -235,7 +242,13 @@ namespace GridRoguelike.EditorTools
             EnemyBrainNodeData nodeData = new EnemyBrainNodeData
             {
                 guid = Guid.NewGuid().ToString(),
-                title = type == EnemyBrainNodeType.Rule ? "Rule" : "Condition",
+                title = type switch
+                {
+                    EnemyBrainNodeType.Rule => "Rule",
+                    EnemyBrainNodeType.Condition => "Condition",
+                    EnemyBrainNodeType.PrePlan => EnemyBrainData.PrePlanSelectorNodeTitle,
+                    _ => "Node"
+                },
                 type = type,
                 editorPosition = position
             };
@@ -281,7 +294,8 @@ namespace GridRoguelike.EditorTools
 
                 if (element is EnemyBrainGraphNode node)
                 {
-                    if (node.NodeData.type == EnemyBrainNodeType.Start)
+                    if (node.NodeData.type == EnemyBrainNodeType.Start ||
+                        node.NodeData.type == EnemyBrainNodeType.PrePlanStart)
                         continue;
 
                     RemoveNode(node);
@@ -432,6 +446,8 @@ namespace GridRoguelike.EditorTools
                 EnemyBrainNodeType.Start => EnemyBrainData.PlanNodeTitle,
                 EnemyBrainNodeType.Rule => "Rule",
                 EnemyBrainNodeType.Condition => "Condition",
+                EnemyBrainNodeType.PrePlanStart => EnemyBrainData.PrePlanNodeTitle,
+                EnemyBrainNodeType.PrePlan => EnemyBrainData.PrePlanSelectorNodeTitle,
                 _ => "Node"
             };
         }
@@ -458,7 +474,8 @@ namespace GridRoguelike.EditorTools
 
         private void BuildPorts()
         {
-            if (NodeData.type != EnemyBrainNodeType.Start)
+            if (NodeData.type != EnemyBrainNodeType.Start &&
+                NodeData.type != EnemyBrainNodeType.PrePlanStart)
             {
                 InputPort = InstantiatePort(
                     Orientation.Horizontal,
@@ -472,6 +489,10 @@ namespace GridRoguelike.EditorTools
             switch (NodeData.type)
             {
                 case EnemyBrainNodeType.Start:
+                    foreach (EnemyBrainIntent intent in Enum.GetValues(typeof(EnemyBrainIntent)))
+                        AddOutputPort(EnemyBrainData.GetIntentOutputName(intent));
+                    break;
+                case EnemyBrainNodeType.PrePlanStart:
                 case EnemyBrainNodeType.Rule:
                     AddOutputPort(EnemyBrainData.RuleOutputName);
                     break;
@@ -497,8 +518,15 @@ namespace GridRoguelike.EditorTools
 
         private void BuildInspectorControls()
         {
-            if (NodeData.type == EnemyBrainNodeType.Start)
+            if (NodeData.type == EnemyBrainNodeType.Start ||
+                NodeData.type == EnemyBrainNodeType.PrePlanStart)
                 return;
+
+            if (NodeData.type == EnemyBrainNodeType.PrePlan)
+            {
+                BuildPrePlanControls();
+                return;
+            }
 
             assetNameLabel = new Label(GetAssetName());
             assetNameLabel.style.whiteSpace = WhiteSpace.Normal;
@@ -563,6 +591,20 @@ namespace GridRoguelike.EditorTools
             extensionContainer.Add(assetValuesFoldout);
 
             RebuildAssetValuesInspector();
+        }
+
+        private void BuildPrePlanControls()
+        {
+            EnumField intentField = new EnumField("Intent", NodeData.prePlanIntent);
+            intentField.style.marginTop = 4f;
+            intentField.style.marginBottom = 4f;
+            intentField.RegisterValueChangedCallback(evt =>
+            {
+                NodeData.prePlanIntent = (EnemyBrainIntent)evt.newValue;
+                markDirty?.Invoke();
+            });
+
+            extensionContainer.Add(intentField);
         }
 
         private void RebuildAssetValuesInspector()

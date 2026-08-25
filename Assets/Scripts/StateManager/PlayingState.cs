@@ -644,6 +644,20 @@ namespace StateManager
             }
         }
 
+        private void PrePlanAllEnemiesBeforePlayerMove()
+        {
+            _enemiesNeedingIntentRefresh.Clear();
+            _enemyPlanningPositions.Clear();
+
+            foreach (AbstractEntity entity in entities)
+            {
+                if (entity is NonPlayerEntity enemy && enemy.Health > 0)
+                {
+                    PrePlanEnemyNextTurn(enemy, true);
+                }
+            }
+        }
+
         private bool HasResolvingCard()
         {
             return Deck.Instance.Hand.Any(card => card != null && card.played);
@@ -1537,7 +1551,10 @@ namespace StateManager
             {
                 if (entity is NonPlayerEntity enemy && enemy.Health > 0)
                 {
-                    PlanEnemyNextTurn(enemy, IsPlayerTurnActive());
+                    if (IsMovePhaseActive)
+                        PrePlanEnemyNextTurn(enemy, true);
+                    else
+                        PlanEnemyNextTurn(enemy, IsPlayerTurnActive());
                 }
             }
         }
@@ -1756,7 +1773,7 @@ namespace StateManager
 
             if (entity.entityType == EntityType.Player)
             {
-                ShowEnemyIntentPreviews();
+                PrePlanAllEnemiesBeforePlayerMove();
             }
 
             if (entity is NonPlayerEntity enemy)
@@ -1786,6 +1803,23 @@ namespace StateManager
             {
                 enemy.ClearIntentVisuals();
             }
+        }
+
+        private void PrePlanEnemyNextTurn(NonPlayerEntity enemy, bool showIntent)
+        {
+            if (enemy == null)
+                return;
+
+            enemy.ClearIntentVisuals();
+            if (enemy.behavior == null || enemy.Health <= 0)
+            {
+                _enemyPlanningPositions.Remove(enemy);
+                return;
+            }
+
+            EnemyBrainIntent intent = enemy.behavior.PrePlan();
+            if (showIntent)
+                enemy.SetPrePlanIntent(intent);
         }
 
         private void PruneEnemyPlanningPositions()
@@ -1826,32 +1860,10 @@ namespace StateManager
             return finalPosition;
         }
 
-        private void ShowEnemyIntentPreviews()
-        {
-            foreach (AbstractEntity entity in entities)
-            {
-                if (entity is NonPlayerEntity enemy && enemy.Health > 0)
-                {
-                    ShowEnemyIntentPreview(enemy);
-                }
-            }
-        }
-
         private void ShowEnemyIntentPreview(NonPlayerEntity enemy)
         {
             enemy.HandleNextTurnActions(enemy.plannedAction);
             enemy.SetIntent();
-        }
-
-        private void ClearEnemyIntentPreviews()
-        {
-            foreach (AbstractEntity entity in entities)
-            {
-                if (entity is NonPlayerEntity enemy)
-                {
-                    enemy.ClearIntentVisuals();
-                }
-            }
         }
 
         

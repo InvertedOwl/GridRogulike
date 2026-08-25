@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cards.Actions;
 using Cards.CardEvents;
+using Entities.Enemies;
 using Grid;
 using ScriptableObjects;
 using StateManager;
@@ -66,6 +67,20 @@ namespace Entities
 
             AbstractAction actionChosen = plannedAction[plannedAction.Count - 1];
             ShowIntentText(actionChosen.ToSimpleText());
+        }
+
+        public void SetPrePlanIntent(EnemyBrainIntent intent)
+        {
+            ClearNextTurnActionPreviews();
+
+            string intentName = EnemyBrainData.GetIntentDisplayName(intent);
+            if (string.IsNullOrEmpty(intentName))
+            {
+                HideIntentIndicator();
+                return;
+            }
+
+            ShowIntentText($"({intentName})");
         }
 
         private bool TryGetLargestPlannedAttackAmount(out int amount)

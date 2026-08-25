@@ -100,6 +100,11 @@ namespace Entities.Enemies
 
         public abstract List<AbstractAction> NextTurn();
 
+        public virtual EnemyBrainIntent PrePlan()
+        {
+            return EnemyBrainIntent.None;
+        }
+
         public virtual List<AbstractAction> NextTurn(
             IReadOnlyDictionary<AbstractEntity, Vector2Int> plannedEntityPositions)
         {
