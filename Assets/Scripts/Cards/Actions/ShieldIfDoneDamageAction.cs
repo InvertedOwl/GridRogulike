@@ -20,7 +20,8 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            if (BattleStats.DamageDoneThisTurn >= _damageReq)
+            TryEvaluateCurrentCondition(null, out bool conditionIsMet);
+            if (conditionIsMet)
             {
                 return new List<AbstractCardEvent> { new ShieldCardEvent(_amount) };
             }
@@ -28,6 +29,12 @@ namespace Cards.Actions
             {
                 return new List<AbstractCardEvent>();
             }
+        }
+
+        public override bool TryEvaluateCurrentCondition(CardPlayContext context, out bool isMet)
+        {
+            isMet = BattleStats.DamageDoneThisTurn >= _damageReq;
+            return true;
         }
 
         public override string GetText()

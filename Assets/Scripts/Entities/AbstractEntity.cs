@@ -675,6 +675,14 @@ namespace Entities
                             );
                         }
                     }
+                    else if (abstractCardEvent is MoveCardEvent moveCardEvent)
+                    {
+                        pos = HexGridManager.MoveHex(
+                            actionSourcePosition,
+                            moveCardEvent.direction,
+                            moveCardEvent.distance
+                        );
+                    }
 
                     if (!pos.Equals(new Vector2Int(-20000, -20000)) &&
                         HexGridManager.Instance.GetAllGridPositions().Contains(pos))
@@ -687,22 +695,57 @@ namespace Entities
                         // Always show arrow
                         if (abstractCardEvent is AttackCardEvent attack)
                         {
-                            string arrowUUID = SpriteArrowManager.Instance.CreateArrow(actionSourcePosition,
-                                pos, Color.red, "AttackIcon", attack.amount, enemyPreview: true);
-
-                            arrowUUIDs.Add(arrowUUID);
-                            _arrowTargetPositions[arrowUUID] = pos;
-                            if (!_arrowUUIDsByActionIndex.TryGetValue(actionIndex, out List<string> actionArrowUUIDs))
-                            {
-                                actionArrowUUIDs = new List<string>();
-                                _arrowUUIDsByActionIndex[actionIndex] = actionArrowUUIDs;
-                            }
-
-                            actionArrowUUIDs.Add(arrowUUID);
+                            AddEnemyPreviewArrow(
+                                actionIndex,
+                                actionSourcePosition,
+                                pos,
+                                Color.red,
+                                "AttackIcon",
+                                attack.amount);
+                        }
+                        else if (abstractCardEvent is MoveCardEvent)
+                        {
+                            AddEnemyPreviewArrow(
+                                actionIndex,
+                                actionSourcePosition,
+                                pos,
+                                Color.white,
+                                "",
+                                0);
                         }
                     }
                 }
             }
+        }
+
+        private void AddEnemyPreviewArrow(
+            int actionIndex,
+            Vector2Int tail,
+            Vector2Int head,
+            Color color,
+            string icon,
+            int amount)
+        {
+            if (SpriteArrowManager.Instance == null)
+                return;
+
+            string arrowUUID = SpriteArrowManager.Instance.CreateArrow(
+                tail,
+                head,
+                color,
+                icon,
+                amount,
+                enemyPreview: true);
+
+            arrowUUIDs.Add(arrowUUID);
+            _arrowTargetPositions[arrowUUID] = head;
+            if (!_arrowUUIDsByActionIndex.TryGetValue(actionIndex, out List<string> actionArrowUUIDs))
+            {
+                actionArrowUUIDs = new List<string>();
+                _arrowUUIDsByActionIndex[actionIndex] = actionArrowUUIDs;
+            }
+
+            actionArrowUUIDs.Add(arrowUUID);
         }
         
 

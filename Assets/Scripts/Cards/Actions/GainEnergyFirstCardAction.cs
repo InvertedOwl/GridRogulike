@@ -29,6 +29,14 @@ namespace Cards.Actions
             }
         }
 
+        public override bool TryEvaluateCurrentCondition(CardPlayContext context, out bool isMet)
+        {
+            // The play pipeline increments this counter before actions activate. The card UI evaluates
+            // the condition beforehand, so zero means this card would be the first card of the turn.
+            isMet = BattleStats.CardsPlayedThisTurn == 0;
+            return true;
+        }
+
         public override string GetText()
         {
             return "Gain " + _amount + " <energy> if this is the first card played this turn.";

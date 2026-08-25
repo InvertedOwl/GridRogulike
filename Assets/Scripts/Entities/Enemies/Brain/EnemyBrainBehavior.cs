@@ -208,7 +208,7 @@ namespace Entities.Enemies
                 CardEventResult result = modifiedEvent.ActivateWithResult(self, context);
                 context.Record(result);
 
-                if (modifiedEvent is AttackCardEvent)
+                if (modifiedEvent is AttackCardEvent || modifiedEvent is MoveCardEvent)
                     self.ClearNextTurnActionPreviewForAction(action);
 
                 yield return new WaitForSeconds(GetActionDelay(action));

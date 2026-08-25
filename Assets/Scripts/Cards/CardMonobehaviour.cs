@@ -128,6 +128,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         SetCardRange();
 
         SetCardStatus(null);
+        UpdateConditionGlow();
     }
 
     public void SetCardSetIcon()
@@ -448,8 +449,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void Update()
     {
-        // Modifiers
-        // UpdateCondition();
+        UpdateConditionGlow();
 
         // Mouse events
         if (IsPointerOverThisUIElement() && _cardSet)
@@ -463,6 +463,57 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         UpdateTypesTitles();
+    }
+
+    private void UpdateConditionGlow()
+    {
+        ApplyGlowState(HasPassingActionCondition());
+    }
+
+    private bool HasPassingActionCondition()
+    {
+        if (!_cardSet || _card.Actions == null || played || onlyDisplay ||
+            GameStateManager.Instance == null ||
+            !GameStateManager.Instance.IsCurrent<PlayingState>())
+        {
+            return false;
+        }
+
+        PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        if (playingState?.player == null)
+            return false;
+
+        CardPlayContext context = new CardPlayContext(
+            this,
+            _card,
+            playingState.player,
+            TargetSelection.Empty(_card.TargetDefinition),
+            playingState,
+            true);
+
+        for (int actionIndex = 0; actionIndex < _card.Actions.Count; actionIndex++)
+        {
+            AbstractAction action = _card.Actions[actionIndex];
+            if (action != null &&
+                action.TryEvaluateCurrentCondition(context.WithActionIndex(actionIndex), out bool isMet) &&
+                isMet)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void ApplyGlowState(bool active)
+    {
+        GOList goList = GoList != null ? GoList : GetComponent<GOList>();
+        if (goList == null || !goList.HasValue("Glow"))
+            return;
+
+        GameObject glow = goList.GetValue("Glow");
+        if (glow != null)
+            glow.SetActive(active);
     }
 
     private bool washover;

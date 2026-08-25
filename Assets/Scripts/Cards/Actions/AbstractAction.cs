@@ -98,6 +98,16 @@ namespace Cards.Actions
             return Activate(context?.CardMono, context?.PreviewMode ?? false);
         }
 
+        /// <summary>
+        /// Reports whether this action has a condition that can be evaluated before the card is played,
+        /// and returns the condition's current state without activating the action.
+        /// </summary>
+        public virtual bool TryEvaluateCurrentCondition(CardPlayContext context, out bool isMet)
+        {
+            isMet = false;
+            return false;
+        }
+
         protected RandomState GetActionRandom(bool previewMode)
         {
             return previewMode ? _actionRandom.Clone() : _actionRandom;

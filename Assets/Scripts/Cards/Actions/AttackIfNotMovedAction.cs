@@ -35,10 +35,8 @@ namespace Cards.Actions
             if (context?.Targets == null)
                 return new List<AbstractCardEvent>();
 
-            if (!(context.SourceEntity is Player))
-                return new List<AbstractCardEvent>();
-
-            if (BattleStats.TilesMovedThisTurn != 0)
+            TryEvaluateCurrentCondition(context, out bool conditionIsMet);
+            if (!conditionIsMet)
                 return new List<AbstractCardEvent>();
             
             if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
@@ -48,6 +46,12 @@ namespace Cards.Actions
                 return new List<AbstractCardEvent> { new AttackCardEvent(targetPosition, _amount, manual: false) };
 
             return new List<AbstractCardEvent>();
+        }
+
+        public override bool TryEvaluateCurrentCondition(CardPlayContext context, out bool isMet)
+        {
+            isMet = context?.SourceEntity is Player && BattleStats.TilesMovedThisTurn == 0;
+            return true;
         }
 
         public string arrowUUID;

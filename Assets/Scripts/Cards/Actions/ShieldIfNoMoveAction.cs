@@ -19,7 +19,8 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
         {
-            if (BattleStats.TilesMovedThisBattle == 0)
+            TryEvaluateCurrentCondition(null, out bool conditionIsMet);
+            if (conditionIsMet)
             {
                 return new List<AbstractCardEvent> { new ShieldCardEvent(_amount) };
             }
@@ -27,6 +28,12 @@ namespace Cards.Actions
             {
                 return new List<AbstractCardEvent>();
             }
+        }
+
+        public override bool TryEvaluateCurrentCondition(CardPlayContext context, out bool isMet)
+        {
+            isMet = BattleStats.TilesMovedThisBattle == 0;
+            return true;
         }
 
         public override string GetText()

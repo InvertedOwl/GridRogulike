@@ -435,12 +435,11 @@ namespace Grid {
                 {
                     _pendingTargetCard.SetHoveredTargetPreview(selection);
 
-                    AttackCardEvent previewAttack = _pendingTargetCard
+                    int amount = _pendingTargetCard
                         .BuildPreviewEventsForSelection(selection)
                         .OfType<AttackCardEvent>()
-                        .FirstOrDefault();
+                        .Sum(attack => attack.amount);
 
-                    int amount = previewAttack?.amount ?? 0;
                     arrowUUID = SpriteArrowManager.Instance.CreateArrow(
                         targetPreviewState.player.positionRowCol,
                         hexPosition,

@@ -135,7 +135,9 @@ public class HexPreviewHandler : MonoBehaviour
             if (damageHere == null)
                 return;
 
-            damageHere.SetActive(amountOfDamage > 0 && IsMouseHoveringThisHex());
+            bool showDamage = amountOfDamage > 0 &&
+                              (IsPlayerOnThisHex() || IsMouseHoveringThisHex());
+            damageHere.SetActive(showDamage);
 
             TMP_Text damageText = damageHere.GetComponent<TMP_Text>();
             if (damageText == null)
@@ -145,6 +147,20 @@ public class HexPreviewHandler : MonoBehaviour
                 damageText.text = amountOfDamage > 0 ? amountOfDamage.ToString() : "";
         }
         catch (Exception) { }
+    }
+
+    private bool IsPlayerOnThisHex()
+    {
+        if (GameStateManager.Instance == null ||
+            !GameStateManager.Instance.IsCurrent<PlayingState>())
+        {
+            return false;
+        }
+
+        PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        return playingState != null &&
+               playingState.player != null &&
+               playingState.player.positionRowCol == currentPos;
     }
 
     private bool IsMouseHoveringThisHex()

@@ -48,7 +48,10 @@ namespace Cards.Actions
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono, bool previewMode)
         {
-            if (!CanAttackTargetTile())
+            // Enemy plans can contain movement before this attack. Intent rendering supplies the
+            // planned source position separately, so validating here against entity.positionRowCol
+            // would incorrectly hide attacks that are valid from the post-move position.
+            if (!previewMode && !CanAttackTargetTile())
                 return new List<AbstractCardEvent>();
 
             return new List<AbstractCardEvent> { CreateAttackEvent(previewMode) };

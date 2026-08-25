@@ -128,7 +128,6 @@ public class Deck : MonoBehaviour
             bool canPlay = CanPlayCardNow(card, playingState);
             bool isResolvingManualAttack = IsCardResolvingManualAttack(card, playingState);
             card.SetInactive(!canPlay && !isResolvingManualAttack);
-            SetGlowActive(card, canPlay || isResolvingManualAttack);
         }
 
         RememberPlayabilitySignature();
@@ -153,20 +152,6 @@ public class Deck : MonoBehaviour
                playingState.CanPlayerPlayCards &&
                !card.played &&
                card.IsResolvingManualAttack;
-    }
-
-    private void SetGlowActive(CardMonobehaviour card, bool active)
-    {
-        if (card == null)
-            return;
-
-        GOList goList = card.GetComponent<GOList>();
-        if (goList == null || !goList.HasValue("Glow"))
-            return;
-
-        GameObject glow = goList.GetValue("Glow");
-        if (glow != null)
-            glow.SetActive(active);
     }
 
     private bool IsCardTooExpensive(CardMonobehaviour card)
