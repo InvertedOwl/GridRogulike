@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85d7453c9e774231a39e87f3ef0b3885, type: 3}
-  m_Name: ApplyStatusToTargetRule
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.ApplyStatusToTargetRule
-  targetSelector: 3
-  range: 1
-  statusType: 0
-  statusAmount: 1
+  m_Script: {fileID: 11500000, guid: 8c5e8636bfe749fea91be6d483e75aaa, type: 3}
+  m_Name: ShieldSelfRule
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.ShieldSelfRule
+  shieldAmount: 3
   baseCost: 1
   color: basic

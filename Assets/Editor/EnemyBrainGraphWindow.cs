@@ -221,12 +221,18 @@ namespace GridRoguelike.EditorTools
 
         private EnemyBrainGraphNode CreateNodeView(EnemyBrainNodeData nodeData)
         {
-            EnemyBrainGraphNode node = new EnemyBrainGraphNode(nodeData, MarkAssetDirty)
+            EnemyBrainGraphNode node = new EnemyBrainGraphNode(
+                nodeData,
+                BrainData.GetPlanOutputNames(),
+                MarkAssetDirty,
+                UpdatePrePlanOption)
             {
                 viewDataKey = nodeData.guid
             };
 
-            node.SetPosition(new Rect(nodeData.editorPosition, EnemyBrainGraphNode.DefaultSize));
+            node.SetPosition(new Rect(
+                nodeData.editorPosition,
+                EnemyBrainGraphNode.GetDefaultSize(nodeData.type)));
             return node;
         }
 
@@ -364,6 +370,18 @@ namespace GridRoguelike.EditorTools
             MarkAssetDirty();
         }
 
+        private void UpdatePrePlanOption(EnemyBrainNodeData nodeData, string option)
+        {
+            if (BrainData == null || nodeData == null)
+                return;
+
+            Undo.RecordObject(BrainData, "Change Enemy Preplan Option");
+            BrainData.SetPrePlanOption(nodeData, option);
+            MarkAssetDirty();
+
+            schedule.Execute(LoadGraph);
+        }
+
         private void RemoveConnection(Edge edge)
         {
             if (edge.output?.node is not EnemyBrainGraphNode fromNode ||
@@ -385,12 +403,19 @@ namespace GridRoguelike.EditorTools
         {
             Undo.RecordObject(BrainData, "Delete Enemy Brain Node");
 
+            bool removedPrePlanOption = node.NodeData.type == EnemyBrainNodeType.PrePlan;
+            if (removedPrePlanOption)
+                BrainData.SetPrePlanOption(node.NodeData, string.Empty);
+
             BrainData.nodes.Remove(node.NodeData);
             BrainData.connections.RemoveAll(connection =>
                 connection == null ||
                 connection.fromNodeGuid == node.NodeData.guid ||
                 connection.toNodeGuid == node.NodeData.guid);
             nodeViews.Remove(node.NodeData.guid);
+
+            if (removedPrePlanOption)
+                schedule.Execute(LoadGraph);
         }
 
         private void MarkAssetDirty()
@@ -405,8 +430,11 @@ namespace GridRoguelike.EditorTools
     public class EnemyBrainGraphNode : Node
     {
         public static readonly Vector2 DefaultSize = new Vector2(165f, 120f);
+        private const float PrePlanNodeWidth = 240f;
 
         private readonly Action markDirty;
+        private readonly IReadOnlyList<string> planOutputNames;
+        private readonly Action<EnemyBrainNodeData, string> updatePrePlanOption;
         private readonly Dictionary<string, Port> outputPorts = new();
         private Label assetNameLabel;
         private Foldout assetValuesFoldout;
@@ -415,14 +443,28 @@ namespace GridRoguelike.EditorTools
         public EnemyBrainNodeData NodeData { get; }
         public Port InputPort { get; private set; }
 
-        public EnemyBrainGraphNode(EnemyBrainNodeData nodeData, Action markDirty)
+        public static Vector2 GetDefaultSize(EnemyBrainNodeType nodeType)
+        {
+            return nodeType == EnemyBrainNodeType.PrePlan
+                ? new Vector2(PrePlanNodeWidth, DefaultSize.y)
+                : DefaultSize;
+        }
+
+        public EnemyBrainGraphNode(
+            EnemyBrainNodeData nodeData,
+            IReadOnlyList<string> planOutputNames,
+            Action markDirty,
+            Action<EnemyBrainNodeData, string> updatePrePlanOption)
         {
             NodeData = nodeData;
+            this.planOutputNames = planOutputNames;
             this.markDirty = markDirty;
+            this.updatePrePlanOption = updatePrePlanOption;
             title = GetNodeTitle();
-            style.width = DefaultSize.x;
-            style.minWidth = DefaultSize.x;
-            style.maxWidth = DefaultSize.x;
+            float nodeWidth = GetDefaultSize(NodeData.type).x;
+            style.width = nodeWidth;
+            style.minWidth = nodeWidth;
+            style.maxWidth = nodeWidth;
 
             BuildPorts();
             BuildInspectorControls();
@@ -489,8 +531,8 @@ namespace GridRoguelike.EditorTools
             switch (NodeData.type)
             {
                 case EnemyBrainNodeType.Start:
-                    foreach (EnemyBrainIntent intent in Enum.GetValues(typeof(EnemyBrainIntent)))
-                        AddOutputPort(EnemyBrainData.GetIntentOutputName(intent));
+                    foreach (string outputName in planOutputNames)
+                        AddOutputPort(outputName);
                     break;
                 case EnemyBrainNodeType.PrePlanStart:
                 case EnemyBrainNodeType.Rule:
@@ -595,16 +637,23 @@ namespace GridRoguelike.EditorTools
 
         private void BuildPrePlanControls()
         {
-            EnumField intentField = new EnumField("Intent", NodeData.prePlanIntent);
-            intentField.style.marginTop = 4f;
-            intentField.style.marginBottom = 4f;
-            intentField.RegisterValueChangedCallback(evt =>
+            TextField optionField = new TextField("Option")
             {
-                NodeData.prePlanIntent = (EnemyBrainIntent)evt.newValue;
-                markDirty?.Invoke();
+                isDelayed = true,
+                value = NodeData.prePlanOption,
+                tooltip = "Adds this value as an output on the Plan node."
+            };
+            optionField.style.width = Length.Percent(100f);
+            optionField.style.marginTop = 4f;
+            optionField.style.marginBottom = 4f;
+            optionField.RegisterValueChangedCallback(evt =>
+            {
+                string normalizedOption = EnemyBrainData.NormalizePrePlanOption(evt.newValue);
+                optionField.SetValueWithoutNotify(normalizedOption);
+                updatePrePlanOption?.Invoke(NodeData, normalizedOption);
             });
 
-            extensionContainer.Add(intentField);
+            extensionContainer.Add(optionField);
         }
 
         private void RebuildAssetValuesInspector()
@@ -760,7 +809,7 @@ namespace GridRoguelike.EditorTools
 public class NoAutoPanSelectionDragger : MouseManipulator
 {
     private bool active;
-    private Vector2 lastMousePosition;
+    private Vector2 lastGraphMousePosition;
     private readonly List<GraphElement> draggedElements = new();
 
     public NoAutoPanSelectionDragger()
@@ -821,7 +870,7 @@ public class NoAutoPanSelectionDragger : MouseManipulator
             return;
 
         active = true;
-        lastMousePosition = evt.localMousePosition;
+        lastGraphMousePosition = graphView.contentViewContainer.WorldToLocal(evt.mousePosition);
 
         target.CaptureMouse();
         evt.StopImmediatePropagation();
@@ -832,8 +881,13 @@ public class NoAutoPanSelectionDragger : MouseManipulator
         if (!active || !target.HasMouseCapture())
             return;
 
-        Vector2 delta = evt.localMousePosition - lastMousePosition;
-        lastMousePosition = evt.localMousePosition;
+        if (target is not GraphView graphView)
+            return;
+
+        Vector2 graphMousePosition =
+            graphView.contentViewContainer.WorldToLocal(evt.mousePosition);
+        Vector2 delta = graphMousePosition - lastGraphMousePosition;
+        lastGraphMousePosition = graphMousePosition;
 
         foreach (GraphElement element in draggedElements.ToList())
         {

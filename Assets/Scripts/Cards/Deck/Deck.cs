@@ -605,7 +605,7 @@ public class Deck : MonoBehaviour
     public void DrawHand()
     {
         _removingPlayed.Clear();
-        FullDrawHand(GetModifiedHandDrawCount(4));
+        FullDrawHand(GetModifiedHandDrawCount(5));
         PositionHandCards(0);
         Debug.Log("Cards in hand: " + _hand.Count);
     }

@@ -100,15 +100,23 @@ namespace Entities.Enemies
 
         public abstract List<AbstractAction> NextTurn();
 
-        public virtual EnemyBrainIntent PrePlan()
+        public virtual string PrePlan()
         {
-            return EnemyBrainIntent.None;
+            return string.Empty;
         }
 
         public virtual List<AbstractAction> NextTurn(
             IReadOnlyDictionary<AbstractEntity, Vector2Int> plannedEntityPositions)
         {
             return NextTurn();
+        }
+
+        public virtual bool TryGetPlannedActionSource(
+            AbstractAction action,
+            out Vector2Int sourcePosition)
+        {
+            sourcePosition = Vector2Int.zero;
+            return false;
         }
     }
 }

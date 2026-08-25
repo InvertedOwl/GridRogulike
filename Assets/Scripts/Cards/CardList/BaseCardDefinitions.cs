@@ -76,13 +76,14 @@ namespace Cards.CardList
     // -- Conditional offense --
     // Common
     [CardDefinition("Planted")]
+    [StartingDeck(StartingDecks.basic, 1)]
     public sealed class Planted : CardDefinition
     {
         public override string DisplayName => "Planted";
         public override Rarity Rarity => Rarity.Common;
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
-        public override bool CanShowInShop => true;
+        public override bool CanShowInShop => false;
         public override List<AbstractAction> BuildActions() => Actions(
             new AttackAction(1, "basic", null, 5),
             new AttackIfNotMovedAction(0, "basic", null, 4)

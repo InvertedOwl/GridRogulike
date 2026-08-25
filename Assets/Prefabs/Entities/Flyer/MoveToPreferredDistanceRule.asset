@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MoveToPreferredDistanceRule
   m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveToPreferredDistanceRule
   targetSelector: 0
-  preferredDistance: 2
+  preferredDistance: 3
   maxMoves: 3

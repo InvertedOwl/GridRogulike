@@ -16,7 +16,7 @@ namespace Entities.Enemies
             new Dictionary<AbstractAction, Vector2Int>();
         private bool _hasPrePlanned;
 
-        public EnemyBrainIntent CurrentPrePlanIntent { get; private set; } = EnemyBrainIntent.None;
+        public string CurrentPrePlanOption { get; private set; } = string.Empty;
 
         private void Awake()
         {
@@ -35,12 +35,12 @@ namespace Entities.Enemies
             return PlanNextTurn(plannedEntityPositions);
         }
 
-        public override EnemyBrainIntent PrePlan()
+        public override string PrePlan()
         {
             if (_hasPrePlanned)
-                return CurrentPrePlanIntent;
+                return CurrentPrePlanOption;
 
-            CurrentPrePlanIntent = EnemyBrainIntent.None;
+            CurrentPrePlanOption = string.Empty;
 
             if (self == null)
                 self = GetComponent<NonPlayerEntity>();
@@ -48,19 +48,19 @@ namespace Entities.Enemies
             ClearConcretePlan();
 
             if (brainData == null || self == null || self.Health <= 0)
-                return CurrentPrePlanIntent;
+                return CurrentPrePlanOption;
 
             PlayingState state = GameStateManager.Instance.GetCurrent<PlayingState>();
             if (state == null)
-                return CurrentPrePlanIntent;
+                return CurrentPrePlanOption;
 
             EnemyTurnContext context = new EnemyTurnContext(self, state, moveBudget);
-            if (brainData.PrePlan(context, out EnemyBrainIntent selectedIntent))
-                CurrentPrePlanIntent = selectedIntent;
+            if (brainData.PrePlan(context, out string selectedOption))
+                CurrentPrePlanOption = selectedOption;
 
             context.CommitPlanningRandom();
             _hasPrePlanned = true;
-            return CurrentPrePlanIntent;
+            return CurrentPrePlanOption;
         }
 
         private List<AbstractAction> PlanNextTurn(
@@ -90,7 +90,7 @@ namespace Entities.Enemies
                 moveBudget,
                 plannedEntityPositions);
 
-            brainData.Plan(context, CurrentPrePlanIntent);
+            brainData.Plan(context, CurrentPrePlanOption);
 
             context.CommitPlanningRandom();
 
@@ -113,11 +113,19 @@ namespace Entities.Enemies
             self.plannedAction.Clear();
         }
 
+        public override bool TryGetPlannedActionSource(
+            AbstractAction action,
+            out Vector2Int sourcePosition)
+        {
+            sourcePosition = Vector2Int.zero;
+            return action != null && _plannedActionSources.TryGetValue(action, out sourcePosition);
+        }
+
         public override IEnumerator MakeTurn()
         {
             if (self.plannedAction == null || self.plannedAction.Count == 0)
             {
-                CurrentPrePlanIntent = EnemyBrainIntent.None;
+                CurrentPrePlanOption = string.Empty;
                 _hasPrePlanned = false;
                 yield break;
             }
@@ -168,7 +176,7 @@ namespace Entities.Enemies
 
             self.plannedAction.Clear();
             _plannedActionSources.Clear();
-            CurrentPrePlanIntent = EnemyBrainIntent.None;
+            CurrentPrePlanOption = string.Empty;
             _hasPrePlanned = false;
         }
 

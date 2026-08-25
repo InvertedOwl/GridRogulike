@@ -1817,9 +1817,9 @@ namespace StateManager
                 return;
             }
 
-            EnemyBrainIntent intent = enemy.behavior.PrePlan();
+            string prePlanOption = enemy.behavior.PrePlan();
             if (showIntent)
-                enemy.SetPrePlanIntent(intent);
+                enemy.SetPrePlanOption(prePlanOption);
         }
 
         private void PruneEnemyPlanningPositions()

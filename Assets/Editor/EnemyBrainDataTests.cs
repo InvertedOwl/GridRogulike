@@ -56,7 +56,7 @@ namespace GridRoguelike.EditorTools.Tests
             brain.connections.Add(CreateConnection(
                 plan,
                 target,
-                EnemyBrainData.GetIntentOutputName(EnemyBrainIntent.None)));
+                EnemyBrainData.DefaultPlanOutputName));
 
             brain.EnsurePlanNodes();
 
@@ -67,7 +67,7 @@ namespace GridRoguelike.EditorTools.Tests
             Assert.That(migratedConnections, Has.Count.EqualTo(1));
             Assert.That(
                 migratedConnections[0].outputName,
-                Is.EqualTo(EnemyBrainData.GetIntentOutputName(EnemyBrainIntent.None)));
+                Is.EqualTo(EnemyBrainData.DefaultPlanOutputName));
         }
 
         [Test]
@@ -80,42 +80,42 @@ namespace GridRoguelike.EditorTools.Tests
             EnemyBrainNodeData plan = CreateNode("plan", EnemyBrainNodeType.Start);
             EnemyBrainNodeData prePlan = CreateNode("pre-plan", EnemyBrainNodeType.PrePlanStart);
             EnemyBrainNodeData conditionNode = CreateNode("condition", EnemyBrainNodeType.Condition);
-            EnemyBrainNodeData attacking = CreateNode("attacking", EnemyBrainNodeType.PrePlan);
-            EnemyBrainNodeData blocking = CreateNode("blocking", EnemyBrainNodeType.PrePlan);
+            EnemyBrainNodeData charging = CreateNode("charging", EnemyBrainNodeType.PrePlan);
+            EnemyBrainNodeData reacting = CreateNode("reacting", EnemyBrainNodeType.PrePlan);
             conditionNode.condition = condition;
-            attacking.prePlanIntent = EnemyBrainIntent.Attacking;
-            blocking.prePlanIntent = EnemyBrainIntent.Blocking;
+            charging.prePlanOption = "Charge";
+            reacting.prePlanOption = "React";
 
             brain.startNodeGuid = plan.guid;
             brain.prePlanStartNodeGuid = prePlan.guid;
-            brain.nodes.AddRange(new[] { plan, prePlan, conditionNode, attacking, blocking });
+            brain.nodes.AddRange(new[] { plan, prePlan, conditionNode, charging, reacting });
             brain.connections.Add(CreateConnection(
                 prePlan,
                 conditionNode,
                 EnemyBrainData.RuleOutputName));
             brain.connections.Add(CreateConnection(
                 conditionNode,
-                attacking,
+                charging,
                 EnemyBrainData.ConditionTrueOutputName));
             brain.connections.Add(CreateConnection(
                 conditionNode,
-                blocking,
+                reacting,
                 EnemyBrainData.ConditionFalseOutputName));
 
             EnemyTurnContext context = new EnemyTurnContext(null, null, 0);
             condition.Result = true;
-            Assert.That(brain.PrePlan(context, out EnemyBrainIntent trueIntent), Is.True);
-            Assert.That(trueIntent, Is.EqualTo(EnemyBrainIntent.Attacking));
+            Assert.That(brain.PrePlan(context, out string trueOption), Is.True);
+            Assert.That(trueOption, Is.EqualTo("Charge"));
             Assert.That(context.PlannedActions, Is.Empty);
 
             condition.Result = false;
-            Assert.That(brain.PrePlan(context, out EnemyBrainIntent falseIntent), Is.True);
-            Assert.That(falseIntent, Is.EqualTo(EnemyBrainIntent.Blocking));
+            Assert.That(brain.PrePlan(context, out string falseOption), Is.True);
+            Assert.That(falseOption, Is.EqualTo("React"));
             Assert.That(context.PlannedActions, Is.Empty);
         }
 
         [Test]
-        public void PlanTraversesOnlyTheSelectedIntentOutput()
+        public void PlanTraversesOnlyTheSelectedPrePlanOutput()
         {
             EnemyBrainData brain = CreateBrain();
             RecordingEnemyBrainRule attackingRule = Track(
@@ -134,29 +134,56 @@ namespace GridRoguelike.EditorTools.Tests
             brain.connections.Add(CreateConnection(
                 plan,
                 attacking,
-                EnemyBrainData.GetIntentOutputName(EnemyBrainIntent.Attacking)));
+                "Charge"));
             brain.connections.Add(CreateConnection(
                 plan,
                 moving,
-                EnemyBrainData.GetIntentOutputName(EnemyBrainIntent.Moving)));
+                "React"));
 
             Assert.That(
-                brain.Plan(new EnemyTurnContext(null, null, 0), EnemyBrainIntent.Attacking),
+                brain.Plan(new EnemyTurnContext(null, null, 0), "Charge"),
                 Is.True);
             Assert.That(attackingRule.CallCount, Is.EqualTo(1));
             Assert.That(movingRule.CallCount, Is.Zero);
 
             Assert.That(
-                brain.Plan(new EnemyTurnContext(null, null, 0), EnemyBrainIntent.Moving),
+                brain.Plan(new EnemyTurnContext(null, null, 0), "React"),
                 Is.True);
             Assert.That(attackingRule.CallCount, Is.EqualTo(1));
             Assert.That(movingRule.CallCount, Is.EqualTo(1));
 
             Assert.That(
-                brain.Plan(new EnemyTurnContext(null, null, 0), EnemyBrainIntent.Blocking),
+                brain.Plan(new EnemyTurnContext(null, null, 0), "Wait"),
                 Is.False);
             Assert.That(attackingRule.CallCount, Is.EqualTo(1));
             Assert.That(movingRule.CallCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void PrePlanOptionsCreatePlanOutputsAndRenameExistingConnection()
+        {
+            EnemyBrainData brain = CreateBrain();
+            EnemyBrainNodeData plan = CreateNode("plan", EnemyBrainNodeType.Start);
+            EnemyBrainNodeData charge = CreateNode("charge", EnemyBrainNodeType.PrePlan);
+            EnemyBrainNodeData react = CreateNode("react", EnemyBrainNodeType.PrePlan);
+            EnemyBrainNodeData target = CreateNode("target", EnemyBrainNodeType.Rule);
+            charge.prePlanOption = "  Charge  ";
+            react.prePlanOption = "React";
+
+            brain.startNodeGuid = plan.guid;
+            brain.nodes.AddRange(new[] { plan, charge, react, target });
+            brain.connections.Add(CreateConnection(plan, target, "Charge"));
+
+            CollectionAssert.AreEqual(
+                new[] { EnemyBrainData.DefaultPlanOutputName, "Charge", "React" },
+                brain.GetPlanOutputNames());
+
+            brain.SetPrePlanOption(charge, "Wind Up");
+
+            CollectionAssert.AreEqual(
+                new[] { EnemyBrainData.DefaultPlanOutputName, "Wind Up", "React" },
+                brain.GetPlanOutputNames());
+            Assert.That(brain.connections[0].outputName, Is.EqualTo("Wind Up"));
         }
 
         private EnemyBrainData CreateBrain()

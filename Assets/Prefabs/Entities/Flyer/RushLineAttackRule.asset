@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85d7453c9e774231a39e87f3ef0b3885, type: 3}
-  m_Name: ApplyStatusToTargetRule
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.ApplyStatusToTargetRule
-  targetSelector: 3
-  range: 1
-  statusType: 0
-  statusAmount: 1
-  baseCost: 1
+  m_Script: {fileID: 11500000, guid: 79a4aecba7b84aff9ec8430a402eca3b, type: 3}
+  m_Name: RushLineAttackRule
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.RushLineAttackRule
+  alwaysPlan: 1
+  targetSelector: 0
+  damage: 10
+  range: 5
+  baseCost: 0
   color: basic

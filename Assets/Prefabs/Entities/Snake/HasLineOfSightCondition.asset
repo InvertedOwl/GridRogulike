@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd2695c899046ac9978517e321b0ddc, type: 3}
-  m_Name: MoveToPreferredDistanceRule
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveToPreferredDistanceRule
+  m_Script: {fileID: 11500000, guid: 112363ca96324c2eb9ffe3d8c60565b5, type: 3}
+  m_Name: HasLineOfSightCondition
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.HasLineOfSightCondition
+  invert: 0
   targetSelector: 0
-  preferredDistance: 2
-  maxMoves: 3
+  distance: 2

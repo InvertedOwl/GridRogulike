@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd2695c899046ac9978517e321b0ddc, type: 3}
-  m_Name: MoveToPreferredDistanceRule
-  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveToPreferredDistanceRule
+  m_Script: {fileID: 11500000, guid: d1e8c9d2f6a8444ca02d74e7c25875c1, type: 3}
+  m_Name: MoveAlongCurrentDistanceRule
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemies.MoveAlongCurrentDistanceRule
   targetSelector: 0
-  preferredDistance: 2
-  maxMoves: 3
+  maxMoves: 1

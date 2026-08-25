@@ -18,65 +18,94 @@ MonoBehaviour:
   - guid: cd129a40-174c-4b33-8216-47ab3ca068ad
     title: Pre Plan
     type: 3
-    editorPosition: {x: -15.5, y: 1}
+    editorPosition: {x: -221.5, y: -11}
     rule: {fileID: 0}
     condition: {fileID: 0}
-    prePlanIntent: 0
+    prePlanOption: 
+    legacyPrePlanIntent: 0
   - guid: f543aeb0-5881-4957-befb-eb145fae86d8
     title: Plan
     type: 0
-    editorPosition: {x: -15.5, y: 181}
+    editorPosition: {x: -261, y: 159.5}
     rule: {fileID: 0}
     condition: {fileID: 0}
-    prePlanIntent: 0
-  - guid: 3620b267-63d9-41c8-8447-3ec504e60c83
-    title: WideMeleeAttackRule
-    type: 1
-    editorPosition: {x: 362.5, y: 125}
-    rule: {fileID: 11400000, guid: f6013d23852bcd0468efa4cf436c1f7e, type: 2}
+    prePlanOption: 
+    legacyPrePlanIntent: 0
+  - guid: a586ef72-2cbe-4c7b-ab26-f99c87ee512c
+    title: Preplan
+    type: 4
+    editorPosition: {x: 167, y: -153.5}
+    rule: {fileID: 0}
     condition: {fileID: 0}
-    prePlanIntent: 0
-  - guid: 41492fa0-3aec-434d-af44-4e1cd409142c
-    title: MoveTowardTargetRule
-    type: 1
-    editorPosition: {x: 365, y: 287.5}
-    rule: {fileID: 11400000, guid: 57c0e215b22edaa4dae6da6d7f71c709, type: 2}
-    condition: {fileID: 0}
-    prePlanIntent: 0
-  - guid: 1f9f59e9-54dc-4a63-b110-974263b3b600
-    title: TargetDistanceCondition
+    prePlanOption: Rush
+    legacyPrePlanIntent: 0
+  - guid: bece945e-ae0b-4173-930d-7f217679bc59
+    title: HasLineOfSightCondition
     type: 2
-    editorPosition: {x: 169, y: 183.5}
+    editorPosition: {x: -22, y: -88.5}
     rule: {fileID: 0}
-    condition: {fileID: 11400000, guid: 8b3869148d471144a82fb2a040f377c8, type: 2}
-    prePlanIntent: 0
-  - guid: 56208b91-d1a9-4e84-87dc-0298b7d04432
-    title: ShieldSelfRule
-    type: 1
-    editorPosition: {x: 538.5, y: 124}
-    rule: {fileID: 11400000, guid: 631097afd9cf08445b85369e12348d74, type: 2}
+    condition: {fileID: 11400000, guid: 357ca45096013b741bd8f6df0020e3ff, type: 2}
+    prePlanOption: 
+    legacyPrePlanIntent: 0
+  - guid: 961fe80b-b801-4ecc-85ee-53006c88e224
+    title: Preplan
+    type: 4
+    editorPosition: {x: 168, y: -10.5}
+    rule: {fileID: 0}
     condition: {fileID: 0}
-    prePlanIntent: 0
-  - guid: bfbacce8-e554-4d9d-86be-7b2e6acd81d1
-    title: MoveTowardTargetRule
+    prePlanOption: Move
+    legacyPrePlanIntent: 0
+  - guid: d778af43-d5a6-46d4-b58e-67fb87d5016d
+    title: MoveToPreferredDistanceRule
     type: 1
-    editorPosition: {x: 722.5, y: 125.5}
-    rule: {fileID: 11400000, guid: 57c0e215b22edaa4dae6da6d7f71c709, type: 2}
+    editorPosition: {x: 116.5, y: 508.5}
+    rule: {fileID: 11400000, guid: 6e9ec853b24ac8e44ba32ef8f84e9386, type: 2}
     condition: {fileID: 0}
-    prePlanIntent: 0
+    prePlanOption: 
+    legacyPrePlanIntent: 0
+  - guid: e2f6440e-0ba1-4745-96db-a88085339f80
+    title: TargetDistanceCondition 1
+    type: 2
+    editorPosition: {x: -70.5, y: 378}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: d99f05dc78f2a804f90efacee9c73d85, type: 2}
+    prePlanOption: 
+    legacyPrePlanIntent: 0
+  - guid: 67f78bb9-2a6c-430c-9b15-47f7d2c3cb2b
+    title: MoveAlongCurrentDistanceRule
+    type: 1
+    editorPosition: {x: 119, y: 330.5}
+    rule: {fileID: 11400000, guid: a60651e3550875e48b2357816cc51409, type: 2}
+    condition: {fileID: 0}
+    prePlanOption: 
+    legacyPrePlanIntent: 0
+  - guid: 069d4a09-4b62-495b-97a0-f9e284aec399
+    title: RushLineAttackRule
+    type: 1
+    editorPosition: {x: -71, y: 101}
+    rule: {fileID: 11400000, guid: 5bd8312fb661f6f48afbd58963f6079f, type: 2}
+    condition: {fileID: 0}
+    prePlanOption: 
+    legacyPrePlanIntent: 0
   connections:
-  - fromNodeGuid: f543aeb0-5881-4957-befb-eb145fae86d8
-    toNodeGuid: 1f9f59e9-54dc-4a63-b110-974263b3b600
-    outputName: None
-  - fromNodeGuid: 1f9f59e9-54dc-4a63-b110-974263b3b600
-    toNodeGuid: 3620b267-63d9-41c8-8447-3ec504e60c83
-    outputName: True
-  - fromNodeGuid: 3620b267-63d9-41c8-8447-3ec504e60c83
-    toNodeGuid: 56208b91-d1a9-4e84-87dc-0298b7d04432
+  - fromNodeGuid: cd129a40-174c-4b33-8216-47ab3ca068ad
+    toNodeGuid: bece945e-ae0b-4173-930d-7f217679bc59
     outputName: Out
-  - fromNodeGuid: 1f9f59e9-54dc-4a63-b110-974263b3b600
-    toNodeGuid: 41492fa0-3aec-434d-af44-4e1cd409142c
+  - fromNodeGuid: bece945e-ae0b-4173-930d-7f217679bc59
+    toNodeGuid: 961fe80b-b801-4ecc-85ee-53006c88e224
     outputName: False
-  - fromNodeGuid: 56208b91-d1a9-4e84-87dc-0298b7d04432
-    toNodeGuid: bfbacce8-e554-4d9d-86be-7b2e6acd81d1
-    outputName: Out
+  - fromNodeGuid: bece945e-ae0b-4173-930d-7f217679bc59
+    toNodeGuid: a586ef72-2cbe-4c7b-ab26-f99c87ee512c
+    outputName: True
+  - fromNodeGuid: f543aeb0-5881-4957-befb-eb145fae86d8
+    toNodeGuid: e2f6440e-0ba1-4745-96db-a88085339f80
+    outputName: Move
+  - fromNodeGuid: e2f6440e-0ba1-4745-96db-a88085339f80
+    toNodeGuid: d778af43-d5a6-46d4-b58e-67fb87d5016d
+    outputName: False
+  - fromNodeGuid: e2f6440e-0ba1-4745-96db-a88085339f80
+    toNodeGuid: 67f78bb9-2a6c-430c-9b15-47f7d2c3cb2b
+    outputName: True
+  - fromNodeGuid: f543aeb0-5881-4957-befb-eb145fae86d8
+    toNodeGuid: 069d4a09-4b62-495b-97a0-f9e284aec399
+    outputName: Rush

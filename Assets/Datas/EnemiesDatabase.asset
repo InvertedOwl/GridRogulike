@@ -13,35 +13,19 @@ MonoBehaviour:
   m_Name: EnemiesDatabase
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.EnemiesData
   enemies:
-  - enemyName: DiamondBoy
+  - enemyName: Spy
     enemyPrefab: {fileID: 3518368252074035926, guid: 0c72f0a4c3b0e4c44b1d9018d814b059, type: 3}
     enemyType: 0
     enemyIconPrefab: {fileID: 0}
-  - enemyName: HardStar
-    enemyPrefab: {fileID: 3326344764978528588, guid: 641c30a9e40f80e44b8d3ae79546acdc, type: 3}
-    enemyType: 1
-    enemyIconPrefab: {fileID: 0}
-  - enemyName: PentagonBoy
-    enemyPrefab: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
-    enemyType: 0
-    enemyIconPrefab: {fileID: 0}
-  - enemyName: SquareBoy
+  - enemyName: Sector
     enemyPrefab: {fileID: 3518368252074035926, guid: a6736deb3fc0bae42a57d844e364bf88, type: 3}
     enemyType: 0
     enemyIconPrefab: {fileID: 0}
-  - enemyName: TriangleBoy
+  - enemyName: Flyer
     enemyPrefab: {fileID: 3518368252074035926, guid: 7bc75e90b440afc4aa5c3100d2a841c6, type: 3}
     enemyType: 0
     enemyIconPrefab: {fileID: 0}
   - enemyName: Snake
     enemyPrefab: {fileID: 3518368252074035926, guid: 8e10e9b657c1c8a40ae39a7864895016, type: 3}
-    enemyType: 0
-    enemyIconPrefab: {fileID: 0}
-  - enemyName: Ball
-    enemyPrefab: {fileID: 3518368252074035926, guid: de8a763a9ec0c59438437f0b2ef72d32, type: 3}
-    enemyType: 2
-    enemyIconPrefab: {fileID: 0}
-  - enemyName: Rock
-    enemyPrefab: {fileID: 3518368252074035926, guid: 6cad08a7b46ed8543850b7bc38bf14e4, type: 3}
     enemyType: 0
     enemyIconPrefab: {fileID: 0}

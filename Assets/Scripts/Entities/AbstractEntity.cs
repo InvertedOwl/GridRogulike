@@ -629,6 +629,13 @@ namespace Entities
             for (int actionIndex = 0; actionIndex < actions.Count; actionIndex++)
             {
                 AbstractAction action = actions[actionIndex];
+                Vector2Int actionSourcePosition = positionRowCol;
+                if (behavior != null &&
+                    behavior.TryGetPlannedActionSource(action, out Vector2Int plannedSourcePosition))
+                {
+                    actionSourcePosition = plannedSourcePosition;
+                }
+
                 List<AbstractCardEvent> modifiedEvents = ModifyEvents(
                     action.Activate(null, previewMode: true),
                     previewMode: true
@@ -662,7 +669,7 @@ namespace Entities
                         else
                         {
                             pos = HexGridManager.MoveHex(
-                                positionRowCol,
+                                actionSourcePosition,
                                 attackCardEvent.direction,
                                 attackCardEvent.distance
                             );
@@ -680,7 +687,7 @@ namespace Entities
                         // Always show arrow
                         if (abstractCardEvent is AttackCardEvent attack)
                         {
-                            string arrowUUID = SpriteArrowManager.Instance.CreateArrow(positionRowCol,
+                            string arrowUUID = SpriteArrowManager.Instance.CreateArrow(actionSourcePosition,
                                 pos, Color.red, "AttackIcon", attack.amount, enemyPreview: true);
 
                             arrowUUIDs.Add(arrowUUID);

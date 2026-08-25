@@ -69,18 +69,18 @@ namespace Entities
             ShowIntentText(actionChosen.ToSimpleText());
         }
 
-        public void SetPrePlanIntent(EnemyBrainIntent intent)
+        public void SetPrePlanOption(string prePlanOption)
         {
             ClearNextTurnActionPreviews();
 
-            string intentName = EnemyBrainData.GetIntentDisplayName(intent);
-            if (string.IsNullOrEmpty(intentName))
+            string displayName = EnemyBrainData.NormalizePrePlanOption(prePlanOption);
+            if (string.IsNullOrEmpty(displayName))
             {
                 HideIntentIndicator();
                 return;
             }
 
-            ShowIntentText($"({intentName})");
+            ShowIntentText($"({displayName})");
         }
 
         private bool TryGetLargestPlannedAttackAmount(out int amount)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Entities.Enemies
 {
@@ -14,10 +15,7 @@ namespace Entities.Enemies
         public const string RuleOutputName = "Out";
         public const string ConditionTrueOutputName = "True";
         public const string ConditionFalseOutputName = "False";
-        public const string NoIntentOutputName = "None";
-        public const string AttackingIntentOutputName = "Attacking";
-        public const string MovingIntentOutputName = "Moving";
-        public const string BlockingIntentOutputName = "Blocking";
+        public const string DefaultPlanOutputName = "None";
 
         public string startNodeGuid;
         public string prePlanStartNodeGuid;
@@ -103,7 +101,7 @@ namespace Entities.Enemies
             node.title = nodeTitle;
             node.rule = null;
             node.condition = null;
-            node.prePlanIntent = EnemyBrainIntent.None;
+            node.ClearPrePlanOption();
         }
 
         private void RemoveExtraStartNodes(
@@ -126,16 +124,17 @@ namespace Entities.Enemies
 
         private void MigrateLegacyPlanConnections(EnemyBrainNodeData planNode)
         {
-            string defaultOutputName = GetIntentOutputName(EnemyBrainIntent.None);
+            HashSet<string> planOutputNames = new HashSet<string>(GetPlanOutputNames());
             foreach (EnemyBrainConnectionData connection in connections)
             {
                 if (connection == null || connection.fromNodeGuid != planNode.guid)
                     continue;
 
                 if (string.IsNullOrEmpty(connection.outputName) ||
-                    connection.outputName == RuleOutputName)
+                    connection.outputName == RuleOutputName &&
+                    !planOutputNames.Contains(RuleOutputName))
                 {
-                    connection.outputName = defaultOutputName;
+                    connection.outputName = DefaultPlanOutputName;
                 }
             }
         }
@@ -156,11 +155,10 @@ namespace Entities.Enemies
                     } while (!usedGuids.Add(node.guid));
                 }
 
-                if (node.type == EnemyBrainNodeType.PrePlan &&
-                    !Enum.IsDefined(typeof(EnemyBrainIntent), node.prePlanIntent))
-                {
-                    node.prePlanIntent = EnemyBrainIntent.None;
-                }
+                if (node.type == EnemyBrainNodeType.PrePlan)
+                    node.MigrateLegacyPrePlanOption();
+                else
+                    node.ClearPrePlanOption();
 
                 if (!string.IsNullOrEmpty(node.title))
                     continue;
@@ -210,9 +208,9 @@ namespace Entities.Enemies
             }
         }
 
-        public bool PrePlan(EnemyTurnContext context, out EnemyBrainIntent intent)
+        public bool PrePlan(EnemyTurnContext context, out string prePlanOption)
         {
-            intent = EnemyBrainIntent.None;
+            prePlanOption = string.Empty;
             if (context == null)
                 return false;
 
@@ -224,17 +222,17 @@ namespace Entities.Enemies
                 return false;
 
             Dictionary<string, EnemyBrainNodeData> nodeLookup = BuildNodeLookup();
-            return TryTraversePrePlanBreadthFirst(startNode, context, nodeLookup, out intent);
+            return TryTraversePrePlanBreadthFirst(startNode, context, nodeLookup, out prePlanOption);
         }
 
         public bool Plan(EnemyTurnContext context)
         {
-            return Plan(context, EnemyBrainIntent.None);
+            return Plan(context, string.Empty);
         }
 
-        public bool Plan(EnemyTurnContext context, EnemyBrainIntent intent)
+        public bool Plan(EnemyTurnContext context, string prePlanOption)
         {
-            if (context == null || !Enum.IsDefined(typeof(EnemyBrainIntent), intent))
+            if (context == null)
                 return false;
 
             EnsurePlanNodes();
@@ -243,30 +241,92 @@ namespace Entities.Enemies
                 return false;
 
             Dictionary<string, EnemyBrainNodeData> nodeLookup = BuildNodeLookup();
-            string outputName = GetIntentOutputName(intent);
+            string outputName = GetPlanOutputName(prePlanOption);
             return TraversePlanBreadthFirst(startNode, context, nodeLookup, outputName);
         }
 
-        public static string GetIntentOutputName(EnemyBrainIntent intent)
+        public IReadOnlyList<string> GetPlanOutputNames()
         {
-            return intent switch
+            List<string> outputNames = new List<string> { DefaultPlanOutputName };
+            HashSet<string> seenOutputNames = new HashSet<string>(outputNames, StringComparer.Ordinal);
+
+            if (nodes == null)
+                return outputNames;
+
+            foreach (EnemyBrainNodeData node in nodes)
             {
-                EnemyBrainIntent.Attacking => AttackingIntentOutputName,
-                EnemyBrainIntent.Moving => MovingIntentOutputName,
-                EnemyBrainIntent.Blocking => BlockingIntentOutputName,
-                _ => NoIntentOutputName
-            };
+                if (node == null || node.type != EnemyBrainNodeType.PrePlan)
+                    continue;
+
+                string option = NormalizePrePlanOption(node.prePlanOption);
+                if (!string.IsNullOrEmpty(option) && seenOutputNames.Add(option))
+                    outputNames.Add(option);
+            }
+
+            return outputNames;
         }
 
-        public static string GetIntentDisplayName(EnemyBrainIntent intent)
+        public void SetPrePlanOption(EnemyBrainNodeData node, string option)
         {
-            return intent switch
+            if (node == null || node.type != EnemyBrainNodeType.PrePlan)
+                return;
+
+            string previousOption = NormalizePrePlanOption(node.prePlanOption);
+            string normalizedOption = NormalizePrePlanOption(option);
+            node.SetPrePlanOption(normalizedOption);
+
+            if (previousOption == normalizedOption ||
+                string.IsNullOrEmpty(previousOption) ||
+                previousOption == DefaultPlanOutputName)
             {
-                EnemyBrainIntent.Attacking => "Attacking",
-                EnemyBrainIntent.Moving => "Moving",
-                EnemyBrainIntent.Blocking => "Blocking",
-                _ => string.Empty
-            };
+                return;
+            }
+
+            bool previousOptionStillUsed = nodes != null && nodes.Any(otherNode =>
+                otherNode != null &&
+                otherNode != node &&
+                otherNode.type == EnemyBrainNodeType.PrePlan &&
+                NormalizePrePlanOption(otherNode.prePlanOption) == previousOption);
+            if (previousOptionStillUsed || connections == null)
+                return;
+
+            EnemyBrainNodeData planNode = GetStartNode(startNodeGuid, EnemyBrainNodeType.Start);
+            if (planNode == null)
+                return;
+
+            if (string.IsNullOrEmpty(normalizedOption))
+            {
+                connections.RemoveAll(connection =>
+                    connection != null &&
+                    connection.fromNodeGuid == planNode.guid &&
+                    connection.outputName == previousOption);
+                return;
+            }
+
+            foreach (EnemyBrainConnectionData connection in connections)
+            {
+                if (connection != null &&
+                    connection.fromNodeGuid == planNode.guid &&
+                    connection.outputName == previousOption)
+                {
+                    connection.outputName = normalizedOption;
+                }
+            }
+
+            RemoveDuplicateConnections();
+        }
+
+        public static string GetPlanOutputName(string prePlanOption)
+        {
+            string normalizedOption = NormalizePrePlanOption(prePlanOption);
+            return string.IsNullOrEmpty(normalizedOption)
+                ? DefaultPlanOutputName
+                : normalizedOption;
+        }
+
+        public static string NormalizePrePlanOption(string prePlanOption)
+        {
+            return prePlanOption?.Trim() ?? string.Empty;
         }
 
         private Dictionary<string, EnemyBrainNodeData> BuildNodeLookup()
@@ -305,9 +365,9 @@ namespace Entities.Enemies
             EnemyBrainNodeData startNode,
             EnemyTurnContext context,
             Dictionary<string, EnemyBrainNodeData> nodeLookup,
-            out EnemyBrainIntent intent)
+            out string prePlanOption)
         {
-            intent = EnemyBrainIntent.None;
+            prePlanOption = string.Empty;
             if (startNode == null || string.IsNullOrEmpty(startNode.guid))
                 return false;
 
@@ -345,7 +405,7 @@ namespace Entities.Enemies
                         break;
 
                     case EnemyBrainNodeType.PrePlan:
-                        intent = node.prePlanIntent;
+                        prePlanOption = NormalizePrePlanOption(node.prePlanOption);
                         return true;
                 }
             }
@@ -471,7 +531,43 @@ namespace Entities.Enemies
 
         public EnemyBrainRule rule;
         public EnemyBrainCondition condition;
-        public EnemyBrainIntent prePlanIntent;
+
+        public string prePlanOption;
+
+        [FormerlySerializedAs("prePlanIntent")]
+        [SerializeField, HideInInspector]
+        private int legacyPrePlanIntent;
+
+        internal void MigrateLegacyPrePlanOption()
+        {
+            prePlanOption = EnemyBrainData.NormalizePrePlanOption(prePlanOption);
+            if (!string.IsNullOrEmpty(prePlanOption))
+            {
+                legacyPrePlanIntent = 0;
+                return;
+            }
+
+            prePlanOption = legacyPrePlanIntent switch
+            {
+                1 => "Attacking",
+                2 => "Moving",
+                3 => "Blocking",
+                _ => string.Empty
+            };
+            legacyPrePlanIntent = 0;
+        }
+
+        internal void SetPrePlanOption(string option)
+        {
+            prePlanOption = EnemyBrainData.NormalizePrePlanOption(option);
+            legacyPrePlanIntent = 0;
+        }
+
+        internal void ClearPrePlanOption()
+        {
+            prePlanOption = string.Empty;
+            legacyPrePlanIntent = 0;
+        }
     }
 
     [Serializable]
@@ -480,7 +576,7 @@ namespace Entities.Enemies
         public string fromNodeGuid;
         public string toNodeGuid;
 
-        // Stores the selected branch name (condition, rule, or plan-intent output).
+        // Stores the selected branch name (condition, rule, or preplan output).
         public string outputName;
     }
 
@@ -494,11 +590,4 @@ namespace Entities.Enemies
         PrePlan = 4
     }
 
-    public enum EnemyBrainIntent
-    {
-        None = 0,
-        Attacking = 1,
-        Moving = 2,
-        Blocking = 3
-    }
 }
