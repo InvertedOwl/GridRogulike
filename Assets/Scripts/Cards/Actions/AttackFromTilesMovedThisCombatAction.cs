@@ -12,8 +12,12 @@ namespace Cards.Actions
 
         public override string Icon => "Damage4";
 
-        public AttackFromTilesMovedThisCombatAction(int baseCost, string color, AbstractEntity entity)
-            : base(baseCost, color, entity, 0)
+        public AttackFromTilesMovedThisCombatAction(
+            int baseCost,
+            string color,
+            AbstractEntity entity,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey)
+            : base(baseCost, color, entity, 0, hitFxKey)
         {
         }
 
@@ -29,10 +33,16 @@ namespace Cards.Actions
                 return new List<AbstractCardEvent>();
 
             if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
-                return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, amount, manual: false) };
+                return new List<AbstractCardEvent>
+                {
+                    new AttackCardEvent(target.positionRowCol, amount, manual: false, hitFxKey: HitFxKey)
+                };
 
             if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
-                return new List<AbstractCardEvent> { new AttackCardEvent(targetPosition, amount, manual: false) };
+                return new List<AbstractCardEvent>
+                {
+                    new AttackCardEvent(targetPosition, amount, manual: false, hitFxKey: HitFxKey)
+                };
 
             return new List<AbstractCardEvent>();
         }

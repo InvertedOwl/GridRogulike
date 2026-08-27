@@ -443,7 +443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Name
-      value: SquareBoy
+      value: Sector
       objectReference: {fileID: 0}
     - target: {fileID: 197153193419897735, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -658,6 +658,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -4318895965289767056}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: initialHealth
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: eyesFollowMouse
       value: 
       objectReference: {fileID: 2972820130270987686}
@@ -673,7 +677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5457511034134313530, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.125
+      value: 1.662
       objectReference: {fileID: 0}
     - target: {fileID: 5895366637514247478, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchorMax.y

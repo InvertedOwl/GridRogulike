@@ -17,7 +17,9 @@ namespace Cards.Actions
             AbstractEntity entity,
             int amount,
             StatusApplicationType statusType,
-            int statusAmount) : base(baseCost, color, entity, amount)
+            int statusAmount,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey)
+            : base(baseCost, color, entity, amount, hitFxKey)
         {
             this.statusType = statusType;
             this.statusAmount = statusAmount;
@@ -35,10 +37,16 @@ namespace Cards.Actions
                 return new List<AbstractCardEvent>();
 
             if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
-                return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, _amount, status, manual: false) };
+                return new List<AbstractCardEvent>
+                {
+                    new AttackCardEvent(target.positionRowCol, _amount, status, manual: false, hitFxKey: HitFxKey)
+                };
 
             if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
-                return new List<AbstractCardEvent> { new AttackCardEvent(targetPosition, _amount, status, manual: false) };
+                return new List<AbstractCardEvent>
+                {
+                    new AttackCardEvent(targetPosition, _amount, status, manual: false, hitFxKey: HitFxKey)
+                };
 
             return new List<AbstractCardEvent>();
         }

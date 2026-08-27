@@ -1,10 +1,29 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Entities.Enemies
 {
     public abstract class EnemyBrainCondition : ScriptableObject
     {
+        private static readonly IReadOnlyList<string> BooleanOutputNames = new[]
+        {
+            EnemyBrainData.ConditionTrueOutputName,
+            EnemyBrainData.ConditionFalseOutputName
+        };
+
         [SerializeField] private bool invert;
+
+        public virtual IReadOnlyList<string> GetOutputNames()
+        {
+            return BooleanOutputNames;
+        }
+
+        public virtual string SelectOutput(EnemyTurnContext context, string nodeGuid)
+        {
+            return IsMet(context)
+                ? EnemyBrainData.ConditionTrueOutputName
+                : EnemyBrainData.ConditionFalseOutputName;
+        }
 
         public bool IsMet(EnemyTurnContext context)
         {

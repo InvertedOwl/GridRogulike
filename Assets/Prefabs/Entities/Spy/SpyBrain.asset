@@ -22,6 +22,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 2ab17ad0-0ade-4f73-9606-22902399cf26
     title: Plan
@@ -30,6 +31,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: a7d0febb-7c81-4527-87d9-02e38c740cb0
     title: MoveToPlayer
@@ -38,30 +40,34 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: d9d6e97fcbaf1c94e92fe81757b10d74, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 004ba7cf-face-452e-b1f1-151ce20f8109
     title: WideMeleeAttackRule
     type: 1
-    editorPosition: {x: 524, y: 81}
+    editorPosition: {x: 938.4, y: 64.8}
     rule: {fileID: 11400000, guid: 8f23669a3efa2c34785d091aa79f430b, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: e508abbb-2e40-4237-ba8d-7b16dbc7564e
     title: HeavyWideAttack
     type: 1
-    editorPosition: {x: 537, y: -144}
+    editorPosition: {x: 952, y: -160}
     rule: {fileID: 11400000, guid: 653ba710cd286ee48bc849c40a73999d, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: c4c015e8-17ca-4539-a715-73e433324b03
     title: IsAloneCondition
     type: 2
-    editorPosition: {x: 344.5, y: -49.5}
+    editorPosition: {x: 759.2, y: -65.6}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: a1c6c816c9b018044b6da5000b6f3946, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 3085b479-fbb8-496f-83a8-5b9ef42fd8d9
     title: TargetDistanceCondition
@@ -70,6 +76,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: 51a978b4a6b9e01459579557755bec1c, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: d633ed1c-3e2e-49cc-a796-30b30e617e8d
     title: Preplan
@@ -78,6 +85,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Attacking
+    comment: 
     legacyPrePlanIntent: 0
   - guid: d00251ba-9341-4fb9-9090-86c3f4298b7b
     title: Preplan
@@ -86,6 +94,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Moving
+    comment: 
     legacyPrePlanIntent: 0
   - guid: a6e0571a-e016-4f55-bc28-35c5cf7a8eef
     title: CloseTargetDistance
@@ -94,6 +103,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: 782a7ec421b717d4793bf81036cbddc6, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: af8736f1-8510-44bb-8b13-e8c79d81fab1
     title: SmallMoveToPlayer
@@ -102,6 +112,7 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: ec3b3099c4c9b6a4781523e2ec8afe77, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 3c071226-3242-4b3f-a886-3b7a56ff1a80
     title: ShieldSelfRule
@@ -110,6 +121,43 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: 1bc433c61e8c8b149976a103bf75e045, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
+    legacyPrePlanIntent: 0
+  - guid: d59f613d-000d-4e5e-9ed1-21b0054bf68e
+    title: CycleCondition
+    type: 2
+    editorPosition: {x: 337.6, y: -68}
+    rule: {fileID: 0}
+    condition: {fileID: 11400000, guid: 5a438a0067f094e43b3535bc2eea701a, type: 2}
+    prePlanOption: 
+    comment: 
+    legacyPrePlanIntent: 0
+  - guid: b0f9713d-e29b-4b28-8626-e5c7237a9e9f
+    title: ApplyStatusToSelfRule
+    type: 1
+    editorPosition: {x: 551.2, y: 65.6}
+    rule: {fileID: 11400000, guid: 375156f04ce58e84c9454d9b98707375, type: 2}
+    condition: {fileID: 0}
+    prePlanOption: 
+    comment: 
+    legacyPrePlanIntent: 0
+  - guid: 95403907-e717-4fb9-8e92-dbd2b6788fcd
+    title: Comment
+    type: 5
+    editorPosition: {x: -28.8, y: -232.8}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+    prePlanOption: 
+    comment: "Move to player if not close enough \nto attack before attack"
+    legacyPrePlanIntent: 0
+  - guid: 8dcf0f7f-5aa9-49b5-b9fa-9a19d472501b
+    title: Comment
+    type: 5
+    editorPosition: {x: 349.6, y: -225.6}
+    rule: {fileID: 0}
+    condition: {fileID: 0}
+    prePlanOption: 
+    comment: "Alternate between normal attack, \nand attack thats buffed"
     legacyPrePlanIntent: 0
   connections:
   - fromNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
@@ -133,15 +181,24 @@ MonoBehaviour:
   - fromNodeGuid: a6e0571a-e016-4f55-bc28-35c5cf7a8eef
     toNodeGuid: af8736f1-8510-44bb-8b13-e8c79d81fab1
     outputName: False
-  - fromNodeGuid: af8736f1-8510-44bb-8b13-e8c79d81fab1
-    toNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
-    outputName: Out
-  - fromNodeGuid: a6e0571a-e016-4f55-bc28-35c5cf7a8eef
-    toNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
-    outputName: True
   - fromNodeGuid: 2ab17ad0-0ade-4f73-9606-22902399cf26
     toNodeGuid: 3c071226-3242-4b3f-a886-3b7a56ff1a80
     outputName: Moving
   - fromNodeGuid: 3c071226-3242-4b3f-a886-3b7a56ff1a80
     toNodeGuid: a7d0febb-7c81-4527-87d9-02e38c740cb0
+    outputName: Out
+  - fromNodeGuid: af8736f1-8510-44bb-8b13-e8c79d81fab1
+    toNodeGuid: d59f613d-000d-4e5e-9ed1-21b0054bf68e
+    outputName: Out
+  - fromNodeGuid: a6e0571a-e016-4f55-bc28-35c5cf7a8eef
+    toNodeGuid: d59f613d-000d-4e5e-9ed1-21b0054bf68e
+    outputName: True
+  - fromNodeGuid: d59f613d-000d-4e5e-9ed1-21b0054bf68e
+    toNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
+    outputName: 1
+  - fromNodeGuid: d59f613d-000d-4e5e-9ed1-21b0054bf68e
+    toNodeGuid: b0f9713d-e29b-4b28-8626-e5c7237a9e9f
+    outputName: 2
+  - fromNodeGuid: b0f9713d-e29b-4b28-8626-e5c7237a9e9f
+    toNodeGuid: c4c015e8-17ca-4539-a715-73e433324b03
     outputName: Out

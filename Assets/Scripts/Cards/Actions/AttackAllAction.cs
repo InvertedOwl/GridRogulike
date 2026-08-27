@@ -19,9 +19,17 @@ namespace Cards.Actions
         }
 
         public int _amount;
-        public AttackAllAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
+        public string HitFxKey { get; set; }
+
+        public AttackAllAction(
+            int baseCost,
+            string color,
+            AbstractEntity entity,
+            int amount,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey) : base(baseCost, color, entity)
         {
             _amount = amount;
+            HitFxKey = hitFxKey;
             this.entity = entity;
         }
 
@@ -36,7 +44,8 @@ namespace Cards.Actions
                     if (!playing.IsPlayerAttackTarget(ent))
                         continue;
 
-                    cardEvents.Add(new AttackCardEvent(ent.positionRowCol, _amount, manual:false));
+                    cardEvents.Add(
+                        new AttackCardEvent(ent.positionRowCol, _amount, manual: false, hitFxKey: HitFxKey));
 
                 }
             }
@@ -53,7 +62,8 @@ namespace Cards.Actions
             foreach (AbstractEntity target in context.Targets.TargetEntities)
             {
                 if (target != null && target.Health > 0)
-                    cardEvents.Add(new AttackCardEvent(target.positionRowCol, _amount, manual: false));
+                    cardEvents.Add(
+                        new AttackCardEvent(target.positionRowCol, _amount, manual: false, hitFxKey: HitFxKey));
             }
 
             return cardEvents;

@@ -28,6 +28,25 @@ namespace Entities.Enemies
                    TryAddUtilityAction(context, new ShieldAction(baseCost, color, context.Self, amount));
         }
 
+        protected bool TryAddShieldToTarget(
+            EnemyTurnContext context,
+            AbstractEntity target,
+            int amount,
+            int baseCost,
+            string color)
+        {
+            return context != null &&
+                   target != null &&
+                   TryAddUtilityAction(
+                       context,
+                       new ShieldFixedEntityAction(
+                           baseCost,
+                           color,
+                           context.Self,
+                           target,
+                           amount));
+        }
+
         protected bool TryAddBuffSelf(
             EnemyTurnContext context,
             int amount,

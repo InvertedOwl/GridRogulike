@@ -866,6 +866,37 @@ namespace Grid
             return adjacent;
         }
 
+        public static bool TryGetStraightLine(
+            Vector2Int start,
+            Vector2Int target,
+            int maxDistance,
+            out string direction,
+            out int distance)
+        {
+            direction = string.Empty;
+            distance = 0;
+
+            if (maxDistance < 1 || start == target)
+                return false;
+
+            foreach (string possibleDirection in HexDirections)
+            {
+                Vector2Int current = start;
+                for (int currentDistance = 1; currentDistance <= maxDistance; currentDistance++)
+                {
+                    current = MoveHex(current, possibleDirection, 1);
+                    if (current != target)
+                        continue;
+
+                    direction = possibleDirection;
+                    distance = currentDistance;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static List<Vector2Int> HexesInRadius(int radius)
         {
             List<Vector2Int> hexes = new List<Vector2Int>();

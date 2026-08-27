@@ -24,6 +24,7 @@ namespace Cards.Actions
         public int Distance { get { return _distance; } set { _distance = value; } }
         public int _amount;
         public int Amount { get { return _amount; } set { _amount = value; } }
+        public string HitFxKey { get; set; }
 
         public DirectionalAttackAction(
             int baseCost,
@@ -31,11 +32,13 @@ namespace Cards.Actions
             AbstractEntity entity,
             string direction,
             int distance,
-            int amount) : base(baseCost, color, entity)
+            int amount,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey) : base(baseCost, color, entity)
         {
             _direction = direction;
             _distance = distance;
             _amount = amount;
+            HitFxKey = hitFxKey;
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
@@ -59,7 +62,11 @@ namespace Cards.Actions
 
         protected virtual AttackCardEvent CreateAttackEvent(bool previewMode)
         {
-            return new AttackCardEvent(_distance, _direction, _amount);
+            return new AttackCardEvent(
+                _distance,
+                _direction,
+                _amount,
+                hitFxKey: HitFxKey);
         }
 
         private bool CanAttackTargetTile()

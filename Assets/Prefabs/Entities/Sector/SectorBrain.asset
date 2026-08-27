@@ -22,6 +22,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 0ecacac0-9606-4bce-9221-98c3fe7f8386
     title: Plan
@@ -30,6 +31,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 32586630-2563-433c-bfa6-8eac22965baa
     title: MoveBuff
@@ -38,14 +40,16 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: a84e412bb306bc845bb6b536f118f70f, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: fb614e56-1845-41ca-ba9c-3559ffbeeeeb
-    title: ApplyStatusToTargetRule
+    title: ShieldTargetRule
     type: 1
     editorPosition: {x: 1102, y: 40}
-    rule: {fileID: 11400000, guid: 30e3bff60f8e08945a825f4e8b3ee05e, type: 2}
+    rule: {fileID: 11400000, guid: abd3c717747dd6647baa850aa57328f1, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: b514e9c1-0ca8-4b77-bf84-162a36bda710
     title: TargetDistanceCondition
@@ -54,6 +58,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: e653ed4564cb10140b3799d7fbd45dbc, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 478335be-6c8a-492c-aeeb-ceca17db0665
     title: MovePlayer
@@ -62,6 +67,7 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: 20274bf091c4b124fb50a9ff3b4f9cdb, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 732be1ce-4188-45a3-8b70-60f2a89eb5ed
     title: Attack
@@ -70,6 +76,7 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: 6651ff48969d74e49993546b3f998ad0, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 79a98a61-404a-4e70-9ef6-e97c37391df4
     title: IsAloneCondition
@@ -78,6 +85,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: f390b821a440bf848b88d3eb7fbf9404, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: c90707ea-1791-415f-85ff-3257eede2ca9
     title: Preplan
@@ -86,6 +94,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Moving
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 9df86bdb-18ca-4dc4-9803-84ceb391ed6f
     title: Preplan
@@ -94,6 +103,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Buffing
+    comment: 
     legacyPrePlanIntent: 0
   - guid: aef754b3-f4c0-4d45-aca7-dad9974a90ce
     title: Preplan
@@ -102,6 +112,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Attacking
+    comment: 
     legacyPrePlanIntent: 0
   - guid: c35a7f45-ecdc-4910-9ec9-f058720ccb5b
     title: MoveBuff
@@ -110,6 +121,7 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: a84e412bb306bc845bb6b536f118f70f, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   connections:
   - fromNodeGuid: 732be1ce-4188-45a3-8b70-60f2a89eb5ed

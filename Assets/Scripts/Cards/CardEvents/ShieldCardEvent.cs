@@ -12,11 +12,13 @@ namespace Cards.CardEvents
         private const string ShieldFxKey = "MagicBuffBlue";
 
         public int amount;
+        public AbstractEntity target;
 
 
-        public ShieldCardEvent(int amount)
+        public ShieldCardEvent(int amount, AbstractEntity target = null)
         {
             this.amount = amount;
+            this.target = target;
         }
 
         public override Dictionary<string, PreviewValue> GetPreviewValues()
@@ -30,13 +32,14 @@ namespace Cards.CardEvents
 
         public override void Activate(AbstractEntity entity)
         {
-            if (entity == null)
+            AbstractEntity shieldRecipient = target != null ? target : entity;
+            if (shieldRecipient == null || shieldRecipient.Health <= 0)
                 return;
 
             if (GameStateManager.Instance.GetCurrent<PlayingState>() is { } playing)
             {
-                entity.Shield += amount;
-                PlayShieldFx(entity);
+                shieldRecipient.Shield += amount;
+                PlayShieldFx(shieldRecipient);
             }
 
         }

@@ -19,12 +19,20 @@ namespace Cards.Actions
 
         public int Radius;
         public int Amount;
+        public string HitFxKey { get; set; }
 
-        public AttackRadiusAction(int baseCost, string color, AbstractEntity entity, int radius, int amount)
+        public AttackRadiusAction(
+            int baseCost,
+            string color,
+            AbstractEntity entity,
+            int radius,
+            int amount,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey)
             : base(baseCost, color, entity)
         {
             Radius = radius;
             Amount = amount;
+            HitFxKey = hitFxKey;
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
@@ -47,7 +55,8 @@ namespace Cards.Actions
                     continue;
 
                 if (distance >= 0 && distance <= Radius)
-                    cardEvents.Add(new AttackCardEvent(ent.positionRowCol, Amount, manual: false));
+                    cardEvents.Add(
+                        new AttackCardEvent(ent.positionRowCol, Amount, manual: false, hitFxKey: HitFxKey));
             }
 
             return cardEvents;
@@ -72,7 +81,8 @@ namespace Cards.Actions
                     continue;
 
                 if (distance >= 0 && distance <= Radius)
-                    cardEvents.Add(new AttackCardEvent(ent.positionRowCol, Amount, manual: false));
+                    cardEvents.Add(
+                        new AttackCardEvent(ent.positionRowCol, Amount, manual: false, hitFxKey: HitFxKey));
             }
 
             return cardEvents;
@@ -91,7 +101,8 @@ namespace Cards.Actions
             foreach (KeyValuePair<Vector2Int, int> entry in distanceMap)
             {
                 if (entry.Value >= 0 && entry.Value <= Radius)
-                    cardEvents.Add(new AttackCardEvent(entry.Key, Amount, manual: false));
+                    cardEvents.Add(
+                        new AttackCardEvent(entry.Key, Amount, manual: false, hitFxKey: HitFxKey));
             }
 
             return cardEvents;
@@ -114,7 +125,8 @@ namespace Cards.Actions
             foreach (KeyValuePair<Vector2Int, int> entry in distanceMap)
             {
                 if (entry.Value >= 0 && entry.Value <= Radius)
-                    cardEvents.Add(new AttackCardEvent(entry.Key, Amount, manual: false));
+                    cardEvents.Add(
+                        new AttackCardEvent(entry.Key, Amount, manual: false, hitFxKey: HitFxKey));
             }
 
             return cardEvents;

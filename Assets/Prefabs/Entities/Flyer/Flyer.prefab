@@ -439,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Name
-      value: TriangleBoy
+      value: Flyer
       objectReference: {fileID: 0}
     - target: {fileID: 197153193419897735, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -671,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 4532497417584692101}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: initialHealth
-      value: 12
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: eyesFollowMouse
@@ -693,7 +693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5457511034134313530, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.237
+      value: 1.774
       objectReference: {fileID: 0}
     - target: {fileID: 5709112935243033909, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: defaultDamage

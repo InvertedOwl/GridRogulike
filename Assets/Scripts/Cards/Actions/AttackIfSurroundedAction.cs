@@ -19,10 +19,17 @@ namespace Cards.Actions
 
         public int _amount;
         public int Amount { get { return _amount; } set { _amount = value; } }
+        public string HitFxKey { get; set; }
 
-        public AttackIfSurroundedAction(int baseCost, string color, AbstractEntity entity, int amount) : base(baseCost, color, entity)
+        public AttackIfSurroundedAction(
+            int baseCost,
+            string color,
+            AbstractEntity entity,
+            int amount,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey) : base(baseCost, color, entity)
         {
             _amount = amount;
+            HitFxKey = hitFxKey;
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
@@ -41,10 +48,16 @@ namespace Cards.Actions
 
             
             if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
-                return new List<AbstractCardEvent> { new AttackCardEvent(target.positionRowCol, _amount, manual: false) };
+                return new List<AbstractCardEvent>
+                {
+                    new AttackCardEvent(target.positionRowCol, _amount, manual: false, hitFxKey: HitFxKey)
+                };
 
             if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
-                return new List<AbstractCardEvent> { new AttackCardEvent(targetPosition, _amount, manual: false) };
+                return new List<AbstractCardEvent>
+                {
+                    new AttackCardEvent(targetPosition, _amount, manual: false, hitFxKey: HitFxKey)
+                };
 
             return new List<AbstractCardEvent>();
         }

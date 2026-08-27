@@ -22,6 +22,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: f543aeb0-5881-4957-befb-eb145fae86d8
     title: Plan
@@ -30,6 +31,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: a586ef72-2cbe-4c7b-ab26-f99c87ee512c
     title: Preplan
@@ -38,6 +40,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Rush
+    comment: 
     legacyPrePlanIntent: 0
   - guid: bece945e-ae0b-4173-930d-7f217679bc59
     title: HasLineOfSightCondition
@@ -46,6 +49,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: 357ca45096013b741bd8f6df0020e3ff, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 961fe80b-b801-4ecc-85ee-53006c88e224
     title: Preplan
@@ -54,6 +58,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Move
+    comment: 
     legacyPrePlanIntent: 0
   - guid: d778af43-d5a6-46d4-b58e-67fb87d5016d
     title: MoveToPreferredDistanceRule
@@ -62,6 +67,7 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: 6e9ec853b24ac8e44ba32ef8f84e9386, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: e2f6440e-0ba1-4745-96db-a88085339f80
     title: TargetDistanceCondition 1
@@ -70,6 +76,7 @@ MonoBehaviour:
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: d99f05dc78f2a804f90efacee9c73d85, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 67f78bb9-2a6c-430c-9b15-47f7d2c3cb2b
     title: MoveAlongCurrentDistanceRule
@@ -78,6 +85,7 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: a60651e3550875e48b2357816cc51409, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 069d4a09-4b62-495b-97a0-f9e284aec399
     title: RushLineAttackRule
@@ -86,6 +94,7 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: 5bd8312fb661f6f48afbd58963f6079f, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   connections:
   - fromNodeGuid: cd129a40-174c-4b33-8216-47ab3ca068ad

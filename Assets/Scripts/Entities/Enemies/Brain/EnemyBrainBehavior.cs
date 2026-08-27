@@ -14,6 +14,8 @@ namespace Entities.Enemies
 
         private readonly Dictionary<AbstractAction, Vector2Int> _plannedActionSources =
             new Dictionary<AbstractAction, Vector2Int>();
+        private readonly Dictionary<string, int> _conditionCycleIndices =
+            new Dictionary<string, int>();
         private bool _hasPrePlanned;
 
         public string CurrentPrePlanOption { get; private set; } = string.Empty;
@@ -54,7 +56,11 @@ namespace Entities.Enemies
             if (state == null)
                 return CurrentPrePlanOption;
 
-            EnemyTurnContext context = new EnemyTurnContext(self, state, moveBudget);
+            EnemyTurnContext context = new EnemyTurnContext(
+                self,
+                state,
+                moveBudget,
+                conditionCycleIndices: _conditionCycleIndices);
             if (brainData.PrePlan(context, out string selectedOption))
                 CurrentPrePlanOption = selectedOption;
 
@@ -88,7 +94,8 @@ namespace Entities.Enemies
                 self,
                 state,
                 moveBudget,
-                plannedEntityPositions);
+                plannedEntityPositions,
+                _conditionCycleIndices);
 
             brainData.Plan(context, CurrentPrePlanOption);
 

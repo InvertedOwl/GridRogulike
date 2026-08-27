@@ -5,8 +5,13 @@ using UnityEngine.Audio;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
 #endif
+
+public sealed class FXKeyAttribute : PropertyAttribute
+{
+}
 
 public class FXManager : MonoBehaviour
 {
@@ -357,3 +362,140 @@ public class FXManager : MonoBehaviour
     }
 #endif
 }
+
+#if UNITY_EDITOR
+[CustomPropertyDrawer(typeof(FXKeyAttribute))]
+public sealed class FXKeyDrawer : PropertyDrawer
+{
+    private const string NoneLabel = "None";
+    private const string DefaultFxPrefabFolder = "Assets/Epic Toon FX/Prefabs";
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        if (property.propertyType != SerializedPropertyType.String)
+        {
+            EditorGUI.PropertyField(position, property, label);
+            return;
+        }
+
+        EditorGUI.BeginProperty(position, label, property);
+        Rect buttonRect = EditorGUI.PrefixLabel(position, label);
+        string currentKey = property.stringValue;
+        string buttonLabel = string.IsNullOrWhiteSpace(currentKey) ? NoneLabel : currentKey;
+
+        if (EditorGUI.DropdownButton(buttonRect, new GUIContent(buttonLabel), FocusType.Keyboard))
+        {
+            UnityEngine.Object[] targets = property.serializedObject.targetObjects;
+            string propertyPath = property.propertyPath;
+            FXKeyDropdown dropdown = new FXKeyDropdown(
+                new AdvancedDropdownState(),
+                GetAvailableKeys(currentKey),
+                selectedKey => ApplySelection(targets, propertyPath, selectedKey));
+            dropdown.Show(buttonRect);
+        }
+
+        EditorGUI.EndProperty();
+    }
+
+    private static List<string> GetAvailableKeys(string currentKey)
+    {
+        HashSet<string> keys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (FXManager manager in Resources.FindObjectsOfTypeAll<FXManager>())
+        {
+            if (manager == null)
+                continue;
+
+            foreach (FXManager.FXEntry entry in manager.Effects)
+            {
+                if (entry != null && !string.IsNullOrWhiteSpace(entry.key))
+                    keys.Add(entry.key);
+            }
+        }
+
+        // Rules are often edited without the gameplay scene open. The manager's default setup
+        // uses prefab filenames as keys, so keep the picker useful in that workflow too.
+        if (keys.Count == 0 && AssetDatabase.IsValidFolder(DefaultFxPrefabFolder))
+        {
+            foreach (string guid in AssetDatabase.FindAssets("t:Prefab", new[] { DefaultFxPrefabFolder }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                string key = System.IO.Path.GetFileNameWithoutExtension(path);
+                if (!string.IsNullOrWhiteSpace(key))
+                    keys.Add(key);
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(currentKey))
+            keys.Add(currentKey);
+
+        List<string> sortedKeys = new List<string>(keys);
+        sortedKeys.Sort(StringComparer.OrdinalIgnoreCase);
+        return sortedKeys;
+    }
+
+    private static void ApplySelection(UnityEngine.Object[] targets, string propertyPath, string selectedKey)
+    {
+        foreach (UnityEngine.Object target in targets)
+        {
+            if (target == null)
+                continue;
+
+            SerializedObject serializedTarget = new SerializedObject(target);
+            SerializedProperty targetProperty = serializedTarget.FindProperty(propertyPath);
+            if (targetProperty == null)
+                continue;
+
+            Undo.RecordObject(target, $"Select {targetProperty.displayName}");
+            targetProperty.stringValue = selectedKey;
+            serializedTarget.ApplyModifiedProperties();
+            EditorUtility.SetDirty(target);
+        }
+    }
+
+    private sealed class FXKeyDropdown : AdvancedDropdown
+    {
+        private readonly List<string> keys;
+        private readonly Action<string> onSelected;
+
+        public FXKeyDropdown(
+            AdvancedDropdownState state,
+            List<string> keys,
+            Action<string> onSelected) : base(state)
+        {
+            this.keys = keys;
+            this.onSelected = onSelected;
+        }
+
+        protected override AdvancedDropdownItem BuildRoot()
+        {
+            AdvancedDropdownItem root = new AdvancedDropdownItem("Attack VFX");
+            root.AddChild(new FXKeyDropdownItem(NoneLabel, string.Empty));
+
+            foreach (string key in keys)
+            {
+                FXKeyDropdownItem item = new FXKeyDropdownItem(key, key);
+                root.AddChild(item);
+            }
+
+            return root;
+        }
+
+        protected override void ItemSelected(AdvancedDropdownItem item)
+        {
+            if (item is FXKeyDropdownItem fxItem)
+                onSelected?.Invoke(fxItem.Key);
+        }
+    }
+
+    private sealed class FXKeyDropdownItem : AdvancedDropdownItem
+    {
+        public string Key { get; }
+
+        public FXKeyDropdownItem(string name, string key) : base(name)
+        {
+            Key = key;
+        }
+    }
+}
+#endif

@@ -762,7 +762,7 @@ namespace Grid {
 
             CardEventResult result = playingState.DamageEntities(targetPosition, attack.amount, attack.status, queuedAttack);
             _pendingCard?.ActivateManualAttackFollowUps(queuedAttack, target, result);
-            AttackCardEvent.PlayAttackHitFx(playingState, targetPosition);
+            AttackCardEvent.PlayAttackHitFx(playingState, targetPosition, attack.hitFxKey);
             RangedStatus.ConsumeAfterAttack(playingState.player);
 
             ApplyAttackNudge(playingState.player.transform, target.transform.position);

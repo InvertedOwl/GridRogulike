@@ -17,8 +17,9 @@ namespace Cards.Actions
             int distance,
             int amount,
             StatusApplicationType statusType,
-            int statusAmount)
-            : base(baseCost, color, entity, direction, distance, amount)
+            int statusAmount,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey)
+            : base(baseCost, color, entity, direction, distance, amount, hitFxKey)
         {
             this.statusType = statusType;
             this.statusAmount = statusAmount;
@@ -33,7 +34,8 @@ namespace Cards.Actions
                 ApplyStatusToEntityAction.CreateStatus(
                     statusType,
                     statusAmount,
-                    GetActionRandom(previewMode)));
+                    GetActionRandom(previewMode)),
+                hitFxKey: HitFxKey);
         }
 
         public override string GetText()

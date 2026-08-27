@@ -170,6 +170,7 @@ namespace Entities.Enemies
                     EnemyBrainNodeType.Condition => node.condition != null ? node.condition.name : "Condition",
                     EnemyBrainNodeType.PrePlanStart => PrePlanNodeTitle,
                     EnemyBrainNodeType.PrePlan => PrePlanSelectorNodeTitle,
+                    EnemyBrainNodeType.Comment => "Comment",
                     _ => "Node"
                 };
             }
@@ -397,9 +398,7 @@ namespace Entities.Enemies
                     case EnemyBrainNodeType.Condition:
                         if (node.condition != null)
                         {
-                            string outputName = node.condition.IsMet(context)
-                                ? ConditionTrueOutputName
-                                : ConditionFalseOutputName;
+                            string outputName = node.condition.SelectOutput(context, node.guid);
                             EnqueueOutgoing(queue, node, nodeLookup, nextPath, outputName);
                         }
                         break;
@@ -463,9 +462,7 @@ namespace Entities.Enemies
                     case EnemyBrainNodeType.Condition:
                         if (node.condition != null)
                         {
-                            string outputName = node.condition.IsMet(context)
-                                ? ConditionTrueOutputName
-                                : ConditionFalseOutputName;
+                            string outputName = node.condition.SelectOutput(context, node.guid);
                             EnqueueOutgoing(queue, node, nodeLookup, nextPath, outputName);
                         }
                         break;
@@ -533,6 +530,7 @@ namespace Entities.Enemies
         public EnemyBrainCondition condition;
 
         public string prePlanOption;
+        [TextArea] public string comment;
 
         [FormerlySerializedAs("prePlanIntent")]
         [SerializeField, HideInInspector]
@@ -587,7 +585,8 @@ namespace Entities.Enemies
         Rule = 1,
         Condition = 2,
         PrePlanStart = 3,
-        PrePlan = 4
+        PrePlan = 4,
+        Comment = 5
     }
 
 }

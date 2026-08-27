@@ -8,10 +8,15 @@ namespace Cards.Actions
     public class ShieldDetonationAction : AbstractAction
     {
         private const float ShieldDamageMultiplier = 0.75f;
+        public string HitFxKey { get; set; }
 
-        public ShieldDetonationAction(int baseCost, string color, AbstractEntity entity) : base(baseCost, color, entity)
+        public ShieldDetonationAction(
+            int baseCost,
+            string color,
+            AbstractEntity entity,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey) : base(baseCost, color, entity)
         {
-
+            HitFxKey = hitFxKey;
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
@@ -36,9 +41,11 @@ namespace Cards.Actions
                 return cardEvents;
 
             if (context.Targets.TryGetFirstEntity(out AbstractEntity target))
-                cardEvents.Add(new AttackCardEvent(target.positionRowCol, amount, manual: false));
+                cardEvents.Add(
+                    new AttackCardEvent(target.positionRowCol, amount, manual: false, hitFxKey: HitFxKey));
             else if (context.Targets.TryGetFirstPosition(out Vector2Int targetPosition))
-                cardEvents.Add(new AttackCardEvent(targetPosition, amount, manual: false));
+                cardEvents.Add(
+                    new AttackCardEvent(targetPosition, amount, manual: false, hitFxKey: HitFxKey));
 
             return cardEvents;
         }

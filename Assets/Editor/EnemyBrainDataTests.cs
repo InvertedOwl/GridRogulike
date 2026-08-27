@@ -1,7 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cards;
+using Cards.Actions;
+using Cards.CardEvents;
+using Entities;
 using Entities.Enemies;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 
 namespace GridRoguelike.EditorTools.Tests
@@ -186,6 +191,167 @@ namespace GridRoguelike.EditorTools.Tests
             Assert.That(brain.connections[0].outputName, Is.EqualTo("Wind Up"));
         }
 
+        [Test]
+        public void CycleConditionProvidesOneBasedOutputsForConfiguredCount()
+        {
+            CycleCondition cycle = Track(ScriptableObject.CreateInstance<CycleCondition>());
+            SetCycleOptionCount(cycle, 4);
+
+            CollectionAssert.AreEqual(
+                new[] { "1", "2", "3", "4" },
+                cycle.GetOutputNames());
+        }
+
+        [Test]
+        public void PlanCycleAdvancesAcrossTurnContextsAndWraps()
+        {
+            EnemyBrainData brain = CreateBrain();
+            CycleCondition cycle = Track(ScriptableObject.CreateInstance<CycleCondition>());
+            SetCycleOptionCount(cycle, 3);
+
+            EnemyBrainNodeData plan = CreateNode("plan", EnemyBrainNodeType.Start);
+            EnemyBrainNodeData cycleNode = CreateNode("cycle", EnemyBrainNodeType.Condition);
+            cycleNode.condition = cycle;
+            brain.startNodeGuid = plan.guid;
+            brain.nodes.Add(plan);
+            brain.nodes.Add(cycleNode);
+            brain.connections.Add(CreateConnection(
+                plan,
+                cycleNode,
+                EnemyBrainData.DefaultPlanOutputName));
+
+            RecordingEnemyBrainRule[] rules = new RecordingEnemyBrainRule[3];
+            for (int i = 0; i < rules.Length; i++)
+            {
+                rules[i] = Track(ScriptableObject.CreateInstance<RecordingEnemyBrainRule>());
+                EnemyBrainNodeData ruleNode = CreateNode($"rule-{i + 1}", EnemyBrainNodeType.Rule);
+                ruleNode.rule = rules[i];
+                brain.nodes.Add(ruleNode);
+                brain.connections.Add(CreateConnection(cycleNode, ruleNode, (i + 1).ToString()));
+            }
+
+            Dictionary<string, int> cycleIndices = new Dictionary<string, int>();
+            for (int i = 0; i < 4; i++)
+            {
+                EnemyTurnContext context = new EnemyTurnContext(
+                    null,
+                    null,
+                    0,
+                    conditionCycleIndices: cycleIndices);
+                Assert.That(brain.Plan(context), Is.True);
+            }
+
+            Assert.That(rules[0].CallCount, Is.EqualTo(2));
+            Assert.That(rules[1].CallCount, Is.EqualTo(1));
+            Assert.That(rules[2].CallCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CommentNodePreservesTextAndStopsGameplayTraversal()
+        {
+            EnemyBrainData brain = CreateBrain();
+            RecordingEnemyBrainRule rule = Track(
+                ScriptableObject.CreateInstance<RecordingEnemyBrainRule>());
+
+            EnemyBrainNodeData plan = CreateNode("plan", EnemyBrainNodeType.Start);
+            EnemyBrainNodeData comment = CreateNode("comment", EnemyBrainNodeType.Comment);
+            EnemyBrainNodeData ruleNode = CreateNode("rule", EnemyBrainNodeType.Rule);
+            comment.comment = "Remember why this branch exists.";
+            ruleNode.rule = rule;
+
+            brain.startNodeGuid = plan.guid;
+            brain.nodes.AddRange(new[] { plan, comment, ruleNode });
+            brain.connections.Add(CreateConnection(
+                plan,
+                comment,
+                EnemyBrainData.DefaultPlanOutputName));
+            brain.connections.Add(CreateConnection(
+                comment,
+                ruleNode,
+                EnemyBrainData.RuleOutputName));
+
+            Assert.That(
+                brain.Plan(new EnemyTurnContext(null, null, 0)),
+                Is.False);
+            Assert.That(rule.CallCount, Is.Zero);
+            Assert.That(comment.comment, Is.EqualTo("Remember why this branch exists."));
+            Assert.That(comment.title, Is.EqualTo("Comment"));
+        }
+
+        [Test]
+        public void ShieldFixedEntityActionKeepsSelectedTarget()
+        {
+            GameObject sourceObject = Track(new GameObject("shield-source"));
+            GameObject targetObject = Track(new GameObject("shield-target"));
+            NonPlayerEntity source = sourceObject.AddComponent<NonPlayerEntity>();
+            NonPlayerEntity target = targetObject.AddComponent<NonPlayerEntity>();
+            source.initialHealth = 10;
+            source._health = 10;
+            target.initialHealth = 10;
+            target._health = 10;
+
+            ShieldFixedEntityAction action = new ShieldFixedEntityAction(
+                1,
+                "basic",
+                source,
+                target,
+                7);
+
+            List<AbstractCardEvent> events = action.Activate((CardMonobehaviour)null);
+
+            Assert.That(events, Has.Count.EqualTo(1));
+            Assert.That(events[0], Is.TypeOf<ShieldCardEvent>());
+            ShieldCardEvent shieldEvent = (ShieldCardEvent)events[0];
+            Assert.That(shieldEvent.target, Is.SameAs(target));
+            Assert.That(shieldEvent.amount, Is.EqualTo(7));
+        }
+
+        [Test]
+        public void DirectionalAttackActionCarriesSelectedHitVfxIntoEventAndCopy()
+        {
+            const string selectedVfx = "BloodExplosionSpiky";
+            DirectionalAttackAction action = new DirectionalAttackAction(
+                1,
+                "basic",
+                null,
+                "ne",
+                2,
+                7,
+                selectedVfx);
+
+            List<AbstractCardEvent> events = action.Activate((CardMonobehaviour)null, previewMode: true);
+
+            Assert.That(events, Has.Count.EqualTo(1));
+            Assert.That(events[0], Is.TypeOf<AttackCardEvent>());
+            AttackCardEvent attackEvent = (AttackCardEvent)events[0];
+            Assert.That(attackEvent.hitFxKey, Is.EqualTo(selectedVfx));
+            Assert.That(attackEvent.Copy().hitFxKey, Is.EqualTo(selectedVfx));
+        }
+
+        [Test]
+        public void AttackActionCarriesOptionalHitVfxIntoEvent()
+        {
+            const string selectedVfx = "EnergyExplosionYellow";
+            AttackAction action = new AttackAction(1, "basic", null, 6, selectedVfx);
+            Card card = new Card(false);
+            TargetSelection targets = new TargetSelection(
+                Cards.CardList.TargetDefinition.None,
+                targetPositions: new[] { new Vector2Int(2, 3) });
+            CardPlayContext context = new CardPlayContext(
+                null,
+                card,
+                null,
+                targets,
+                null,
+                previewMode: true);
+
+            List<AbstractCardEvent> events = action.Activate(context);
+
+            Assert.That(events, Has.Count.EqualTo(1));
+            Assert.That(events[0], Is.TypeOf<AttackCardEvent>());
+            Assert.That(((AttackCardEvent)events[0]).hitFxKey, Is.EqualTo(selectedVfx));
+        }
+
         private EnemyBrainData CreateBrain()
         {
             EnemyBrainData brain = Track(ScriptableObject.CreateInstance<EnemyBrainData>());
@@ -200,6 +366,13 @@ namespace GridRoguelike.EditorTools.Tests
         {
             createdObjects.Add(createdObject);
             return createdObject;
+        }
+
+        private static void SetCycleOptionCount(CycleCondition cycle, int optionCount)
+        {
+            SerializedObject serializedCycle = new SerializedObject(cycle);
+            serializedCycle.FindProperty("optionCount").intValue = optionCount;
+            serializedCycle.ApplyModifiedPropertiesWithoutUndo();
         }
 
         private static EnemyBrainNodeData CreateNode(string guid, EnemyBrainNodeType type)

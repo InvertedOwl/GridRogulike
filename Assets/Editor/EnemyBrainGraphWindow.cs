@@ -149,6 +149,10 @@ namespace GridRoguelike.EditorTools
                     "Create Preplan Node",
                     _ => { },
                     _ => DropdownMenuAction.Status.Disabled);
+                evt.menu.AppendAction(
+                    "Create Comment Node",
+                    _ => { },
+                    _ => DropdownMenuAction.Status.Disabled);
                 return;
             }
 
@@ -156,6 +160,7 @@ namespace GridRoguelike.EditorTools
             evt.menu.AppendAction("Create Rule Node", _ => CreateNode(EnemyBrainNodeType.Rule, graphPosition));
             evt.menu.AppendAction("Create Condition Node", _ => CreateNode(EnemyBrainNodeType.Condition, graphPosition));
             evt.menu.AppendAction("Create Preplan Node", _ => CreateNode(EnemyBrainNodeType.PrePlan, graphPosition));
+            evt.menu.AppendAction("Create Comment Node", _ => CreateNode(EnemyBrainNodeType.Comment, graphPosition));
         }
 
         private void RefreshGraphView()
@@ -225,7 +230,9 @@ namespace GridRoguelike.EditorTools
                 nodeData,
                 BrainData.GetPlanOutputNames(),
                 MarkAssetDirty,
-                UpdatePrePlanOption)
+                UpdatePrePlanOption,
+                UpdateComment,
+                () => schedule.Execute(LoadGraph))
             {
                 viewDataKey = nodeData.guid
             };
@@ -253,6 +260,7 @@ namespace GridRoguelike.EditorTools
                     EnemyBrainNodeType.Rule => "Rule",
                     EnemyBrainNodeType.Condition => "Condition",
                     EnemyBrainNodeType.PrePlan => EnemyBrainData.PrePlanSelectorNodeTitle,
+                    EnemyBrainNodeType.Comment => "Comment",
                     _ => "Node"
                 },
                 type = type,
@@ -382,6 +390,16 @@ namespace GridRoguelike.EditorTools
             schedule.Execute(LoadGraph);
         }
 
+        private void UpdateComment(EnemyBrainNodeData nodeData, string comment)
+        {
+            if (BrainData == null || nodeData == null)
+                return;
+
+            Undo.RecordObject(BrainData, "Edit Enemy Brain Comment");
+            nodeData.comment = comment ?? string.Empty;
+            MarkAssetDirty();
+        }
+
         private void RemoveConnection(Edge edge)
         {
             if (edge.output?.node is not EnemyBrainGraphNode fromNode ||
@@ -431,10 +449,14 @@ namespace GridRoguelike.EditorTools
     {
         public static readonly Vector2 DefaultSize = new Vector2(165f, 120f);
         private const float PrePlanNodeWidth = 240f;
+        private const float CommentNodeWidth = 210f;
+        private const float CommentNodeHeight = 126f;
 
         private readonly Action markDirty;
+        private readonly Action refreshGraph;
         private readonly IReadOnlyList<string> planOutputNames;
         private readonly Action<EnemyBrainNodeData, string> updatePrePlanOption;
+        private readonly Action<EnemyBrainNodeData, string> updateComment;
         private readonly Dictionary<string, Port> outputPorts = new();
         private Label assetNameLabel;
         private Foldout assetValuesFoldout;
@@ -445,21 +467,28 @@ namespace GridRoguelike.EditorTools
 
         public static Vector2 GetDefaultSize(EnemyBrainNodeType nodeType)
         {
-            return nodeType == EnemyBrainNodeType.PrePlan
-                ? new Vector2(PrePlanNodeWidth, DefaultSize.y)
-                : DefaultSize;
+            return nodeType switch
+            {
+                EnemyBrainNodeType.PrePlan => new Vector2(PrePlanNodeWidth, DefaultSize.y),
+                EnemyBrainNodeType.Comment => new Vector2(CommentNodeWidth, CommentNodeHeight),
+                _ => DefaultSize
+            };
         }
 
         public EnemyBrainGraphNode(
             EnemyBrainNodeData nodeData,
             IReadOnlyList<string> planOutputNames,
             Action markDirty,
-            Action<EnemyBrainNodeData, string> updatePrePlanOption)
+            Action<EnemyBrainNodeData, string> updatePrePlanOption,
+            Action<EnemyBrainNodeData, string> updateComment,
+            Action refreshGraph)
         {
             NodeData = nodeData;
             this.planOutputNames = planOutputNames;
             this.markDirty = markDirty;
             this.updatePrePlanOption = updatePrePlanOption;
+            this.updateComment = updateComment;
+            this.refreshGraph = refreshGraph;
             title = GetNodeTitle();
             float nodeWidth = GetDefaultSize(NodeData.type).x;
             style.width = nodeWidth;
@@ -490,6 +519,7 @@ namespace GridRoguelike.EditorTools
                 EnemyBrainNodeType.Condition => "Condition",
                 EnemyBrainNodeType.PrePlanStart => EnemyBrainData.PrePlanNodeTitle,
                 EnemyBrainNodeType.PrePlan => EnemyBrainData.PrePlanSelectorNodeTitle,
+                EnemyBrainNodeType.Comment => "Comment",
                 _ => "Node"
             };
         }
@@ -517,7 +547,8 @@ namespace GridRoguelike.EditorTools
         private void BuildPorts()
         {
             if (NodeData.type != EnemyBrainNodeType.Start &&
-                NodeData.type != EnemyBrainNodeType.PrePlanStart)
+                NodeData.type != EnemyBrainNodeType.PrePlanStart &&
+                NodeData.type != EnemyBrainNodeType.Comment)
             {
                 InputPort = InstantiatePort(
                     Orientation.Horizontal,
@@ -539,14 +570,25 @@ namespace GridRoguelike.EditorTools
                     AddOutputPort(EnemyBrainData.RuleOutputName);
                     break;
                 case EnemyBrainNodeType.Condition:
-                    AddOutputPort(EnemyBrainData.ConditionTrueOutputName);
-                    AddOutputPort(EnemyBrainData.ConditionFalseOutputName);
+                    IReadOnlyList<string> conditionOutputNames = NodeData.condition?.GetOutputNames();
+                    if (conditionOutputNames == null || conditionOutputNames.Count == 0)
+                    {
+                        AddOutputPort(EnemyBrainData.ConditionTrueOutputName);
+                        AddOutputPort(EnemyBrainData.ConditionFalseOutputName);
+                        break;
+                    }
+
+                    foreach (string outputName in conditionOutputNames)
+                        AddOutputPort(outputName);
                     break;
             }
         }
 
         private void AddOutputPort(string outputName)
         {
+            if (string.IsNullOrWhiteSpace(outputName) || outputPorts.ContainsKey(outputName))
+                return;
+
             Port outputPort = InstantiatePort(
                 Orientation.Horizontal,
                 Direction.Output,
@@ -567,6 +609,12 @@ namespace GridRoguelike.EditorTools
             if (NodeData.type == EnemyBrainNodeType.PrePlan)
             {
                 BuildPrePlanControls();
+                return;
+            }
+
+            if (NodeData.type == EnemyBrainNodeType.Comment)
+            {
+                BuildCommentControls();
                 return;
             }
 
@@ -612,6 +660,7 @@ namespace GridRoguelike.EditorTools
                 assetNameLabel.text = GetAssetName();
                 RebuildAssetValuesInspector();
                 markDirty?.Invoke();
+                refreshGraph?.Invoke();
             });
 
             extensionContainer.Add(objectField);
@@ -654,6 +703,27 @@ namespace GridRoguelike.EditorTools
             });
 
             extensionContainer.Add(optionField);
+        }
+
+        private void BuildCommentControls()
+        {
+            TextField commentField = new TextField
+            {
+                isDelayed = true,
+                multiline = true,
+                value = NodeData.comment ?? string.Empty,
+                tooltip = "Editor-only note. Comment nodes have no gameplay effect."
+            };
+            commentField.style.width = Length.Percent(100f);
+            commentField.style.height = 84f;
+            commentField.style.marginTop = 4f;
+            commentField.style.marginBottom = 4f;
+            commentField.RegisterValueChangedCallback(evt =>
+            {
+                updateComment?.Invoke(NodeData, evt.newValue);
+            });
+
+            extensionContainer.Add(commentField);
         }
 
         private void RebuildAssetValuesInspector()

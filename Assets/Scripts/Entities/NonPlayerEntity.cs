@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Cards.Actions;
 using Cards.CardEvents;
 using Entities.Enemies;
@@ -58,17 +59,29 @@ namespace Entities
                 HideIntentIndicator();
                 return;
             }
-
-            if (TryGetLargestPlannedAttackAmount(out int attackAmount))
-            {
-                ShowIntentText(attackAmount + " <sprite name=Damage4>");
-                return;
-            }
-
-            AbstractAction actionChosen = plannedAction[plannedAction.Count - 1];
-            ShowIntentText(actionChosen.ToSimpleText());
+            
+            ShowIntentText(GetAllIntentText());
         }
 
+        public string GetAllIntentText()
+        {
+            StringBuilder intentText = new StringBuilder();
+            foreach (AbstractAction action in plannedAction)
+            {
+                if (action is AttackAction || action is MoveAction)
+                    continue;
+                
+                intentText.Append(action.ToSimpleText());
+            }
+            if (TryGetLargestPlannedAttackAmount(out int attackAmount))
+            {
+                intentText.Append(attackAmount + " <sprite name=Damage4>");
+            }
+            
+            
+            return intentText.ToString();
+        }
+        
         public void SetPrePlanOption(string prePlanOption)
         {
             ClearNextTurnActionPreviews();

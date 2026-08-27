@@ -18,12 +18,14 @@ namespace Entities.Enemies
         public int PlannedActionRevision { get; private set; }
         public int MoveBudget { get; private set; }
         private readonly IReadOnlyDictionary<AbstractEntity, Vector2Int> _plannedEntityPositions;
+        private readonly IDictionary<string, int> _conditionCycleIndices;
 
         public EnemyTurnContext(
             NonPlayerEntity self,
             PlayingState state,
             int moveBudget,
-            IReadOnlyDictionary<AbstractEntity, Vector2Int> plannedEntityPositions = null)
+            IReadOnlyDictionary<AbstractEntity, Vector2Int> plannedEntityPositions = null,
+            IDictionary<string, int> conditionCycleIndices = null)
         {
             Self = self;
             State = state;
@@ -34,6 +36,7 @@ namespace Entities.Enemies
             ActionSourcePositions = new Dictionary<AbstractAction, Vector2Int>();
             PlanningRandom = self != null ? self.EntityRandom.Clone() : RunInfo.NewRandom("enemy-brain");
             _plannedEntityPositions = plannedEntityPositions;
+            _conditionCycleIndices = conditionCycleIndices ?? new Dictionary<string, int>();
 
             if (state == null)
                 return;
@@ -45,6 +48,18 @@ namespace Entities.Enemies
 
                 OccupiedPositions.Add(GetEntityPosition(entity));
             }
+        }
+
+        public int SelectAndAdvanceCycle(string nodeGuid, int optionCount)
+        {
+            if (string.IsNullOrEmpty(nodeGuid))
+                return 0;
+
+            optionCount = Mathf.Max(1, optionCount);
+            _conditionCycleIndices.TryGetValue(nodeGuid, out int currentIndex);
+            currentIndex = ((currentIndex % optionCount) + optionCount) % optionCount;
+            _conditionCycleIndices[nodeGuid] = (currentIndex + 1) % optionCount;
+            return currentIndex;
         }
 
         public bool AddAction(AbstractAction action)

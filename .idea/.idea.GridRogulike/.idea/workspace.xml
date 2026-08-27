@@ -6,21 +6,125 @@
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Card.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AbstractAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/EnemyBrainDataTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/EnemyBrainDataTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/EnemyBrainGraphWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/EnemyBrainGraphWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Brute/BruteBrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Brute/BruteBrain.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Brute/HardStar.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Brute/HardStar.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Flyer/Flyer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Flyer/Flyer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Flyer/FlyerBrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Flyer/FlyerBrain.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/Sector.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/Sector.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/SectorBrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Sector/SectorBrain.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Snake/Snake.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Snake/Snake.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/HeavyWideAttack.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/HeavyWideAttack.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/Spy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/Spy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/SpyBrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/SpyBrain.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/WideMeleeAttackRule.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Spy/WideMeleeAttackRule.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAllAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackAllAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromSteps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromSteps.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromTilesMovedThisCombatAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackFromTilesMovedThisCombatAction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackIfNotMovedAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackIfNotMovedAction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackIfSurroundedAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackIfSurroundedAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackRadiusAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/AttackRadiusAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockAttackingForCombatAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockAttackingForCombatAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockAttackingForTurnAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockAttackingForTurnAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockShieldingForCombatAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockShieldingForCombatAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockShieldingForTurnAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/BlockShieldingForTurnAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DamageSelfAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DamageSelfAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DazedSelfAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DazedSelfAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DelayedShieldAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DelayedShieldAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DestroyCurrentCardAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DestroyCurrentCardAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DestroyDiscardCardAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DestroyDiscardCardAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DestroyHandCardAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DestroyHandCardAction.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalAttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalAttackAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyFirstCardAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyFirstCardAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfDoneDamageAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfDoneDamageAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfNoMoveAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfNoMoveAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardMonobehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Deck/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/AbstractEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Behaviors/AbstractEntityBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalStatusAttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DirectionalStatusAttackAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardCardsAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardCardsAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardHandAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardHandAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardHandCardAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DiscardHandCardAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DoubleShieldAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/DoubleShieldAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/FrostSelfAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/FrostSelfAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyIfPreviousEventDefeatedEnemyAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainEnergyIfPreviousEventDefeatedEnemyAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainInterestAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainInterestAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainMoneyAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainMoneyAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainMoneyForCardAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainMoneyForCardAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainShieldForMoneyAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainShieldForMoneyAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsCardAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsCardAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsForCardsPlayedThisTurnAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsForCardsPlayedThisTurnAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsForNearbyEnemiesAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/GainStepsForNearbyEnemiesAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/HealAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/HealAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/LoseQuarterMoneyAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/LoseQuarterMoneyAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MoveRandomAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MoveRandomAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MultiAttackAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/MultiAttackAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PoisonAttackAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PushNearbyEnemiesAwayAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/PushNearbyEnemiesAwayAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RandomNoCostAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RandomNoCostAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RangedSelfAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RangedSelfAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RootSelfAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RootSelfAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RootSelfForCombatAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/RootSelfForCombatAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldCarryoverStatusSelfAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldCarryoverStatusSelfAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldDetonationAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldDetonationAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfNoMoveAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/ShieldIfNoMoveAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/StatusAttackAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/StatusAttackAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/TeleportToStartingTileAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/TeleportToStartingTileAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/TripleShieldAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/Actions/TripleShieldAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AttackCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/AttackCardEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ShieldCardEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardEvents/ShieldCardEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/BaseCardDefinitions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardList/BaseCardDefinitions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cards/CardTargetResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cards/CardTargetResolver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyActionValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyActionValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainAttackRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainAttackRule.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainCondition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainCondition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainLine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainUtilityRule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyBrainUtilityRule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/Brain/EnemyTurnContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/NonPlayerEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FXManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FXManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexClickPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexPreviewHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid/HexGridManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/DrawingBoard.af~lock~" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,12 +142,12 @@
     &quot;assignee&quot;: &quot;InvertedOwl&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/InvertedOwl/GridRogulike.git&quot;,
-    &quot;accountId&quot;: &quot;b416356a-b6e3-4dd7-b58c-8a3fbbeebd17&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/InvertedOwl/GridRogulike.git",
+    "accountId": "f6c0578c-7d3e-4e8a-ab27-2c8719dfa0ad"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Datas/EnemiesDatabase.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Datas/InfoPanelDatabase.asset" root0="FORCE_HIGHLIGHTING" />
@@ -453,6 +557,7 @@
       <workItem from="1784585335158" duration="5307000" />
       <workItem from="1785003715066" duration="54000" />
       <workItem from="1787594795132" duration="673000" />
+      <workItem from="1787870355205" duration="3701000" />
     </task>
     <task id="LOCAL-00059" summary="minor visual changes (rotating game board)">
       <option name="closed" value="true" />

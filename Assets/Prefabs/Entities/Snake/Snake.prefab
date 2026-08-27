@@ -662,6 +662,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8772347055416741926}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: initialHealth
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: eyesFollowMouse
       value: 
       objectReference: {fileID: 2972820130270987686}
@@ -677,7 +681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5457511034134313530, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.125
+      value: 1.698
       objectReference: {fileID: 0}
     - target: {fileID: 5895366637514247478, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_AnchorMax.y

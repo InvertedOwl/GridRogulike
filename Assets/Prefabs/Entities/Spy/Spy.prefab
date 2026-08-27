@@ -439,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 161378063130477174, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_Name
-      value: DiamondBoy
+      value: Spy
       objectReference: {fileID: 0}
     - target: {fileID: 568234234297479083, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -634,9 +634,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: _health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: behavior
       value: 
       objectReference: {fileID: 7389293652755173526}
+    - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
+      propertyPath: initialHealth
+      value: 28
+      objectReference: {fileID: 0}
     - target: {fileID: 5286917440407922032, guid: f03ef24d768fb954e9852e79c45fe4e2, type: 3}
       propertyPath: eyesFollowMouse
       value: 

@@ -30,6 +30,9 @@ namespace Entities.Enemies
             if (action is ApplyStatusToFixedEntityAction applyStatusAction)
                 return applyStatusAction.target != null && applyStatusAction.target.Health > 0;
 
+            if (action is ShieldFixedEntityAction shieldAction)
+                return shieldAction.target != null && shieldAction.target.Health > 0;
+
             return true;
         }
 

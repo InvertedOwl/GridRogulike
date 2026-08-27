@@ -1,4 +1,5 @@
 using Cards.Actions;
+using Cards.CardEvents;
 using Grid;
 using UnityEngine;
 
@@ -49,7 +50,8 @@ namespace Entities.Enemies
             int range,
             int damage,
             int baseCost,
-            string color)
+            string color,
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey)
         {
             if (context == null || string.IsNullOrEmpty(direction))
                 return 0;
@@ -61,7 +63,15 @@ namespace Entities.Enemies
                 if (!context.IsBoardPosition(attackTile))
                     break;
 
-                if (context.AddAction(new DirectionalAttackAction(baseCost, color, context.Self, direction, distance, damage)))
+                if (context.AddAction(
+                        new DirectionalAttackAction(
+                            baseCost,
+                            color,
+                            context.Self,
+                            direction,
+                            distance,
+                            damage,
+                            hitFxKey)))
                     added++;
 
                 if (context.IsAttackLineBlocked(attackTile))

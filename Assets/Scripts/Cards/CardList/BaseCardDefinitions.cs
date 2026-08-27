@@ -60,7 +60,8 @@ namespace Cards.CardList
         public override CardSet CardSet => CardSet.Base;
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override bool CanShowInShop => false;
-        public override List<AbstractAction> BuildActions() => Actions(new AttackAction(1, "basic", null, 6));
+        public override List<AbstractAction> BuildActions() =>
+            Actions(new AttackAction(1, "basic", null, 6, "EnergyExplosionYellow"));
     }
     [CardDefinition("Lance")]
     public sealed class Lance : CardDefinition
@@ -71,6 +72,30 @@ namespace Cards.CardList
         public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 2);
         public override bool CanShowInShop => true;
         public override List<AbstractAction> BuildActions() => Actions(new AttackAction(1, "basic", null, 4));
+    }
+    [CardDefinition("Finishing Blow")]
+    public sealed class FinishingBlow : CardDefinition
+    {
+        public override string DisplayName => "Finishing Blow";
+        public override Rarity Rarity => Rarity.Uncommon;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
+        public override bool CanShowInShop => true;
+        public override List<AbstractAction> BuildActions() => Actions(
+            new AttackAction(1, "basic", null, 10),
+            new ScrapCurrentCardAction(0, "basic", null));
+    }
+    [CardDefinition("Crush")]
+    public sealed class Crush : CardDefinition
+    {
+        public override string DisplayName => "Crush";
+        public override Rarity Rarity => Rarity.Rare;
+        public override CardSet CardSet => CardSet.Base;
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
+        public override bool CanShowInShop => true;
+
+        public override List<AbstractAction> BuildActions() => Actions(
+            new AttackAction(1, "basic", null, 30));
     }
 
     // -- Conditional offense --
@@ -275,7 +300,7 @@ namespace Cards.CardList
         public override string DisplayName => "Opening Act";
         public override Rarity Rarity => Rarity.Uncommon;
         public override CardSet CardSet => CardSet.Base;
-        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.Self);
+        public override TargetDefinition TargetDefinition => new TargetDefinition(TargetType.AnyEnemy, 1);
         public override bool CanShowInShop => true;
         public override List<AbstractAction> BuildActions() => Actions(
             new AttackAction(0, "basic", null, 4),

@@ -9,7 +9,7 @@ namespace Cards.CardEvents
 {
     public class AttackCardEvent: AbstractCardEvent
     {
-        private const string AttackHitFxKey = "SmallExplosionFire";
+        public const string DefaultAttackHitFxKey = "SmallExplosionFire";
 
         public Vector2Int position;
         public int distance;
@@ -17,32 +17,46 @@ namespace Cards.CardEvents
         public int amount;
         public AbstractStatus status;
         public bool manual = true;
+        public string hitFxKey;
 
         public bool usePosition = false;
 
-        public AttackCardEvent(int distance, string direction, int amount, AbstractStatus status = null, bool manual = true)
+        public AttackCardEvent(
+            int distance,
+            string direction,
+            int amount,
+            AbstractStatus status = null,
+            bool manual = true,
+            string hitFxKey = DefaultAttackHitFxKey)
         {
             this.distance = distance;
             this.direction = direction;
             this.amount = amount;
             this.status = status;
             this.manual = manual;
+            this.hitFxKey = hitFxKey;
         }
 
-        public AttackCardEvent(Vector2Int position, int amount, AbstractStatus status = null, bool manual = true)
+        public AttackCardEvent(
+            Vector2Int position,
+            int amount,
+            AbstractStatus status = null,
+            bool manual = true,
+            string hitFxKey = DefaultAttackHitFxKey)
         {
             this.amount = amount;
             this.position = position;
             this.status = status;
             this.usePosition = true;
             this.manual = manual;
+            this.hitFxKey = hitFxKey;
         }
 
         public AttackCardEvent Copy()
         {
             AttackCardEvent copy = usePosition
-                ? new AttackCardEvent(position, amount, status, manual)
-                : new AttackCardEvent(distance, direction, amount, status, manual);
+                ? new AttackCardEvent(position, amount, status, manual, hitFxKey)
+                : new AttackCardEvent(distance, direction, amount, status, manual, hitFxKey);
 
             copy.PreviewSourceActionIndex = PreviewSourceActionIndex;
             return copy;
@@ -92,7 +106,7 @@ namespace Cards.CardEvents
                 }
 
                 CardEventResult result = playing.DamageEntities(targetPosition, amount, status, this);
-                PlayAttackHitFx(playing, targetPosition);
+                PlayAttackHitFx(playing, targetPosition, hitFxKey);
                 RangedStatus.ConsumeAfterAttack(entity);
                 return result;
             }
@@ -100,9 +114,12 @@ namespace Cards.CardEvents
             return new CardEventResult(this);
         }
 
-        public static void PlayAttackHitFx(PlayingState playing, Vector2Int targetPosition)
+        public static void PlayAttackHitFx(
+            PlayingState playing,
+            Vector2Int targetPosition,
+            string hitFxKey = DefaultAttackHitFxKey)
         {
-            if (FXManager.Instance == null)
+            if (FXManager.Instance == null || string.IsNullOrWhiteSpace(hitFxKey))
                 return;
 
             Vector3 spawnPosition = HexGridManager.GetHexCenter(targetPosition.x, targetPosition.y);
@@ -118,7 +135,7 @@ namespace Cards.CardEvents
                 spawnPosition = hexObject.transform.position;
             }
 
-            FXManager.Instance.TryPlay(AttackHitFxKey, spawnPosition);
+            FXManager.Instance.TryPlay(hitFxKey, spawnPosition);
         }
     }
 }

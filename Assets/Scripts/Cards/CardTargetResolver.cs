@@ -317,7 +317,17 @@ namespace Cards
             if (HexGridManager.Instance == null || sourceEntity == null)
                 return false;
 
-            List<Vector2Int> blockers = new List<Vector2Int>();
+            if (!HexGridManager.TryGetStraightLine(
+                    sourceEntity.positionRowCol,
+                    targetPosition,
+                    targetDefinition.MaxRange.Value,
+                    out string direction,
+                    out int distance))
+            {
+                return false;
+            }
+
+            HashSet<Vector2Int> blockers = new HashSet<Vector2Int>();
             foreach (AbstractEntity entity in playingState.GetEntities())
             {
                 if (entity == null ||
@@ -331,12 +341,18 @@ namespace Cards
                 blockers.Add(entity.positionRowCol);
             }
 
-            Dictionary<Vector2Int, int> distanceMap =
-                HexGridManager.Instance.CalculateDistanceMap(sourceEntity.positionRowCol, blockers);
+            for (int currentDistance = 1; currentDistance <= distance; currentDistance++)
+            {
+                Vector2Int position = HexGridManager.MoveHex(
+                    sourceEntity.positionRowCol,
+                    direction,
+                    currentDistance);
 
-            return distanceMap.TryGetValue(targetPosition, out int distance) &&
-                   distance >= 0 &&
-                   distance <= targetDefinition.MaxRange.Value;
+                if (!HexGridManager.Instance.BoardDictionary.ContainsKey(position) || blockers.Contains(position))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

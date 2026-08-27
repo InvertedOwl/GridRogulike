@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cards.Actions;
+using Cards.CardEvents;
 using Grid;
 using UnityEngine;
 
@@ -10,6 +11,11 @@ namespace Entities.Enemies
         [SerializeField]
         [Tooltip("When enabled, this rule still plans an attack if no direct hit exists by choosing the attack tile closest to the target.")]
         private bool alwaysPlan;
+
+        [SerializeField]
+        [FXKey]
+        [Tooltip("The FXManager effect played on each tile hit by this attack. Choose None to disable the hit VFX.")]
+        private string hitVfx = AttackCardEvent.DefaultAttackHitFxKey;
 
         protected bool TrySelectAttackTarget(
             EnemyTurnContext context,
@@ -74,7 +80,14 @@ namespace Entities.Enemies
                 return false;
 
             return context.AddAction(
-                new DirectionalAttackAction(baseCost, color, context.Self, direction, distance, damage)
+                new DirectionalAttackAction(
+                    baseCost,
+                    color,
+                    context.Self,
+                    direction,
+                    distance,
+                    damage,
+                    hitVfx)
             );
         }
 
@@ -100,7 +113,8 @@ namespace Entities.Enemies
                     distance,
                     damage,
                     statusType,
-                    statusAmount)
+                    statusAmount,
+                    hitVfx)
             );
         }
 
@@ -130,7 +144,8 @@ namespace Entities.Enemies
                 ClampRange(range),
                 damage,
                 baseCost,
-                color);
+                color,
+                hitVfx);
         }
 
         protected bool CanPlanAttack(EnemyTurnContext context, string direction, int distance)
