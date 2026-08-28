@@ -8,23 +8,12 @@ using UnityEngine;
 
 namespace Cards.Actions
 {
-    public class DirectionalAttackAction : AbstractAction
+    public class DirectionalAttackAction : AttackAction
     {
-        public override string Icon
-        {
-            get
-            {
-                return "Damage4";
-            }
-        }
-
         protected string _direction;
         public string Direction { get { return _direction; } set { _direction = value; } }
         public int _distance;
         public int Distance { get { return _distance; } set { _distance = value; } }
-        public int _amount;
-        public int Amount { get { return _amount; } set { _amount = value; } }
-        public string HitFxKey { get; set; }
 
         public DirectionalAttackAction(
             int baseCost,
@@ -33,12 +22,11 @@ namespace Cards.Actions
             string direction,
             int distance,
             int amount,
-            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey) : base(baseCost, color, entity)
+            string hitFxKey = AttackCardEvent.DefaultAttackHitFxKey)
+            : base(baseCost, color, entity, amount, hitFxKey)
         {
             _direction = direction;
             _distance = distance;
-            _amount = amount;
-            HitFxKey = hitFxKey;
         }
 
         public override List<AbstractCardEvent> Activate(CardMonobehaviour cardMono)
@@ -58,6 +46,11 @@ namespace Cards.Actions
                 return new List<AbstractCardEvent>();
 
             return new List<AbstractCardEvent> { CreateAttackEvent(previewMode) };
+        }
+
+        public override List<AbstractCardEvent> Activate(CardPlayContext context)
+        {
+            return Activate(context?.CardMono, context?.PreviewMode ?? false);
         }
 
         protected virtual AttackCardEvent CreateAttackEvent(bool previewMode)

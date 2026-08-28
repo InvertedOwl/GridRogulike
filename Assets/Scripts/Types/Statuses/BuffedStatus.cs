@@ -15,8 +15,6 @@ namespace Types.Statuses
         
         public override List<AbstractCardEvent> Modify(List<AbstractCardEvent> cardEvents)
         {
-            Debug.Log("Modifying Buffed enemy");
-            
             foreach (AbstractCardEvent cardEvent in cardEvents)
             {
                 if (cardEvent is AttackCardEvent attackCardEvent)

@@ -93,6 +93,8 @@ namespace GridRoguelike.EditorTools
 
     public class EnemyBrainGraphView : GraphView
     {
+        internal const float GridSpacing = 15f;
+        private const string GraphStylePath = "Assets/Editor/EnemyBrainGraph.uss";
         private readonly Dictionary<string, EnemyBrainGraphNode> nodeViews = new();
         private bool isLoading;
 
@@ -101,7 +103,16 @@ namespace GridRoguelike.EditorTools
         public EnemyBrainGraphView()
         {
             style.flexGrow = 1;
-            Insert(0, new GridBackground());
+            AddToClassList("enemy-brain-graph");
+
+            StyleSheet graphStyle = AssetDatabase.LoadAssetAtPath<StyleSheet>(GraphStylePath);
+            if (graphStyle != null)
+                styleSheets.Add(graphStyle);
+
+            GridBackground gridBackground = new GridBackground();
+            gridBackground.AddToClassList("enemy-brain-grid");
+            gridBackground.StretchToParentSize();
+            Insert(0, gridBackground);
 
             this.AddManipulator(new ContentZoomer());
             this.AddManipulator(new ContentDragger());
@@ -237,6 +248,7 @@ namespace GridRoguelike.EditorTools
                 viewDataKey = nodeData.guid
             };
 
+            nodeData.editorPosition = SnapPosition(nodeData.editorPosition);
             node.SetPosition(new Rect(
                 nodeData.editorPosition,
                 EnemyBrainGraphNode.GetDefaultSize(nodeData.type)));
@@ -264,7 +276,7 @@ namespace GridRoguelike.EditorTools
                     _ => "Node"
                 },
                 type = type,
-                editorPosition = position
+                editorPosition = SnapPosition(position)
             };
 
             BrainData.nodes.Add(nodeData);
@@ -372,10 +384,20 @@ namespace GridRoguelike.EditorTools
                 if (element is not EnemyBrainGraphNode node)
                     continue;
 
-                node.NodeData.editorPosition = node.GetPosition().position;
+                Rect position = node.GetPosition();
+                position.position = SnapPosition(position.position);
+                node.SetPosition(position);
+                node.NodeData.editorPosition = position.position;
             }
 
             MarkAssetDirty();
+        }
+
+        internal static Vector2 SnapPosition(Vector2 position)
+        {
+            return new Vector2(
+                Mathf.Round(position.x / GridSpacing) * GridSpacing,
+                Mathf.Round(position.y / GridSpacing) * GridSpacing);
         }
 
         private void UpdatePrePlanOption(EnemyBrainNodeData nodeData, string option)
@@ -807,7 +829,7 @@ namespace GridRoguelike.EditorTools
             Label label = new Label(text);
             label.style.fontSize = 10f;
             label.style.whiteSpace = WhiteSpace.Normal;
-            label.style.opacity = 0.8f;
+            label.style.opacity = 0.9f;
             return label;
         }
 
@@ -879,8 +901,9 @@ namespace GridRoguelike.EditorTools
 public class NoAutoPanSelectionDragger : MouseManipulator
 {
     private bool active;
-    private Vector2 lastGraphMousePosition;
+    private Vector2 dragStartGraphMousePosition;
     private readonly List<GraphElement> draggedElements = new();
+    private readonly Dictionary<GraphElement, Rect> startingPositions = new();
 
     public NoAutoPanSelectionDragger()
     {
@@ -939,8 +962,12 @@ public class NoAutoPanSelectionDragger : MouseManipulator
         if (draggedElements.Count == 0)
             return;
 
+        startingPositions.Clear();
+        foreach (GraphElement element in draggedElements)
+            startingPositions[element] = element.GetPosition();
+
         active = true;
-        lastGraphMousePosition = graphView.contentViewContainer.WorldToLocal(evt.mousePosition);
+        dragStartGraphMousePosition = graphView.contentViewContainer.WorldToLocal(evt.mousePosition);
 
         target.CaptureMouse();
         evt.StopImmediatePropagation();
@@ -956,13 +983,14 @@ public class NoAutoPanSelectionDragger : MouseManipulator
 
         Vector2 graphMousePosition =
             graphView.contentViewContainer.WorldToLocal(evt.mousePosition);
-        Vector2 delta = graphMousePosition - lastGraphMousePosition;
-        lastGraphMousePosition = graphMousePosition;
+        Vector2 delta = graphMousePosition - dragStartGraphMousePosition;
 
         foreach (GraphElement element in draggedElements.ToList())
         {
-            Rect position = element.GetPosition();
-            position.position += delta;
+            if (!startingPositions.TryGetValue(element, out Rect position))
+                continue;
+
+            position.position = EnemyBrainGraphView.SnapPosition(position.position + delta);
             element.SetPosition(position);
         }
 
@@ -984,6 +1012,7 @@ public class NoAutoPanSelectionDragger : MouseManipulator
 
         active = false;
         draggedElements.Clear();
+        startingPositions.Clear();
     }
 
     private void StopDragging(EventBase evt)
@@ -993,6 +1022,7 @@ public class NoAutoPanSelectionDragger : MouseManipulator
 
         active = false;
         draggedElements.Clear();
+        startingPositions.Clear();
 
         if (target.HasMouseCapture())
             target.ReleaseMouse();

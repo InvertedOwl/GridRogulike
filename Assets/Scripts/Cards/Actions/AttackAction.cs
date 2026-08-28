@@ -57,16 +57,6 @@ namespace Cards.Actions
         }
 
         public string arrowUUID;
-        
-        public override void HoverOn()
-        {
-            Debug.Log("Hovering on attack actions");
-        }
-
-        public override void HoverOff()
-        {
-            Debug.Log("Hovering off attack actions");
-        }
 
         public override List<RectTransform> UpdateGraphic(GameObject diagram, GameObject tilePrefab, GameObject arrowPrefab)
         {

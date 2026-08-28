@@ -279,6 +279,17 @@ namespace GridRoguelike.EditorTools.Tests
         }
 
         [Test]
+        public void EnemyBrainGraphPositionsSnapToVisibleGridSpacing()
+        {
+            Assert.That(
+                EnemyBrainGraphView.SnapPosition(new Vector2(34f, 46f)),
+                Is.EqualTo(new Vector2(40f, 40f)));
+            Assert.That(
+                EnemyBrainGraphView.SnapPosition(new Vector2(-14f, -26f)),
+                Is.EqualTo(new Vector2(-20f, -20f)));
+        }
+
+        [Test]
         public void ShieldFixedEntityActionKeepsSelectedTarget()
         {
             GameObject sourceObject = Track(new GameObject("shield-source"));
@@ -321,11 +332,47 @@ namespace GridRoguelike.EditorTools.Tests
 
             List<AbstractCardEvent> events = action.Activate((CardMonobehaviour)null, previewMode: true);
 
+            Assert.That(action, Is.InstanceOf<AttackAction>());
             Assert.That(events, Has.Count.EqualTo(1));
             Assert.That(events[0], Is.TypeOf<AttackCardEvent>());
             AttackCardEvent attackEvent = (AttackCardEvent)events[0];
+            Assert.That(attackEvent.usePosition, Is.False);
+            Assert.That(attackEvent.direction, Is.EqualTo("ne"));
+            Assert.That(attackEvent.distance, Is.EqualTo(2));
+            Assert.That(attackEvent.amount, Is.EqualTo(7));
+            Assert.That(attackEvent.manual, Is.True);
             Assert.That(attackEvent.hitFxKey, Is.EqualTo(selectedVfx));
             Assert.That(attackEvent.Copy().hitFxKey, Is.EqualTo(selectedVfx));
+        }
+
+        [Test]
+        public void DirectionalAttackActionCardContextStillCreatesDirectionalEvent()
+        {
+            DirectionalAttackAction action = new DirectionalAttackAction(
+                1,
+                "basic",
+                null,
+                "sw",
+                3,
+                9);
+            CardPlayContext context = new CardPlayContext(
+                null,
+                new Card(false),
+                null,
+                TargetSelection.Empty(),
+                null,
+                previewMode: true);
+
+            List<AbstractCardEvent> events = action.Activate(context);
+
+            Assert.That(events, Has.Count.EqualTo(1));
+            AttackCardEvent attackEvent = events[0] as AttackCardEvent;
+            Assert.That(attackEvent, Is.Not.Null);
+            Assert.That(attackEvent.usePosition, Is.False);
+            Assert.That(attackEvent.direction, Is.EqualTo("sw"));
+            Assert.That(attackEvent.distance, Is.EqualTo(3));
+            Assert.That(attackEvent.amount, Is.EqualTo(9));
+            Assert.That(attackEvent.manual, Is.True);
         }
 
         [Test]

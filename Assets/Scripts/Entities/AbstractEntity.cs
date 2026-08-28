@@ -128,8 +128,6 @@ namespace Entities
 
         public void MoveEntity(Vector2Int newCoords)
         {
-            Debug.Log("Target new coords " + newCoords);
-
             Vector2Int previousCoords = positionRowCol;
             PlayMoveFx(previousCoords, newCoords);
 

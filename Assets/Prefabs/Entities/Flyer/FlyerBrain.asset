@@ -18,7 +18,7 @@ MonoBehaviour:
   - guid: cd129a40-174c-4b33-8216-47ab3ca068ad
     title: Pre Plan
     type: 3
-    editorPosition: {x: -221.5, y: -11}
+    editorPosition: {x: -225, y: -15}
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
@@ -27,7 +27,7 @@ MonoBehaviour:
   - guid: f543aeb0-5881-4957-befb-eb145fae86d8
     title: Plan
     type: 0
-    editorPosition: {x: -261, y: 159.5}
+    editorPosition: {x: -270, y: 165}
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
@@ -36,16 +36,16 @@ MonoBehaviour:
   - guid: a586ef72-2cbe-4c7b-ab26-f99c87ee512c
     title: Preplan
     type: 4
-    editorPosition: {x: 167, y: -153.5}
+    editorPosition: {x: 180, y: -150}
     rule: {fileID: 0}
     condition: {fileID: 0}
-    prePlanOption: Rush
+    prePlanOption: Rushing
     comment: 
     legacyPrePlanIntent: 0
   - guid: bece945e-ae0b-4173-930d-7f217679bc59
     title: HasLineOfSightCondition
     type: 2
-    editorPosition: {x: -22, y: -88.5}
+    editorPosition: {x: -15, y: -90}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: 357ca45096013b741bd8f6df0020e3ff, type: 2}
     prePlanOption: 
@@ -54,16 +54,16 @@ MonoBehaviour:
   - guid: 961fe80b-b801-4ecc-85ee-53006c88e224
     title: Preplan
     type: 4
-    editorPosition: {x: 168, y: -10.5}
+    editorPosition: {x: 180, y: -15}
     rule: {fileID: 0}
     condition: {fileID: 0}
-    prePlanOption: Move
+    prePlanOption: Moving
     comment: 
     legacyPrePlanIntent: 0
   - guid: d778af43-d5a6-46d4-b58e-67fb87d5016d
     title: MoveToPreferredDistanceRule
     type: 1
-    editorPosition: {x: 116.5, y: 508.5}
+    editorPosition: {x: 120, y: 495}
     rule: {fileID: 11400000, guid: 6e9ec853b24ac8e44ba32ef8f84e9386, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
@@ -72,7 +72,7 @@ MonoBehaviour:
   - guid: e2f6440e-0ba1-4745-96db-a88085339f80
     title: TargetDistanceCondition 1
     type: 2
-    editorPosition: {x: -70.5, y: 378}
+    editorPosition: {x: -75, y: 360}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: d99f05dc78f2a804f90efacee9c73d85, type: 2}
     prePlanOption: 
@@ -81,7 +81,7 @@ MonoBehaviour:
   - guid: 67f78bb9-2a6c-430c-9b15-47f7d2c3cb2b
     title: MoveAlongCurrentDistanceRule
     type: 1
-    editorPosition: {x: 119, y: 330.5}
+    editorPosition: {x: 120, y: 330}
     rule: {fileID: 11400000, guid: a60651e3550875e48b2357816cc51409, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
@@ -90,7 +90,7 @@ MonoBehaviour:
   - guid: 069d4a09-4b62-495b-97a0-f9e284aec399
     title: RushLineAttackRule
     type: 1
-    editorPosition: {x: -71, y: 101}
+    editorPosition: {x: -60, y: 105}
     rule: {fileID: 11400000, guid: 5bd8312fb661f6f48afbd58963f6079f, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
@@ -108,7 +108,7 @@ MonoBehaviour:
     outputName: True
   - fromNodeGuid: f543aeb0-5881-4957-befb-eb145fae86d8
     toNodeGuid: e2f6440e-0ba1-4745-96db-a88085339f80
-    outputName: Move
+    outputName: Moving
   - fromNodeGuid: e2f6440e-0ba1-4745-96db-a88085339f80
     toNodeGuid: d778af43-d5a6-46d4-b58e-67fb87d5016d
     outputName: False
@@ -117,4 +117,4 @@ MonoBehaviour:
     outputName: True
   - fromNodeGuid: f543aeb0-5881-4957-befb-eb145fae86d8
     toNodeGuid: 069d4a09-4b62-495b-97a0-f9e284aec399
-    outputName: Rush
+    outputName: Rushing

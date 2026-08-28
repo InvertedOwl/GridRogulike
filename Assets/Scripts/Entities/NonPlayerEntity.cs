@@ -65,19 +65,25 @@ namespace Entities
 
         public string GetAllIntentText()
         {
-            StringBuilder intentText = new StringBuilder();
+            List<String> intents = new List<string>();
             foreach (AbstractAction action in plannedAction)
             {
                 if (action is AttackAction || action is MoveAction)
                     continue;
                 
-                intentText.Append(action.ToSimpleText());
-            }
-            if (TryGetLargestPlannedAttackAmount(out int attackAmount))
-            {
-                intentText.Append(attackAmount + " <sprite name=Damage4>");
+                intents.Add(action.ToSimpleText());
             }
             
+            if (TryGetLargestPlannedAttackAmount(out int attackAmount))
+                intents.Add(attackAmount + " <sprite name=Damage4>");
+
+            StringBuilder intentText = new StringBuilder();
+            for (int i = 0; i < intents.Count; i++)
+            {
+                intentText.Append(intents[i]);
+                if (i < intents.Count - 1)
+                    intentText.Append("    ");
+            }
             
             return intentText.ToString();
         }

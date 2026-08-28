@@ -1,0 +1,11 @@
+.enemy-brain-graph {
+    background-color: rgb(29, 32, 38);
+}
+
+.enemy-brain-grid {
+    --grid-background-color: rgb(29, 32, 38);
+    --line-color: rgba(111, 125, 148, 0.28);
+    --thick-line-color: rgba(151, 170, 204, 0.46);
+    --spacing: 20;
+    --thick-lines: 5;
+}

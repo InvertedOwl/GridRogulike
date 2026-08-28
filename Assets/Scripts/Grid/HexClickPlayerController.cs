@@ -555,7 +555,6 @@ namespace Grid {
         public void HexClickCallback(Vector2Int hexPosition)
         {
             _lastHexClickFrame = Time.frameCount;
-            Debug.Log("CLICKED " + hexPosition);
             PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
             
             if (playingState.CurrentTurn.entityType != EntityType.Player)

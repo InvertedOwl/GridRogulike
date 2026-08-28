@@ -27,7 +27,7 @@ namespace Cards.Actions
 
         public virtual string ToSimpleText()
         {
-            return "<sprite name=question>";
+            return this.GetType().Name;
         }
         
         

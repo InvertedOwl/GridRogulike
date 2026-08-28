@@ -59,5 +59,17 @@ namespace Cards.Actions
         {
             return "Apply " + statusType + " " + amount;
         }
+
+        public override string ToSimpleText()
+        {
+            if (statusType == StatusApplicationType.Buffed)
+            {
+                return amount + "<sprite name=buffenemies>";
+            }
+            else
+            {
+                return base.ToSimpleText();
+            }
+        }
     }
 }

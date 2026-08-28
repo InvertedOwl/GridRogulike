@@ -18,90 +18,101 @@ MonoBehaviour:
   - guid: 91efca0c-8a5c-4741-b29e-4c0962b48da9
     title: Pre Plan
     type: 3
-    editorPosition: {x: -768, y: 106}
+    editorPosition: {x: -765, y: 105}
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 861ed858-37c1-4d7a-8027-5bbb89351e40
     title: Plan
     type: 0
-    editorPosition: {x: 125, y: 95.5}
+    editorPosition: {x: 120, y: 90}
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: eeb073c3-d6a6-4a52-8346-989c98f3a3af
     title: TargetDistanceCondition
     type: 2
-    editorPosition: {x: -597, y: 107.5}
+    editorPosition: {x: -600, y: 105}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: 8c23256b3c94539479d0820ae1496866, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 93af0192-e7b9-42a1-94f2-b63dea5cd4f6
     title: DirectLineAttackRule
     type: 1
-    editorPosition: {x: 319, y: 28.5}
+    editorPosition: {x: 315, y: 30}
     rule: {fileID: 11400000, guid: 226f3dfc471faf346b1553e5ac94d237, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 201d9d50-7ede-4aaf-9f67-f2f799c2768d
     title: MoveToPreferredDistanceRule
     type: 1
-    editorPosition: {x: 701.5, y: 186.5}
+    editorPosition: {x: 705, y: 180}
     rule: {fileID: 11400000, guid: d50783b4d12c414498a2adbb480a25fe, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: a8726362-a3dc-4a49-b0ba-436ebe5a3f0b
     title: Preplan
     type: 4
-    editorPosition: {x: -214, y: -35}
+    editorPosition: {x: -210, y: -30}
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Attacking
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 09f84ffa-0563-408a-b10b-1d0979d8cb0d
     title: Preplan
     type: 4
-    editorPosition: {x: -216.5, y: 132}
+    editorPosition: {x: -210, y: 135}
     rule: {fileID: 0}
     condition: {fileID: 0}
     prePlanOption: Moving
+    comment: 
     legacyPrePlanIntent: 0
   - guid: bf47382d-5ed9-4237-9e8e-84c233579f3f
     title: HasLineOfSightCondition
     type: 2
-    editorPosition: {x: -399.5, y: 5.5}
+    editorPosition: {x: -405, y: 0}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: 0e1cbad95d6595c488ddd20f99442434, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: 3b7d4387-3a4f-48cb-bfab-f11cb473c8c9
     title: LongLineOfSight
     type: 2
-    editorPosition: {x: 312.5, y: 188.5}
+    editorPosition: {x: 315, y: 195}
     rule: {fileID: 0}
     condition: {fileID: 11400000, guid: e8d7ba404a3f8fb439c995011cdcff32, type: 2}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: b8ee3eaa-0458-40ba-96b1-95332eb443d9
     title: MoveAlongCurrentDistanceRule
     type: 1
-    editorPosition: {x: 500.5, y: 337}
+    editorPosition: {x: 495, y: 330}
     rule: {fileID: 11400000, guid: 3208e3f26d5303d468122cba1c7710c2, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   - guid: d002df79-06ab-463e-b0ca-0e34d478d4de
     title: MoveToPreferredDistanceRule
     type: 1
-    editorPosition: {x: 694, y: 347}
+    editorPosition: {x: 690, y: 345}
     rule: {fileID: 11400000, guid: d50783b4d12c414498a2adbb480a25fe, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
+    comment: 
     legacyPrePlanIntent: 0
   connections:
   - fromNodeGuid: 91efca0c-8a5c-4741-b29e-4c0962b48da9
