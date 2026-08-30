@@ -249,9 +249,10 @@ namespace GridRoguelike.EditorTools
             };
 
             nodeData.editorPosition = SnapPosition(nodeData.editorPosition);
+            Vector2 defaultSize = EnemyBrainGraphNode.GetDefaultSize(nodeData.type);
             node.SetPosition(new Rect(
                 nodeData.editorPosition,
-                EnemyBrainGraphNode.GetDefaultSize(nodeData.type)));
+                defaultSize));
             return node;
         }
 
@@ -470,6 +471,8 @@ namespace GridRoguelike.EditorTools
     public class EnemyBrainGraphNode : Node
     {
         public static readonly Vector2 DefaultSize = new Vector2(165f, 120f);
+        private static readonly CustomStyleProperty<Color> NodeColorProperty =
+            new CustomStyleProperty<Color>("--enemy-brain-node-color");
         private const float PrePlanNodeWidth = 240f;
         private const float CommentNodeWidth = 210f;
         private const float CommentNodeHeight = 126f;
@@ -512,6 +515,13 @@ namespace GridRoguelike.EditorTools
             this.updateComment = updateComment;
             this.refreshGraph = refreshGraph;
             title = GetNodeTitle();
+            AddToClassList("enemy-brain-node");
+            AddToClassList(GetNodeTypeClass(NodeData.type));
+            mainContainer.AddToClassList("enemy-brain-node__main");
+            inputContainer.AddToClassList("enemy-brain-node__ports");
+            outputContainer.AddToClassList("enemy-brain-node__ports");
+            extensionContainer.AddToClassList("enemy-brain-node__extension");
+            RegisterCallback<CustomStyleResolvedEvent>(ApplyNodeTypeColor);
             float nodeWidth = GetDefaultSize(NodeData.type).x;
             style.width = nodeWidth;
             style.minWidth = nodeWidth;
@@ -522,6 +532,37 @@ namespace GridRoguelike.EditorTools
 
             RefreshExpandedState();
             RefreshPorts();
+        }
+
+        public override void SetPosition(Rect newPosition)
+        {
+            base.SetPosition(newPosition);
+            style.height = StyleKeyword.Auto;
+            style.minHeight = NodeData != null
+                ? GetDefaultSize(NodeData.type).y
+                : DefaultSize.y;
+        }
+
+        internal static string GetNodeTypeClass(EnemyBrainNodeType nodeType)
+        {
+            return nodeType switch
+            {
+                EnemyBrainNodeType.Start => "enemy-brain-node--start",
+                EnemyBrainNodeType.Rule => "enemy-brain-node--rule",
+                EnemyBrainNodeType.Condition => "enemy-brain-node--condition",
+                EnemyBrainNodeType.PrePlanStart => "enemy-brain-node--preplan-start",
+                EnemyBrainNodeType.PrePlan => "enemy-brain-node--preplan",
+                EnemyBrainNodeType.Comment => "enemy-brain-node--comment",
+                _ => "enemy-brain-node--unknown"
+            };
+        }
+
+        private void ApplyNodeTypeColor(CustomStyleResolvedEvent evt)
+        {
+            if (!evt.customStyle.TryGetValue(NodeColorProperty, out Color nodeColor))
+                return;
+
+            titleContainer.style.backgroundColor = nodeColor;
         }
 
         public Port GetOutputPort(string outputName)
@@ -697,6 +738,7 @@ namespace GridRoguelike.EditorTools
             assetValuesFoldout.style.marginRight = 0f;
 
             assetValuesContainer = new VisualElement();
+            assetValuesContainer.AddToClassList("enemy-brain-node__values");
             assetValuesContainer.style.marginLeft = 0f;
             assetValuesContainer.style.marginRight = 0f;
             assetValuesContainer.style.minWidth = 0f;
@@ -790,6 +832,7 @@ namespace GridRoguelike.EditorTools
                 return CreateSectionLabel(property);
 
             VisualElement row = new VisualElement();
+            row.AddToClassList("enemy-brain-node__value-row");
             row.style.flexDirection = FlexDirection.Row;
             row.style.justifyContent = Justify.SpaceBetween;
             row.style.marginTop = 1f;

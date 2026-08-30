@@ -290,6 +290,19 @@ namespace GridRoguelike.EditorTools.Tests
         }
 
         [Test]
+        public void EveryEnemyBrainNodeTypeHasItsOwnStyleClass()
+        {
+            string[] styleClasses = System.Enum
+                .GetValues(typeof(EnemyBrainNodeType))
+                .Cast<EnemyBrainNodeType>()
+                .Select(EnemyBrainGraphNode.GetNodeTypeClass)
+                .ToArray();
+
+            Assert.That(styleClasses, Has.Length.EqualTo(6));
+            Assert.That(styleClasses.Distinct().Count(), Is.EqualTo(styleClasses.Length));
+        }
+
+        [Test]
         public void ShieldFixedEntityActionKeepsSelectedTarget()
         {
             GameObject sourceObject = Track(new GameObject("shield-source"));

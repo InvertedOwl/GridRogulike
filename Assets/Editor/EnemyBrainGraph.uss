@@ -1,11 +1,43 @@
 .enemy-brain-graph {
-    background-color: rgb(29, 32, 38);
+    background-color: rgb(51, 51, 51);
 }
 
 .enemy-brain-grid {
-    --grid-background-color: rgb(29, 32, 38);
-    --line-color: rgba(111, 125, 148, 0.28);
-    --thick-line-color: rgba(151, 170, 204, 0.46);
-    --spacing: 20;
+    --grid-background-color: rgb(51, 51, 51);
+    --line-color: rgb(64, 64, 64);
+    --thick-line-color: rgb(77, 77, 77);
+    --spacing: 15;
     --thick-lines: 5;
+}
+
+.enemy-brain-node--start {
+    --enemy-brain-node-color: rgb(48, 102, 178);
+}
+
+.enemy-brain-node--rule {
+    --enemy-brain-node-color: rgb(158, 63, 77);
+}
+
+.enemy-brain-node--condition {
+    --enemy-brain-node-color: rgb(156, 117, 43);
+}
+
+.enemy-brain-node--preplan-start {
+    --enemy-brain-node-color: rgb(103, 72, 171);
+}
+
+.enemy-brain-node--preplan {
+    --enemy-brain-node-color: rgb(42, 128, 117);
+}
+
+.enemy-brain-node--comment {
+    --enemy-brain-node-color: rgb(82, 94, 116);
+}
+
+.enemy-brain-node__main,
+.enemy-brain-node__ports,
+.enemy-brain-node__extension,
+.enemy-brain-node__values,
+.enemy-brain-node__value-row {
+    background-color: rgb(29, 32, 42);
 }
