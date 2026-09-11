@@ -659,7 +659,48 @@ namespace Grid {
             if (!_pendingTargetPositions.Contains(hexPosition))
                 return true;
 
-            CardMonobehaviour card = _pendingTargetCard;
+            TryPlayCardAtTarget(_pendingTargetCard, hexPosition, playingState);
+            return true;
+        }
+
+        public bool TryPlayDraggedCardAtScreenPosition(CardMonobehaviour card, Vector2 screenPosition)
+        {
+            if (card == null || card != _pendingTargetCard || EventSystem.current == null ||
+                GameStateManager.Instance == null || !GameStateManager.Instance.IsCurrent<PlayingState>())
+            {
+                return false;
+            }
+
+            PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+            if (playingState.player == null || !playingState.CanPlayerPlayCards)
+                return false;
+
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = screenPosition
+            };
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                GameObject hitObject = result.gameObject;
+                if (hitObject == null || hitObject.transform == card.transform ||
+                    hitObject.transform.IsChildOf(card.transform))
+                {
+                    continue;
+                }
+
+                // Match clicking the topmost hit; other UI must continue to block the board.
+                HexClickForwarder hex = hitObject.GetComponentInParent<HexClickForwarder>();
+                return hex != null && TryPlayCardAtTarget(card, hex.GridPos, playingState);
+            }
+
+            return false;
+        }
+
+        private bool TryPlayCardAtTarget(CardMonobehaviour card, Vector2Int hexPosition, PlayingState playingState)
+        {
             if (!CardTargetResolver.TryResolveSelectionForClick(
                     card,
                     card.Card,
@@ -668,7 +709,7 @@ namespace Grid {
                     hexPosition,
                     out TargetSelection selection))
             {
-                return true;
+                return false;
             }
 
             ClearPendingCardTargeting(false);
@@ -677,7 +718,7 @@ namespace Grid {
             if (!card.TryPlayWithTargets(selection))
             {
                 ClearToAttackEmitters();
-                return true;
+                return false;
             }
 
             SpriteArrowManager.Instance.DestroyArrow(arrowUUID);
@@ -881,9 +922,17 @@ namespace Grid {
                     {
                         if (playingState.MoveEntity(playingState.player, pos)) 
                         {
-                            yield return new WaitForSeconds(0.3f * (1/GameplayNavSettings.speed));
                             moved = true;
                             RunInfo.Instance.CurrentSteps -= movementCost;
+
+                            if (playingState.player == null || playingState.player.Health <= 0)
+                            {
+                                isMoving = false;
+                                playingState.CaptureFinish();
+                                yield break;
+                            }
+
+                            yield return new WaitForSeconds(0.3f * (1/GameplayNavSettings.speed));
 
                             tileMovedPlayer = playingState.player.positionRowCol != pos;
                             break;

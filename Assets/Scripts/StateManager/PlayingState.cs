@@ -132,6 +132,8 @@ namespace StateManager
         private RunInfo _subscribedRunInfo;
         private readonly Dictionary<Vector2Int, TileCountdownRuntimeState> _tileCountdownStates = new();
         private List<TileCountdownSaveData> _loadedTileCountdownStates;
+        private readonly Dictionary<Vector2Int, BattleTileInstance> _battleTiles = new();
+        private List<BattleTileSaveData> _loadedBattleTileStates;
         private Vector3 _cameraResetPosition;
         private Vector3 _cameraWorldOrigin;
         private bool _hasCameraResetPosition;
@@ -161,11 +163,14 @@ namespace StateManager
 
         public EaseScale playingUI;
         public EasePosition playingHealth;
+        public IReadOnlyDictionary<Vector2Int, BattleTileInstance> BattleTiles => _battleTiles;
         
         public override void Enter()
         {
             PlayWindowInSound();
             playingHealth.targetLocation = new Vector3(0, 0, 0);
+            _battleTiles.Clear();
+            _loadedBattleTileStates = null;
             Debug.Log("Save is  " + SaveData);
             if (SaveData != null)
             {
@@ -174,6 +179,7 @@ namespace StateManager
                 MapProgressLayer = saveData.mapProgressLayer;
                 MapProgressLayerCount = Mathf.Max(1, saveData.mapProgressLayerCount);
                 _loadedTileCountdownStates = saveData.tileCountdownStates;
+                _loadedBattleTileStates = saveData.battleTiles;
                 SaveData = null;
             }
             
@@ -192,6 +198,7 @@ namespace StateManager
             SubscribeToRunInfoEvents();
             _enemyPlanningPositions.Clear();
             SetupEntities();
+            RestoreBattleTiles();
             RebuildTurnOrder();
             SetupUI();
             _currentTurnIndex = -1;
@@ -1055,19 +1062,7 @@ namespace StateManager
 
         private void ApplyTileCountdownIcon(Vector2Int position)
         {
-            if (!TryGetTileCountdownEffect(position, out TileCountdownEffect countdownEffect) ||
-                !_tileCountdownStates.TryGetValue(position, out TileCountdownRuntimeState state))
-            {
-                return;
-            }
-
-            string icon = state.iconCleared
-                ? countdownEffect.inactiveIcon
-                : state.exploded
-                    ? countdownEffect.explosionIcon
-                    : countdownEffect.IconForTurnsRemaining(state.turnsRemaining);
-
-            HexGridManager.Instance.SetHexIcon(position, icon);
+            RefreshTileIcon(position);
         }
 
         private bool TryGetTileCountdownEffect(Vector2Int position, out TileCountdownEffect countdownEffect)
@@ -1155,6 +1150,233 @@ namespace StateManager
             }
 
             return saveData;
+        }
+
+        public bool CanPlaceBattleTile(
+            string definitionId,
+            Vector2Int position,
+            AbstractEntity owner,
+            bool replaceExisting = true)
+        {
+            return BattleTileData.TryGet(definitionId, out _) &&
+                   owner != null &&
+                   owner.Health > 0 &&
+                   entities.Contains(owner) &&
+                   IsBoardHex(position) &&
+                   (replaceExisting || !_battleTiles.ContainsKey(position));
+        }
+
+        public bool TryPlaceBattleTile(
+            string definitionId,
+            Vector2Int position,
+            AbstractEntity owner,
+            int power = -1,
+            bool replaceExisting = true)
+        {
+            if (!CanPlaceBattleTile(definitionId, position, owner, replaceExisting) ||
+                !BattleTileData.TryGet(definitionId, out BattleTileDefinition definition))
+            {
+                return false;
+            }
+
+            int resolvedPower = power < 0 ? definition.DefaultPower : power;
+            _battleTiles[position] = new BattleTileInstance(
+                definitionId,
+                position,
+                owner,
+                resolvedPower,
+                definition.DefaultTriggerCount);
+            RefreshTileIcon(position);
+            return true;
+        }
+
+        public bool TryGetBattleTile(Vector2Int position, out BattleTileInstance battleTile)
+        {
+            return _battleTiles.TryGetValue(position, out battleTile);
+        }
+
+        public bool HasBattleTile(Vector2Int position)
+        {
+            return _battleTiles.ContainsKey(position);
+        }
+
+        public bool RemoveBattleTile(Vector2Int position)
+        {
+            if (!_battleTiles.Remove(position))
+                return false;
+
+            RefreshTileIcon(position);
+            return true;
+        }
+
+        public int RemoveBattleTilesOwnedBy(AbstractEntity owner)
+        {
+            if (owner == null)
+                return 0;
+
+            List<Vector2Int> ownedPositions = _battleTiles
+                .Where(entry => entry.Value.Owner == owner)
+                .Select(entry => entry.Key)
+                .ToList();
+
+            foreach (Vector2Int position in ownedPositions)
+            {
+                _battleTiles.Remove(position);
+                RefreshTileIcon(position);
+            }
+
+            return ownedPositions.Count;
+        }
+
+        public void ClearBattleTiles()
+        {
+            List<Vector2Int> positions = _battleTiles.Keys.ToList();
+            _battleTiles.Clear();
+
+            foreach (Vector2Int position in positions)
+            {
+                RefreshTileIcon(position);
+            }
+        }
+
+        private void TriggerBattleTileLand(Vector2Int position, AbstractEntity enteringEntity)
+        {
+            if (!_battleTiles.TryGetValue(position, out BattleTileInstance battleTile))
+                return;
+
+            if (!BattleTileData.TryGet(battleTile.DefinitionId, out BattleTileDefinition definition) ||
+                battleTile.Owner == null ||
+                battleTile.Owner.Health <= 0)
+            {
+                RemoveBattleTile(position);
+                return;
+            }
+
+            if (!battleTile.CanTrigger)
+                return;
+
+            BattleTileTriggerContext context = new BattleTileTriggerContext(this, battleTile, enteringEntity);
+            List<AbstractCardEvent> events = definition.CreateLandEvents(context);
+            if (events.Count == 0)
+                return;
+
+            battleTile.ConsumeTrigger();
+            if (!battleTile.CanTrigger)
+                RemoveBattleTile(position);
+
+            CardEventPipeline.Activate(events, battleTile.Owner);
+        }
+
+        private void RemoveBattleTilesForDeadOwner(AbstractEntity owner)
+        {
+            if (owner == null)
+                return;
+
+            List<Vector2Int> positions = _battleTiles
+                .Where(entry =>
+                    entry.Value.Owner == owner &&
+                    (!BattleTileData.TryGet(entry.Value.DefinitionId, out BattleTileDefinition definition) ||
+                     definition.RemoveWhenOwnerDies))
+                .Select(entry => entry.Key)
+                .ToList();
+
+            foreach (Vector2Int position in positions)
+            {
+                _battleTiles.Remove(position);
+                RefreshTileIcon(position);
+            }
+        }
+
+        private void RestoreBattleTiles()
+        {
+            if (_loadedBattleTileStates == null)
+                return;
+
+            foreach (BattleTileSaveData saveData in _loadedBattleTileStates)
+            {
+                if (saveData == null ||
+                    saveData.ownerEntityIndex < 0 ||
+                    saveData.ownerEntityIndex >= entities.Count ||
+                    saveData.remainingTriggers == 0 ||
+                    !BattleTileData.TryGet(saveData.definitionId, out _) ||
+                    !IsBoardHex(saveData.position))
+                {
+                    continue;
+                }
+
+                AbstractEntity owner = entities[saveData.ownerEntityIndex];
+                if (owner == null || owner.Health <= 0)
+                    continue;
+
+                _battleTiles[saveData.position] = new BattleTileInstance(
+                    saveData.definitionId,
+                    saveData.position,
+                    owner,
+                    saveData.power,
+                    saveData.remainingTriggers);
+                RefreshTileIcon(saveData.position);
+            }
+
+            _loadedBattleTileStates = null;
+        }
+
+        private List<BattleTileSaveData> CaptureBattleTiles()
+        {
+            List<BattleTileSaveData> saveData = new List<BattleTileSaveData>();
+            foreach (KeyValuePair<Vector2Int, BattleTileInstance> entry in _battleTiles
+                         .OrderBy(entry => entry.Key.x)
+                         .ThenBy(entry => entry.Key.y))
+            {
+                BattleTileInstance tile = entry.Value;
+                int ownerIndex = entities.IndexOf(tile.Owner);
+                if (ownerIndex < 0 || tile.Owner == null || tile.Owner.Health <= 0)
+                    continue;
+
+                saveData.Add(new BattleTileSaveData
+                {
+                    position = entry.Key,
+                    definitionId = tile.DefinitionId,
+                    ownerEntityIndex = ownerIndex,
+                    power = tile.Power,
+                    remainingTriggers = tile.RemainingTriggers
+                });
+            }
+
+            return saveData;
+        }
+
+        private void RefreshTileIcon(Vector2Int position)
+        {
+            if (HexGridManager.Instance == null)
+                return;
+
+            if (_battleTiles.TryGetValue(position, out BattleTileInstance battleTile) &&
+                BattleTileData.TryGet(battleTile.DefinitionId, out BattleTileDefinition definition))
+            {
+                HexGridManager.Instance.SetHexIcon(position, definition.Icon);
+                return;
+            }
+
+            if (TryGetTileCountdownEffect(position, out TileCountdownEffect countdownEffect) &&
+                _tileCountdownStates.TryGetValue(position, out TileCountdownRuntimeState countdownState))
+            {
+                string countdownIcon = countdownState.iconCleared
+                    ? countdownEffect.inactiveIcon
+                    : countdownState.exploded
+                        ? countdownEffect.explosionIcon
+                        : countdownEffect.IconForTurnsRemaining(countdownState.turnsRemaining);
+                HexGridManager.Instance.SetHexIcon(position, countdownIcon);
+                return;
+            }
+
+            string icon = "none";
+            if (HexGridManager.Instance.BoardDictionary.TryGetValue(position, out string tileId) &&
+                TileData.tiles.TryGetValue(tileId, out TileEntry tile))
+            {
+                icon = tile.icon;
+            }
+
+            HexGridManager.Instance.SetHexIcon(position, icon);
         }
 
         private void ResetCombatTileTriggers()
@@ -1280,6 +1502,10 @@ namespace StateManager
         public void TriggerPlayerTileLand(Vector2Int position, AbstractEntity entity)
         {
             if (entity == null || entity.entityType != EntityType.Player)
+                return;
+
+            TriggerBattleTileLand(position, entity);
+            if (entity == null || entity.Health <= 0)
                 return;
 
             string tileId = HexGridManager.Instance.HexType(position);
@@ -1609,6 +1835,7 @@ namespace StateManager
         {
             UnsubscribeFromRunInfoEvents();
             EndCameraFollow();
+            ClearBattleTiles();
             HexGridManager.Instance?.ResetAllHeights();
             PlayWindowOutSound();
             playingHealth.targetLocation = new Vector3(0, -600, 0);
@@ -1897,6 +2124,7 @@ namespace StateManager
                 if (entity.Health > 0) continue;
 
                 removedAny = true;
+                RemoveBattleTilesForDeadOwner(entity);
                 entity.Die();
                 entities.RemoveAt(i);
                 ScaleDownAndDestroy(entity.gameObject);
@@ -2173,7 +2401,7 @@ namespace StateManager
 
         public bool MoveEntity(AbstractEntity ent, string dir, int dist)
         {
-            if (ent == null)
+            if (ent == null || ent.Health <= 0)
                 return false;
 
             var target = HexGridManager.MoveHex(ent.positionRowCol, dir, dist);
@@ -2284,7 +2512,7 @@ namespace StateManager
         
         public bool MoveEntity(AbstractEntity ent, Vector2Int target)
         {
-            if (ent == null)
+            if (ent == null || ent.Health <= 0)
                 return false;
 
             if (!IsValidHex(target)) 
@@ -2340,6 +2568,11 @@ namespace StateManager
                 }
             }
 
+            foreach (AbstractEntity defeatedEntity in result.DefeatedEntities)
+            {
+                RemoveBattleTilesForDeadOwner(defeatedEntity);
+            }
+
             return result;
         }
         #endregion
@@ -2351,7 +2584,8 @@ namespace StateManager
                 encounterData = encounterData,
                 mapProgressLayer = MapProgressLayer,
                 mapProgressLayerCount = MapProgressLayerCount,
-                tileCountdownStates = CaptureTileCountdownStates()
+                tileCountdownStates = CaptureTileCountdownStates(),
+                battleTiles = CaptureBattleTiles()
             };
         }
         

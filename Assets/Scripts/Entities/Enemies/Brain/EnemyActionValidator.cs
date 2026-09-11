@@ -33,6 +33,15 @@ namespace Entities.Enemies
             if (action is ShieldFixedEntityAction shieldAction)
                 return shieldAction.target != null && shieldAction.target.Health > 0;
 
+            if (action is PlaceBattleTileAction placeBattleTileAction)
+            {
+                return state.CanPlaceBattleTile(
+                    placeBattleTileAction.DefinitionId,
+                    placeBattleTileAction.TargetPosition,
+                    self,
+                    placeBattleTileAction.ReplaceExisting);
+            }
+
             return true;
         }
 
@@ -56,6 +65,15 @@ namespace Entities.Enemies
                     ? attackEvent.position
                     : HexGridManager.MoveHex(self.positionRowCol, attackEvent.direction, attackEvent.distance);
                 return IsValidAttackTile(self, state, targetPosition);
+            }
+
+            if (cardEvent is PlaceBattleTileCardEvent placeBattleTileEvent)
+            {
+                return state.CanPlaceBattleTile(
+                    placeBattleTileEvent.DefinitionId,
+                    placeBattleTileEvent.TargetPosition,
+                    self,
+                    placeBattleTileEvent.ReplaceExisting);
             }
 
             return true;

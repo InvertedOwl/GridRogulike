@@ -22,9 +22,21 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Util;
 
-public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
+    IPointerClickHandler, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private bool isPointerOver = false;
+    private bool _isDragging;
+    private int _dragPointerId;
+    private RectTransform _dragParent;
+    private Vector3 _dragStartPosition;
+    private Vector2 _dragPressPosition;
+    private LerpPosition _dragLerp;
+    private bool _dragLerpWasEnabled;
+    private GraphicRaycaster _dragRaycaster;
+    private bool _dragRaycasterWasEnabled;
+    private bool _wasUsedAtDragStart;
+    private float _maximumPointerDragDistance;
 
     public bool IsPointerOver => isPointerOver;
 
@@ -40,7 +52,239 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void OnDisable()
     {
+        CancelDrag();
         isPointerOver = false;
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+            CancelDrag();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // Gameplay clicks commit on release so a second press can become a drag.
+        // Display/reward cards retain their existing mouse-down callbacks.
+        if (eventData.button == PointerEventData.InputButton.Left && !_isDragging &&
+            !onlyDisplay && GameStateManager.Instance != null &&
+            GameStateManager.Instance.IsCurrent<PlayingState>())
+        {
+            HandleCardUsage(true);
+        }
+    }
+
+    public void OnInitializePotentialDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left && CanDragCard())
+            return;
+
+        // Display cards must still allow their containing deck/reward list to scroll.
+        GameObject parentDragHandler = transform.parent != null
+            ? ExecuteEvents.GetEventHandler<IDragHandler>(transform.parent.gameObject)
+            : null;
+        eventData.pointerDrag = parentDragHandler;
+        if (parentDragHandler != null)
+            ExecuteEvents.Execute(parentDragHandler, eventData, ExecuteEvents.initializePotentialDrag);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left || _isDragging)
+            return;
+
+        eventData.eligibleForClick = false;
+        if (!CanDragCard())
+            return;
+
+        bool wasUsedAtDragStart = used;
+
+        RectTransform parentRect = transform.parent as RectTransform;
+        if (parentRect == null || !RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRect, eventData.pressPosition, eventData.pressEventCamera, out Vector2 pressPosition))
+        {
+            return;
+        }
+
+        if (!used)
+            HandleCardUsage(true);
+        if (!used)
+            return;
+
+        _dragParent = parentRect;
+        _dragStartPosition = transform.localPosition;
+        _dragPressPosition = pressPosition;
+        _dragPointerId = eventData.pointerId;
+        _dragLerp = GetComponent<LerpPosition>();
+        _dragRaycaster = GetComponent<GraphicRaycaster>();
+        _dragLerpWasEnabled = _dragLerp != null && _dragLerp.enabled;
+        _dragRaycasterWasEnabled = _dragRaycaster != null && _dragRaycaster.enabled;
+        _wasUsedAtDragStart = wasUsedAtDragStart;
+        _maximumPointerDragDistance = 0f;
+
+        ResetHoverEffects();
+        isPointerOver = false;
+        _isDragging = true;
+
+        // Keep the deck's return destination while applying the drag's limited offset.
+        if (_dragLerp != null)
+            _dragLerp.enabled = false;
+        // Let the board beneath the card receive target hover and release raycasts.
+        if (_dragRaycaster != null)
+            _dragRaycaster.enabled = false;
+
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = sortingLayer;
+        OnDrag(eventData);
+    }
+
+
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!_isDragging || eventData.pointerId != _dragPointerId || _dragParent == null)
+            return;
+
+        Vector2 dragOffset = eventData.position - eventData.pressPosition;
+        float dragDistance = dragOffset.magnitude;
+        _maximumPointerDragDistance = Mathf.Max(_maximumPointerDragDistance, dragDistance);
+
+        Vector2 visualPointerPosition = eventData.position;
+
+        // Start slowing after dragging a certain distance.
+        if (dragDistance > dragSlowStartDistance)
+        {
+            Vector2 dragDirection = dragOffset.normalized;
+
+            // Position where slowdown begins.
+            Vector2 slowStartPosition =
+                eventData.pressPosition + dragDirection * dragSlowStartDistance;
+
+            // Distance dragged beyond the slowdown point.
+            float extraDistance = dragDistance - dragSlowStartDistance;
+
+            // Slow down that extra distance.
+            float slowedDistance = Mathf.Min(
+                extraDistance * dragFollowAmount,
+                maxDragDistance);
+
+            visualPointerPosition =
+                slowStartPosition + dragDirection * slowedDistance;
+        }
+
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                _dragParent,
+                visualPointerPosition,
+                eventData.pressEventCamera,
+                out Vector2 pointerPosition))
+        {
+            transform.localPosition =
+                _dragStartPosition + (Vector3)(pointerPosition - _dragPressPosition);
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (!_isDragging || eventData.pointerId != _dragPointerId)
+            return;
+
+        eventData.eligibleForClick = false;
+        if (_maximumPointerDragDistance <= clickDragGraceDistance)
+        {
+            bool shouldCompleteSecondClick = _wasUsedAtDragStart;
+            RestoreDragVisuals();
+
+            // The first press selected the card in OnBeginDrag. If it was already
+            // selected, preserve the normal second-click behavior as well.
+            if (shouldCompleteSecondClick)
+                HandleCardUsage(true);
+            return;
+        }
+
+        try
+        {
+            Vector2 releasePosition = eventData.position;
+            bool isAbovePlayLine = releasePosition.y > Screen.height / 3f &&
+                                   releasePosition.y <= Screen.height &&
+                                   releasePosition.x >= 0f && releasePosition.x <= Screen.width;
+            if (!isAbovePlayLine || !used || !CanDragCard() || !TryPlayFromDrag(releasePosition))
+            {
+                CancelDrag();
+                return;
+            }
+        }
+        finally
+        {
+            RestoreDragVisuals();
+        }
+    }
+
+    private bool CanDragCard()
+    {
+        PlayingState playingState = GameStateManager.Instance != null
+            ? GameStateManager.Instance.GetCurrent<PlayingState>()
+            : null;
+        return _cardSet && !onlyDisplay && !inactive && !played &&
+               Deck.Instance != null && Deck.Instance.Hand.Contains(this) &&
+               playingState != null && playingState.CanPlayerPlayCards &&
+               RunInfo.Instance != null &&
+               RunInfo.Instance.CurrentEnergy >= (CostOverride > -1 ? CostOverride : _card.Cost) &&
+               CanPlayByRules(out _) && HasPlayableTarget();
+    }
+
+    private bool TryPlayFromDrag(Vector2 releasePosition)
+    {
+        PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
+        TargetDefinition targetDefinition = CardTargetResolver.GetModifiedTargetDefinition(
+            this, _card, playingState.player, playingState, true);
+
+        if (targetDefinition.RequiresWorldTarget)
+        {
+            return HexClickPlayerController.instance != null &&
+                   HexClickPlayerController.instance.TryPlayDraggedCardAtScreenPosition(this, releasePosition);
+        }
+
+        if (!TryPlayFromCardClick())
+            return false;
+
+        HexClickPlayerController.instance?.UpdateMovableParticles(playingState);
+        playingState.CaptureFinish();
+        return true;
+    }
+
+    private void CancelDrag()
+    {
+        if (!_isDragging)
+            return;
+
+        bool wasSelected = used;
+        RestoreDragVisuals();
+        if (wasSelected)
+            Deck.Instance?.SetHandToUnused();
+        CancelTargeting();
+    }
+
+    private void RestoreDragVisuals()
+    {
+        if (!_isDragging)
+            return;
+
+        _isDragging = false;
+        if (_dragLerp != null)
+            _dragLerp.enabled = _dragLerpWasEnabled;
+        if (_dragRaycaster != null)
+            _dragRaycaster.enabled = _dragRaycasterWasEnabled;
+        Canvas canvas = GetComponent<Canvas>();
+        if (canvas != null)
+            canvas.overrideSorting = false;
+        _dragParent = null;
+        _wasUsedAtDragStart = false;
+        _maximumPointerDragDistance = 0f;
+        isPointerOver = false;
+        ClearHoveredTargetPreview();
+        Deck.Instance?.MarkHandLayoutDirty();
+        Deck.Instance?.MarkPlayabilityDirty();
     }
 
     public Dictionary<TextMeshProUGUI, AbstractAction> TypeTitles = new Dictionary<TextMeshProUGUI, AbstractAction>();
@@ -79,6 +323,11 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public float hoverScale = 1.05f;
     public float hoverOffset = 60;
 
+    private float dragFollowAmount = 0.1f;
+    private float maxDragDistance = 200f;
+    private float dragSlowStartDistance = 150f;
+    [SerializeField, Min(0f)] private float clickDragGraceDistance = 30f;
+
     public List<GameObject> types = new List<GameObject>();
 
     public bool inactive;
@@ -93,6 +342,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void SetCard(Card card, Action callback = null, bool active = true, float costOverride = -1f)
     {
+        CancelDrag();
         InfoPanel.RemovePanels();
 
         this.CostOverride = costOverride;
@@ -208,6 +458,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void ResetPlayState()
     {
+        CancelDrag();
         used = false;
         played = false;
         _waitingForManualAttackResolution = false;
@@ -451,13 +702,17 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         UpdateConditionGlow();
 
+        if (_isDragging && (!used || !CanDragCard()))
+            CancelDrag();
+
         // Mouse events
-        if (IsPointerOverThisUIElement() && _cardSet)
+        if (!_isDragging && IsPointerOverThisUIElement() && _cardSet)
         {
             HandleHoverEffects();
-            HandleCardUsage();
+            bool useMouseDown = onlyDisplay || !GameStateManager.Instance.IsCurrent<PlayingState>();
+            HandleCardUsage(useMouseDown && Input.GetMouseButtonDown(0));
         }
-        else if (_cardSet)
+        else if (!_isDragging && _cardSet)
         {
             ResetHoverEffects();
         }
@@ -563,13 +818,12 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
         washover = false;
     }
 
-    private void HandleCardUsage()
+    private void HandleCardUsage(bool isLeftClick)
     {
 
         if (!_cardSet || inactive)
             return;
 
-        bool isLeftClick = Input.GetMouseButtonDown(0);
         bool wasUsed = used;
         PlayingState playingState = GameStateManager.Instance.GetCurrent<PlayingState>();
         bool isPlayingState = playingState != null;
@@ -784,6 +1038,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void CancelTargeting()
     {
+        RestoreDragVisuals();
         _waitingForManualAttackResolution = false;
         used = false;
         _manualAttackFollowUpEvents.Clear();
