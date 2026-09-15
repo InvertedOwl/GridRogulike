@@ -21,6 +21,7 @@ MonoBehaviour:
     environmentPassives: []
     EncounterType: 0
     PerlinNoiseSeed: 0
+    TurnsLeft: 6
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
@@ -29,6 +30,7 @@ MonoBehaviour:
     environmentPassives: []
     EncounterType: 0
     PerlinNoiseSeed: 0
+    TurnsLeft: 5
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
@@ -37,6 +39,7 @@ MonoBehaviour:
     environmentPassives: []
     EncounterType: 0
     PerlinNoiseSeed: 0
+    TurnsLeft: 6
   - DifficultyMin: 0
     DifficultyMax: 2
     enemies:
@@ -46,3 +49,4 @@ MonoBehaviour:
     environmentPassives: []
     EncounterType: 0
     PerlinNoiseSeed: 0
+    TurnsLeft: 8

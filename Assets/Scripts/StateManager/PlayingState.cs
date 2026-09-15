@@ -70,6 +70,9 @@ namespace StateManager
         
         public Button EndTurnButton;
         public Button RedrawButton;
+
+        public TurnsLeftManager TurnsLeftManager;
+        private int turnsLeft = -1;
         
         public static int RewardMoney;
         public static EncounterData encounterData;
@@ -114,6 +117,8 @@ namespace StateManager
         private float _autoEndReadyTime = -1f;
         private const float AutoEndDelaySeconds = 0.5f;
         private Coroutine _finishCoroutine;
+        public GameObject StepsLeftObject;
+        
         [SerializeField] private float deadEnemyCleanupScaleDuration = 0.2f;
         [SerializeField] private float disabledTileOpacity = 0.6f;
         [Header("Camera Follow")]
@@ -139,6 +144,8 @@ namespace StateManager
         private bool _hasCameraResetPosition;
         private bool _cameraFollowActive;
         public int PlayerMovesThisTurn { get; private set; }
+        
+        
 
         private class TileCountdownRuntimeState
         {
@@ -205,6 +212,7 @@ namespace StateManager
             EnableTileHovers();
             UpdateNextTurnAttacks();
             SetupPlayerHand();
+            SetupTurnsLeft(encounterData);
 
             playingUI.SetScale(Vector3.one);
             
@@ -581,6 +589,8 @@ namespace StateManager
             MovePhase.targetLocation = new Vector2(0, -14);
             CardPhase.targetLocation = new Vector2(0, 0);
             EnemyTurn.targetLocation = new Vector2(0, 50);
+            
+            StepsLeftObject.GetComponent<EaseScale>().SetScale(Vector3.one);
         }
 
         public virtual void OnCardPhaseActivated()
@@ -589,6 +599,7 @@ namespace StateManager
             MovePhase.targetLocation = new Vector2(0, 0);
             CardPhase.targetLocation = new Vector2(0, -14);
             EnemyTurn.targetLocation = new Vector2(0, 50);
+            StepsLeftObject.GetComponent<EaseScale>().SetScale(Vector3.zero);
         }
 
         public virtual void OnEnemyTurnPhaseActivated()
@@ -731,6 +742,13 @@ namespace StateManager
             _grid = HexGridManager.Instance;
         }
 
+        private void SetupTurnsLeft(EncounterData encounter)
+        {
+            turnsLeft = encounter.TurnsLeft;
+            TurnsLeftManager.turnsLeft = turnsLeft;
+            TurnsLeftManager.UpdateTurnsLeftVisuals();
+        }
+        
         private void SetupEntities()
         {
             entities.Clear();
@@ -1953,6 +1971,13 @@ namespace StateManager
             // Unified start for the next entity
             StartEntityTurn();
         }
+
+        private void DecrementAndUpdateTurnsLeft()
+        {
+            turnsLeft -= 1;
+            TurnsLeftManager.turnsLeft = turnsLeft;
+            TurnsLeftManager.UpdateTurnsLeftVisuals();
+        }
         
         private void StartEntityTurn()
         {
@@ -2105,6 +2130,8 @@ namespace StateManager
             yield return nonPlayerEntity.behavior.MakeTurn();
             yield return new WaitForSeconds(0.25f * (1/GameplayNavSettings.speed));
             EntityEndTurn();
+            
+            
         }
 
         public void ClearDeadEnemies()
@@ -2204,6 +2231,7 @@ namespace StateManager
             EntityEndTurn();
             
             AllowUserInput = false;
+            DecrementAndUpdateTurnsLeft();
             
         }
 
@@ -2337,7 +2365,7 @@ namespace StateManager
         {
             // Player death always wins ties and must not depend on whether dead
             // entities have already been pruned from the combat entity list.
-            if (player == null || player.Health <= 0)
+            if (player == null || player.Health <= 0 || turnsLeft == 0)
                 return "enemy";
 
             foreach (AbstractEntity entity in entities)

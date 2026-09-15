@@ -45,7 +45,7 @@ MonoBehaviour:
   - guid: 93af0192-e7b9-42a1-94f2-b63dea5cd4f6
     title: DirectLineAttackRule
     type: 1
-    editorPosition: {x: 315, y: 30}
+    editorPosition: {x: 315, y: -45}
     rule: {fileID: 11400000, guid: 226f3dfc471faf346b1553e5ac94d237, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
@@ -54,7 +54,7 @@ MonoBehaviour:
   - guid: 201d9d50-7ede-4aaf-9f67-f2f799c2768d
     title: MoveToPreferredDistanceRule
     type: 1
-    editorPosition: {x: 705, y: 180}
+    editorPosition: {x: 510, y: 150}
     rule: {fileID: 11400000, guid: d50783b4d12c414498a2adbb480a25fe, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
@@ -99,7 +99,7 @@ MonoBehaviour:
   - guid: b8ee3eaa-0458-40ba-96b1-95332eb443d9
     title: MoveAlongCurrentDistanceRule
     type: 1
-    editorPosition: {x: 495, y: 330}
+    editorPosition: {x: 510, y: 330}
     rule: {fileID: 11400000, guid: 3208e3f26d5303d468122cba1c7710c2, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
@@ -108,8 +108,17 @@ MonoBehaviour:
   - guid: d002df79-06ab-463e-b0ca-0e34d478d4de
     title: MoveToPreferredDistanceRule
     type: 1
-    editorPosition: {x: 690, y: 345}
+    editorPosition: {x: 705, y: 330}
     rule: {fileID: 11400000, guid: d50783b4d12c414498a2adbb480a25fe, type: 2}
+    condition: {fileID: 0}
+    prePlanOption: 
+    comment: 
+    legacyPrePlanIntent: 0
+  - guid: 1354460c-6a18-44de-bad9-55ff4bb85f64
+    title: MoveAlongCurrentDistanceRule
+    type: 1
+    editorPosition: {x: 510, y: -45}
+    rule: {fileID: 11400000, guid: 3208e3f26d5303d468122cba1c7710c2, type: 2}
     condition: {fileID: 0}
     prePlanOption: 
     comment: 
@@ -145,3 +154,6 @@ MonoBehaviour:
   - fromNodeGuid: 861ed858-37c1-4d7a-8027-5bbb89351e40
     toNodeGuid: 93af0192-e7b9-42a1-94f2-b63dea5cd4f6
     outputName: Attacking
+  - fromNodeGuid: 93af0192-e7b9-42a1-94f2-b63dea5cd4f6
+    toNodeGuid: 1354460c-6a18-44de-bad9-55ff4bb85f64
+    outputName: Out

@@ -52,6 +52,8 @@ namespace Util
 
         public void Play()
         {
+            _baseColor = GetCurrentColor();
+            Color.RGBToHSV(_baseColor, out _baseHue, out _baseSaturation, out _);
             _isPlaying = true;
         }
 

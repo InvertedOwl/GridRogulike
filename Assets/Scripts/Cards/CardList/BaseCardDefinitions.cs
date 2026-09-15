@@ -95,7 +95,7 @@ namespace Cards.CardList
         public override bool CanShowInShop => true;
 
         public override List<AbstractAction> BuildActions() => Actions(
-            new AttackAction(1, "basic", null, 30));
+            new AttackAction(4, "basic", null, 20));
     }
 
     // -- Conditional offense --

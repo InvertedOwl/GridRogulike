@@ -141,6 +141,15 @@ MonoBehaviour:
     prePlanOption: 
     comment: "Alternate between normal attack, \nand attack thats buffed"
     legacyPrePlanIntent: 0
+  - guid: b4645afd-b146-46e6-9938-5b294d17ddbe
+    title: MoveAlongCurrentDistanceRule
+    type: 1
+    editorPosition: {x: 720, y: 120}
+    rule: {fileID: 11400000, guid: 21e9f460dcd63de48a3489dbb110c375, type: 2}
+    condition: {fileID: 0}
+    prePlanOption: 
+    comment: 
+    legacyPrePlanIntent: 0
   connections:
   - fromNodeGuid: bcabb414-f0b6-4f6d-b9c8-bbd91528faa5
     toNodeGuid: 3085b479-fbb8-496f-83a8-5b9ef42fd8d9
@@ -175,3 +184,6 @@ MonoBehaviour:
   - fromNodeGuid: af8736f1-8510-44bb-8b13-e8c79d81fab1
     toNodeGuid: 004ba7cf-face-452e-b1f1-151ce20f8109
     outputName: Out
+  - fromNodeGuid: d59f613d-000d-4e5e-9ed1-21b0054bf68e
+    toNodeGuid: b4645afd-b146-46e6-9938-5b294d17ddbe
+    outputName: 2

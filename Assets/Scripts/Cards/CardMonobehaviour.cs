@@ -702,7 +702,7 @@ public class CardMonobehaviour : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         UpdateConditionGlow();
 
-        if (_isDragging && (!used || !CanDragCard()))
+        if (_isDragging && (!used || !CanDragCard()) || Input.GetMouseButtonDown(1))
             CancelDrag();
 
         // Mouse events

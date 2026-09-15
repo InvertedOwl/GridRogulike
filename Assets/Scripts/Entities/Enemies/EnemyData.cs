@@ -14,6 +14,7 @@ namespace Entities.Enemies
         public List<string> environmentPassives = new List<string>();
         public EnemyType EncounterType;
         public int PerlinNoiseSeed;
+        public int TurnsLeft = 5;
 
         public EncounterData CreateRuntimeCopy(int perlinNoiseSeed)
         {
@@ -26,7 +27,8 @@ namespace Entities.Enemies
                     ? new List<string>(environmentPassives)
                     : new List<string>(),
                 EncounterType = EncounterType,
-                PerlinNoiseSeed = perlinNoiseSeed
+                PerlinNoiseSeed = perlinNoiseSeed,
+                TurnsLeft = TurnsLeft
             };
         }
     }
