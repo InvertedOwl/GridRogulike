@@ -17,6 +17,9 @@ namespace Util
         private Renderer _renderer;
         private SpriteRenderer _spriteRenderer;
         private Graphic _graphic;
+        private static readonly int ColorOutId = Shader.PropertyToID("_ColorOut");
+        private Material _gradientMaterial;
+        private Material _originalGraphicMaterial;
         private bool _initialized;
 
         public Color targetColor
@@ -53,6 +56,14 @@ namespace Util
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _graphic = GetComponent<Graphic>();
 
+            if (_graphic != null && _graphic.material.HasProperty(ColorOutId)
+                && !(useMaterialColor && _renderer != null))
+            {
+                _originalGraphicMaterial = _graphic.material;
+                _gradientMaterial = new Material(_originalGraphicMaterial);
+                _graphic.material = _gradientMaterial;
+            }
+
             if (useMaterialColor && _spriteRenderer != null)
             {
                 _lastColor = _spriteRenderer.color;
@@ -65,8 +76,8 @@ namespace Util
             }
             else if (_graphic != null)
             {
-                _lastColor = _graphic.color;
-                _targetColor = _graphic.color;
+                _lastColor = GetCurrentColor();
+                _targetColor = _lastColor;
             }
 
             _initialized = true;
@@ -127,7 +138,15 @@ namespace Util
 
         private void ApplyColor(Color c)
         {
-            if (useMaterialColor && _spriteRenderer != null)
+            if (_gradientMaterial != null)
+            {
+                _gradientMaterial.SetColor(ColorOutId, c);
+                // A UI Mask can supply a separate stencil material for rendering.
+                Material renderingMaterial = _graphic.materialForRendering;
+                if (renderingMaterial != null && renderingMaterial.HasProperty(ColorOutId))
+                    renderingMaterial.SetColor(ColorOutId, c);
+            }
+            else if (useMaterialColor && _spriteRenderer != null)
                 _spriteRenderer.color = c;
             else if (useMaterialColor && _renderer != null)
                 _renderer.material.color = c;
@@ -137,6 +156,8 @@ namespace Util
 
         private Color GetCurrentColor()
         {
+            if (_gradientMaterial != null)
+                return _gradientMaterial.GetColor(ColorOutId);
             if (useMaterialColor && _spriteRenderer != null)
                 return _spriteRenderer.color;
             if (useMaterialColor && _renderer != null)
@@ -145,6 +166,17 @@ namespace Util
                 return _graphic.color;
 
             return _targetColor;
+        }
+
+        private void OnDestroy()
+        {
+            if (_gradientMaterial == null)
+                return;
+
+            if (_graphic != null && _graphic.material == _gradientMaterial)
+                _graphic.material = _originalGraphicMaterial;
+
+            Destroy(_gradientMaterial);
         }
     }
 }

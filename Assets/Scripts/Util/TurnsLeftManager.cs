@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,48 +6,78 @@ using Util;
 
 public class TurnsLeftManager : MonoBehaviour
 {
+
+    [SerializeField] private GameObject NodeBG;
+    [SerializeField] private GameObject NodePrefab;
     
-    [SerializeField] private TextMeshProUGUI turnsLeftText;
-    [SerializeField] private Image turnsLeftBG;
-    [SerializeField] private Image turnsLeftBG2;
-    [SerializeField] private Color turnsLeftColorGood;
-    [SerializeField] private Color turnsLeftColorWarning;
+    [SerializeField] private Color baseColor;
+    [SerializeField] private Color warningColor;
     
-    public int turnsLeft = 5;
-    
-    void Start()
+    private List<TurnsLeftNode> _turnsLeftVisuals = new List<TurnsLeftNode>();
+
+
+    public int TurnsLeft
     {
-            
+        get => _turnsLeft;
+        set { _turnsLeft = value;
+            SetTurnsLeft();
+        }
     }
 
-    void Update()
+    private int _turnsLeft = 5;
+
+    public int TurnsLeftMax
     {
-        
+        get => _turnsLeftMax;
+        set { _turnsLeftMax = value; UpdateTurnsLeftVisuals(); }
     }
 
+    private int _turnsLeftMax = 5;
+
+
+    public void SetTurnsLeft()
+    {
+
+    }
+    
     public void UpdateTurnsLeftVisuals()
     {
-        turnsLeftText.text = turnsLeft.ToString();
-        if (turnsLeft <= 3)
+
+        if (NodeBG.transform.childCount != TurnsLeftMax)
         {
-            turnsLeftBG.color = turnsLeftColorWarning;
-            turnsLeftBG2.color = turnsLeftColorWarning;
-        }
-        else
-        {
-            turnsLeftBG.color = turnsLeftColorGood;
-            turnsLeftBG2.color = turnsLeftColorGood;
+            for (int i = NodeBG.transform.childCount - 1; i >= 0; i--)
+            {
+                Destroy(NodeBG.transform.GetChild(i).gameObject);
+            }
+
+            for (int i = 0; i < TurnsLeftMax; i++)
+            {
+                GameObject newNode = Instantiate(NodePrefab, NodeBG.transform);
+                _turnsLeftVisuals.Add(newNode.GetComponent<TurnsLeftNode>());
+            }
+            // _turnsLeftVisuals.Reverse();
         }
 
-        if (turnsLeft <= 1)
+        
+        for (int i = 0; i < TurnsLeft; i++)
         {
-            turnsLeftBG.GetComponent<PulseLightness>().Play();
-            turnsLeftBG2.GetComponent<PulseLightness>().Play();
+            _turnsLeftVisuals[i].SetUsed(false);
+        }
+        
+        for (int i = 0; i < TurnsLeftMax - TurnsLeft; i++)
+        {
+            _turnsLeftVisuals[i].SetUsed(true);
+        }
+
+        if (TurnsLeft <= 1)
+        {
+            NodeBG.GetComponent<Image>().color = warningColor;
+            NodeBG.GetComponent<PulseLightness>().Play();
         }
         else
         {
-            turnsLeftBG2.GetComponent<PulseLightness>().Stop();
-            turnsLeftBG.GetComponent<PulseLightness>().Stop();
+            NodeBG.GetComponent<Image>().color = baseColor;
+            NodeBG.GetComponent<PulseLightness>().Stop();
         }
     }
 }

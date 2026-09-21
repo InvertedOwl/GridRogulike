@@ -70,9 +70,14 @@ namespace StateManager
         
         public Button EndTurnButton;
         public Button RedrawButton;
+        public GameObject handLocation;
 
         public TurnsLeftManager TurnsLeftManager;
         private int turnsLeft = -1;
+
+        public EaseColor borderColor;
+        public Color defaultColor;
+        public Color moveColor;
         
         public static int RewardMoney;
         public static EncounterData encounterData;
@@ -585,29 +590,33 @@ namespace StateManager
         
         public virtual void OnMovePhaseActivated()
         {
-            YourTurn.targetLocation = new Vector2(0, 0);
-            MovePhase.targetLocation = new Vector2(0, -14);
-            CardPhase.targetLocation = new Vector2(0, 0);
-            EnemyTurn.targetLocation = new Vector2(0, 50);
-            
-            StepsLeftObject.GetComponent<EaseScale>().SetScale(Vector3.one);
+            // YourTurn.targetLocation = new Vector2(0, 0);
+            MovePhase.targetLocation = new Vector2(0, 0);
+            handLocation.GetComponent<EasePosition>().SendToLocation(handLocation.GetComponent<EasePosition>().targetLocation += new Vector3(0, -100, 0));
+            borderColor.targetColor = moveColor;
+            // CardPhase.targetLocation = new Vector2(0, 0);
+            // EnemyTurn.targetLocation = new Vector2(0, 0);
+
+            // StepsLeftObject.GetComponent<EaseScale>().SetScale(Vector3.one);
         }
 
         public virtual void OnCardPhaseActivated()
         {
-            YourTurn.targetLocation = new Vector2(0, 0);
-            MovePhase.targetLocation = new Vector2(0, 0);
-            CardPhase.targetLocation = new Vector2(0, -14);
-            EnemyTurn.targetLocation = new Vector2(0, 50);
-            StepsLeftObject.GetComponent<EaseScale>().SetScale(Vector3.zero);
+            // YourTurn.targetLocation = new Vector2(0, 0);
+            MovePhase.targetLocation = new Vector2(100, 0);
+            handLocation.GetComponent<EasePosition>().SendToLocation(handLocation.GetComponent<EasePosition>().targetLocation += new Vector3(0, 100, 0));
+            borderColor.targetColor = defaultColor;
+            // CardPhase.targetLocation = new Vector2(0, -14);
+            // EnemyTurn.targetLocation = new Vector2(0, 50);
+            // StepsLeftObject.GetComponent<EaseScale>().SetScale(Vector3.zero);
         }
 
         public virtual void OnEnemyTurnPhaseActivated()
         {
-            YourTurn.targetLocation = new Vector2(0, 50);
-            MovePhase.targetLocation = new Vector2(0, 0);
-            CardPhase.targetLocation = new Vector2(0, 0);
-            EnemyTurn.targetLocation = new Vector2(0, 0);
+            // YourTurn.targetLocation = new Vector2(0, 50);
+            // MovePhase.targetLocation = new Vector2(0, 0);
+            // CardPhase.targetLocation = new Vector2(0, 0);
+            // EnemyTurn.targetLocation = new Vector2(0, 0);
         }
 
         private void QueueEnemyIntentRefreshAfterMove(AbstractEntity movedEntity)
@@ -745,7 +754,8 @@ namespace StateManager
         private void SetupTurnsLeft(EncounterData encounter)
         {
             turnsLeft = encounter.TurnsLeft;
-            TurnsLeftManager.turnsLeft = turnsLeft;
+            TurnsLeftManager.TurnsLeft = turnsLeft;
+            TurnsLeftManager.TurnsLeftMax = turnsLeft;
             TurnsLeftManager.UpdateTurnsLeftVisuals();
         }
         
@@ -1975,7 +1985,7 @@ namespace StateManager
         private void DecrementAndUpdateTurnsLeft()
         {
             turnsLeft -= 1;
-            TurnsLeftManager.turnsLeft = turnsLeft;
+            TurnsLeftManager.TurnsLeft = turnsLeft;
             TurnsLeftManager.UpdateTurnsLeftVisuals();
         }
         
