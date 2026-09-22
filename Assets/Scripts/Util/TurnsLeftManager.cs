@@ -13,7 +13,7 @@ public class TurnsLeftManager : MonoBehaviour
     [SerializeField] private Color baseColor;
     [SerializeField] private Color warningColor;
     
-    private List<TurnsLeftNode> _turnsLeftVisuals = new List<TurnsLeftNode>();
+    private readonly List<TurnsLeftNode> _turnsLeftVisuals = new List<TurnsLeftNode>();
 
 
     public int TurnsLeft
@@ -34,6 +34,13 @@ public class TurnsLeftManager : MonoBehaviour
 
     private int _turnsLeftMax = 5;
 
+    public void ResetTurns(int turnCount)
+    {
+        _turnsLeftMax = Mathf.Max(0, turnCount);
+        _turnsLeft = _turnsLeftMax;
+        UpdateTurnsLeftVisuals();
+    }
+
 
     public void SetTurnsLeft()
     {
@@ -43,11 +50,16 @@ public class TurnsLeftManager : MonoBehaviour
     public void UpdateTurnsLeftVisuals()
     {
 
-        if (NodeBG.transform.childCount != TurnsLeftMax)
+        if (_turnsLeftVisuals.Count != TurnsLeftMax || NodeBG.transform.childCount != TurnsLeftMax)
         {
+            _turnsLeftVisuals.Clear();
             for (int i = NodeBG.transform.childCount - 1; i >= 0; i--)
             {
-                Destroy(NodeBG.transform.GetChild(i).gameObject);
+                GameObject oldNode = NodeBG.transform.GetChild(i).gameObject;
+                oldNode.SetActive(false);
+                // Destroy is deferred, so detach now to keep this frame's child count correct.
+                oldNode.transform.SetParent(null, false);
+                Destroy(oldNode);
             }
 
             for (int i = 0; i < TurnsLeftMax; i++)
@@ -55,18 +67,12 @@ public class TurnsLeftManager : MonoBehaviour
                 GameObject newNode = Instantiate(NodePrefab, NodeBG.transform);
                 _turnsLeftVisuals.Add(newNode.GetComponent<TurnsLeftNode>());
             }
-            // _turnsLeftVisuals.Reverse();
         }
 
-        
-        for (int i = 0; i < TurnsLeft; i++)
+        int usedTurns = TurnsLeftMax - Mathf.Clamp(TurnsLeft, 0, TurnsLeftMax);
+        for (int i = 0; i < _turnsLeftVisuals.Count; i++)
         {
-            _turnsLeftVisuals[i].SetUsed(false);
-        }
-        
-        for (int i = 0; i < TurnsLeftMax - TurnsLeft; i++)
-        {
-            _turnsLeftVisuals[i].SetUsed(true);
+            _turnsLeftVisuals[i].SetUsed(i < usedTurns);
         }
 
         if (TurnsLeft <= 1)

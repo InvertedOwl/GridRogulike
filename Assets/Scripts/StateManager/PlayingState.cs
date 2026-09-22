@@ -17,6 +17,7 @@ using Types.Tiles;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Util;
 
@@ -148,6 +149,8 @@ namespace StateManager
         private Vector3 _cameraWorldOrigin;
         private bool _hasCameraResetPosition;
         private bool _cameraFollowActive;
+        private AbstractEntity cameraFollowEntity;
+        private GameObject _selectedHexCircle;
         public int PlayerMovesThisTurn { get; private set; }
         
         
@@ -232,6 +235,11 @@ namespace StateManager
             HexGridManager.Instance.RegisterHexHoverEnterCallback(HexClickPlayerController.StaticHexHoverOnCallback);
             HexGridManager.Instance.RegisterHexHoverExitCallback(HexClickPlayerController.StaticHexHoverOffCallback);
 
+            // Right click entity event
+            HexGridManager.Instance.RegisterHexClickCallback(HexClicked);
+            ClearCircleThing();
+            cameraFollowEntity = player;
+            RefreshSelectedEntityCircle();
             
             foreach (var e in entities)
             {
@@ -244,6 +252,53 @@ namespace StateManager
 
             BeginCameraFollow();
 
+        }
+
+        private void ClearCircleThing()
+        {
+            _selectedHexCircle = null;
+            foreach (GameObject hexGO in HexGridManager.Instance._hexObjects.Values)
+            {
+                GOList list = hexGO != null ? hexGO.GetComponent<GOList>() : null;
+                if (list != null && list.TryGetValue("CircleThing", out GameObject circle) && circle != null)
+                    circle.SetActive(false);
+            }
+        }
+
+        private void RefreshSelectedEntityCircle()
+        {
+            GameObject nextCircle = null;
+            if (cameraFollowEntity != null && cameraFollowEntity.Health > 0 &&
+                HexGridManager.Instance != null &&
+                HexGridManager.Instance._hexObjects.TryGetValue(cameraFollowEntity.positionRowCol, out GameObject hex) &&
+                hex != null)
+            {
+                GOList list = hex.GetComponent<GOList>();
+                if (list != null)
+                    list.TryGetValue("CircleThing", out nextCircle);
+            }
+
+            if (_selectedHexCircle == nextCircle)
+                return;
+
+            if (_selectedHexCircle != null)
+                _selectedHexCircle.SetActive(false);
+
+            _selectedHexCircle = nextCircle;
+            if (_selectedHexCircle != null)
+                _selectedHexCircle.SetActive(true);
+        }
+
+        public void HexClicked(Vector2Int vector2, GameObject go, PointerEventData.InputButton inputButton)
+        {
+            if (inputButton == PointerEventData.InputButton.Right)
+            {
+                if (EntitiesOnHex(vector2, out var abstractEntities))
+                {
+                    cameraFollowEntity = abstractEntities[0];
+                    RefreshSelectedEntityCircle();
+                }
+            }
         }
 
         IEnumerator WaitFrameMove(AbstractEntity e)
@@ -285,6 +340,10 @@ namespace StateManager
 
         private void LateUpdate()
         {
+            // Read the final position after movement, pushes, and swaps this frame.
+            if (GameStateManager.Instance != null && GameStateManager.Instance.IsCurrent<PlayingState>())
+                RefreshSelectedEntityCircle();
+
             if (cameraFollowRig == null)
                 return;
 
@@ -368,28 +427,8 @@ namespace StateManager
 
         public Vector3 GetCameraFocusWorldPosition()
         {
-            Vector3 playerPosition = GetPlayerHexWorldPosition();
-            Vector3 enemyPositionSum = Vector3.zero;
-            int livingEnemyCount = 0;
-
-            foreach (AbstractEntity entity in entities)
-            {
-                if (entity == null ||
-                    entity.entityType != EntityType.Enemy ||
-                    entity.Health <= 0)
-                {
-                    continue;
-                }
-
-                enemyPositionSum += GetEntityHexWorldPosition(entity);
-                livingEnemyCount++;
-            }
-
-            if (livingEnemyCount == 0)
-                return playerPosition;
-
-            Vector3 enemyAveragePosition = enemyPositionSum / livingEnemyCount;
-            return playerPosition * 0.5f + enemyAveragePosition * 0.5f;
+            Vector3 entityPosition = GetEntityHexWorldPosition(cameraFollowEntity);
+            return entityPosition;
         }
 
         private Vector3 GetPlayerHexWorldPosition()
@@ -754,9 +793,7 @@ namespace StateManager
         private void SetupTurnsLeft(EncounterData encounter)
         {
             turnsLeft = encounter.TurnsLeft;
-            TurnsLeftManager.TurnsLeft = turnsLeft;
-            TurnsLeftManager.TurnsLeftMax = turnsLeft;
-            TurnsLeftManager.UpdateTurnsLeftVisuals();
+            TurnsLeftManager.ResetTurns(turnsLeft);
         }
         
         private void SetupEntities()
@@ -1863,6 +1900,8 @@ namespace StateManager
         {
             UnsubscribeFromRunInfoEvents();
             EndCameraFollow();
+            cameraFollowEntity = null;
+            RefreshSelectedEntityCircle();
             ClearBattleTiles();
             HexGridManager.Instance?.ResetAllHeights();
             PlayWindowOutSound();

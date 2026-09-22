@@ -120,8 +120,12 @@ namespace Grid {
         }
         
         
-        public static void StaticHexClickCallback(Vector2Int hexPosition, GameObject go)
+        public static void StaticHexClickCallback(Vector2Int hexPosition, GameObject go, PointerEventData.InputButton input)
         {
+            if (input != PointerEventData.InputButton.Left)
+            {
+                return;
+            }
             HexClickPlayerController.instance.HexClickCallback(hexPosition);
         }
 

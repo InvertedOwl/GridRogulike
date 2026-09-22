@@ -10,6 +10,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Util;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace Grid
 {
@@ -53,7 +54,7 @@ namespace Grid
         
         public SpriteDatabase spriteDatabase;
 
-        private readonly List<Action<Vector2Int, GameObject>> _hexClickedCallbacks = new();
+        private readonly List<Action<Vector2Int, GameObject, PointerEventData.InputButton>> _hexClickedCallbacks = new();
 
         private readonly List<Action<Vector2Int, GameObject>> _hexHoverEnterCallbacks = new();
         private readonly List<Action<Vector2Int, GameObject>> _hexHoverExitCallbacks = new();
@@ -284,13 +285,13 @@ namespace Grid
             forwarder.Init(this, gridPos);
         }
 
-        internal void NotifyHexClicked(Vector2Int pos, GameObject hexObj)
+        internal void NotifyHexClicked(Vector2Int pos, GameObject hexObj, PointerEventData.InputButton inputButton)
         {
             onHexClicked?.Invoke(pos.x, pos.y);
 
             for (int i = 0; i < _hexClickedCallbacks.Count; i++)
             {
-                try { _hexClickedCallbacks[i]?.Invoke(pos, hexObj); }
+                try { _hexClickedCallbacks[i]?.Invoke(pos, hexObj, inputButton); }
                 catch (Exception e) { Debug.LogException(e); }
             }
         }
@@ -318,14 +319,14 @@ namespace Grid
             }
         }
 
-        public void RegisterHexClickCallback(Action<Vector2Int, GameObject> callback)
+        public void RegisterHexClickCallback(Action<Vector2Int, GameObject, PointerEventData.InputButton> callback)
         {
             if (callback == null) return;
             if (!_hexClickedCallbacks.Contains(callback))
                 _hexClickedCallbacks.Add(callback);
         }
 
-        public void UnregisterHexClickCallback(Action<Vector2Int, GameObject> callback)
+        public void UnregisterHexClickCallback(Action<Vector2Int, GameObject, PointerEventData.InputButton> callback)
         {
             if (callback == null) return;
             _hexClickedCallbacks.Remove(callback);

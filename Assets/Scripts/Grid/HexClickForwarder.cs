@@ -17,7 +17,7 @@ namespace Grid
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _manager?.NotifyHexClicked(GridPos, gameObject);
+            _manager?.NotifyHexClicked(GridPos, gameObject, eventData.button);
         }
     }
 }
