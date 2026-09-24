@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using StateManager;
 using UnityEngine;
 
 namespace Entities.Enemies
@@ -15,6 +16,8 @@ namespace Entities.Enemies
         public EnemyType EncounterType;
         public int PerlinNoiseSeed;
         public int TurnsLeft = 5;
+        // Additional victory rewards; map-node gold is supplied by PlayingState separately.
+        public List<EncounterResult> rewards = new();
 
         public EncounterData CreateRuntimeCopy(int perlinNoiseSeed)
         {
@@ -28,7 +31,8 @@ namespace Entities.Enemies
                     : new List<string>(),
                 EncounterType = EncounterType,
                 PerlinNoiseSeed = perlinNoiseSeed,
-                TurnsLeft = TurnsLeft
+                TurnsLeft = TurnsLeft,
+                rewards = rewards?.Select(result => result?.Copy()).ToList() ?? new List<EncounterResult>()
             };
         }
     }

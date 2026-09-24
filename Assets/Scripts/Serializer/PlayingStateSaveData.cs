@@ -27,6 +27,7 @@ namespace Serializer
     public class PlayingStateSaveData
     {
         public EncounterData encounterData;
+        public int rewardMoney;
         public int mapProgressLayer;
         public int mapProgressLayerCount;
         public List<TileCountdownSaveData> tileCountdownStates = new();

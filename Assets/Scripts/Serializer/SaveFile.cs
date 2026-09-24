@@ -15,12 +15,13 @@ namespace Serializer
     [System.Serializable]
     public class SaveFile
     {
-        public const int CurrentVersion = 2;
+        public const int CurrentVersion = 3;
 
         public int version = CurrentVersion;
         public List<CardSaveData> deck;
         public RunInfoSaveData runInfo;
         public PlayingStateSaveData stateData;
+        public EncounterResultStateSaveData encounterResultData;
         public PlayerSaveData player;
         public MapSaveData mapData;
         public MapData boardData;
@@ -66,8 +67,10 @@ namespace Serializer
                 runInfo = RunInfo.Instance.CaptureSaveData(),
                 stateId = GameStateManager.Instance.GetCurrentStateId(),
                 stateData = stateData,
+                encounterResultData = (currentState as EncounterResultState)?.CaptureResultSaveData(),
                 player = Player.Instance.CaptureSaveData(),
-                mapData = MapState.Instance.GetSaveData(),
+                // Non-map states can be resumed before MapState has built/restored its map.
+                mapData = MapState.mapSaveData ?? MapState.Instance.GetSaveData(),
                 boardData = HexGridManager.Instance?.CaptureSaveData()
             };
 
@@ -105,7 +108,9 @@ namespace Serializer
                 Player.Instance.RestoreFromSaveData(saveFile.player);
 
             currentJSON = JsonConvert.SerializeObject(saveFile, settings);
-            GameState.SaveData = saveFile.stateData;
+            GameState.SaveData = saveFile.stateId == "encounter_result"
+                ? (object)saveFile.encounterResultData
+                : saveFile.stateData;
             MapState.mapSaveData = saveFile.mapData;
             HexGridManager.LoadFromSaveData(saveFile.boardData);
 
@@ -186,6 +191,18 @@ namespace Serializer
             {
                 error = "Save file is missing run info.";
                 return false;
+            }
+
+            if (saveFile.stateId == "encounter_result")
+            {
+                if (saveFile.encounterResultData == null)
+                {
+                    error = "Save file is missing encounter results.";
+                    return false;
+                }
+
+                if (!saveFile.encounterResultData.TryValidate(out error))
+                    return false;
             }
 
             if (saveFile.player == null)

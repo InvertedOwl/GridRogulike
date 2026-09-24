@@ -12,6 +12,7 @@ namespace StateManager
         {
             [typeof(MapState)] = "map",
             [typeof(PlayingState)] = "playing",
+            [typeof(EncounterResultState)] = "encounter_result",
             [typeof(TilePickState)] = "tile_pick",
             [typeof(ShopState)] = "shop",
             [typeof(CampfireState)] = "campfire",

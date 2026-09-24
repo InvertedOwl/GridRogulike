@@ -82,6 +82,9 @@ namespace StateManager
         
         public static int RewardMoney;
         public static EncounterData encounterData;
+        [Header("Encounter Results")]
+        [SerializeField, Min(0)] private int timeoutGoldPenalty = 5;
+        [SerializeField, Min(0f)] private float timeoutHealthPenalty = 10f;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStaticsOnLoad()
         {
@@ -182,6 +185,7 @@ namespace StateManager
         
         public override void Enter()
         {
+            _finishCoroutine = null;
             PlayWindowInSound();
             playingHealth.targetLocation = new Vector3(0, 0, 0);
             _battleTiles.Clear();
@@ -191,6 +195,7 @@ namespace StateManager
             {
                 PlayingStateSaveData saveData = (PlayingStateSaveData) SaveData;
                 encounterData = saveData.encounterData;
+                RewardMoney = saveData.rewardMoney;
                 MapProgressLayer = saveData.mapProgressLayer;
                 MapProgressLayerCount = Mathf.Max(1, saveData.mapProgressLayerCount);
                 _loadedTileCountdownStates = saveData.tileCountdownStates;
@@ -2258,6 +2263,9 @@ namespace StateManager
 
         public void PlayerEndTurn()
         {
+            if (!Manager.IsCurrent<PlayingState>())
+                return;
+
             if (CurrentTurn.entityType != EntityType.Player)
                 return;
 
@@ -2276,8 +2284,14 @@ namespace StateManager
             BattleStats.ResetStatsTurn();
 
             CaptureFinish();
+
+            if (!Manager.IsCurrent<PlayingState>() || _finishCoroutine != null)
+                return;
             
             EntityEndTurn();
+
+            if (!Manager.IsCurrent<PlayingState>() || _finishCoroutine != null)
+                return;
             
             AllowUserInput = false;
             DecrementAndUpdateTurnsLeft();
@@ -2291,6 +2305,9 @@ namespace StateManager
 
         public void CaptureFinish()
         {
+            if (!Manager.IsCurrent<PlayingState>())
+                return;
+
             string finish = CheckForFinish();
             if (finish == "enemy")
             {
@@ -2367,24 +2384,25 @@ namespace StateManager
 
         public void PlayerWon()
         {
-            Debug.Log("Player has finished");
-            RunInfo.Instance.Money += RewardMoney;
-
-            if (IsFinalMapLayer())
-            {
-                if (GameStateManager.Instance.GetState<GameFinishState>() != null)
-                {
-                    GameStateManager.Instance.Change<GameFinishState>();
-                }
-                else
-                {
-                    Debug.LogWarning("GameFinishState is not registered on the GameStateManager.");
-                }
-
+            if (!Manager.IsCurrent<PlayingState>())
                 return;
-            }
 
-            GameStateManager.Instance.Change<ShopState>();
+            var results = new List<EncounterResult>
+            {
+                new() { type = EncounterResultType.Money, amount = RewardMoney }
+            };
+            if (encounterData?.rewards != null)
+                results.AddRange(encounterData.rewards);
+
+            ShowEncounterResults(results, false);
+        }
+
+        private void ShowEncounterResults(List<EncounterResult> results, bool timedOut)
+        {
+            // Populate before Change: the manager checkpoints the destination before Enter.
+            Manager.GetState<EncounterResultState>().SetResults(results, timedOut, IsFinalMapLayer());
+            AllowUserInput = false;
+            Manager.Change<EncounterResultState>();
         }
 
         private bool IsFinalMapLayer()
@@ -2398,7 +2416,18 @@ namespace StateManager
 
         public void EntityWon()
         {
-            Debug.Log("Aww bummer you fuckin dork you lost");
+            if (!Manager.IsCurrent<PlayingState>())
+                return;
+
+            if (player != null && player.Health > 0 && turnsLeft == 0)
+            {
+                ShowEncounterResults(new List<EncounterResult>
+                {
+                    new() { type = EncounterResultType.Money, amount = -timeoutGoldPenalty },
+                    new() { type = EncounterResultType.Health, amount = -timeoutHealthPenalty }
+                }, true);
+                return;
+            }
 
             if (GameStateManager.Instance.GetState<GameOverState>() != null)
             {
@@ -2659,6 +2688,7 @@ namespace StateManager
             return new PlayingStateSaveData
             {
                 encounterData = encounterData,
+                rewardMoney = RewardMoney,
                 mapProgressLayer = MapProgressLayer,
                 mapProgressLayerCount = MapProgressLayerCount,
                 tileCountdownStates = CaptureTileCountdownStates(),
