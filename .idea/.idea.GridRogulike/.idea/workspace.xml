@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8bed7743-795c-4db5-bcaa-be8cae487c38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GridRogulike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Run.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Run.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Enemies/EnemyData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/PlayingStateSaveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/PlayingStateSaveData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Serializer/SaveFile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/GameStateManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/EncounterResultState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/EncounterResultState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateManager/PlayingState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Util/DebugStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Util/DebugStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprites.af" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprites.af~lock~" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -451,15 +445,8 @@
       <workItem from="1789763568578" duration="1544000" />
       <workItem from="1789842150896" duration="5331000" />
       <workItem from="1790095595313" duration="7082000" />
-      <workItem from="1790273074090" duration="3959000" />
-    </task>
-    <task id="LOCAL-00062" summary="Bug fixes and visual fixes">
-      <option name="closed" value="true" />
-      <created>1778105286846</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1778105286846</updated>
+      <workItem from="1790273074090" duration="4004000" />
+      <workItem from="1790633015834" duration="2513000" />
     </task>
     <task id="LOCAL-00063" summary="Card stuff :)">
       <option name="closed" value="true" />
@@ -845,7 +832,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790107141754</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="WIP Encounter results">
+      <option name="closed" value="true" />
+      <created>1790277922193</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1790277922194</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -872,7 +867,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="save only used randoms" />
     <MESSAGE value="remove edge stuff for ui" />
     <MESSAGE value="Speed up actions performed by enemies more" />
     <MESSAGE value="Icons for scripted objects, minor bug fix" />
@@ -897,7 +891,8 @@
     <MESSAGE value="Major changes and fixes and whatever" />
     <MESSAGE value="Minor fixes/ improvements" />
     <MESSAGE value="UI changes mostly + highlighting enemies w right click" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI changes mostly + highlighting enemies w right click" />
+    <MESSAGE value="WIP Encounter results" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP Encounter results" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -76,25 +76,25 @@ namespace StateManager
                 {
                     GameObject moneyGained = Instantiate(MoneyGainedPrefab, ListRewards.transform);
                     moneyGained.GetComponentInChildren<TextMeshProUGUI>().text =
-                        (Mathf.Sign(encounterResult.amount) == 1)?"+":"" + encounterResult.amount + " <color=\"yellow\">Money";
+                        (Mathf.Sign(encounterResult.amount) == 1 ? "+" : "") + encounterResult.amount + " <color=\"yellow\">Money";
                 }
                 if (encounterResult.type == EncounterResultType.Health)
                 {
                     GameObject moneyGained = Instantiate(HealthGainedPrefab, ListRewards.transform);
                     moneyGained.GetComponentInChildren<TextMeshProUGUI>().text =
-                        (Mathf.Sign(encounterResult.amount) == 1)?"+":"" + encounterResult.amount + " <color=\"red\">Health";
+                        (Mathf.Sign(encounterResult.amount) == 1 ? "+" : "") + encounterResult.amount + " <color=\"red\">Health";
                 }
                 if (encounterResult.type == EncounterResultType.MaxHealth)
                 {
                     GameObject moneyGained = Instantiate(MaxHealthGainedPrefab, ListRewards.transform);
                     moneyGained.GetComponentInChildren<TextMeshProUGUI>().text =
-                        (Mathf.Sign(encounterResult.amount) == 1)?"+":"" + encounterResult.amount + " <color=#aa0000>Max Health";
+                        (Mathf.Sign(encounterResult.amount) == 1 ? "+" : "") + encounterResult.amount + " <color=#aa0000>Max Health";
                 }
                 if (encounterResult.type == EncounterResultType.Card)
                 {
                     GameObject moneyGained = Instantiate(CardPacksGainedPrefab, ListRewards.transform);
                     moneyGained.GetComponentInChildren<TextMeshProUGUI>().text =
-                        (Mathf.Sign(encounterResult.amount) == 1)?"+":"" + encounterResult.amount + " <color=\"lightblue\">Card Pack" + ((encounterResult.amount != 1)? "s" : "");
+                        (Mathf.Sign(encounterResult.amount) == 1 ? "+" : "") + encounterResult.amount + " <color=\"lightblue\">Card Pack" + ((encounterResult.amount != 1)? "s" : "");
                 }
             }
         }
